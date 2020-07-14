@@ -50,7 +50,7 @@ input{
 </style>
 </head>
 <body>
-	<%@include file="../common/header.jsp" %>
+	<%@ include file="/views/common/header.jsp" %>
 	<div id="daumWrap" class="userinfo_type1 ">
 		<div id="daumHead" role="banner">
 			<div class="inner_head" style="padding-right:30px;">
@@ -179,7 +179,7 @@ input{
 
 		</div>
 		<!-- // daumContent -->
-		<%@include file="../common/footer.jsp" %>
+	<%@ include file="/views/common/footer.jsp" %>
 		<!-- // daumFoot -->
 
 		<div id="wrapMinidaum"></div>

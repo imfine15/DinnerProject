@@ -78,7 +78,7 @@ button:active{
 </style>
 </head>
 <body>
-	<%@include file="../common/header.jsp"%>
+	<%@ include file="/views/common/header.jsp" %>
 	<div id="daumIndex">
 		<!-- 웹접근성용 바로가기 링크 모음 -->
 		<a href="#daumBody" data-tiara-action-name="본문_바로가기">본문 바로가기</a> <a
@@ -174,7 +174,7 @@ button:active{
 		</div>
 		</div>
 	</form>
-	<%@ include file="../common/footer.jsp"%>
+	<%@ include file="/views/common/footer.jsp" %>
 	<script>
 	var name = 1;
 	$("#changeNameInput").hide();

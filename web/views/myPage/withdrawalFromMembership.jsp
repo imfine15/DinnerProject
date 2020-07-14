@@ -4,7 +4,9 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>YUMEET</title>
+<link rel="shortcut icon" href="/semiproject/images/favicon.ico" type="image/x-icon">
+<link rel="icon" href="/semiproject/images/favicon.ico" type="image/x-icon">
 <style>
 	.text{
 		color: #313333;
@@ -22,7 +24,7 @@
 </style>
 </head>
 <body>
-	<%@ include file="../common/header.jsp" %>
+	<%@ include file="/views/common/header.jsp" %>
 	<form>
 	<div style="width:50%; height:900px; padding-top: 30px; margin-left:auto; margin-right: auto;">
 		<div style="width:100%;" align="center"><img src="/semiproject/images/YUMEET LOGO WITH REST.png" ></div>
@@ -59,6 +61,6 @@
 		</div>
 	</div>
 	</form>
-	<%@ include file="../common/footer.jsp" %>
+	<%@ include file="/views/common/footer.jsp" %>
 </body>
 </html>

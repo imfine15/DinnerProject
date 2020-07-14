@@ -81,7 +81,7 @@ ul li a span:hover{
 </style>
 </head>
 <body>
-	<%@include file="../common/header.jsp"%>
+	<%@ include file="/views/common/header.jsp" %>
 	<div id="daumWrap" class="userinfo_type1 ">
 
 		<div id="daumHead" role="banner">
@@ -215,7 +215,7 @@ ul li a span:hover{
 
 		</div>
 		<!-- // daumContent -->
-		<%@include file="../common/footer.jsp"%>
+	<%@ include file="/views/common/footer.jsp" %>
 		<!-- // daumFoot -->
 
 		<div id="wrapMinidaum"></div>
