@@ -1,0 +1,119 @@
+@charset "UTF-8";
+	#logo {
+		width:287px;
+		height:120px;
+		display:block;
+		margin:0px auto;
+	}
+	
+	#welcome {
+		text-align:center;
+		font-weight:bold;
+		font-size:30px;
+		margin-bottom:10px;
+	}
+	
+	#logo1 {
+		color:#5EB8B4;
+	}
+	
+	#logo2 {
+		color:#EB7673;
+	}
+	
+	input {
+		width:520px;
+		height:40px;
+		margin:10px 0px 10px 0px;
+	}
+	
+	select {
+		width:528px;
+		height:40px;
+		margin:10px 0px 10px 0px;
+	}
+	
+	td, select, p {
+		font-size:25px;
+		color:#2F2F2F;
+	}
+	
+	option {
+		font-size:15px;
+	}
+	
+	table {
+		margin:auto;
+	}
+	
+	#admit1 {
+		font-size:15px;
+		color:#A01C1C;
+	}
+	
+	#admit2 {
+		font-size:15px;
+		color:#2F2F2F;
+	}
+	
+	#admit {
+		width:15px;
+		height:15px;
+	}
+	
+	div {
+		text-align:center;
+	}
+	
+	#submit {
+		width:520px;
+		height:84.6px;
+		background-color:#DE7270;
+		color:white;
+		font-size:30px;
+		border:0px;
+	}
+	
+	#submit:hover {
+		cursor:pointer;
+	}
+	
+	#pwdResult, #idResult, #nameResult, #genderResult, #emailResult, #admitResult {
+		font-size:15px;
+		line-height:50px;
+	}
+	
+	.caution {
+		font-size:15px;
+		text-align:center;
+		color:#2F2F2F;
+		margin-top:0px;
+	}
+	
+	#idCheck, #findAddress {
+		height:43px;
+		margin:0;
+		background-color:#EB7673;
+		color:white;
+		border:0;
+		font-size:12px;
+		padding:2px;
+		text-align:center;
+		display:table-cell;
+		vertical-align:middle;
+	}
+	
+	#idCheck:hover, #findAddress:hover {
+		cursor:pointer;
+	}
+	
+	#terms {
+		text-decoration:none;
+		font-size:10px;
+		color:#2F2F2F;
+	}
+	
+	.notice {
+		font-size:15px;
+		color:#2F2F2F;
+	}

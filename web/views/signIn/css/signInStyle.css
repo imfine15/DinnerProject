@@ -1,0 +1,112 @@
+@charset "UTF-8";
+	#logo {
+		display:block;
+		margin:0px auto;
+		width:287px;
+		height:120px;
+	}
+	
+	#login {
+		font-size:30px;
+		font-weight:bold;
+		text-align:center;
+		margin:0px;
+	}
+	
+	.hr {
+		width:287px;
+		border:1px solid lightgray;
+	}
+	
+	form {
+		text-align:center;
+	}
+	
+	form input {
+		height:30px;
+		width:287px;
+		margin:10px;
+	}
+	
+	#submitBtn {
+		background-color:rgb(235, 118, 115);
+		color:white;
+		margin:15px 0px 0px 0px;
+		padding:0px;
+		border:0px;
+		width:295px;
+		height:36px;
+	}
+	
+	label {
+		color:#565656;
+		font-size:15px;
+	}
+	
+	#rememberBtn {
+		width:15px;
+		height:15px;
+		border:1px solid yellowgreen;
+		border-radius:3px;
+	}
+	
+	#rememberBtn {  
+    	display: none;  
+	}
+
+	#rememberBtn+ label:before {     
+	    content:"";
+	    display:inline-block;  
+	    width:20px;  
+	    height:20px;  
+	    padding-bottom:1px;
+	  	border:1px solid skyblue;
+	    margin-right:10px;
+	    border-radius:10px;
+	}
+	
+	#rememberBtn:checked + label:before { 
+	    content:"\2713";  /* 체크모양 */
+	    font-size:18px; 
+	    color:#565656; 
+	    text-align:center;
+	}
+	
+	#idRemember {
+		text-align:left;
+		width:287px;
+		margin-left:auto;
+		margin-right:auto;
+		margin-top:10px;
+	}
+	
+	#find {
+		text-align:center;
+		width:287px;
+		margin-left:auto;
+		margin-right:auto;
+		margin-top:10px;
+		color:#B4B4B4;
+		font-size:12px;
+	}
+	
+	#find a {
+		color:#B4B4B4;
+		font-size:12px;
+		text-decoration:none;
+	}
+	
+	#pwdShowHide {
+		width:15px;
+		height:15px;
+	}
+	
+	#submitBtn:hover {
+		cursor:pointer;
+	}
+	
+	#pwdResult, #idResult {
+		font-size:15px;
+	}
+	
+	
