@@ -4,10 +4,21 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>YUMEET</title>
+<style>
+	#commentBtn{
+		background: #EB7673;
+		color: #FFFFFF;
+		border: 0;
+		outline: 0;
+		width: 100px;
+		height: 25px;
+		font-size: 16px;
+	}
+</style>
 </head>
 <body>
-	<%@include file="../common/header.jsp"%>
+<%@ include file="/views/common/header.jsp" %>
 	<br><br>
 	<div
 		style="width: 70%; margin-left: auto; margin-right: auto; height: auto;"
@@ -24,9 +35,9 @@
 				style="margin-right: -50px;">작성일 : 2020-06-18</label> <a href=""><img
 				src="images/good.png"
 				style="margin-bottom: 20px; margin-right: 10px;"></a> <br> <br>
+		</div>
 			<hr style="width: 80%;">
 			<br> <br>
-		</div>
 	</div>
 	<div
 		style="width: 70%; margin-left: auto; margin-right: auto; padding-left: 30px;"
@@ -45,9 +56,9 @@
 			</div>
 			<a href=""><img src="images/boru.png"
 				style="float: right; margin-top: -40px; margin-right: 120px;"></a>
+		</div>
 			<hr style="width: 80%;">
 			<br> <br>
-		</div>
 
 		<div style="width: 80%;">
 			<div style="float: left; display: inline; padding-left: 30px;">
@@ -63,9 +74,9 @@
 			</div>
 			<a href=""><img src="images/boru.png"
 				style="float: right; margin-top: -40px; margin-right: 120px;"></a>
+		</div>
 			<hr style="width: 80%;">
 			<br> <br>
-		</div>
 
 		<div style="width: 80%;">
 			<div style="float: left; display: inline; padding-left: 30px;">
@@ -83,9 +94,9 @@
 			</div>
 			<a href=""><img src="images/boru.png"
 				style="float: right; margin-top: -40px; margin-right: 120px;"></a>
+		</div>
 			<hr style="width: 80%;">
 			<br> <br>
-		</div>
 	</div>
 
 	<div
@@ -101,9 +112,9 @@
 			</div>
 			<br><br>
 			<br> <br>
+		</div>
 			<hr style="width: 80%;">
 			<br>
-		</div>
 	</div>
 	
 	<div
@@ -137,24 +148,24 @@
 					</tr>
 				</table>
 			</div>
+		</div>
 			<hr style="width: 80%;">
 			<br> <br>
-		</div>
 	</div>
-	<div style="background: lightgray; width:45%; height:200px; margin-left:auto; margin-right:auto;">
+	<div style="background: lightgray; width:60%; height:200px; margin-left:auto; margin-right:auto; vertical-align: middle;">
 		<div style="padding-top:85px; padding-left:50px;display:inline; float:left ">
 			<label style="padding-right:30px; height:20px;">dduddu123님</label>
 		</div>
 		<div style="display:inline; height:200px;">
-			<textarea style="width:60%; height:100px; margin-top:50px;"></textarea>
-			<button>댓글달기</button>
+			<textarea style="width:60%; height:100px; margin-top:50px; resize: none;"></textarea>
+			<button id="commentBtn">댓글달기</button>
 		</div>
 	</div>
 	<br>
 	<br>
 	<br>
 	<br>
-	<%@include file="../common/footer.jsp"%>
+<%@ include file="/views/common/footer.jsp" %>
 
 </body>
 </html>
