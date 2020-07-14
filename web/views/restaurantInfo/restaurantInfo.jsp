@@ -6,7 +6,9 @@
 <link rel="stylesheet" type="text/css" href="/semiproject/views/restaurantInfo/css/restaurantInfoStyle.css"/>
 <meta charset="UTF-8">
 <%-- 나중에 음식점 이름 알아와서 타이틀에 넣는것도 좋을 것 같아요 --%>
-<title>돼지되지 음식점 정보</title>
+<title>YUMEET</title>
+<link rel="shortcut icon" href="/semiproject/images/favicon.ico" type="image/x-icon">
+<link rel="icon" href="/semiproject/images/favicon.ico" type="image/x-icon">
 </head>
 <body>
 	<%@ include file="/views/common/header.jsp" %>
@@ -135,16 +137,7 @@
 			</div>
 		</div>
 		<div class="likeAndReport">
-			<div class="reviewLike">
-				<table>
-					<tr>
-						<td><img alt="리뷰 추천 버튼" src="/semiproject/images/reviewLike.png" class="reviewLikeBtn"></td>
-					</tr>
-					<tr>
-						<td>추천하기</td>
-					</tr>
-				</table>
-			</div>
+			
 			<div class="reviewReport">
 				<button class="reviewReportBtn">신고하기</button>
 			</div>
@@ -180,16 +173,43 @@
 			</div>
 		</div>
 		<div class="likeAndReport">
-			<div class="reviewLike">
-				<table>
-					<tr>
-						<td><img alt="리뷰 추천 버튼" src="/semiproject/images/reviewLike.png" class="reviewLikeBtn"></td>
-					</tr>
-					<tr>
-						<td>추천하기</td>
-					</tr>
-				</table>
+			
+			<div class="reviewReport">
+				<button class="reviewReportBtn">신고하기</button>
 			</div>
+		</div>
+	</div>
+	<!-- visitorReview Div end -->
+		<hr class="hr">
+	<!-- visitorReview Div start -->
+	<div class="visitorReview">
+		<div class="visitorInfo">
+			<table>
+				<tr>
+					<td><img alt="사용자 프로필 사진" src="/semiproject/images/userPic2.png"></td>
+				</tr>
+				<tr>
+					<td>효근짱123</td>
+				</tr>
+				<tr>
+					<td>방문일 : 2020-06-07</td>
+				</tr>
+			</table>
+		</div>
+		<div class="visitorReviewContent">
+			<div class="visitorReviewArticle">
+				<span class="reviewDate">2020-06-09</span>
+				<img alt="리뷰 별점" src="/semiproject/images/Star.png" class="reviewRateStar">
+				<span class="reviewRate">4.0</span>
+				<p>스물셋 제 생에 최고의 규카츠였습니다....오래오래 장사해주세요 뚜뚜사장님^^</p>
+			</div>
+			<div class="visitorReviewPic">
+				<img alt="음식 사진" src="/semiproject/images/규카츠.jpg">
+				<img alt="음식 사진" src="/semiproject/images/dishPic.png">
+			</div>
+		</div>
+		<div class="likeAndReport">
+			
 			<div class="reviewReport">
 				<button class="reviewReportBtn">신고하기</button>
 			</div>
@@ -217,16 +237,75 @@
 			</div>
 		</div>
 		<div class="likeAndReport">
-			<div class="reviewLike">
-				<table>
-					<tr>
-						<td><img alt="리뷰 추천 버튼" src="/semiproject/images/reviewLike.png" class="reviewLikeBtn"></td>
-					</tr>
-					<tr>
-						<td>추천하기</td>
-					</tr>
-				</table>
+			
+			<div class="reviewReport">
+				<button class="reviewReportBtn">신고하기</button>
 			</div>
+		</div>
+	</div>
+		<div class="visitorReview">
+		<div class="visitorInfo">
+			<p>IMFINE</p>
+		</div>
+		<div class="visitorReviewContent">
+			<div class="visitorReviewArticle">
+				<span class="reviewDate">2019-09-15</span>
+				<p>규카츠가 장관이네요..절경이고요..신이 주신 선물이네요.</p>
+			</div>
+		</div>
+		<div class="likeAndReport">
+			
+			<div class="reviewReport">
+				<button class="reviewReportBtn">신고하기</button>
+			</div>
+		</div>
+	</div>
+		<div class="visitorReview">
+		<div class="visitorInfo">
+			<p>IMFINE</p>
+		</div>
+		<div class="visitorReviewContent">
+			<div class="visitorReviewArticle">
+				<span class="reviewDate">2019-09-15</span>
+				<p>규카츠가 장관이네요..절경이고요..신이 주신 선물이네요.</p>
+			</div>
+		</div>
+		<div class="likeAndReport">
+			
+			<div class="reviewReport">
+				<button class="reviewReportBtn">신고하기</button>
+			</div>
+		</div>
+	</div>
+		<div class="visitorReview">
+		<div class="visitorInfo">
+			<p>IMFINE</p>
+		</div>
+		<div class="visitorReviewContent">
+			<div class="visitorReviewArticle">
+				<span class="reviewDate">2019-09-15</span>
+				<p>규카츠가 장관이네요..절경이고요..신이 주신 선물이네요.</p>
+			</div>
+		</div>
+		<div class="likeAndReport">
+			
+			<div class="reviewReport">
+				<button class="reviewReportBtn">신고하기</button>
+			</div>
+		</div>
+	</div>
+		<div class="visitorReview">
+		<div class="visitorInfo">
+			<p>IMFINE</p>
+		</div>
+		<div class="visitorReviewContent">
+			<div class="visitorReviewArticle">
+				<span class="reviewDate">2019-09-15</span>
+				<p>규카츠가 장관이네요..절경이고요..신이 주신 선물이네요.</p>
+			</div>
+		</div>
+		<div class="likeAndReport">
+			
 			<div class="reviewReport">
 				<button class="reviewReportBtn">신고하기</button>
 			</div>

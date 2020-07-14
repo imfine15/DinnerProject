@@ -25,12 +25,18 @@
 		width:520px;
 		height:40px;
 		margin:10px 0px 10px 0px;
+		border-radius: 0;
+		border: 1px solid gray;
+		outline-style: none;
 	}
 	
 	select {
 		width:528px;
 		height:40px;
 		margin:10px 0px 10px 0px;
+		border-radius: 0;
+		border: 1px solid gray;
+		outline-style: none;
 	}
 	
 	td, select, p {

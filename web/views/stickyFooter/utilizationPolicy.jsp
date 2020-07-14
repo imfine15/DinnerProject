@@ -4,12 +4,15 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>YUMEET 이용정책</title>
+<title>YUMEET</title>
+<link rel="shortcut icon" href="/semiproject/images/favicon.ico" type="image/x-icon">
+<link rel="icon" href="/semiproject/images/favicon.ico" type="image/x-icon">
 <style>
 
 	.outer{
 		width: 900px;
-		margin-left: 200px;
+		margin-left: auto;
+		margin-right: auto;
 		
 	}
 	#text{

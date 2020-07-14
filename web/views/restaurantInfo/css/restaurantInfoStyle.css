@@ -228,27 +228,27 @@
 	
 	.visitorReview {
 		width:1039px;
-		height:292px;
+		height:100px;
 		margin:0 auto;
 	}
 	
 	.visitorInfo {
 		width:138px;
-		height:292px;
+		height:100px;
 		display:inline-block;
 		float:left;
 	}
 	
 	.visitorReviewContent{
 		width:706px;
-		height:171px;
-		margin:43px 0px 78px 40px;
+		height:100px;
+		margin:43px 0px 0px 40px;
 		display:inline-block;
 	}
 	
 	.likeAndReport {
 		width:155px;
-		height:292px;
+		height:100px;
 		display:inline-block;
 		float:right;
 	}
