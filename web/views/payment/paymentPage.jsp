@@ -31,7 +31,7 @@ label {
 <script src="js/index.js"></script>
 </head>
 <body>
-	<%@include file="../common/header.jsp"%>
+<%@ include file="/views/common/header.jsp" %>
 	<div
 		style="width: 80%; height: 1200px; margin-left: auto; margin-right: auto; padding-top: 100px;">
 		<div class="subb">
@@ -98,7 +98,7 @@ label {
 
 		</div>
 	</div>
-	<%@include file="../common/footer.jsp"%>
+<%@ include file="/views/common/footer.jsp" %>
 
 	<div id="calendar"
 		style="position: absolute; top: 100px; right: 170px;">
