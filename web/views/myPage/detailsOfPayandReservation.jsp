@@ -45,7 +45,6 @@
 	font-style: normal;
 	font-weight: 500;
 	font-size: 14px;
-	line-height: 18px;
 	color: #343434;
 }
 .text3 {
@@ -116,6 +115,29 @@
 ul li a span:hover{
 	color: pink;
 }
+.butt{
+	width:45px; 
+	border:1px solid #97D3D3; 
+	background: #97D3D3;
+	border-radius: 5px;
+}
+.butt button{
+	color: white;
+}
+.tex {
+	font-family: Roboto;
+	font-style: normal;
+	font-weight: 550;
+	font-size: 16px;
+	line-height: 16px;
+	text-align: center;
+	border-radius: 5px;
+	width: 70px;
+	height: 30px;
+	background: #B7E1E1;
+	margin-left:5px;
+	color: white;
+}
 </style>
 </head>
 <body>
@@ -151,7 +173,7 @@ ul li a span:hover{
 					<h2 id="daumBody" class="screen_out">내정보 홈 본문</h2>
 					<br>
 					<h1 style="color: #DA817F;">예약 및 결제내역</h1>
-					<div style="width:400px; display: inline-block;!important">
+					<div style="width:340px; display: inline-block;!important">
 					<button class="text3">1개월</button><button class="text3">2개월</button><button class="text4">3개월이상</button>
 					<button class="text6" id="reservation">예약</button><button class="text6" id="payment">결제</button>
 					</div>
@@ -161,67 +183,76 @@ ul li a span:hover{
 					<div id="paymentArea">
 					<br><br>
 					<div style="width: 100%; background-color: pink; height: 30px; margin-top:-20px; vertical-align: middle;'">
-						<label style="margin-left: 30px;"class="text">번호</label>
+						<label style="margin-left: 20px;"class="text">번호</label>
 						<label style="margin-left: 20px;"class="text">가게명</label>
-						<label style="margin-left: 50px;"class="text">방문예정일자</label>
+						<label style="margin-left: 70px;"class="text">방문 예정 일자</label>
 						<label style="margin-left: 80px;"class="text">상태</label>
 						<label style="margin-left: 100px;"class="text">결제일자</label>
 					</div>
-					<table style="border-bottom: 1px solid pink; table-layout: fixed; " id="listArea" >
-						<tr> 
-							<td width="100px" nowrap><div style="width:30px; margin-left:0px; !important"><label class="text2">3</label></div></td>
-							<td><div style="width:90px; margin-left:0px;"><label class="text2">돼지되지</label></div></td>
-							<td><div style="width:130px; margin-left:0px;"><label class="text2">2020-05-11 11:01</label></div></td>
-							<td><div style="width:80px; margin-left:50px;"><label class="text2">결제취소</label></div></td>
-							<td><div style="width:130px; margin-left:30px;"><label class="text2">20/09/18 12:00</label></div></td>
+					<table style="border-bottom: 1px solid pink; table-layout: fixed;" id="listArea" >
+						<tr>
+							<td><div style="padding-left:30px; width:30px" class="text2">3</div></td>
+							<td><div style="padding-left:10px; width:110px;" class="text2" >돼지되지</div></td>
+							<td><div style="padding-left:10px; width:150px;" class="text2">2020/09/17 19:00</div></td>
+							<td><div style="padding-left:30px; width:80px;" class="text2">결제완료</div></td>
+							<td><div style="padding-left:50px; width:187px;" class="text2">2020/07/17 19:00</div></td>
 						</tr>
 						<tr>
-							<td><div style="width:72px; margin-left:40px;"><label class="text2">2</label></div></td>
-							<td><div style="width:60px; margin-left:0px;"><label class="text2">갈비천왕</label></div></td>
-							<td><div style="width:130px; margin-left:40px;"><label class="text2">2020-05-10 14:09</label></div></td>
-							<td><div style="width:80px; margin-left:50px;"><label class="text2">결제완료</label></div></td>
-							<td><div style="width:130px; margin-left:30px;"><label class="text2">20/09/18 12:00</label></div></td>
+							<td><div style="padding-left:30px; width:30px" class="text2">2</div></td>
+							<td><div style="padding-left:10px; width:110px;" class="text2" >돼지되지</div></td>
+							<td><div style="padding-left:10px; width:150px;" class="text2">2020/09/17 19:00</div></td>
+							<td><div style="padding-left:30px; width:80px;" class="text2">결제완료</div></td>
+							<td><div style="padding-left:50px; width:187px;" class="text2">2020/07/17 19:00</div></td>
 						</tr>
 						<tr>
-							<td><div style="width:72px; margin-left:40px;"><label class="text2">1</label></div></td>
-							<td><div style="width:60px; margin-left:0px;"><label class="text2">숯불갈비</label></div></td>
-							<td><div style="width:130px; margin-left:40px;"><label class="text2">2020-05-11</label></div></td>
-							<td><div style="width:80px; margin-left:50px;"><label class="text2">결제완료</label></div></td>
-							<td><div style="width:130px; margin-left:30px;"><label class="text2">20/09/18 12:00</label></div></td>
+							<td><div style="padding-left:30px; width:30px" class="text2">1</div></td>
+							<td><div style="padding-left:10px; width:110px;" class="text2" >돼지되지</div></td>
+							<td><div style="padding-left:10px; width:150px;" class="text2">2020/09/17 19:00</div></td>
+							<td><div style="padding-left:30px; width:80px;" class="text2">결제완료</div></td>
+							<td><div style="padding-left:50px; width:187px;" class="text2">2020/07/17 19:00</div></td>
 						</tr>
 					</table>
 					</div>
 					
-					<div id="reservationArea">
-					<br><br>
-					<div style="width: 100%; background-color: pink; height: 30px; margin-top:-10px">
-						<label style="margin-left: 30px;"class="text">번호</label>
-						<label style="margin-left: 50px;"class="text">가게명</label>
-						<label style="margin-left: 50px;"class="text">결제 완료 일자</label>
-						<label style="margin-left: 80px;"class="text">상태</label>
-						<label style="margin-left: 100px;"class="text">방문예정일자</label>
+					<div style="width:270px; display: inline-block;!important;" align="right">
+					<button class="tex">전체</button><button class="tex">완료</button><button class="tex">예약중</button><button class="tex" style="margin-right:5px;">예약취소</button>
 					</div>
-					<table style="border-bottom: 1px solid pink" id="listArea">
-						<tr> 
-							<td><div style="width:72px; margin-left:40px;"><label class="text2">3</label></div></td>
-							<td><div style="width:60px; margin-left:0px;"><label class="text2">돼지되지</label></div></td>
-							<td><div style="width:130px; margin-left:40px;"><label class="text2">2020-05-11 11:01</label></div></td>
-							<td><div style="width:80px; margin-left:50px;"><label class="text2">결제취소</label></div></td>
-							<td><div style="width:130px; margin-left:30px;"><label class="text2">20/09/18 12:00</label></div></td>
+					<div id="reservationArea">
+					<div style="width: 100%; background-color: pink; height: 30px; margin-top:-20px; vertical-align: middle;'">
+						<label style="margin-left: 20px;"class="text">번호</label>
+						<label style="margin-left: 20px;"class="text">가게명</label>
+						<label style="margin-left: 70px;"class="text">방문 예정 일자</label>
+						<label style="margin-left: 80px;"class="text">상태</label>
+						<label style="margin-left: 60px;"class="text">예약신청일자</label>
+					</div>
+					<table style="border-bottom: 1px solid pink; table-layout: fixed;" id="listArea" >
+						<tr>
+							<td><div style="padding-left:30px; width:30px" class="text2">3</div></td>
+							<td><div style="padding-left:10px; width:110px;" class="text2" >돼지되지</div></td>
+							<td><div style="padding-left:10px; width:150px;" class="text2">2020/09/17 19:00</div></td>
+							<td><div style="padding-left:30px; width:80px;" class="text2">결제완료</div></td>
+							<td><div style="padding-left:10px; width:120px;" class="text2">2020/07/17 19:00</div></td>
+							<td><div align="center" class="butt"><button>수정</button></div></td>
+							<td><div align="center" class="butt"><button>취소</button></div></td>
 						</tr>
 						<tr>
-							<td><div style="width:72px; margin-left:40px;"><label class="text2">2</label></div></td>
-							<td><div style="width:60px; margin-left:0px;"><label class="text2">갈비천왕</label></div></td>
-							<td><div style="width:130px; margin-left:40px;"><label class="text2">2020-05-10 14:09</label></div></td>
-							<td><div style="width:80px; margin-left:50px;"><label class="text2">결제완료</label></div></td>
-							<td><div style="width:130px; margin-left:30px;"><label class="text2">20/09/18 12:00</label></div></td>
+							<td><div style="padding-left:30px; width:30px" class="text2">2</div></td>
+							<td><div style="padding-left:10px; width:110px;" class="text2" >돼지되지</div></td>
+							<td><div style="padding-left:10px; width:150px;" class="text2">2020/09/17 19:00</div></td>
+							<td><div style="padding-left:30px; width:80px;" class="text2">결제완료</div></td>
+							<td><div style="padding-left:10px; width:120px;" class="text2">2020/07/17 19:00</div></td>
+							<td><div align="center" class="butt"><button>수정</button></div></td>
+							<td><div align="center" class="butt"><button>취소</button></div></td>
 						</tr>
 						<tr>
-							<td><div style="width:72px; margin-left:40px;"><label class="text2">1</label></div></td>
-							<td><div style="width:60px; margin-left:0px;"><label class="text2">숯불갈비</label></div></td>
-							<td><div style="width:130px; margin-left:40px;"><label class="text2">2020-05-11</label></div></td>
-							<td><div style="width:80px; margin-left:50px;"><label class="text2">결제완료</label></div></td>
-							<td><div style="width:130px; margin-left:30px;"><label class="text2">20/09/18 12:00</label></div></td>
+							<td><div style="padding-left:30px; width:30px" class="text2">1</div></td>
+							<td><div style="padding-left:10px; width:110px;" class="text2" >돼지되지</div></td>
+							<td><div style="padding-left:10px; width:150px;" class="text2">2020/09/17 19:00</div></td>
+							<td><div style="padding-left:30px; width:80px;" class="text2">결제완료</div></td>
+							<td><div style="padding-left:10px; width:120px;" class="text2">2020/07/17 19:00</div></td>
+							<td><div align="center" class="butt"><button>수정</button></div></td>
+							<td><div align="center" class="butt"><button>취소</button></div></td>
+							<td></td>
 						</tr>
 					</table>
 					</div>
@@ -281,20 +312,23 @@ ul li a span:hover{
 		<div id="wrapMinidaum"></div>
 	</div>
 <script>
-	$("#paymentArea").show();
 	$("#reservationArea").hide();
+	$(".tex").hide();
 	$("#reservation").click(function(){
 		$("#paymentArea").hide();
 		$(".text5").hide();
 		
 		$("#reservationArea").show();
-	});
+		$(".tex").show();
+		});
 	
 	$("#payment").click(function(){
 		$("#paymentArea").show();
 		$(".text5").show();
 		
 		$("#reservationArea").hide();
+		$(".tex").hide();
+		
 	});
 </script>
 
