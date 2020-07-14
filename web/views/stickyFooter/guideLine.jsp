@@ -4,7 +4,9 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>YUMEET 가이드라인</title>
+<title>YUMEET</title>
+<link rel="shortcut icon" href="/semiproject/images/favicon.ico" type="image/x-icon">
+<link rel="icon" href="/semiproject/images/favicon.ico" type="image/x-icon">
 <style>
 
 	.outer{
@@ -17,7 +19,6 @@
 		white-space: pre-wrap;
 		line-height: 2.3em;
 		font-family: 나눔손글씨펜;
-		font-size: 10px;
 		
 	}
 	.btn{
