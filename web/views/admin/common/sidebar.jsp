@@ -99,7 +99,7 @@ html, body {
 }
 #welcome-user {
 	float:right;
-	margin-right:3%;
+	margin-right:2%;
 	font-family:Noto Sans KR;
 	font-size:16px;
 	color:white;
@@ -118,8 +118,17 @@ html, body {
 #logout {
 	float:right;
 	display: inline-block;
-	margin-right:20px;
+	margin-right:25px;
 	margin-top:13px;
+}
+#logoutBtn {
+	margin-top:-3px;
+	width:80px;
+	height:30px;
+	font-size:14px;
+	color:black;
+	background-color:white;
+	border:none;
 }
 </style>
 </head>
@@ -130,7 +139,7 @@ html, body {
 			<p><a>ADMINISTRATOR</a></p>
 		</div>
 		<div id="logout">
-		<button>로그아웃</button>
+		<button id="logoutBtn" onclick="">로그아웃</button>
 		</div>
 		<div id="welcome-user">
 			<p>안녕하세요, IMFINE 님</p>
