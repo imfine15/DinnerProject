@@ -4,7 +4,6 @@
 <html>
 <head>
 <meta charset="utf-8">
-
 <!-- Description, Keywords and Author -->
 <meta name="description" content="Your description">
 <meta name="keywords" content="Your,Keywords">
@@ -27,7 +26,8 @@
 <script
    src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 <!-- Favicon -->
-<link rel="shortcut icon" href="#">
+<link rel="shortcut icon" href="/semiproject/images/favicon.ico" type="image/x-icon">
+<link rel="icon" href="/semiproject/images/favicon.ico" type="image/x-icon">
 
 <style type="text/css">
 * {box-sizing: border-box}
@@ -128,10 +128,10 @@ img {vertical-align: middle;}
   .prev, .next,.text {font-size: 11px}
 }
 </style>
+<title>YUMEET</title>
 </head>
 
 <body style="width: 1440px;">
-
    <%@include file="../common/header.jsp"%>
    <div class="wrapper">
       <!-- banner -->
@@ -145,13 +145,13 @@ img {vertical-align: middle;}
             style="background: white; height: 60px; width: 600px; padding: 1px; margin-bottom: -100px; position: absolute; top: 120%; left: 38%; border-radius: 10px; font-size: 22px; margin-left: -50px;">
             <button
                style="height: 100%; background: white; float: left; margin-left: 5px; border: 0px white;">
-               <img src="../../images/Vector.png">
+               <img src="/semiproject/images/Vector.png">
             </button>
             <input type="search"
                style="height: 100%; width: 70%; float: left; border: 1px solid white; background: white; padding-left: 10px;">
             <button
                style="height: 95%; background: white; border: 0px white; float: right; margin-right: 5px;">
-               <img src="../../images/searchicon.png">
+               <img src="/semiproject/images/searchicon.png">
             </button>
          </div>
       </div>
@@ -182,7 +182,7 @@ img {vertical-align: middle;}
                   <!-- work item -->
                   <div class="work-item">
                      <!-- work details image -->
-                     <img class="img-responsive" src="img/boode.png" alt=""
+                     <img class="img-responsive" src="/semiproject/views/main2/img/boode.png" alt=""
                         style="width: 100%; height: 171px;" />
                      <!-- heading -->
                      <h3>
@@ -196,7 +196,7 @@ img {vertical-align: middle;}
                   <!-- work item -->
                   <div class="work-item">
                      <!-- work details image -->
-                     <img class="img-responsive" src="img/noodle.png" alt=""
+                     <img class="img-responsive" src="/semiproject/views/main2/img/noodle.png" alt=""
                         style="width: 100%; height: 171px;" />
                      <!-- heading -->
                      <h3>
@@ -210,7 +210,7 @@ img {vertical-align: middle;}
                   <!-- work item -->
                   <div class="work-item">
                      <!-- work details image -->
-                     <img class="img-responsive" src="img/pasta.png" alt=""
+                     <img class="img-responsive" src="/semiproject/views/main2/img/pasta.png" alt=""
                         style="width: 100%; height: 171px;" />
                      <!-- heading -->
                      <h3>
@@ -225,7 +225,7 @@ img {vertical-align: middle;}
                   <!-- work item -->
                   <div class="work-item">
                      <!-- work details image -->
-                     <img class="img-responsive" src="img/lamb.png" alt=""
+                     <img class="img-responsive" src="/semiproject/views/main2/img/lamb.png" alt=""
                         style="width: 100%; height: 171px;" />
                      <!-- heading -->
                      <h3>
@@ -239,7 +239,7 @@ img {vertical-align: middle;}
                   <!-- work item -->
                   <div class="work-item">
                      <!-- work details image -->
-                     <img class="img-responsive" src="img/jungol.png"
+                     <img class="img-responsive" src="/semiproject/views/main2/img/jungol.png"
                         style="width: 100%; height: 171px;" />
                      <!-- heading -->
                      <h3>
@@ -253,7 +253,7 @@ img {vertical-align: middle;}
                   <!-- work item -->
                   <div class="work-item">
                      <!-- work details image -->
-                     <img class="img-responsive" src="img/noodle2.png"
+                     <img class="img-responsive" src="/semiproject/views/main2/img/noodle2.png"
                         style="width: 100%; height: 171px;" />
                      <!-- heading -->
                      <h3>
@@ -267,7 +267,7 @@ img {vertical-align: middle;}
                   <!-- work item -->
                   <div class="work-item">
                      <!-- work details image -->
-                     <img class="img-responsive" src="img/pattai.png"
+                     <img class="img-responsive" src="/semiproject/views/main2/img/pattai.png"
                         style="width: 100%; height: 171px;" />
                      <!-- heading -->
                      <h3>
@@ -294,22 +294,22 @@ img {vertical-align: middle;}
 
 <div class="mySlides fade">
   <div class="numbertext">1 / 3</div>
-  <img src="img/cos1.png" style="width:45%; margin-right:9.2%;">
-  <img src="img/cos1.png" style="width:45%">
+  <img src="/semiproject/views/main2/img/cos1.png" style="width:45%; margin-right:9.2%;">
+  <img src="/semiproject/views/main2/img/cos1.png" style="width:45%">
   <div class="text">1/3</div>
 </div>
 
 <div class="mySlides fade">
   <div class="numbertext">2 / 3</div>
-  <img src="img/cos1.png" style="width:45%;margin-right:9.2%;">
-  <img src="img/cos1.png" style="width:45%">
+  <img src="/semiproject/views/main2/img/cos1.png" style="width:45%;margin-right:9.2%;">
+  <img src="/semiproject/views/main2/img/cos1.png" style="width:45%">
   <div class="text">2/3</div>
 </div>
 
 <div class="mySlides fade">
   <div class="numbertext">3 / 3</div>
-  <img src="img/cos1.png" style="width:45%;margin-right:9.2%;">
-  <img src="img/cos1.png" style="width:45%">
+  <img src="/semiproject/views/main2/img/cos1.png" style="width:45%;margin-right:9.2%;">
+  <img src="/semiproject/views/main2/img/cos1.png" style="width:45%">
   <div class="text">3/3</div>
 </div>
 
@@ -353,7 +353,7 @@ img {vertical-align: middle;}
                   <!-- work item -->
                   <div class="work-item">
                      <!-- work details image -->
-                     <img class="img-responsive" src="img/curry.png" alt=""
+                     <img class="img-responsive" src="/semiproject/views/main2/img/curry.png" alt=""
                         style="width: 100%; height: 171px;" />
                      <!-- heading -->
                      <h3>
@@ -368,7 +368,7 @@ img {vertical-align: middle;}
                   <!-- work item -->
                   <div class="work-item">
                      <!-- work details image -->
-                     <img class="img-responsive" src="img/boode.png" alt=""
+                     <img class="img-responsive" src="/semiproject/views/main2/img/boode.png" alt=""
                         style="width: 100%; height: 171px;" />
                      <!-- heading -->
                      <h3>
@@ -382,7 +382,7 @@ img {vertical-align: middle;}
                   <!-- work item -->
                   <div class="work-item">
                      <!-- work details image -->
-                     <img class="img-responsive" src="img/noodle.png" alt=""
+                     <img class="img-responsive" src="/semiproject/views/main2/img/noodle.png" alt=""
                         style="width: 100%; height: 171px;" />
                      <!-- heading -->
                      <h3>
@@ -396,7 +396,7 @@ img {vertical-align: middle;}
                   <!-- work item -->
                   <div class="work-item">
                      <!-- work details image -->
-                     <img class="img-responsive" src="img/pasta.png" alt=""
+                     <img class="img-responsive" src="/semiproject/views/main2/img/pasta.png" alt=""
                         style="width: 100%; height: 171px;" />
                      <!-- heading -->
                      <h3>
@@ -411,7 +411,7 @@ img {vertical-align: middle;}
                   <!-- work item -->
                   <div class="work-item">
                      <!-- work details image -->
-                     <img class="img-responsive" src="img/lamb.png" alt=""
+                     <img class="img-responsive" src="/semiproject/views/main2/img/lamb.png" alt=""
                         style="width: 100%; height: 171px;" />
                      <!-- heading -->
                      <h3>
@@ -425,7 +425,7 @@ img {vertical-align: middle;}
                   <!-- work item -->
                   <div class="work-item">
                      <!-- work details image -->
-                     <img class="img-responsive" src="img/jungol.png"
+                     <img class="img-responsive" src="/semiproject/views/main2/img/jungol.png"
                         style="width: 100%; height: 171px;" />
                      <!-- heading -->
                      <h3>
@@ -439,7 +439,7 @@ img {vertical-align: middle;}
                   <!-- work item -->
                   <div class="work-item">
                      <!-- work details image -->
-                     <img class="img-responsive" src="img/noodle2.png"
+                     <img class="img-responsive" src="/semiproject/views/main2/img/noodle2.png"
                         style="width: 100%; height: 171px;" />
                      <!-- heading -->
                      <h3>
@@ -453,7 +453,7 @@ img {vertical-align: middle;}
                   <!-- work item -->
                   <div class="work-item">
                      <!-- work details image -->
-                     <img class="img-responsive" src="img/pattai.png"
+                     <img class="img-responsive" src="/semiproject/views/main2/img/pattai.png"
                         style="width: 100%; height: 171px;" />
                      <!-- heading -->
                      <h3>
