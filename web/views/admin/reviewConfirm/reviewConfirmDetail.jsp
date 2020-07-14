@@ -118,6 +118,25 @@ tr {
 	color:black;
 	border:none;
 }
+.deleteBtn{
+		background: red;
+		color: #FFFFFF;
+		border: 0;
+		outline: 0;
+		width: 50px;
+		height: 20px;
+		font-size: 14px;
+}
+.updateBtn{
+		background: #EB7673;
+		color: #FFFFFF;
+		border: 0;
+		outline: 0;
+		width: 100px;
+		height: 27px;
+		font-size: 18px;
+		margin-bottom: 50px;
+}
 </style>
 </head>
 <body style="background: lightgray;">
@@ -135,9 +154,8 @@ tr {
 		<div style="display: inline;">
 			<img src="/semiproject/views/reviews/images/recommend.png" style="width: 200px;">
 		</div>
-		<div
-			style="display: inline; font-size: 30px; margin-bottom: auto; margin-top: auto; font-family: Roboto;">강남역
-			친구들과 놀기 좋은곳</div>
+		<input type="text" value="강남역 친구들과 놀기 좋은곳"		
+			style="width: 400px; display: inline; font-size: 30px; margin-bottom: auto; margin-top: auto; font-family: Roboto;"></input>
 		<div
 			style="display: inline; font-size: 13px; margin-bottom: auto; margin-top: auto; font-family: Roboto;">
 			<label>작성자 : 정파덕 &nbsp;&nbsp;</label> <label
@@ -156,12 +174,16 @@ tr {
 				<img src="/semiproject/views/reviews/images/picture1.png">
 			</div>
 			<div style="padding-left: 20px; padding-top: 20px; width: 700px;">
-				<label style="font-size: 23px">규카츠 하우스</label><br> <br> <label>친구들이랑
-					점심에 규카츠하우스에 방문했어요~ <br>얼마전 YUMEET에서 예약자 후기를 보고 너무 <br>맘에
-					들어서 바로 예약하고 방문했답니다~ㅎㅎ..<br> 역시YUMEET은 실패가 없는 사이트인거같아요!! <br>어딜가던
-					평균은 하는...?여기 규동맛집입니다!! <br>꼭 가서 규동 드세요!!!!<br> <br>
+				<input type="text" value="규카츠 하우스" style="font-size: 23px; width: 160px;"></input><br> <br> 
+				<textarea cols="50" rows="8" style="resize: none;">
+친구들이랑점심에 규카츠하우스에 방문했어요~
+얼마전 YUMEET에서 예약자 후기를 보고 너무 맘에
+들어서 바로 예약하고 방문했답니다~ㅎㅎ..
+역시YUMEET은 실패가 없는 사이트인거같아요!!
+어딜가던 평균은 하는...?여기 규동맛집입니다!!
+꼭 가서 규동 드세요!!!!
+				</textarea>
 					<br> <br> <br> <br> <br> <br> <br>
-				</label>
 			</div>
 			<a href=""><img src="/semiproject/views/reviews/images/boru.png"
 				style="float: right; margin-top: -40px; margin-right: 120px;"></a>
@@ -174,12 +196,15 @@ tr {
 				<img src="/semiproject/views/reviews/images/picture1.png">
 			</div>
 			<div style="padding-left: 20px; padding-top: 20px; width: 700px;">
-				<label style="font-size: 23px">규카츠 하우스</label><br> <br> <label>친구들이랑
-					점심에 규카츠하우스에 방문했어요~ <br>얼마전 YUMEET에서 예약자 후기를 보고 너무 <br>맘에
-					들어서 바로 예약하고 방문했답니다~ㅎㅎ..<br> 역시YUMEET은 실패가 없는 사이트인거같아요!! <br>어딜가던
-					평균은 하는...?여기 규동맛집입니다!! <br>꼭 가서 규동 드세요!!!!<br> <br>
+				<input type="text" value="규카츠 하우스" style="font-size: 23px; width: 160px;"></input><br> <br> <textarea cols="50" rows="8" style="resize: none;">
+친구들이랑점심에 규카츠하우스에 방문했어요~
+얼마전 YUMEET에서 예약자 후기를 보고 너무 맘에
+들어서 바로 예약하고 방문했답니다~ㅎㅎ..
+역시YUMEET은 실패가 없는 사이트인거같아요!!
+어딜가던 평균은 하는...?여기 규동맛집입니다!!
+꼭 가서 규동 드세요!!!!
+				</textarea>
 					<br> <br> <br> <br> <br> <br> <br>
-				</label>
 			</div>
 			<a href=""><img src="/semiproject/views/reviews/images/boru.png"
 				style="float: right; margin-top: -40px; margin-right: 120px;"></a>
@@ -192,38 +217,38 @@ tr {
 				<img src="/semiproject/views/reviews/images/picture1.png">
 			</div>
 			<div style="padding-left: 20px; padding-top: 20px; width: 700px;">
-				<label style="font-size: 23px">규카츠 하우스</label><br> <br> <label>친구들이랑
-					점심에 규카츠하우스에 방문했어요~ <br>얼마전 YUMEET에서 예약자 후기를 보고 너무 <br>맘에
-					들어서 바로 예약하고 방문했답니다~ㅎㅎ..<br> 역시YUMEET은 실패가 없는 사이트인거같아요!! <br>어딜가던
-					평균은 하는...?여기 규동맛집입니다!! <br>꼭 가서 규동 드세요!!!!<br> <br>
-					<br> <br> <br> <br> <br>
-				<br>
-				<br>
-				</label>
+				<input type="text" value="규카츠 하우스" style="font-size: 23px; width: 160px;"></input><br> <br> <textarea cols="50" rows="8" style="resize: none;">
+친구들이랑점심에 규카츠하우스에 방문했어요~
+얼마전 YUMEET에서 예약자 후기를 보고 너무 맘에
+들어서 바로 예약하고 방문했답니다~ㅎㅎ..
+역시YUMEET은 실패가 없는 사이트인거같아요!!
+어딜가던 평균은 하는...?여기 규동맛집입니다!!
+꼭 가서 규동 드세요!!!!
+				</textarea>
+					<br> <br> <br> <br> <br> <br> <br>
 			</div>
 			<a href=""><img src="/semiproject/views/reviews/images/boru.png"
 				style="float: right; margin-top: -40px; margin-right: 120px;"></a>
 		</div>
 			<hr style="width: 80%;">
-			<br> <br>
 	</div>
 
 	<div
 		style="margin-left: auto; margin-right: auto; padding-left: 30px;"
 		align="center">
 		<div style="width: 80%;">
-			<div
-				style="margin-left: auto; margin-right: auto; padding-left: 10px; float: left;">
-				<label style="font-size: 30px;">해쉬태그</label><br> <label
-					style="font-size: 14px; padding-left: 100px;">#규카츠&nbsp;</label> <label
-					style="font-size: 14px;">#보드게임&nbsp;</label> <label
-					style="font-size: 14px;">#유키노하나&nbsp;</label>
+			<div align="center"
+				style="margin-left: auto; margin-right: auto; padding-left: 10px;">
+				<label style="font-size: 30px; float: left; margin-left: 80px;">해쉬태그</label><br><br> 
+				<input type="text" value="#규카츠" style="width: 80px;">
+				<input type="text" value="#보드게임" style="width: 80px;">
+				<input type="text" value="#유키노하나" style="width: 80px;">
+				
 			</div>
 			<br><br>
 			<br> <br>
 		</div>
 			<hr style="width: 80%;">
-			<br>
 	</div>
 	
 	<div
@@ -238,21 +263,21 @@ tr {
 						<td style="width:90px;"><label>dduddu123</label></td>
 						<td style="width:500px;;"><label>다음주 주말에 친구들이랑 가봐야겠어요~ 추천 꾹! 누르고 갑니다~!</label></td>
 						<td style="width:70px;">
-						<td style="width:190px;"><label>2020-04-33</label></td>
+						<td style="width:190px;"><label>2020-04-33</label><button class="deleteBtn">삭제</button></td>
 						<td><br><br></td>
 					</tr>
 					<tr>
 						<td style="width:90px;"><label>dduddu123</label></td>
 						<td style="width:500px;;"><label>다음주 주말에 친구들이랑 가봐야겠어요~ 추천 꾹! 누르고 갑니다~!</label></td>
 						<td style="width:70px;">
-						<td style="width:190px;"><label>2020-04-33</label></td>
+						<td style="width:190px;"><label>2020-04-33</label><button class="deleteBtn">삭제</button></td>
 						<td><br><br></td>
 					</tr>
 					<tr>
 						<td style="width:90px;"><label>dduddu123</label></td>
 						<td style="width:500px;;"><label>다음주 주말에 친구들이랑 가봐야겠어요~ 추천 꾹! 누르고 갑니다~!</label></td>
 						<td style="width:70px;">
-						<td style="width:190px;"><label>2020-04-33</label></td>
+						<td style="width:190px;"><label>2020-04-33</label><button class="deleteBtn">삭제</button></td>
 						<td><br><br></td>
 					</tr>
 				</table>
@@ -261,15 +286,9 @@ tr {
 			<hr style="width: 80%;">
 			<br> <br>
 	</div>
-	<div style="background: lightgray; width:70%; height:200px; margin-left:auto; margin-right:auto;">
-		<div style="padding-top:85px; padding-left:50px;display:inline; float:left ">
-			<label style="padding-right:30px; height:20px;">dduddu123님</label>
+		<div align="center">
+			<button class="updateBtn">수정하기</button>
 		</div>
-		<div style="display:inline; height:200px;">
-			<textarea style="width:60%; height:100px; margin-top:50px;"></textarea>
-			<button>댓글달기</button>
-		</div>
-	</div>
 			</div>
 		</div>
 	</div>

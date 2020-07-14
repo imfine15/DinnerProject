@@ -5,6 +5,8 @@
 <head>
 <meta charset="UTF-8">
 <title>YUMEET</title>
+<link rel="shortcut icon" href="/semiproject/images/favicon.ico" type="image/x-icon">
+<link rel="icon" href="/semiproject/images/favicon.ico" type="image/x-icon">
 <style>
 	#commentBtn{
 		background: #EB7673;
@@ -21,7 +23,7 @@
 <%@ include file="/views/common/header.jsp" %>
 	<br><br>
 	<div
-		style="width: 70%; margin-left: auto; margin-right: auto; height: auto;"
+		style="width: 80%; margin-left: auto; margin-right: auto; height: auto;"
 		align="center">
 		<div style="display: inline;">
 			<img src="images/recommend.png" style="width: 200px;">
@@ -40,7 +42,7 @@
 			<br> <br>
 	</div>
 	<div
-		style="width: 70%; margin-left: auto; margin-right: auto; padding-left: 30px;"
+		style="width: 80%; margin-left: auto; margin-right: auto; padding-left: 30px;"
 		align="center">
 		<div style="width: 80%;">
 			<div style="float: left; display: inline; padding-left: 30px;">
@@ -96,11 +98,11 @@
 				style="float: right; margin-top: -40px; margin-right: 120px;"></a>
 		</div>
 			<hr style="width: 80%;">
-			<br> <br>
+			
 	</div>
 
 	<div
-		style="width: 70%; margin-left: auto; margin-right: auto; padding-left: 30px;"
+		style="width: 80%; margin-left: auto; margin-right: auto; padding-left: 30px;"
 		align="center">
 		<div style="width: 80%;">
 			<div
@@ -114,11 +116,10 @@
 			<br> <br>
 		</div>
 			<hr style="width: 80%;">
-			<br>
 	</div>
 	
 	<div
-		style="width: 70%; margin-left: auto; margin-right: auto; padding-left: 30px;"
+		style="width: 80%; margin-left: auto; margin-right: auto; padding-left: 30px;"
 		align="center">
 		<div style="width: 80%;">
 			<div
