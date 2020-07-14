@@ -39,7 +39,7 @@
 }
 
 .sidenav .main-buttons>li {
-	padding: 16px 52px;
+	padding: 16px 40px;
 	-moz-box-sizing: border-box;
 	-webkit-box-sizing: border-box;
 	box-sizing: border-box;
