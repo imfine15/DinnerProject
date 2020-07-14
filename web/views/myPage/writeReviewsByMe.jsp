@@ -13,7 +13,7 @@
 	<script>
    $(function(){
 	  	$("#listArea td").mouseenter(function(){
-	  		$(this).parent().css({"background":"darkgray","cursor":"pointer"});
+	  		$(this).parent().css({"cursor":"pointer"});
 	  	}).mouseout(function(){
 	  		$(this).parent().css({"background":"white"});
 	  	}).click(function(){
@@ -101,20 +101,20 @@ ul li a span:hover{
 					<br>
 					<h1 style="color: #DA817F;">리뷰</h1>
 					<br>
-					<div style="width: 100%; background-color: pink; height: 30px;">
-						<label style="margin-left: 30px;"class="text">등록번호</label>
-						<label style="margin-left: 80px;"class="text">가게명</label>
-						<label style="margin-left: 80px;"class="text">작성일자</label>
+					<div style="width: 100%; background-color: pink; height: 30px; padding-top:10px;">
+						<label style="margin-left: 30px;"class="text">번호</label>
+						<label style="margin-left: 30px;"class="text">가게명</label>
+						<label style="margin-left: 130px;"class="text">작성일자</label>
 						<label style="margin-left: 80px;"class="text">평점</label>
 						<label style="margin-left: 80px;"class="text">좋아요 수</label>
 					</div>
 					<table style="border-bottom: 1px solid pink" id="listArea">
 						<tr>
-							<td><div style="width:72px; margin-left:30px;"><label class="text2">ym_r_01</label></div></td>
-							<td><div style="width:60px; margin-left:80px;"><label class="text2">ym_r_01</label></div></td>
-							<td><div style="width:100px; margin-left:50px;"><label class="text2">2020-05-11</label></div></td>
-							<td><div style="width:80px; margin-left:80px;"><label class="text2">4.5</label></div></td>
-							<td><div style="width:80px; margin-left:50px;"><label class="text2">450</label></div></td>
+							<td><div style="width:30px; margin-left:40px;"><label class="text2">1</label></div></td>
+							<td><div style="width:160px; margin-left:20px;"><label class="text2">돼지되지</label></div></td>
+							<td><div style="width:140px; margin-left:10px;"><label class="text2">2020-05-11 19:00</label></div></td>
+							<td><div style="width:80px; margin-left:25px;"><label class="text2">4.5</label></div></td>
+							<td><div style="width:132px; margin-left:50px;"><label class="text2">450</label></div></td>
 						</tr>
 					
 					</table>

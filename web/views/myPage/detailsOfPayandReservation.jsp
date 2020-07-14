@@ -177,12 +177,13 @@ ul li a span:hover{
 					<button class="text3">1개월</button><button class="text3">2개월</button><button class="text4">3개월이상</button>
 					<button class="text6" id="reservation">예약</button><button class="text6" id="payment">결제</button>
 					</div>
-					<div style="width:295px; display: inline-block;!important;" align="right">
+					<div style="width:340px; display: inline-block;!important;" align="right">
 					<button class="text5">전체</button><button class="text5">결제완료</button><button class="text5" style="margin-right:5px;">결제취소</button>
+					<button class="tex">전체</button><button class="tex">완료</button><button class="tex">예약중</button><button class="tex" style="margin-right:5px;">예약취소</button>
 					</div>
 					<div id="paymentArea">
 					<br><br>
-					<div style="width: 100%; background-color: pink; height: 30px; margin-top:-20px; vertical-align: middle;'">
+					<div style="width: 100%; background-color: pink; height: 30px; margin-top:-20px; vertical-align: middle; padding-top: 5px;'">
 						<label style="margin-left: 20px;"class="text">번호</label>
 						<label style="margin-left: 20px;"class="text">가게명</label>
 						<label style="margin-left: 70px;"class="text">방문 예정 일자</label>
@@ -214,11 +215,8 @@ ul li a span:hover{
 					</table>
 					</div>
 					
-					<div style="width:270px; display: inline-block;!important;" align="right">
-					<button class="tex">전체</button><button class="tex">완료</button><button class="tex">예약중</button><button class="tex" style="margin-right:5px;">예약취소</button>
-					</div>
 					<div id="reservationArea">
-					<div style="width: 100%; background-color: pink; height: 30px; margin-top:-20px; vertical-align: middle;'">
+					<div style="width: 100%; background-color: pink; height: 30px; margin-top:16px; vertical-align: middle;'">
 						<label style="margin-left: 20px;"class="text">번호</label>
 						<label style="margin-left: 20px;"class="text">가게명</label>
 						<label style="margin-left: 70px;"class="text">방문 예정 일자</label>
@@ -230,14 +228,14 @@ ul li a span:hover{
 							<td><div style="padding-left:30px; width:30px" class="text2">3</div></td>
 							<td><div style="padding-left:10px; width:110px;" class="text2" >돼지되지</div></td>
 							<td><div style="padding-left:10px; width:150px;" class="text2">2020/09/17 19:00</div></td>
-							<td><div style="padding-left:30px; width:80px;" class="text2">결제완료</div></td>
+							<td><div style="padding-left:30px; width:80px;" class="text2">예약중</div></td>
 							<td><div style="padding-left:10px; width:120px;" class="text2">2020/07/17 19:00</div></td>
 							<td><div align="center" class="butt"><button>수정</button></div></td>
 							<td><div align="center" class="butt"><button>취소</button></div></td>
 						</tr>
 						<tr>
 							<td><div style="padding-left:30px; width:30px" class="text2">2</div></td>
-							<td><div style="padding-left:10px; width:110px;" class="text2" >돼지되지</div></td>
+							<td><div style="padding-left:10px; width:110px;" class="text2" >예약확인</div></td>
 							<td><div style="padding-left:10px; width:150px;" class="text2">2020/09/17 19:00</div></td>
 							<td><div style="padding-left:30px; width:80px;" class="text2">결제완료</div></td>
 							<td><div style="padding-left:10px; width:120px;" class="text2">2020/07/17 19:00</div></td>
@@ -248,7 +246,7 @@ ul li a span:hover{
 							<td><div style="padding-left:30px; width:30px" class="text2">1</div></td>
 							<td><div style="padding-left:10px; width:110px;" class="text2" >돼지되지</div></td>
 							<td><div style="padding-left:10px; width:150px;" class="text2">2020/09/17 19:00</div></td>
-							<td><div style="padding-left:30px; width:80px;" class="text2">결제완료</div></td>
+							<td><div style="padding-left:30px; width:80px;" class="text2">방문완료</div></td>
 							<td><div style="padding-left:10px; width:120px;" class="text2">2020/07/17 19:00</div></td>
 							<td><div align="center" class="butt"><button>수정</button></div></td>
 							<td><div align="center" class="butt"><button>취소</button></div></td>

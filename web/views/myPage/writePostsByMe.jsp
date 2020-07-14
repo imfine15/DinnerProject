@@ -85,7 +85,7 @@ ul li a span:hover{
 						<li class="left"><a class="left2"  href="/semiproject/views/myPage/checkingPassword.jsp"><span class="navbar">내정보 관리</span></a></li>
 						<li class="left"><a class="left2"  href="/semiproject/views/myPage/checkingPassword.jsp"><span class="navbar">비밀번호 변경</span></a></li>
 						<li class="left"><a class="left2"  href=""><span class="navbar">고객센터</span></a></li>
-						<li class="left"><a class="left2"  href="/semiproject/views/myPage/withdrawalFromMembership.jsp"><span class="navbar">회원탈퇴</span></a></li>
+						<li class="left"><a class="left2"  href="/semiproject/views/myPage/checkingPassword.jsp"><span class="navbar">회원탈퇴</span></a></li>
 					</ul>
 				</div>
 			</div>
@@ -101,7 +101,7 @@ ul li a span:hover{
 					<br>
 					<h1 style="color: #DA817F;">게시글 조회</h1>
 					<br>
-					<div style="width: 100%; background-color: pink; height: 30px;">
+					<div style="width: 100%; background-color: pink; height: 30px;  padding-top:10px;">
 						<label style="margin-left: 30px;"class="text">등록번호</label>
 						<label style="margin-left: 50px;"class="text">제목</label>
 						<label style="margin-left: 100px;"class="text">요청일자</label>
