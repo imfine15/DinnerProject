@@ -10,9 +10,9 @@
 </head>
 <body>
 	<img alt="여밋 로고" src="/semiproject/images/YUMEET LOGO WITH REST.png" id="logo">
-	<p id="login">사장님페이지 로그인</p>
+	<p id="login">YUMEET사장님페이지 로그인</p>
 	<hr class="hr">
-	<form action="<%= request.getContextPath() %>/signIn.me" method="post" onsubmit="return check();">
+	<form action="<%= request.getContextPath() %>/signIn.en" method="post" onsubmit="return check();">
 		<input type="text" name="id" id="id" placeholder="업체 아이디 입력">
 		<br>
 		<input type="password" name="password" id="password" placeholder="비밀번호 입력">
