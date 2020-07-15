@@ -157,17 +157,16 @@ public String selectCurrval(Connection con) {
 	String enpNo = "";
 	
 	String query = prop.getProperty("selectCurrval");
-	
-	System.out.println("query : "+query);
+
 	
 	try {
 		stmt = con.createStatement();
 		rset = stmt.executeQuery(query);
 		
 		if(rset.next()) {
-			enpNo = rset.getString("currval");
+			int id= rset.getInt("currval");
 			
-			System.out.println("enpNocurrval : " + enpNo);
+			enpNo = "ENP" + id;
 			
 		}
 		
@@ -189,8 +188,7 @@ public int insertAttachment(Connection con, EnpAttachment enpAttachment) {
 	int result = 0;
 	
 	String query = prop.getProperty("insertAttachment");
-	
-	System.out.println("query : "+query);
+
 	
 	try {
 		pstmt = con.prepareStatement(query);
@@ -220,7 +218,7 @@ public int insertMenu(Connection con, EnpUpVo enpUp) {
 	
 	String query = prop.getProperty("insertMenu");
 	
-	System.out.println("query : "+query);
+	
 	
 	try {
 		pstmt = con.prepareStatement(query);
@@ -228,7 +226,7 @@ public int insertMenu(Connection con, EnpUpVo enpUp) {
 		pstmt.setInt(2, enpUp.getMenuPrice());
 		pstmt.setString(3, enpUp.getEnpNo());
 		
-		System.out.println(enpUp.getEnpNo());
+		
 		
 		result = pstmt.executeUpdate();
 		
