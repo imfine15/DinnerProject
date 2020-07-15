@@ -9,8 +9,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Properties;
 
+import com.kh.semi.enterprise.model.vo.EnpVO;
 import com.kh.semi.member.model.vo.MemberVO;
 
 public class MemberDao {
@@ -93,6 +95,35 @@ public class MemberDao {
 		}
 		
 		return responseMember;
+	}
+
+	public ArrayList<EnpVO> searchEnp(Connection con, String search) {
+		ArrayList<EnpVO> enpList = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String query = prop.getProperty("searchEnp");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, search);
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				enpList = new ArrayList<>();
+				EnpVO e = new EnpVO();
+				
+				e.setEnpNo(rset.getString("ENP_NO"));
+				
+				enpList.add(e);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return enpList;
 	}
 
 }
