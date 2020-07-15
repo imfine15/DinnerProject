@@ -83,11 +83,12 @@ public class InsertQuestionServlet extends HttpServlet {
 			 }
 			 
 			 //multipartRequest객체에서 파일 외의 값들도 꺼낼 수 있다.
-			 String qTitle = multiRequest.getParameter("questionTitle");
-			 String qContent = multiRequest.getParameter("questionContent");
+			 String qTitle = multiRequest.getParameter("qTitle");
+			 String qContent = multiRequest.getParameter("qContent");
 			 String writer = multiRequest.getParameter("writer");
 			  
 			 System.out.println(qTitle);
+			 System.out.println(qContent);
 			 
 		//	 int writer = ((Member)(request.getSession().getAttribute("loginUser"))).getUno();
 			 			 
