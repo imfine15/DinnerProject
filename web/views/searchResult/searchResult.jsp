@@ -51,7 +51,7 @@
 					%>
 						<div id="foodArea<%= i + 1 %>" class="foodArea">
 							<img src="/semiproject/images/죠떡.jpg" class="foodImg"><br>
-							<label class="maintext"><%= enpList.get(i).getEnpName() %></label><label class="rating">5.0</label><br>
+							<label class="maintext"><%= enpList.get(i).getEnpName() %></label><label class="rating"><%= Math.round(enpList.get(i).getRating() * 10.0) / 10.0 %></label><br>
 							<p class="small"><%= enpList.get(i).getEnpAddress() %></p>
 							<p class="small"><%= entry.getKey() %></p>
 						</div>

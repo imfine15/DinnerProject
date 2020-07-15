@@ -14,12 +14,13 @@ import com.kh.semi.search.model.dao.SearchDao;
 public class SearchService {
 	public ArrayList<EnpVO> searchEnp(String search) {
 		Connection con = getConnection();
-		ArrayList<EnpVO> normalEnpList = new SearchDao().searchEnp(con, search);
-		ArrayList<EnpVO> partnerEnpList = new SearchDao().searchPartner(con, normalEnpList);
+		ArrayList<EnpVO> enpList = new SearchDao().searchEnp(con, search);
+		
+		ArrayList<EnpVO> enpListWithRating = new SearchDao().getRating(con, enpList);
 		
 		close(con);
 		
-		return partnerEnpList;
+		return enpListWithRating;
 	}
 
 	public List<HashMap<String, Integer>> getMenus(List<EnpVO> enpList) {
@@ -30,4 +31,5 @@ public class SearchService {
 		
 		return enpMenus;
 	}
+
 }
