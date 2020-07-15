@@ -10,12 +10,12 @@ public class EnpAttachment implements java.io.Serializable {
 	private String filePath;
 	private Date uploadDate;
 	private String enpNo;
-	private String questionNo;
+
 	
 	public EnpAttachment() {}
 
 	public EnpAttachment(String fileNo, String originName, String changeName, String filePath, Date uploadDate,
-			String enpNo, String questionNo) {
+			String enpNo) {
 		super();
 		this.fileNo = fileNo;
 		this.originName = originName;
@@ -23,16 +23,10 @@ public class EnpAttachment implements java.io.Serializable {
 		this.filePath = filePath;
 		this.uploadDate = uploadDate;
 		this.enpNo = enpNo;
-		this.questionNo = questionNo;
+		
 	}
 	
-	public void setQuestionNo(String questionNo) {
-		this.questionNo = questionNo;
-	}
 	
-	public String getQuestion() {
-		return questionNo;
-	}
 
 	public String getFileNo() {
 		return fileNo;
@@ -85,7 +79,7 @@ public class EnpAttachment implements java.io.Serializable {
 	@Override
 	public String toString() {
 		return "EnpAttachment [fileNo=" + fileNo + ", originName=" + originName + ", changeName=" + changeName
-				+ ", filePath=" + filePath + ", uploadDate=" + uploadDate + ", enpNo=" + enpNo + ", questionNo=" + "]";
+				+ ", filePath=" + filePath + ", uploadDate=" + uploadDate + ", enpNo=" + enpNo + "]";
 	}
 	
 	

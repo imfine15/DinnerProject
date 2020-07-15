@@ -41,18 +41,27 @@ public int insertEnterprise(EnpUpVo enpUp, ArrayList<EnpAttachment> fileList) {
 	
 	int result2 = 0;
 	
+	int result3 = 0;
+	
 	result1 = new EnpDao().insertEnterprise(con, enpUp);
 	if(result1 > 0) {
 		String enpNo = new EnpDao().selectCurrval(con);
 		
+		result3 = new EnpDao().insertMenu(con, enpUp);
 		for(int i = 0; i < fileList.size(); i++) {
 			fileList.get(i).setEnpNo(enpNo);
 			
-			result2 += new EnpDao().insertAttachment(con, fileList);
+			System.out.println("enpNo : " + enpNo);
+			
+			result2 += new EnpDao().insertAttachment(con, fileList.get(i));
 			
 		}
 	}
-	if(result1 > 0 && result2 == fileList.size()) {
+	
+	System.out.println("result1 : " + result1);
+	System.out.println("result2 : " + result2);
+	System.out.println("result3 : " + result3);
+	if(result1 > 0 && result3 > 0 && result2 == fileList.size()) {
 		commit(con);
 		result = 1;
 	} else {

@@ -82,14 +82,14 @@ public class InsertEnterpriseServlet extends HttpServlet {
 			String closedDay = multiRequest.getParameter("closedDay");
 			String website = multiRequest.getParameter("website");
 			String hashTags = multiRequest.getParameter("hashTags");
-			String introduce = multiRequest.getParameter("inrtoduce");
+			String introduce = multiRequest.getParameter("introduce");
 			String parkingPossible = multiRequest.getParameter("parkingPossible");
 			String enpType = multiRequest.getParameter("enpType");
 			String enpStatus = multiRequest.getParameter("enpStatus");
 			
 			System.out.println("enpType : " + enpType);
 			System.out.println("menuPrice : " + menuPrice);
-			
+			System.out.println("introduce : " + introduce);
 			
 			EnpUpVo enpUp = new EnpUpVo();
 			enpUp.setEnpName(enpName);
@@ -121,22 +121,24 @@ public class InsertEnterpriseServlet extends HttpServlet {
 	            
 	            fileList.add(at);
 	         }
-	         System.out.println("fileList : "+fileList);
+	         System.out.println("fileList : " + fileList);
 	         
 	         int result = new EnpService().insertEnterprise(enpUp, fileList);
-	         
+	         String page = "";
 	         if(result > 0) {
-	        	 response.sendRedirect(request.getContextPath() + "");
+	        	 page="views/upload/foodSuccess.jsp";
+	        	 request.setAttribute("enpUp", enpUp);
+	        	 request.setAttribute("fileList", fileList);
 	         } else {
 	        	 for(int i = 0 ; i < saveFiles.size(); i++) {
 	                 File failedFile = new File(savePath + saveFiles.get(i));
 	                 
 	                 failedFile.delete();
 	              }
-	              
+	              page = "views/common/errorPage.jsp";
 	              request.setAttribute("msg", "사진 게시판 등록 실패");
-	              request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
 	         }
+	         request.getRequestDispatcher(page).forward(request, response);
 	         
 	         
 	         

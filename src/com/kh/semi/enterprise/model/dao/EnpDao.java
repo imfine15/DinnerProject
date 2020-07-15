@@ -7,9 +7,13 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.Properties;
 
+import com.kh.semi.enterprise.model.vo.EnpAttachment;
 import com.kh.semi.enterprise.model.vo.EnpUpVo;
 import com.kh.semi.enterprise.model.vo.EnpVO;
 
@@ -123,12 +127,116 @@ public int insertEnterprise(Connection con, EnpUpVo enpUp) {
 		pstmt = con.prepareStatement(query);
 		pstmt.setString(1, enpUp.getEnpName());
 		pstmt.setString(2, enpUp.getEnpPhone());
-		/*ps*/
+		pstmt.setString(3, enpUp.getEnpAddress());
+		pstmt.setString(4, enpUp.getEnpHour());
+		pstmt.setString(5, enpUp.getEnpType());
+		pstmt.setString(6, enpUp.getHashTags());
+		pstmt.setString(7, enpUp.getPriceRange());
+		pstmt.setString(8, enpUp.getClosedDay());
+		pstmt.setString(9, enpUp.getWebsite());
+		pstmt.setString(10, enpUp.getIntroduce());
+		pstmt.setString(11, enpUp.getParkingPossible());
+		
+		result = pstmt.executeUpdate();
+		
 		
 		
 	} catch (SQLException e) {
 		// TODO Auto-generated catch block
 		e.printStackTrace();
+	} finally {
+		close(pstmt);
+	}
+	
+	return result;
+}
+
+public String selectCurrval(Connection con) {
+	Statement stmt = null;
+	ResultSet rset = null;
+	String enpNo = "";
+	
+	String query = prop.getProperty("selectCurrval");
+	
+	System.out.println("query : "+query);
+	
+	try {
+		stmt = con.createStatement();
+		rset = stmt.executeQuery(query);
+		
+		if(rset.next()) {
+			enpNo = rset.getString("currval");
+			
+			System.out.println("enpNocurrval : " + enpNo);
+			
+		}
+		
+		
+	} catch (SQLException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	} finally {
+		close(stmt);
+		close(rset);
+	}
+	
+	
+	return enpNo;
+}
+
+public int insertAttachment(Connection con, EnpAttachment enpAttachment) {
+	PreparedStatement pstmt = null;
+	int result = 0;
+	
+	String query = prop.getProperty("insertAttachment");
+	
+	System.out.println("query : "+query);
+	
+	try {
+		pstmt = con.prepareStatement(query);
+		pstmt.setString(1, enpAttachment.getOriginName());
+		pstmt.setString(2, enpAttachment.getChangeName());
+		pstmt.setString(3, enpAttachment.getFilePath());
+		pstmt.setString(4, enpAttachment.getEnpNo());
+		
+		result = pstmt.executeUpdate();
+		
+		
+	} catch (SQLException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}finally {
+		close(pstmt);
+	}
+	
+	
+	
+	return result;
+}
+
+public int insertMenu(Connection con, EnpUpVo enpUp) {
+	PreparedStatement pstmt = null;
+	int result = 0;
+	
+	String query = prop.getProperty("insertMenu");
+	
+	System.out.println("query : "+query);
+	
+	try {
+		pstmt = con.prepareStatement(query);
+		pstmt.setString(1, enpUp.getMenuName());
+		pstmt.setInt(2, enpUp.getMenuPrice());
+		pstmt.setString(3, enpUp.getEnpNo());
+		
+		System.out.println(enpUp.getEnpNo());
+		
+		result = pstmt.executeUpdate();
+		
+	} catch (SQLException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	} finally {
+		close(pstmt);
 	}
 	
 	return result;
