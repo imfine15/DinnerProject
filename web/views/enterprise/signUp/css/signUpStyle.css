@@ -20,6 +20,12 @@
 	#logo2 {
 		color:#EB7673;
 	}
+	input[type=checkbox]{
+		width:auto;
+		height:auto;
+		margin:0;
+	}
+	
 	
 	input {
 		width:520px;

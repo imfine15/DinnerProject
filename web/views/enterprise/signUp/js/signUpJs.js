@@ -14,6 +14,11 @@ var email = $("#email"); // 이메일
 var phone = $("#phone"); // 매장전화번호
 var enterpriseLicensee = $("#enterpriseLicensee option:selected"); // 사업자 구분 (개인사업자 : individual / 법인사업자 : corporate)
 var admit = $("#admit").prop("checked"); // 약관동의여부
+var lowerLimit = $("#lowerLimit");
+var higherLimit = $("#higherLimit");
+var introduce = $("#introduce");
+var parking = $("#parking");
+
 
 var idCheck = /[a-zA-Z0-9]{4,20}/;
 var passwordCheck = /[a-zA-Z0-9]{8,16}/;
@@ -76,6 +81,11 @@ function check() {
 	} else if(!enterpriseNameCheck.test(enterpriseName.val())) {
 		$("#enterpriseNameResult").html("매장이름을 1 ~ 15글자 영어 대소문자와 한글로만 입력하세요.").css({"backgroundColor" : "red", "color" : "white"});
 		$("#enterpriseName").focus();
+		return false;
+	}
+	if(introduce.val() === null || introduce.val() === "") {
+		$("#introduce").html("소개란은 비어있을 수 없습니다.");
+		$("#introduce").focus();
 		return false;
 	}
 	
@@ -144,6 +154,21 @@ function check() {
 		$("#admit").focus();
 		return false;
 	}
+	if(parking.val() === null || parking.val() === "") {
+		$("#parkingResult").html("주차 여부를 선택해주세요.").css({"backgroundColor" : "red", "color" : "white"});
+		$("#parking").focus();
+		return false;
+	}
+	if(lowerLimit.val() === null || lowerLimit.val() === "") {
+		
+		$("#lowerLimit").focus();
+		return false;
+	}
+	if(higherLimit.val() === null || higherLimit.val() === "") {
+		
+		$("#higherLimit").focus();
+		return false;
+	}
 	
 	return true;
 }
@@ -196,6 +221,14 @@ $(function() {
 	});
 	
 	$("input:text[name='enterpriseNumber']").on("keyup", function() {
+	    $(this).val($(this).val().replace(/[^0-9]/g,""));
+	});
+	
+	$("input:text[name='lowerLimit']").on("keyup", function() {
+	    $(this).val($(this).val().replace(/[^0-9]/g,""));
+	});
+	
+	$("input:text[name='higherLimit']").on("keyup", function() {
 	    $(this).val($(this).val().replace(/[^0-9]/g,""));
 	});
 	

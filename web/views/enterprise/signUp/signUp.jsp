@@ -163,6 +163,61 @@
 				<td colspan="3"><label id="enterpriseLicenseeResult"></label></td>
 			</tr>
 			<tr>
+				<td colspan="3">가격대 최소금액<br><span class="notice">숫자만 입력 가능합니다 <br>ex)천 원일 경우 "1000" 입력</span></td>
+			</tr>
+			<tr>
+				<td colspan="3"><input type="text" name="lowerLimit" id="lowerLimit"></td>
+			</tr>
+			<tr>
+				<td colspan="3">가격대 최대금액<br><span class="notice">숫자만 입력 가능합니다 <br>ex)천 원일 경우 "1000" 입력</span></td>
+			</tr>
+			<tr>
+				<td colspan="3"><input type="text" name="higherLimit" id="higherLimit"></td>
+			</tr>
+			<tr>
+				<td colspan="3">가게 휴무일<br><span class="notice">중복 선택 가능합니다. 사실과 일치하지 않는 경우 불이익이 발생할 수 있습니다.</span></td>
+			</tr>
+			<tr>
+				<td style="font-size: 18px;"><input type="checkbox" name="restDay"  value="월">월</td>
+				<td style="font-size: 18px;"><input type="checkbox" name="restDay"  value="화">화</td>
+				<td style="font-size: 18px;"><input type="checkbox" name="restDay"  value="수">수</td>
+			</tr>
+			<tr>
+				<td style="font-size: 18px;"><input type="checkbox" name="restDay"  value="목">목</td>
+				<td style="font-size: 18px;"><input type="checkbox" name="restDay"  value="금">금</td>
+			</tr>
+			<tr>
+				<td style="font-size: 18px;"><input type="checkbox" name="restDay"  value="토">토</td>
+				<td style="font-size: 18px;"><input type="checkbox" name="restDay"  value="일">일</td>
+			</tr>
+			<tr>
+				<td colspan="3">매장 홈페이지 주소 (있을 경우 기입)</td>
+			</tr>
+			<tr>
+				<td colspan="3"><input type="url" name="homepage" id="homepage"></td>
+			</tr>
+			<tr>
+				<td colspan="3">매장 소개</td>
+			</tr>
+			<tr>
+				<td colspan="3"><textarea rows="5" cols="71" style="resize:none;" name="introduce" id="introduce"></textarea></td>
+			</tr>
+			<tr>
+				<td colspan="3">주차 가능 여부</td>
+			</tr>
+			<tr>
+				<td colspan="3">
+					<select name="parking" id="parking">
+						<option value="" disabled selected hidden="hidden">주차 가능 여부</option>
+						<option value="individual">주차가능</option>
+						<option value="corporate">주차공간없음</option>
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="3"><label id="parkingResult"></label></td>
+			</tr>
+			<tr>
 				<td colspan="3">
 					<div>
 						<input type="checkbox" name="admit" id="admit">
