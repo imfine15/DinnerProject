@@ -201,12 +201,12 @@ div.upload-btn_wrap button {/*버튼 div*/
 					</tr>
 					<tr>
 						<td class="first">제목</td>
-						<td colspan="3"><input type="text" style="width:890px; height:26px;" id="questionTitle">
+						<td colspan="3"><input type="text" style="width:890px; height:26px;" name="qTitle" id="questionTitle">
 						</td>
 					</tr>
 					<tr>
 						<td class="first">내용</td>
-						<td colspan="3"><textarea id="questionContent"></textarea></td>
+						<td colspan="3"><textarea name="qContent" id="questionContent"></textarea></td>
 					</tr>
 					<tr>
 						<td class="first">첨부파일</td>
