@@ -113,6 +113,19 @@ public class MemberDao {
 				EnpVO e = new EnpVO();
 				
 				e.setEnpNo(rset.getString("ENP_NO"));
+				e.setEnpName(rset.getString("ENP_NAME"));
+				e.setEnpPhone(rset.getString("ENP_PHONE"));
+				e.setEnpAddress(rset.getString("ENP_ADDRESS"));
+				e.setEnpHour(rset.getString("ENP_HOUR"));
+				e.setEnpType(rset.getString("ENP_TYPE"));
+				e.setEnpStatus(rset.getString("ENP_STATUS"));
+				e.setEnpPartnerType(rset.getString("ENP_PARTNER_TYPE"));
+				e.setHashTags(rset.getString("HASH_TAGS"));
+				e.setPriceRange(rset.getString("PRICE_RANGE"));
+				e.setClosedDay(rset.getString("CLOSED_DAY"));
+				e.setWebsite(rset.getString("WEBSITE"));
+				e.setIntroduce(rset.getString("INTRODUCE"));
+				e.setParkingPossible(rset.getString("PARKING_POSSIBLE"));
 				
 				enpList.add(e);
 			}
