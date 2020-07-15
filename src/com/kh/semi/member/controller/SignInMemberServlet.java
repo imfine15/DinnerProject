@@ -25,14 +25,16 @@ public class SignInMemberServlet extends HttpServlet {
 		
 		MemberVO requestMember = new MemberVO();
 		
-		requestMember.setId(id);
-		requestMember.setPassword(password);
-		
+		requestMember.setmId(id);
+		requestMember.setmPwd(password);
+		System.out.println(id);
+		System.out.println(password);
 		MemberVO responseMember = new MemberService().loginMember(requestMember);
 		
 		if(responseMember != null) {
 			// 로그인 성공
 			System.out.println("responseMember : " + responseMember);
+			
 		} else {
 			// 로그인 실패
 			System.out.println("로그인 실패");

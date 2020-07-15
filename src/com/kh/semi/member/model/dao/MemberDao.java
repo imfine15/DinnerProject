@@ -38,14 +38,7 @@ public class MemberDao {
 //			아래 입력 내용은 쿼리에 따라 달라질 수 있음
 //			ID, PASSWORD, NAME, EMAIL, PHONE, GENDER, NICKNAME, TERMSADMIT(0, 1)
 //			INSERT INTO MEMBER VALUES(SEQ_MEMBERNO.NEXTVAL, ?, ?, ?, ?, ?, ?, ?, DEFAULT, ?)
-			pstmt.setString(1, requestMember.getId());
-			pstmt.setString(2, requestMember.getPassword());
-			pstmt.setString(3, requestMember.getName());
-			pstmt.setString(4, requestMember.getEmail());
-			pstmt.setString(5, requestMember.getPhone());
-			pstmt.setString(6, requestMember.getGender());
-			pstmt.setString(7, requestMember.getNickName());
-			pstmt.setString(8, requestMember.getTermsAdmit());
+
 			
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
@@ -65,25 +58,27 @@ public class MemberDao {
 		
 		try {
 //			SELECT * FROM MEMBER WHERE ID = ? AND PASSWORD = ?
-			responseMember = new MemberVO();
+			
 			pstmt = con.prepareStatement(query);
 			
-			pstmt.setString(1, requestMember.getId());
-			pstmt.setString(2, requestMember.getPassword());
-			
+			pstmt.setString(1, requestMember.getmId());
+			pstmt.setString(2, requestMember.getmPwd());
+			System.out.println("1 : "+requestMember.getmId());
+			System.out.println("1 : "+requestMember.getmPwd());
 			rset = pstmt.executeQuery();
 			
 			if(rset.next()) {
-				responseMember.setMemberNo(rset.getInt("MEMBERNO"));
-				responseMember.setId(rset.getString("ID"));
-				responseMember.setPassword(rset.getString("PASSWORD"));
-				responseMember.setName(rset.getString("NAME"));
-				responseMember.setEmail(rset.getString("EMAIL"));
-				responseMember.setPhone(rset.getString("PHONE"));
-				responseMember.setGender(rset.getString("GENDER"));
-				responseMember.setNickName(rset.getString("NICKNAME"));
-				responseMember.setGrade(rset.getString("GRADE"));
-				responseMember.setTermsAdmit(rset.getString("TERMSADMIT"));
+				responseMember = new MemberVO();
+				responseMember.setmNo(rset.getString("MEMBER_NO"));
+				responseMember.setmId(rset.getString("MEMBER_ID"));
+				responseMember.setmPwd(rset.getString("MEMBER_PWD"));
+				responseMember.setmName(rset.getString("MEMBER_NAME"));
+				responseMember.setmEmail(rset.getString("MEMBER_EMAIL"));
+				responseMember.setmPhone(rset.getString("MEMBER_PHONE"));
+				responseMember.setmGender(rset.getString("MEMBER_GENDER"));
+				responseMember.setmNickname(rset.getString("MEMBER_NICKNAME"));
+				responseMember.setmGrade(rset.getString("MEMBER_GRADE"));
+				
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
