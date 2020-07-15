@@ -5,7 +5,6 @@ public class EnpUpVo implements java.io.Serializable {
 	private String enpName;
 	private String enpAddress;
 	private String enpPhone;
-	private String enpType;
 	private String menuName;
 	private int menuPrice;
 	private String priceRange;
@@ -15,6 +14,7 @@ public class EnpUpVo implements java.io.Serializable {
 	private String hashTags;
 	private String introduce;
 	private String parkingPossible;
+	private String enpType;
 	private String enpStatus;
 	private String enpPartnerType;
 	

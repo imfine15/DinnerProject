@@ -62,6 +62,7 @@ public class InsertEnterpriseServlet extends HttpServlet {
 		String enpStatus = request.getParameter("enpStatus");
 		
 		System.out.println("enpType : " + enpType);
+		System.out.println("menuPrice : " + menuPrice);
 		
 		if(ServletFileUpload.isMultipartContent(request)) {
 			
