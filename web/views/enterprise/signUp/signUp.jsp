@@ -154,8 +154,8 @@
 				<td colspan="3">
 					<select name="enterpriseLicensee" id="enterpriseLicensee">
 						<option value="" disabled selected hidden="hidden">사업자구분</option>
-						<option value="individual">개인사업자</option>
-						<option value="corporate">법인사업자</option>
+						<option value="개인">개인사업자</option>
+						<option value="법인">법인사업자</option>
 					</select>
 				</td>
 			</tr>

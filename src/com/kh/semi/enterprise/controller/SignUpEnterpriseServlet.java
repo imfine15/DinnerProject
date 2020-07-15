@@ -81,6 +81,7 @@ public class SignUpEnterpriseServlet extends HttpServlet {
 		System.out.println(introduce);
 		System.out.println(homepage);
 		System.out.println("min : " + minTime + ", max : " + maxTime);
+		System.out.println(enterpriseLicense);
 		
 		String enpHour = minTime + " ~ " + maxTime;
 		
@@ -92,7 +93,7 @@ public class SignUpEnterpriseServlet extends HttpServlet {
 		requestEnp.setEnpName(enterpriseName);
 		requestEnp.setBank(bank);
 		requestEnp.setBankAccount(bankAccount);
-		requestEnp.setEnpNo(enterpriseNumber);
+		requestEnp.setEnpRegisterNo(enterpriseNumber);
 		requestEnp.setEnpAddress(address + "$" +addressDetail);
 		requestEnp.setEnpType(enterpriseType);
 		requestEnp.setPartnerEmail(email);
@@ -110,10 +111,10 @@ public class SignUpEnterpriseServlet extends HttpServlet {
 		
 		
 		
-		/*int result = new EnpService().insertPartnerEnp(requestEnp);
+		int result = new EnpService().insertPartnerEnp(requestEnp);
 		
 		String page="";
-		if(result > 0) {
+		if(result > 1) {
 			page="views/main/main.jsp";
 			System.out.println("업체 정보 입력에 성공했습니다.");
 		} else {
@@ -121,7 +122,7 @@ public class SignUpEnterpriseServlet extends HttpServlet {
 			page="/semiproject/views/enterprise/common/errorPage.jsp";
 			System.out.println("업체 정보 입력에 실패했습니다.");
 		}
-		request.getRequestDispatcher(page).forward(request, response);*/
+		request.getRequestDispatcher(page).forward(request, response);
 	}
 
 	/**
