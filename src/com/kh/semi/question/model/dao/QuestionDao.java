@@ -15,20 +15,28 @@ public class QuestionDao {
 	
 	private Properties prop = new Properties();
 	
-	//사진게시판 내용 중 Board테이블에 insert용 메소드
+	public int 
+	
+	//문의하기 글 등록용 메소드
 	public int insertQuestion(Connection con, QuestionVO question) {
 
 		PreparedStatement pstmt = null;
 		int result = 0;
 
 		String query = prop.getProperty("insertQusetion");
-
+			
 		try {
 			pstmt = con.prepareStatement(query);
-			pstmt.setString(1, question.getQuestionTitle());
-			pstmt.setString(2, question.getQuestionContent());
-			pstmt.setString(3,question.getMemberName());
-
+			pstmt.setString(1, question.getMemberNo());
+			pstmt.setString(2, question.getMemberName());
+			pstmt.setString(3, question.getQuestionType());
+			pstmt.setString(4,  question.getQuestionTitle());
+			pstmt.setString(5,  question.getQuestionContent());
+			pstmt.setString(6,  question.getQuestionEmail());
+			pstmt.setString(7,  question.getEmailAdmit());
+			pstmt.setString(8,  question.getQuestionPhone());
+			pstmt.setString(9,  question.getPhoneAdmit());
+			
 			result = pstmt.executeUpdate();
 
 		} catch (SQLException e) {
