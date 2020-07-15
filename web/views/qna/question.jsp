@@ -36,7 +36,7 @@ tr {
 	font-weight:bolder;
 }
 
-#content {
+#questionContent {
 	width: 890px;
 	height: 300px;
 	resize: none;
@@ -172,38 +172,41 @@ div.upload-btn_wrap button {/*버튼 div*/
 </style>
 </head>
 <body>
-	<%@ include file="../common/header.jsp"%>
+	<%@ include file="/views/common/header.jsp"%>
+<!-- <% //if(loginUser != null) { %>  -->	
 	<div class="wrapper" align="center">
 		<div>
 			<p id="question-t" style="margin-top: 100px; margin-right: 850px;">문의하기</p>
 		</div>
 		<div>
-			<form class="question-for m">
+			<form class="question-form" action="<%= request.getContextPath() %>/insert.qu" method="post" encType="multipart/form-data">
 				<table style="width: 1000px">
 					<tr class="td-top">
 						<td class="first" style="width: 100px;">ID</td>
-						<td style="width: 400px;"></td>
+						<td style="width: 400px;">겟로그인유저아이디</td>
 						<td style="text-align: center; width: 100px; font-weight:bolder;">고객명</td>
-						<td style="width: 400px;"></td>
+						<td style="width: 400px;">겟로그인유저네임</td>
 					</tr>
 					<tr>
 						<td class="first" style="width: 100px;">문의 분류</td>
-						<td colspan="3"><select style="height:30px; width:897px; font-size:16px;">
-								<option>예약 문의</option>
-								<option>환불 및 결제 문의</option>
-								<option>신고 및 제재 문의</option>
-								<option>기타 문의</option>
-								<option>회원 문의</option>
-						</select></td>
+						<td colspan="3">
+							<select style="height:30px; width:897px; font-size:16px;">
+								<option value="QTC1">예약 문의</option>
+								<option value="QTC2">환불 및 결제 문의</option>
+								<option value="QTC3">신고 및 제재 문의</option>
+								<option value="QTC4">기타 문의</option>
+								<option value="QTC5">회원 문의</option>
+							</select>
+						</td>
 					</tr>
 					<tr>
 						<td class="first">제목</td>
-						<td colspan="3"><input type="text" style="width:890px; height:26px;" id="">
+						<td colspan="3"><input type="text" style="width:890px; height:26px;" id="questionTitle">
 						</td>
 					</tr>
 					<tr>
 						<td class="first">내용</td>
-						<td colspan="3"><textarea id="content"></textarea></td>
+						<td colspan="3"><textarea id="questionContent"></textarea></td>
 					</tr>
 					<tr>
 						<td class="first">첨부파일</td>
@@ -224,13 +227,13 @@ div.upload-btn_wrap button {/*버튼 div*/
 						<td class="first" rowspan="2">답변 <br>알림받기</td>
 						<td colspan="3">
 							<p style="line-height: 40px;">※ 답변 등록 시 이메일로 보내드립니다.</p> 
-							<input type="checkbox" id=""> 
+							<input type="checkbox" id="mailAdmit"> 
 							<div id="agree-div"><label style="line-height: 40px;">
 							(선택)이메일 수집 및 이용 동의</label></div><div class="phone-div">
 							<button class="btn-agree" id="mail-agree"
 							onclick="window.open('/semiproject/views/qna/questionDetailMail.jsp', '_blank', 'width=650px,height=550px,toolbars=no,scrollbars=no'); return false;">전문보기</button></div>
 							<br><br>
-							<input type="email" placeholder="이메일 주소 입력" style="width:500px; height:26px; font-size:16px;"> 
+							<input type="email" id="qMail" placeholder="이메일 주소 입력" style="width:500px; height:26px; font-size:16px;"> 
 						<br>
 						<br>
 						</td>
@@ -238,7 +241,7 @@ div.upload-btn_wrap button {/*버튼 div*/
 					<tr>
 						<td colspan="3">
 						<p style="line-height: 40px;">※ 답변 등록 시 알림문자를 보내드립니다.</p>
-						<input type="checkbox" id=""> 
+						<input type="checkbox" id="phoneAdmit"> 
 						<div id="agree-div2"><label style="line-height: 40px;">
 						(선택)휴대폰번호 수집 및 이용 동의&nbsp;( -(하이픈) 을 제외하고 입력해주세요.)<br>
 						
@@ -255,7 +258,7 @@ var popupY= (window.screen.height / 2) - (popupHeight / 2);
 						<button class="btn-agree" id="phone-agree" 
 						onclick="window.open('/semiproject/views/qna/questionDetail.jsp', '_blank', 'width=650px,height=550px,toolbars=no,scrollbars=no'); return false;">전문보기</button></div>
 						<br> <br>
-							<input type="text" placeholder="전화번호 입력" style="width:500px; height:26px; font-size:16px;"> 
+							<input type="text" id="qPhone" placeholder="전화번호 입력" style="width:500px; height:26px; font-size:16px;"> 
 						<br>
 
 						<br>
@@ -263,18 +266,26 @@ var popupY= (window.screen.height / 2) - (popupHeight / 2);
 					</tr>
 				</table>
 				<div id="btnArea">
-					<button type="submit" id="question-submit">접수</button>
-					<button type="reset" id="question-reset">취소</button>
+					<button type="submit" id="question-submit" onclick="questionSubmit">접수</button>
+					<button type="reset" id="question-reset" onclick="questionReset">취소</button>
 				</div>
 			</form>
 		</div>
 	</div>
+	<!--<% // } >else { 
+	//	request.setAttribute("msg", "잘못된 경로로 접근하셨습니다.");
+	//	request.getRequestDispatcher("../common/errorPage.jsp").forward(request, response);
+	//{ %>  -->	
 	<div style="height: 200px;"></div>
 	<script>
-	$("#mail-choice").select2({
-	    placeholder: "선택하세요"
-	});
-
+	function questionSubmit() {
+		$("#question-submit").submit();
+	}
+	
+	function questionReset() {
+		$("#question-reset").reset();
+	}
+	
 	$(function(){
 		$('.upload_text').val('');
 		$('.input_file').change(function(){
