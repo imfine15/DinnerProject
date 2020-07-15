@@ -37,6 +37,32 @@ public class InsertQuestionServlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
+    
+//
+//	int category = Integer.parseInt(request.getParameter("category"));
+//	String title = request.getParameter("title");
+//	String content = request.getParameter("content");	
+//	HttpSession session = request.getSession();	
+//	Member loginUser = (Member)session.getAttribute("loginUser");
+//	int uno = loginUser.getUno();
+//	
+//	
+//	/*
+//	 * System.out.println("category : " + category); System.out.println("title : " +
+//	 * title); System.out.println("content : " + content);
+//	 * System.out.println("uno : " + uno);
+//	 */
+//	
+//	Board board = new Board();
+//	board.setCid(category);
+//	board.setbTitle(title);
+//	board.setbContent(content);
+//	board.setbWriter(uno);
+//	
+//	int result = new BoardService().insertBoard(board);
+//	
+    
+    
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 
@@ -48,17 +74,6 @@ public class InsertQuestionServlet extends HttpServlet {
 						
 			//파일 저장 경로 설정
 			 String savePath = root + "thumbnail_uploadFile/";
-			
-			//사용자가 올린 파일명을 그대로 사용하지 않는 것이 일반적이다.
-			//1. 같은 파일명이 있는 경우 이전 파일을 덮어쓸 수 있다.
-		    //2. 한글로 된 파일명, 특수기호, 띄어쓰기 등은 서버 운영체제의 인코딩 방식에 따라 문제가 생길 수 있다.
-			//DefaultFileRenamePolicy는 cos.jar 안에 존재하는 클래스로
-			//같은 파일명이 존재하는지를 검사하고, 있는 경우 파일명 뒤에 숫자를 붙여준다.
-			//ex) aaa.zip, aaa1.zip, aaa2.zip
-			 
-			//DefaultFileRenamePolicy 이용
-//			MultipartRequest multiRequest = 
-//					new MultipartRequest(request, savePath, maxSize, "UTF-8", new DefaultFileRenamePolicy());
 			 
 			 //FileRenamePolicy 상속 후 오버라이딩
 			 MultipartRequest multiRequest = 
@@ -83,12 +98,11 @@ public class InsertQuestionServlet extends HttpServlet {
 			 }
 			 
 			 //multipartRequest객체에서 파일 외의 값들도 꺼낼 수 있다.
+			 String qCategory = multiRequest.getParameter("qCategory");
 			 String qTitle = multiRequest.getParameter("qTitle");
 			 String qContent = multiRequest.getParameter("qContent");
 			 String writer = multiRequest.getParameter("writer");
-			  
-			 System.out.println(qTitle);
-			 System.out.println(qContent);
+			 
 			 
 		//	 int writer = ((Member)(request.getSession().getAttribute("loginUser"))).getUno();
 			 			 
@@ -96,6 +110,7 @@ public class InsertQuestionServlet extends HttpServlet {
 			 question.setQuestionTitle(qTitle);
 			 question.setQuestionContent(qContent);
 			 question.setMemberName(writer);
+			 question.setQuestionType(qCategory);
 			 
 			 ArrayList<EnpAttachment> fileList = new ArrayList<>();
 			 
@@ -109,10 +124,13 @@ public class InsertQuestionServlet extends HttpServlet {
 				 fileList.add(eat);
 			 }
 			 			 
-			 int result = new QuestionService().insertQuestion(question, fileList);
+			 int result = new QuestionService().insertQuestion(question, fileList);		 
+			 
+			 String page = "";
 			 
 			 if(result > 0) {
-				 response.sendRedirect(request.getContextPath() /*+ 경로다시"/selectList.tn"*/);				 
+				 page = "/views/qna/question_comp.jsp";
+				 //넘기는값들 넘기기  셋어트리뷰트로 
 			 } else {
 				 
 				 for(int i = 0; i < saveFiles.size(); i++) {

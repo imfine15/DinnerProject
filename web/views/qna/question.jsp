@@ -157,17 +157,18 @@ div.upload-btn_wrap {/*버튼테두리 감싼 div*/
 	overflow:hidden;
 	position:relative;
 	float:left;
-	width:70px;/*width, height 값은 button(찾아보기)값과 같아야함 */
-	height:21px;
+	width:100px;/*width, height 값은 button(찾아보기)값과 같아야함 */
+	height:30px;
 	padding-left:3px;
 }
 div.upload-btn_wrap button {/*버튼 div*/
-	width:70px;
-	height:21px;
+	width:100px;
+	height:30px;
 	font-weight:bold;
 	background:#333;
 	border:1px solid #333;
 	color:#fff;
+	text-align:center;
 }
 </style>
 </head>
@@ -190,7 +191,7 @@ div.upload-btn_wrap button {/*버튼 div*/
 					<tr>
 						<td class="first" style="width: 100px;">문의 분류</td>
 						<td colspan="3">
-							<select style="height:30px; width:897px; font-size:16px;">
+							<select style="height:30px; width:897px; font-size:16px;" name="qCategory">
 								<option value="QTC1">예약 문의</option>
 								<option value="QTC2">환불 및 결제 문의</option>
 								<option value="QTC3">신고 및 제재 문의</option>
@@ -211,16 +212,18 @@ div.upload-btn_wrap button {/*버튼 div*/
 					<tr>
 						<td class="first">첨부파일</td>
 						<td colspan="3">
+						
 						<div id="file-div">
 						<input type="text" class="upload_text" readonly="readonly"
-												style="width:700px; height:26px;">
-							<div class="upload-btn_wrap">
-								<button type="button" title="파일찾기" id="btn-file">
-									<div>파일찾기</div>
-								</button>
+												style="width:750px; height:26px;">
+							<div class="upload-btn_wrap" style="margin-left:20px;">
 								<input type="file" class="input_file" title="파일찾기">
+								<button type="button" title="파일찾기" id="btn-file">
+									<div align="center">파일찾기</div>
+								</button>
 							</div>
 						  </div>
+						  
 						</td>
 					</tr>
 					<tr>
