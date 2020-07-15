@@ -66,7 +66,7 @@ input[type="number"]::-webkit-inner-spin-button {
 </head>
 <body>
 <%@ include file="/views/common/header.jsp" %>
-<form>
+<form method="get">
 	<div
 		style="width: 80%; height: 1400px; margin-left: auto; margin-right: auto; padding-top: 100px;">
 		<div class="subb">
@@ -78,7 +78,8 @@ input[type="number"]::-webkit-inner-spin-button {
 					합리적인 가격에 좋은 추억 만들어 드리겠읍니다...^^ 장미꽃 한 송이 놓고 갑니다..... @}--->-----</p>
 				<br>
 				<hr style="margin-left: -30px; margin-right: 50px;">
-				<br> <input type="checkbox" style="width: 17px; height: 17px;">
+				<br> <input id="information" type="checkbox" style="width: 17px; height: 17px;">
+				
 				<label style="font-size: 20px">이용자 전체 약관 동의</label> <a href=""><label
 					style="padding-left: 50px; font-size: 10px;">약관보기</label></a> <br>
 				<br>
@@ -173,7 +174,7 @@ input[type="number"]::-webkit-inner-spin-button {
 			<textarea cols=40 rows=10 style="resize: none;" placeholder="요청사항을 입력해 주세요."></textarea><br><br>
 			<label>사용하실 포인트 : </label><input type="number" min="0" max="2000"><br><br>
 			
-			<button style="width:100%; height:50px; background: #DE6B6A; color:white; 
+			<button onclick="reservation();" style="width:100%; height:50px; background: #DE6B6A; color:white; 
 			border:0px; font-size: 26px;">예약하기</button><br>
 			<div align="center">
 				<label style="font-size: 15px;">예약시 보증금 20000원이 결제되며, </label><br>
@@ -182,7 +183,19 @@ input[type="number"]::-webkit-inner-spin-button {
 		</div>
 	</div>
 </form>
-	
+<script>
+	function reservation(){
+	if($("#finaltime").html() === null || $("#finaltime").html() === ""){
+		alert("날짜 입력를 입력해주세요.");
+	}
+	if($("#information").is(":checked") != true){
+		alert("이용자 약관 동의를 해주세요.");
+	}
+	if($("#people").html() === null || $("#people").html() === ""){
+		alert("인원을 입력해주세요.");
+	}
+	}
+</script>
 	
 	
 	
@@ -281,15 +294,15 @@ function dd(){
 		if(check == null){
 			
 		}else{
-			check.css("background","white");
+			check.css({"background":"white","color":"#787878"});
 		}
 		check = $(this);
-		check.css("background", "yellow");
+		check.css({"background":"#EB7673","color":"white"});
 		
 		$("#year").html(year + "년");
 		$("#month").html(month + "월");
 		$("#day").html(day + "일");
-		$("#dayLabel").html("("+todayLabel+")");
+		$("#dayLabel").html("(" + todayLabel + ")");
 		
 		$("#finaltime").html(year + "년 " + month + "월 " + day + "일 (" + todayLabel + 
 				") " + hour + "시 " + min + "분");
@@ -329,10 +342,10 @@ function dd(){
 		if(check == null){
 			
 		}else{
-			check.css("background","white");
+			check.css({"background":"white","color":"#787878"});
 		}
 		check = $(this);
-		check.css("background", "yellow");
+		check.css({"background":"#EB7673","color":"white"});
 		
 		$("#year").html(year + "년");
 		$("#month").html(month + "월");

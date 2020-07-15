@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8" import="com.kh.semi.member.model.vo.MemberVO"%>
+<%
+	MemberVO loginUser = (MemberVO) session.getAttribute("loginUser");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -22,13 +25,17 @@ body {
 				<img src="/semiproject/images/YUMEET LOGO.png" style="width: 200px;">
 			</a>
 				
-			<a href="" style="float: right">
+			<a href="/semiproject/views/signIn/signIn.jsp" style="float: right">
 				<img src="/semiproject/images/myicon.png" style="width: 100px;">
 			</a>
-				
+			<%if(loginUser == null){ %>
 			<a href="" style="float: right">
 				<img src="/semiproject/images/location.png" style="width: 100px;">
 			</a>
+			<%} else {%>
+				console.log("123");
+			<%} %>
+			
 		</div>
 	</div>
 </body>

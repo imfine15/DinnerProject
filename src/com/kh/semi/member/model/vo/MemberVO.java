@@ -1,119 +1,120 @@
 package com.kh.semi.member.model.vo;
 
 public class MemberVO {
-	private int memberNo;
-	private String id;
-	private String password;
-	private String name;
-	private String email;
-	private String phone;
-	private String gender;
-	private String nickName;
-	private String grade;
-	private String termsAdmit;
+	private String mNo;
+	private String mId;
+	private String mPwd;
+	private String mName;
+	private String mEmail;
+	private String mPhone;
+	private String mGender;
+	private String mNickname;
+	private String mGrade;
+	private String status;
 	
 	public MemberVO() {}
 
-	public MemberVO(int memberNo, String id, String password, String name, String email, String phone, String gender,
-			String nickName, String grade, String termsAdmit) {
+	public MemberVO(String mNo, String mId, String mPwd, String mName, String mEmail, String mPhone, String mGender,
+			String mNickname, String mGrade, String status) {
 		super();
-		this.memberNo = memberNo;
-		this.id = id;
-		this.password = password;
-		this.name = name;
-		this.email = email;
-		this.phone = phone;
-		this.gender = gender;
-		this.nickName = nickName;
-		this.grade = grade;
-		this.termsAdmit = termsAdmit;
+		this.mNo = mNo;
+		this.mId = mId;
+		this.mPwd = mPwd;
+		this.mName = mName;
+		this.mEmail = mEmail;
+		this.mPhone = mPhone;
+		this.mGender = mGender;
+		this.mNickname = mNickname;
+		this.mGrade = mGrade;
+		this.status = status;
 	}
 
-	public int getMemberNo() {
-		return memberNo;
+	public String getmNo() {
+		return mNo;
 	}
 
-	public void setMemberNo(int memberNo) {
-		this.memberNo = memberNo;
+	public void setmNo(String mNo) {
+		this.mNo = mNo;
 	}
 
-	public String getId() {
-		return id;
+	public String getmId() {
+		return mId;
 	}
 
-	public void setId(String id) {
-		this.id = id;
+	public void setmId(String mId) {
+		this.mId = mId;
 	}
 
-	public String getPassword() {
-		return password;
+	public String getmPwd() {
+		return mPwd;
 	}
 
-	public void setPassword(String password) {
-		this.password = password;
+	public void setmPwd(String mPwd) {
+		this.mPwd = mPwd;
 	}
 
-	public String getName() {
-		return name;
+	public String getmName() {
+		return mName;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setmName(String mName) {
+		this.mName = mName;
 	}
 
-	public String getEmail() {
-		return email;
+	public String getmEmail() {
+		return mEmail;
 	}
 
-	public void setEmail(String email) {
-		this.email = email;
+	public void setmEmail(String mEmail) {
+		this.mEmail = mEmail;
 	}
 
-	public String getPhone() {
-		return phone;
+	public String getmPhone() {
+		return mPhone;
 	}
 
-	public void setPhone(String phone) {
-		this.phone = phone;
+	public void setmPhone(String mPhone) {
+		this.mPhone = mPhone;
 	}
 
-	public String getGender() {
-		return gender;
+	public String getmGender() {
+		return mGender;
 	}
 
-	public void setGender(String gender) {
-		this.gender = gender;
+	public void setmGender(String mGender) {
+		this.mGender = mGender;
 	}
 
-	public String getNickName() {
-		return nickName;
+	public String getmNickname() {
+		return mNickname;
 	}
 
-	public void setNickName(String nickName) {
-		this.nickName = nickName;
+	public void setmNickname(String mNickname) {
+		this.mNickname = mNickname;
 	}
 
-	public String getGrade() {
-		return grade;
+	public String getmGrade() {
+		return mGrade;
 	}
 
-	public void setGrade(String grade) {
-		this.grade = grade;
+	public void setmGrade(String mGrade) {
+		this.mGrade = mGrade;
 	}
 
-	public String getTermsAdmit() {
-		return termsAdmit;
+	public String getStatus() {
+		return status;
 	}
 
-	public void setTermsAdmit(String termsAdmit) {
-		this.termsAdmit = termsAdmit;
+	public void setStatus(String status) {
+		this.status = status;
 	}
 
 	@Override
 	public String toString() {
-		return "MemberVO [memberNo=" + memberNo + ", id=" + id + ", password=" + password + ", name=" + name
-				+ ", email=" + email + ", phone=" + phone + ", gender=" + gender + ", nickName=" + nickName + ", grade="
-				+ grade + ", termsAdmit=" + termsAdmit + "]";
+		return "MemberVO [mNo=" + mNo + ", mId=" + mId + ", mPwd=" + mPwd + ", mName=" + mName + ", mEmail=" + mEmail
+				+ ", mPhone=" + mPhone + ", mGender=" + mGender + ", mNickname=" + mNickname + ", mGrade=" + mGrade
+				+ ", status=" + status + "]";
 	}
+	
 
 }
