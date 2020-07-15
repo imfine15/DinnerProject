@@ -3,7 +3,9 @@ package com.kh.semi.member.model.service;
 import static com.kh.semi.common.JDBCTemplate.*;
 
 import java.sql.Connection;
+import java.util.ArrayList;
 
+import com.kh.semi.enterprise.model.vo.EnpVO;
 import com.kh.semi.member.model.dao.MemberDao;
 import com.kh.semi.member.model.vo.MemberVO;
 
@@ -31,6 +33,15 @@ public class MemberService {
 		close(con);
 		
 		return responseMember;
+	}
+
+	public ArrayList<EnpVO> searchEnp(String search) {
+		Connection con = getConnection();
+		ArrayList<EnpVO> enpList = new MemberDao().searchEnp(con, search);
+		
+		close(con);
+		
+		return enpList;
 	}
 
 }
