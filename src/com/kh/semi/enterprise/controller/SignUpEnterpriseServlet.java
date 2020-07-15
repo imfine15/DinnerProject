@@ -77,7 +77,7 @@ public class SignUpEnterpriseServlet extends HttpServlet {
 		
 		String page="";
 		if(result > 0) {
-			
+			page="views/main/main.jsp";
 			System.out.println("업체 정보 입력에 성공했습니다.");
 		} else {
 			request.setAttribute("msg", "업체 정보 입력에 실패했습니다.");
