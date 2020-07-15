@@ -209,13 +209,25 @@
 				<td colspan="3">
 					<select name="parking" id="parking">
 						<option value="" disabled selected hidden="hidden">주차 가능 여부</option>
-						<option value="individual">주차가능</option>
-						<option value="corporate">주차공간없음</option>
+						<option value="주차가능">주차가능</option>
+						<option value="주차공간없음">주차공간없음</option>
 					</select>
 				</td>
 			</tr>
 			<tr>
 				<td colspan="3"><label id="parkingResult"></label></td>
+			</tr>
+			<tr>
+				<td colspan="3">영업 시간</td>
+			</tr>
+			<tr>
+				<td colspan="3"><input type="time" name="minTime" id="minTime"></td>
+			</tr>
+			<tr>
+				<td colspan="3" style="text-align:center;">~</td>
+			</tr>
+			<tr>
+				<td colspan="3"><input type="time" name="maxTime" id="maxTime"></td>
 			</tr>
 			<tr>
 				<td colspan="3">

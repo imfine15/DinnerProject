@@ -30,10 +30,7 @@ var enterpriseNumberCheck = /\d{10}/;
 var phoneCheck = /\d{9,12}/;
 
 function check() {
-	console.log(parking);
-	console.log(parking.val());
-	alert(parking);
-	alert(parking.val());
+	
 	
 	if(id.val() === null || id.val() === "") {
 		$("#idResult").html("아이디는 비어있을 수 없습니다.").css({"backgroundColor" : "red", "color" : "white"});
@@ -163,19 +160,15 @@ function check() {
 	if(parking.val() == null || parking.val() == "") {
 		$("#parkingResult").html("주차 여부를 선택해주세요.").css({"backgroundColor" : "red", "color" : "white"});
 		$("#parking").focus();
-		alert("^^ㅣ바련아1");
 		return false;
 	}
 	
 	if(lowerLimit.val() === null || lowerLimit.val() === "") {
-		console.log("^^ㅣ바련아2");
 		$("#lowerLimit").focus();
 		return false;
 	}
 	
 	if(higherLimit.val() === null || higherLimit.val() === "") {
-		console.log("^^ㅣ바련아3");
-		
 		$("#higherLimit").focus();
 		return false;
 	}

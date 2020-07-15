@@ -45,13 +45,44 @@ public class SignUpEnterpriseServlet extends HttpServlet {
 		String email = request.getParameter("email");
 		String phone = request.getParameter("phone");
 		String enterpriseLicense = request.getParameter("enterpriseLicensee");
+		String lowerLimit = request.getParameter("lowerLimit");
+		String higherLimit = request.getParameter("higherLimit"); // lowerLimit과 합체
+		String[] restDays = request.getParameterValues("restDay"); //뭘로 끊지 ?
+		String homepage = request.getParameter("homepage"); //null인 경우 처리
+		String introduce = request.getParameter("introduce");
+		String parking = request.getParameter("parking");
 		String admit = request.getParameter("admit"); // 동의했을경우 on
+		String minTime = request.getParameter("minTime");
+		String maxTime = request.getParameter("maxTime");
 		String termsAdmit = "0";
 		if(admit.equals("on")) {
 			termsAdmit = "1"; // 비동의시 0, 동의시 1
 		}
+		String priceRange = lowerLimit + "원 ~ " + higherLimit + "원";
+		System.out.println(priceRange);
+		for(String s : restDays) {
+			System.out.println(s);
+		}
 		
-		System.out.println(termsAdmit);
+		String restDay = "";
+		for(int i = 0 ; i < restDays.length; i++) {
+			if(i != restDays.length-1) {
+				restDay += restDays[i] + "요일, ";
+			}else {
+				restDay += restDays[i] + "요일";
+			}
+		}
+		if(homepage == null || homepage == "") {
+			homepage = "매장 홈페이지가 없습니다.";
+		}
+		
+		System.out.println(restDay);
+		System.out.println(parking);
+		System.out.println(introduce);
+		System.out.println(homepage);
+		System.out.println("min : " + minTime + ", max : " + maxTime);
+		
+		String enpHour = minTime + " ~ " + maxTime;
 		
 		EnpVO requestEnp = new EnpVO();
 		requestEnp.setPartnerId(id);
@@ -62,18 +93,24 @@ public class SignUpEnterpriseServlet extends HttpServlet {
 		requestEnp.setBank(bank);
 		requestEnp.setBankAccount(bankAccount);
 		requestEnp.setEnpNo(enterpriseNumber);
-		requestEnp.setEnpAddress(address + "$"+addressDetail);
+		requestEnp.setEnpAddress(address + "$" +addressDetail);
 		requestEnp.setEnpType(enterpriseType);
 		requestEnp.setPartnerEmail(email);
 		requestEnp.setEnpPhone(phone);
 		requestEnp.setEnpLicense(enterpriseLicense);
+		requestEnp.setPriceRange(priceRange);
+		requestEnp.setClosedDay(restDay);
+		requestEnp.setParkingPossible(parking);
+		requestEnp.setWebsite(homepage);
+		requestEnp.setIntroduce(introduce);
+		requestEnp.setEnpHour(enpHour);
 		
 		
 		
 		
 		
 		
-		int result = new EnpService().insertPartnerEnp(requestEnp);
+		/*int result = new EnpService().insertPartnerEnp(requestEnp);
 		
 		String page="";
 		if(result > 0) {
@@ -84,7 +121,7 @@ public class SignUpEnterpriseServlet extends HttpServlet {
 			page="/semiproject/views/enterprise/common/errorPage.jsp";
 			System.out.println("업체 정보 입력에 실패했습니다.");
 		}
-		request.getRequestDispatcher(page).forward(request, response);
+		request.getRequestDispatcher(page).forward(request, response);*/
 	}
 
 	/**
