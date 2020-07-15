@@ -9,6 +9,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -61,6 +62,25 @@ public class SearchDao {
 				e.setIntroduce(rset.getString("INTRODUCE"));
 				e.setParkingPossible(rset.getString("PARKING_POSSIBLE"));
 				
+				if(rset.getString("ENP_PARTNER_TYPE").equals("PARTNER")) {
+					e.setEnpRegisterNo(rset.getString("ENP_REGISTER_NO"));
+					e.setPartnerCode(rset.getString("PARTNER_CODE"));
+					e.setPartnerCode(rset.getString("PARTNER_CODE"));
+					e.setPenaltyCount(rset.getInt("PENALTY_COUNT"));
+					e.setPartnerId(rset.getString("PARTNER_ID"));
+					e.setPartnerPwd(rset.getString("PARTNER_PWD"));
+					e.setPartnerEmail(rset.getString("PARTNER_EMAIL"));
+					e.setPartnerName(rset.getString("PARTNER_NAME"));
+					e.setAccountHolder(rset.getString("ACCOUNT_HOLDER"));
+					e.setBank(rset.getString("BANK"));
+					e.setBankAccount(rset.getString("BANK_ACCOUNT"));
+					e.setDepositLowerLimit(rset.getInt("DEPOSIT_LOWER_LIMIT"));
+					e.setDepositHigherLimit(rset.getInt("DEPOSIT_HIGHER_LIMIT"));
+					e.setSignupApproval(rset.getString("SIGNUP_APPROVAL"));
+					e.setJuminNo(rset.getString("JUMIN_NO"));
+					e.setEnpLicense(rset.getString("ENP_LICENCE"));
+				}
+				
 				enpList.add(e);
 			}
 		} catch (SQLException e) {
@@ -107,11 +127,36 @@ public class SearchDao {
 		return enpMenus;
 	}
 
-	public ArrayList<EnpVO> searchPartner(Connection con, ArrayList<EnpVO> normalEnpList) {
+	public ArrayList<EnpVO> getRating(Connection con, ArrayList<EnpVO> enpList) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		String query = prop.getProperty("searchPartner");
-		ArrayList<EnpVO> partnerEnpList = null;
-		return null;
+		String query = prop.getProperty("getRating");
+		ArrayList<EnpVO> enpListWithRating = null;
+		
+		try {
+			enpListWithRating = new ArrayList<>();
+			
+			for(EnpVO e : enpList) {
+				pstmt = con.prepareStatement(query);
+				pstmt.setString(1, e.getEnpNo());
+				
+				rset = pstmt.executeQuery();
+				if(e.getEnpPartnerType().equals("PARTNER")) {
+					if(rset.next()) {
+						e.setRating(rset.getDouble(1));
+					}
+				}
+				
+				enpListWithRating.add(e);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return enpListWithRating;
 	}
+
 }
