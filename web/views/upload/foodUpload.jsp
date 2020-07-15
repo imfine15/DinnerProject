@@ -87,49 +87,49 @@
 		<table>
 			<tr>
 				<td><label>식당명</label><label class="star">* </label></td>
-				<td><input type="text" name="" value=""></td>
+				<td><input type="text" name="enpName"></td>
 				
 			</tr>
 			<tr>
 				<td><label>주소</label><label class="star">* </label></td>
-				<td><input type="text" name="" value=""></td>
+				<td><input type="text" name="enpAddress"></td>
 				
 			</tr>
 			<tr>
 				<td><label>전화번호</label><label class="star">* </label></td>
-				<td><input type="text" name="" value=""></td>
+				<td><input type="text" name="enpPhone"></td>
 				
 			</tr>
 			<tr>
 				<td><label>대표메뉴명</label><label class="star">* </label></td>
-				<td><input type="text" name="" value=""></td>
+				<td><input type="text" name="menuName"></td>
 			
 			</tr>
 			<tr>
 				<td><label>메뉴가격</label><label class="star">* </label></td>
-				<td><input type="text" value=""></td>
+				<td><input type="text" name="menuPrice"></td>
 			</tr>
 			<tr>
 				<td><label>가격대</label><label class="star">* </label></td>
 				<td>
-					<select name="money">
-						<option value="10000">~1만원대</option>
-						<option value="20000">1만원 ~ 2만원</option>
-						<option value="30000">2만원 ~ 3만원</option>
-						<option value="50000">3만원 ~ 5만원</option>
-						<option value="60000">5만원 ~ 7만원</option>
-						<option value="70000">7만원대~</option>
+					<select name="priceRange">
+						<option value="~1만원대">~1만원대</option>
+						<option value="1만원 ~ 2만원">1만원 ~ 2만원</option>
+						<option value="2만원 ~ 3만원">2만원 ~ 3만원</option>
+						<option value="3만원 ~ 5만원">3만원 ~ 5만원</option>
+						<option value="5만원 ~ 7만원">5만원 ~ 7만원</option>
+						<option value="7만원대~">7만원대~</option>
 					</select>
 					</td>
 				
 			</tr>
 			<tr>
 				<td><label>영업시간</label></td>
-				<td><input type="text" name="" value=""></td>
+				<td><input type="text" name="enpHour"></td>
 			</tr>
 			<tr>
 			<td><label>휴무일</label></td>
-			<td><input type="text" name="" value=""></td>
+			<td><input type="text" name="closedDay"></td>
 			</tr>
 			
 			
@@ -144,41 +144,41 @@
 		<table>
 		<tr>
 			<td><label>웹사이트</label></td>
-			<td><input type="text" name="" value=""></td>
+			<td><input type="text" name="website"></td>
 			</tr>
 		<tr>
 				
 				<td><label>해시태그</label><label class="star">* </label></td>
-				<td><input type="text" name="" value="" placeholder="#을 이용하여 태그를 사용해보세요."></td>
+				<td><input type="text" name="hashTages" placeholder="#을 이용하여 태그를 사용해보세요."></td>
 			</tr>
 			<tr>
 				
 				<td><label>소개문구</label></td>
-				<td><textarea rows="5px" cols="22px" class="area" placeholder="가게에 대한 간단한 소개글을 작성해주세요."></textarea></td>
+				<td><textarea rows="5px" cols="22px" class="area" name="introduce" placeholder="가게에 대한 간단한 소개글을 작성해주세요."></textarea></td>
 			</tr>
 			<tr>
 				
 				<td><label>주차공간</label></td>
-				<td><input type="text" name="" value=""></td>
+				<td><input type="text" name="parkingPossible"></td>
 			</tr>
 			<tr>
 				
 				<td><label>카테고리</label><label class="star">* </label></td>
-				<td><select name="category">
-					<option value="korea">한식</option>
-					<option value="chinese">중식</option>
-					<option value="japan">일식</option>
-					<option value="fast">패스트푸드</option>
-					<option value="western">양식</option>
-					<option value="cafe">카페</option>
-					<option value="school">분식</option>
-					<option value="asia">아시아</option>
+				<td><select name="enpType">
+					<option value="한식">한식</option>
+					<option value="중식">중식</option>
+					<option value="일식">일식</option>
+					<option value="패스트푸드">패스트푸드</option>
+					<option value="양식">양식</option>
+					<option value="카페">카페</option>
+					<option value="분식">분식</option>
+					<option value="아시아">아시아</option>
 				</select></td>
 			</tr>
 			<tr>
 				
 				<td><label>이미지</label><label class="star">* </label></td>
-				<td><input type="file" id="thumbnailImg"></td>
+				<td><input type="file" id="thumbnailImg" name="thumbnailImg"></td>
 				
 			</tr>
 			 
@@ -192,5 +192,7 @@
 		</form>
 		</div>
 <%@ include file="/views/common/footer.jsp" %>
+
+
 </body>
 </html>
