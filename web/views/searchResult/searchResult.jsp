@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="java.util.ArrayList, com.kh.semi.enterprise.model.vo.EnpVO"%>
+<%
+	ArrayList<EnpVO> enpList = (ArrayList<EnpVO>) session.getAttribute("enpList");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -339,7 +342,7 @@
 	
 </style>
 </head>
-<body>
+<body style="width:1440px;">
 	<%@ include file="/views/common/header.jsp" %>
 	
 	<!-- outer start -->
@@ -363,24 +366,23 @@
 		<section>
 			<article>
 				<div class="inner">
-						<div id="foodArea1" class="foodArea">
+					<%
+					if(enpList != null) {
+						for(int i = 0; i < enpList.size(); i++) {
+					%>
+						<div id="foodArea<%= i + 1 %>" class="foodArea">
 							<img src="/semiproject/images/죠떡.jpg" class="foodImg"><br>
-							<label class="maintext">떡볶이</label><label class="rating">4.2</label><br>
-							<p class="small">역삼/선릉</p>
+							<label class="maintext"><%= enpList.get(i).getEnpName() %></label><label class="rating">5.0</label><br>
+							<p class="small"><%= enpList.get(i).getEnpAddress() %></p>
 							<p class="small">떡볶이</p>
 						</div>
-						<div id="foodArea2"  class="foodArea">
-							<img src="/semiproject/images/규카츠.jpg" class="foodImg"><br>
-							<label class="maintext">규카츠냠</label><label class="rating">4.5</label><br>
-							<p class="small">강남역</p>
-							<p class="small">규카츠</p>
-						</div>
-						<div id="foodArea3"  class="foodArea">
-							<img src="/semiproject/images/연어.jpg" class="foodImg"><br>
-							<label class="maintext">이거시연어</label><label class="rating">4.0</label><br>
-							<p class="small">강남역</p>
-							<p class="small">연어/초밥</p>
-						</div>
+					<% }
+					} else { %>
+					<div style="text-align:center;">
+						<p>검색 결과가 없습니다.</p>
+						<button>맛집 정보 등록</button>
+					</div>
+					<% } %>
 				</div>
 			</article>
 		</section>

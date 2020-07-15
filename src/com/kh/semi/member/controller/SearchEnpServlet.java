@@ -25,7 +25,10 @@ public class SearchEnpServlet extends HttpServlet {
 		
 		ArrayList<EnpVO> enpList = new MemberService().searchEnp(search);
 		
-		System.out.println(enpList.get(0));
+		String page = "views/searchResult/searchResult.jsp";
+		request.getSession().setAttribute("search", search);
+		request.getSession().setAttribute("enpList", enpList);
+		response.sendRedirect(page);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
