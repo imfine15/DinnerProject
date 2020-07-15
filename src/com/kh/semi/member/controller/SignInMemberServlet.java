@@ -7,6 +7,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import javax.websocket.Session;
 
 import com.kh.semi.member.model.service.MemberService;
 import com.kh.semi.member.model.vo.MemberVO;
@@ -22,19 +24,21 @@ public class SignInMemberServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String id = request.getParameter("id");
 		String password = request.getParameter("password");
+		HttpSession session = request.getSession();
+		String backPage = (String) session.getAttribute("backPage");
 		
+		System.out.println(backPage);
 		MemberVO requestMember = new MemberVO();
 		
 		requestMember.setmId(id);
 		requestMember.setmPwd(password);
-		System.out.println(id);
-		System.out.println(password);
 		MemberVO responseMember = new MemberService().loginMember(requestMember);
 		
 		if(responseMember != null) {
 			// 로그인 성공
 			System.out.println("responseMember : " + responseMember);
-			
+			session.setAttribute("loginUser", responseMember);
+			response.sendRedirect(backPage);
 			
 		} else {
 			// 로그인 실패
