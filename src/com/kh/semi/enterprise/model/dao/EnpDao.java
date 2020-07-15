@@ -10,6 +10,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.Properties;
 
+import com.kh.semi.enterprise.model.vo.EnpUpVo;
 import com.kh.semi.enterprise.model.vo.EnpVO;
 
 public class EnpDao {
@@ -60,5 +61,26 @@ Properties prop = new Properties();
       
       return result;
    }
+
+//가게정보업로드
+public int insertEnterprise(Connection con, EnpUpVo enpUp) {
+	PreparedStatement pstmt = null;
+	int result = 0;
+	String query = prop.getProperty("insertEnterprise");
+	
+	try {
+		pstmt = con.prepareStatement(query);
+		pstmt.setString(1, enpUp.getEnpName());
+		pstmt.setString(2, enpUp.getEnpPhone());
+		ps
+		
+		
+	} catch (SQLException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+	
+	return result;
+}
 
 }
