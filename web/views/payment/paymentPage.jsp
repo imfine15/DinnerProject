@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%
+	String backPage = request.getContextPath() + "/views/payment/paymentPage.jsp";
+	request.setAttribute("backPage", backPage);
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,6 +11,7 @@
 <title>YUMMET</title>
 <link rel="shortcut icon" href="/semiproject/images/favicon.ico" type="image/x-icon">
 <link rel="icon" href="/semiproject/images/favicon.ico" type="image/x-icon">
+
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <style>
@@ -196,9 +201,6 @@ input[type="number"]::-webkit-inner-spin-button {
 	}
 	}
 </script>
-	
-	
-	
 <%@ include file="/views/common/footer.jsp" %>
 
 	<div id="calendar"
@@ -213,7 +215,8 @@ input[type="number"]::-webkit-inner-spin-button {
 	</div>
 	<img src="images/food.png"
 		style="position: absolute; left: 200px; top: 100px;">
-	<script>
+<script>
+
 var yearAndMonth;
 var year;
 var month;
