@@ -39,9 +39,7 @@
 	<script type="text/javascript" src="/semiproject/views/signIn/js/signInJs.js"></script>
 	<%@ include file="/views/common/footer.jsp" %>
 	<script>
-		console.log(<%=pag1%>);
-		console.log("123");
-	
+		console.log("<%=pag1%>");
 	</script>
 </body>
 </html>
