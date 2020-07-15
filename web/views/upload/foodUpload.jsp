@@ -48,7 +48,10 @@
 		margin-left: 50px;
 	}
 	#box2{
-		margin-bottom: 132px;
+		margin-bottom: 50px;
+	}
+	#box3{
+		margin-bottom: 20px;
 	}
 	.star{
 		color: red;
@@ -78,9 +81,9 @@
 <%@ include file="/views/common/header.jsp" %>
 	<h1 style="margin-left: 200px; margin-top: 30px;">식당 등록</h1>
 		<div class="box" align="center">
-		<form action="" method="post">
+		<form action="<%=request.getContextPath() %>/insert.up"  method="post" enctype="multipart/form-data">
 		
-	<div class="food" align="center">
+	<div class="food" id="box3" align="center">
 		<table>
 			<tr>
 				<td><label>식당명</label><label class="star">* </label></td>
@@ -98,9 +101,13 @@
 				
 			</tr>
 			<tr>
-				<td><label>메뉴</label><label class="star">* </label></td>
-				<td><textarea rows="5px" cols="22px" class="area"></textarea></td>
+				<td><label>대표메뉴명</label><label class="star">* </label></td>
+				<td><input type="text" name="" value=""></td>
 			
+			</tr>
+			<tr>
+				<td><label>메뉴가격</label><label class="star">* </label></td>
+				<td><input type="text" value=""></td>
 			</tr>
 			<tr>
 				<td><label>가격대</label><label class="star">* </label></td>
@@ -124,10 +131,7 @@
 			<td><label>휴무일</label></td>
 			<td><input type="text" name="" value=""></td>
 			</tr>
-			<tr>
-			<td><label>웹사이트</label></td>
-			<td><input type="text" name="" value=""></td>
-			</tr>
+			
 			
 		</table>
 		
@@ -138,6 +142,10 @@
 		<div class="food" id="box2" align="center">
 		
 		<table>
+		<tr>
+			<td><label>웹사이트</label></td>
+			<td><input type="text" name="" value=""></td>
+			</tr>
 		<tr>
 				
 				<td><label>해시태그</label><label class="star">* </label></td>
@@ -170,7 +178,7 @@
 			<tr>
 				
 				<td><label>이미지</label><label class="star">* </label></td>
-				<td><input type="file"></td>
+				<td><input type="file" id="thumbnailImg"></td>
 				
 			</tr>
 			 

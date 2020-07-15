@@ -216,7 +216,7 @@ ul li a span:hover{
 					</div>
 					
 					<div id="reservationArea">
-					<div style="width: 100%; background-color: pink; height: 30px; margin-top:16px; vertical-align: middle;'">
+					<div style="width: 100%; background-color: pink; height: 30px; margin-top:16px; vertical-align: middle; padding-top: 5px;'">
 						<label style="margin-left: 20px;"class="text">번호</label>
 						<label style="margin-left: 20px;"class="text">가게명</label>
 						<label style="margin-left: 70px;"class="text">방문 예정 일자</label>
