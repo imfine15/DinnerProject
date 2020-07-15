@@ -154,7 +154,6 @@
 </style>
 </head>
 <body>
-<%@include file="views/main2/main2.jsp" %>
 <!-- 
 <div id="outer">
 	<h1>이동할 jsp페이지 이름을 입력해주세요</h1>
@@ -296,5 +295,7 @@
 </div>
 </div>  -->
 <!-- END OF FOOTER -->
+
+</form>
 </body>
 </html>
