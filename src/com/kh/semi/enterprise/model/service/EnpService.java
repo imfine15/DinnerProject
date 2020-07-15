@@ -9,21 +9,21 @@ import static com.kh.semi.common.JDBCTemplate.*;
 
 public class EnpService {
 
-	public int insertPartnerEnp(EnpVO requestEnp) {
-		Connection con = getConnection();
-		
-		int result = new EnpDao().insertPartnerEnp(con,requestEnp);
-		
-		if(result > 0) {
-			commit(con);
-		}else {
-			rollback(con);
-		}
-		
-		close(con);
-		
-		
-		return result;
-	}
+   public int insertPartnerEnp(EnpVO requestEnp) {
+      Connection con = getConnection();
+      
+      int result = new EnpDao().insertPartnerEnp1(con,requestEnp);
+      
+      if(result > 0) {
+         commit(con);
+      }else {
+         rollback(con);
+      }
+      
+      close(con);
+      
+      
+      return result;
+   }
 
 }
