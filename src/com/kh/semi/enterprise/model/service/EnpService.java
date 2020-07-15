@@ -17,7 +17,11 @@ public class EnpService {
       
       int result = new EnpDao().insertPartnerEnp1(con,requestEnp);
       
-      if(result > 0) {
+      int result2 = new EnpDao().insertPartnerEnp2(con, requestEnp);
+      
+      result += result2;
+      
+      if(result > 1) {
          commit(con);
       }else {
          rollback(con);
