@@ -71,7 +71,13 @@ input[type="number"]::-webkit-inner-spin-button {
 </head>
 <body>
 <%@ include file="/views/common/header.jsp" %>
-<form method="get">
+<form action="<%=request.getContextPath()%>/reservation.me" method="post">
+
+	<%if(loginUser!=null) {%>
+	<input type="hidden" name="mNo" value="<%=loginUser.getmNo()%>">
+	
+	<%} %>
+	<input type="hidden" name="cals" value="CALC1">
 	<div
 		style="width: 80%; height: 1400px; margin-left: auto; margin-right: auto; padding-top: 100px;">
 		<div class="subb">
@@ -140,29 +146,37 @@ input[type="number"]::-webkit-inner-spin-button {
 			<label id="day"></label>
 			<label id="dayLabel"></label>
 			
+			<input type="hidden" id="year1" name="year">
+			<input type="hidden" id="month1" name="month">
+			<input type="hidden" id="day1" name="day">
+			
+			
 			<br>
 			<br>
 			<hr style="margin-right: -150px; margin-left: 0px;"><br>
 			<label style="font-size: 20px; padding-right:30px;">시간</label>
-			<select id="hour" class="sle" style="margin-right: 20px;">
+			<select name="hour" id="hour" class="sle" style="margin-right: 20px;">
 				<option value="17">17시</option>
 				<option value="18">18시</option>
 				<option value="19">19시</option>
 			</select>
-			<select id="min" class="sle">
+			<select name="min" id="min" class="sle">
 				<option value="00">00분</option>
 				<option value="30">30분</option>
 			</select>
+			
+			
 			<hr style="margin-right: -150px; margin-left: 0px;"><br>
 			<label style="font-size: 20px; padding-right:30px;">인원</label>
 			<label style="font-size: 12px;">성인</label>
-			<select id="adult" class="sle2" style="margin-right: 20px;">
+			<select name="adult" id="adult" class="sle2" style="margin-right: 20px;">
+			
 				<%for(int i = 1; i < 101; i ++){ %>
 				<option><%=i %>명</option>
 				<%} %>
 			</select>
 			<label style="font-size: 12px;">어린이</label>
-			<select id="child" class="sle2">
+			<select id="child" class="sle2" name="child">
 				<%for(int i = 0; i < 101; i ++){ %>
 				<option><%=i %>명</option>
 				<%} %>
@@ -176,8 +190,8 @@ input[type="number"]::-webkit-inner-spin-button {
 			<br><br>
 			<hr style="margin-right: -150px; margin-left: 0px;">
 			<label style="margin-right:150px; margin-top:10px; font-size:20px;">요청사항</label>
-			<textarea cols=40 rows=10 style="resize: none;" placeholder="요청사항을 입력해 주세요."></textarea><br><br>
-			<label>사용하실 포인트 : </label><input type="number" min="0" max="2000"><br><br>
+			<textarea cols=40 rows=10 style="resize: none;" placeholder="요청사항을 입력해 주세요." name="rcontent"></textarea><br><br>
+			<label>사용하실 포인트 : </label><input name="point" type="number" min="0" max="2000" value="0"><br><br>
 			
 			<button onclick="reservation();" style="width:100%; height:50px; background: #DE6B6A; color:white; 
 			border:0px; font-size: 26px;">예약하기</button><br>
@@ -272,15 +286,15 @@ function dd(){
 		year = yearAndMonth[1];
 		
 		switch(yearAndMonth[0]){
-		case "JANUARY" : month = 1; break;
-		case "FEBRUARY" : month = 2; break;
-		case "MARCH" : month = 3; break;
-		case "APRIL" : month = 4; break;
-		case "MAY" : month = 5; break;
-		case "JUNE" : month = 6; break;
-		case "JULY": month = 7; break;
-		case "AUGUST": month = 8; break;
-		case "SEPTEMBER": month = 9; break;
+		case "JANUARY" : month = 01; break;
+		case "FEBRUARY" : month = 02; break;
+		case "MARCH" : month = 03; break;
+		case "APRIL" : month = 04; break;
+		case "MAY" : month = 05; break;
+		case "JUNE" : month = 06; break;
+		case "JULY": month = 07; break;
+		case "AUGUST": month = 08; break;
+		case "SEPTEMBER": month = 09; break;
 		case "OCTOBER": month = 10; break;
 		case "NOVEMBER": month = 11; break;
 		case "DECEMBER": month = 12; break;
@@ -337,7 +351,6 @@ function dd(){
 		week = new Array('일', '월', '화', '수', '목', '금', '토');
 		today = new Date(year + "-" + month + "-" + day).getDay();
 		todayLabel = week[today];
-		
 		if(nowyear == year && nowmonth >= month && nowdate >= day){
 			alert("체크가 불가능 합니다.");
 
@@ -355,6 +368,10 @@ function dd(){
 		$("#day").html(day + "일");
 		$("#dayLabel").html("("+todayLabel+")");
 		
+		$("#year1").val(year);
+		$("#month1").val(month);
+		$("#day1").val(day);
+		console.log($("#year1").val());
 		$("#finaltime").html(year + "년 " + month + "월 " + day + "일 (" + todayLabel + 
 				") " + hour + "시 " + min + "분");
 		}

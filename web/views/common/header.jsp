@@ -1,7 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8" import="com.kh.semi.member.model.vo.MemberVO"%>
 <%
-	MemberVO loginUser = (MemberVO) session.getAttribute("loginUser");
+	MemberVO loginUser = null;
+	if(session.getAttribute("loginUser") == null){
+		loginUser = null;
+	} else {
+		loginUser = (MemberVO) session.getAttribute("loginUser");
+	}
 	//String realbackPage = request.setAttribute("backPage", request.getAttribute("backPage"));
 	String bac1 = (String) session.getAttribute("backPage");
 %>
