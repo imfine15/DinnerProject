@@ -14,38 +14,51 @@ import com.kh.semi.enterprise.model.vo.EnpVO;
 
 public class EnpDao {
 Properties prop = new Properties();
-	
-	public EnpDao() {
-		String fileName = EnpDao.class.getResource("/sql/enp/enp-query.properties").getPath();
-		
-		try {
-			prop.load(new FileReader(fileName));
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
-	
+   
+   public EnpDao() {
+      String fileName = EnpDao.class.getResource("/sql/enp/enp-query.properties").getPath();
+      
+      try {
+         prop.load(new FileReader(fileName));
+      } catch (FileNotFoundException e) {
+         e.printStackTrace();
+      } catch (IOException e) {
+         e.printStackTrace();
+      }
+   }
+   
 
-	public int insertPartnerEnp(Connection con, EnpVO requestEnp) {
-		PreparedStatement pstmt = null;
-		int result = 0;
-		String query = prop.getProperty("insertEnp");
-		
-		try {
-			pstmt = con.prepareStatement(query);
-//			아래 입력 내용은 쿼리에 따라 달라질 수 있음
-			
-			
-			result = pstmt.executeUpdate();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close(pstmt);
-		}
-		
-		return result;
-	}
+   public int insertPartnerEnp1(Connection con, EnpVO requestEnp) {
+      PreparedStatement pstmt = null;
+      int result = 0;
+      String query = prop.getProperty("insertPartnerEnp1");
+      
+      try {
+         pstmt = con.prepareStatement(query);
+//         아래 입력 내용은 쿼리에 따라 달라질 수 있음
+         /*--ENP_NO
+         --ENP_NAME
+         --ENP_PHONE
+         --ENP_ADDRESS
+         --ENP_HOUR
+         --ENP_TYPE
+         --ENP_STATUS*/
+         
+         pstmt.setString(1, requestEnp.getEnpName());
+         pstmt.setString(2, requestEnp.getEnpPhone());
+         pstmt.setString(3, requestEnp.getEnpAddress());
+         pstmt.setString(4, requestEnp.getEnpType());
+         pstmt.setString(5, "주차가능");
+         
+         
+         result = pstmt.executeUpdate();
+      } catch (SQLException e) {
+         e.printStackTrace();
+      } finally {
+         close(pstmt);
+      }
+      
+      return result;
+   }
 
 }
