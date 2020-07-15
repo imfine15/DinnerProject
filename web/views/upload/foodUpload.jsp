@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%
+	String backPage = request.getContextPath() + "/views/upload/foodUpload.jsp";
+	session.setAttribute("backPage", backPage);
+%>
 <!DOCTYPE html>
 <html>
 <head>

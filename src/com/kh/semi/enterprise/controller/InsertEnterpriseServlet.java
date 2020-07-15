@@ -87,9 +87,6 @@ public class InsertEnterpriseServlet extends HttpServlet {
 			String enpType = multiRequest.getParameter("enpType");
 			String enpStatus = multiRequest.getParameter("enpStatus");
 			
-			System.out.println("enpType : " + enpType);
-			System.out.println("menuPrice : " + menuPrice);
-			System.out.println("introduce : " + introduce);
 			
 			EnpUpVo enpUp = new EnpUpVo();
 			enpUp.setEnpName(enpName);
@@ -121,8 +118,7 @@ public class InsertEnterpriseServlet extends HttpServlet {
 	            
 	            fileList.add(at);
 	         }
-	         System.out.println("fileList : " + fileList);
-	         
+	        
 	         int result = new EnpService().insertEnterprise(enpUp, fileList);
 	         String page = "";
 	         if(result > 0) {
