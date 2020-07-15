@@ -159,7 +159,12 @@
 			<tr>
 				
 				<td><label>주차공간</label></td>
-				<td><input type="text" name="parkingPossible"></td>
+				<td>
+				<select name="parkingPossible">
+					<option value="주차가능">주차가능</option>
+					<option value="주차공간없음">주차공간없음</option>
+				</select>
+				</td>
 			</tr>
 			<tr>
 				
