@@ -35,6 +35,7 @@ public class SignInMemberServlet extends HttpServlet {
 			// 로그인 성공
 			System.out.println("responseMember : " + responseMember);
 			
+			
 		} else {
 			// 로그인 실패
 			System.out.println("로그인 실패");
