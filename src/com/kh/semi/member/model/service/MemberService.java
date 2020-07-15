@@ -37,23 +37,4 @@ public class MemberService {
 		return responseMember;
 	}
 
-	public ArrayList<EnpVO> searchEnp(String search) {
-		Connection con = getConnection();
-		ArrayList<EnpVO> normalEnpList = new MemberDao().searchEnp(con, search);
-		ArrayList<EnpVO> partnerEnpList = new MemberDao().searchPartner(con, normalEnpList);
-		
-		close(con);
-		
-		return partnerEnpList;
-	}
-
-	public List<HashMap<String, Integer>> getMenus(List<EnpVO> enpList) {
-		Connection con = getConnection();
-		List<HashMap<String, Integer>> enpMenus = new MemberDao().getMenus(con, enpList);
-		
-		close(con);
-		
-		return enpMenus;
-	}
-
 }
