@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%
 	String backPage = request.getContextPath() + "/views/payment/paymentPage.jsp";
-	request.setAttribute("backPage", backPage);
+	session.setAttribute("backPage", backPage);
 %>
 <!DOCTYPE html>
 <html>

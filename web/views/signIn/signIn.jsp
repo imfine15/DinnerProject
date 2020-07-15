@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%
-	String pag1 = (String)request.getAttribute("realBack");
+	String pag1 = (String)session.getAttribute("backPage");
 %>
 <!DOCTYPE html>
 <html>
@@ -39,7 +39,6 @@
 	<script type="text/javascript" src="/semiproject/views/signIn/js/signInJs.js"></script>
 	<%@ include file="/views/common/footer.jsp" %>
 	<script>
-		var pag = <%=request.getAttribute("realBack")%>;
 		console.log(<%=pag1%>);
 		console.log("123");
 	
