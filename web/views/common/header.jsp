@@ -28,9 +28,15 @@ body {
 			<a href="">
 				<img src="/semiproject/images/YUMEET LOGO.png" style="width: 200px;">
 			</a>
+			<%if(loginUser == null) {%>
 			<a id="dd" style="float: right">
 				<img src="/semiproject/images/myicon.png" style="width: 100px;">
 			</a>
+			<%}  else {%>
+			<a style="float: right">
+				<img src="/semiproject/images/myicon.png" style="width: 100px;">
+			</a>
+			<%} %>
 			<a href="" style="float: right">
 				<img src="/semiproject/images/location.png" style="width: 100px;">
 			</a>
@@ -40,8 +46,9 @@ body {
 	<script>
 		var pag = "<%= session.getAttribute("backPage")%>";
 		$("#dd").click(function(){
+			console.log(pag);
 			console.log(123123);
-			location.href="/semiproject/views/signIn/signIn.jsp";
+			location.href = "/semiproject/views/signIn/signIn.jsp";
 		});
 		
 	</script>
