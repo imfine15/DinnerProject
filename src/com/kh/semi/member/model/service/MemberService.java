@@ -4,6 +4,8 @@ import static com.kh.semi.common.JDBCTemplate.*;
 
 import java.sql.Connection;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 import com.kh.semi.enterprise.model.vo.EnpVO;
 import com.kh.semi.member.model.dao.MemberDao;
@@ -37,11 +39,21 @@ public class MemberService {
 
 	public ArrayList<EnpVO> searchEnp(String search) {
 		Connection con = getConnection();
-		ArrayList<EnpVO> enpList = new MemberDao().searchEnp(con, search);
+		ArrayList<EnpVO> normalEnpList = new MemberDao().searchEnp(con, search);
+		ArrayList<EnpVO> partnerEnpList = new MemberDao().searchPartner(con, normalEnpList);
 		
 		close(con);
 		
-		return enpList;
+		return partnerEnpList;
+	}
+
+	public List<HashMap<String, Integer>> getMenus(List<EnpVO> enpList) {
+		Connection con = getConnection();
+		List<HashMap<String, Integer>> enpMenus = new MemberDao().getMenus(con, enpList);
+		
+		close(con);
+		
+		return enpMenus;
 	}
 
 }

@@ -10,6 +10,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Properties;
 
 import com.kh.semi.enterprise.model.vo.EnpVO;
@@ -107,9 +109,9 @@ public class MemberDao {
 			pstmt = con.prepareStatement(query);
 			pstmt.setString(1, search);
 			rset = pstmt.executeQuery();
+			enpList = new ArrayList<>();
 			
 			while(rset.next()) {
-				enpList = new ArrayList<>();
 				EnpVO e = new EnpVO();
 				
 				e.setEnpNo(rset.getString("ENP_NO"));
@@ -137,6 +139,48 @@ public class MemberDao {
 		}
 		
 		return enpList;
+	}
+
+	public List<HashMap<String, Integer>> getMenus(Connection con, List<EnpVO> enpList) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		HashMap<String, Integer> enpMenuMap = null;
+		List<HashMap<String, Integer>> enpMenus = null;
+		String query = prop.getProperty("getMenus");
+		
+		try {
+			enpMenus = new ArrayList<>();
+			pstmt = con.prepareStatement(query);
+			
+			for(int i = 0; i < enpList.size(); i++) {
+				enpMenuMap = new HashMap<>();
+				
+				pstmt.setString(1, enpList.get(i).getEnpNo());
+				
+				rset = pstmt.executeQuery();
+				
+				while(rset.next()) {
+					enpMenuMap.put(rset.getString("MENU_NAME"), rset.getInt("MENU_PRICE"));
+				}
+				
+				enpMenus.add(enpMenuMap);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return enpMenus;
+	}
+
+	public ArrayList<EnpVO> searchPartner(Connection con, ArrayList<EnpVO> normalEnpList) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String query = prop.getProperty("searchPartner");
+		ArrayList<EnpVO> partnerEnpList = null;
+		return null;
 	}
 
 }
