@@ -2,10 +2,7 @@
 	pageEncoding="UTF-8" import="com.kh.semi.member.model.vo.MemberVO"%>
 <%
 	MemberVO loginUser = (MemberVO) session.getAttribute("loginUser");
-	String bak = (String)request.getAttribute("backPage");
-	request.setAttribute("realBack", bak);
 	//String realbackPage = request.setAttribute("backPage", request.getAttribute("backPage"));
-	//request.setAttribute("backPage", pag);
 	
 %>
 <!DOCTYPE html>
@@ -43,8 +40,7 @@ body {
 		</div>
 	</div>
 	<script>
-		var pag = "<%= request.getAttribute("backPage")%>";
-		console.log(pag);
+		var pag = "<%= session.getAttribute("backPage")%>";
 		<%
 		%>
 	</script>
