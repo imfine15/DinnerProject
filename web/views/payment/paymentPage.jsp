@@ -21,6 +21,38 @@
 label {
 	font-size: 15px;
 }
+.sle{
+	width: 90px;
+	padding: .8em .5em;
+	border: 1px solid #999;
+	font-family: inherit;
+	background: url(/semiproject/views/payment/images/arrow.png) no-repeat 95% 50%;
+	border-radius: 0px;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+	border: 0px;
+}
+.sle2{
+	width: 60px;
+	padding: .2em .2em;
+	border: 1px solid #999;
+	font-family: inherit;
+	background: url(/semiproject/views/payment/images/arrow.png) no-repeat 95% 50%;
+	border-radius: 0px;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+	border: 0px;
+}
+select::-ms-expand {
+display: none;
+}
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
 </style>
 <link rel='stylesheet prefetch'
 	href='http://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css'>
@@ -34,8 +66,9 @@ label {
 </head>
 <body>
 <%@ include file="/views/common/header.jsp" %>
+<form>
 	<div
-		style="width: 80%; height: 1200px; margin-left: auto; margin-right: auto; padding-top: 100px;">
+		style="width: 80%; height: 1400px; margin-left: auto; margin-right: auto; padding-top: 100px;">
 		<div class="subb">
 			<div style="width: 100%; margin-right: 0px;">
 				<label style="font-size: 28px;">돼지되지</label><br>
@@ -95,11 +128,64 @@ label {
 		<div class="subb"
 			style="width: 300px; position: absolute; margin-top: 300px; right: 340px;">
 			<hr style="margin-right: -150px; margin-left: 0px;">
-			<br> <label style="font-size: 20px">날짜</label> <label></label> <br>
+			<br> <label style="font-size: 20px; padding-right:100px;">날짜</label> 
+			<label id="year"></label>
+			<label id="month"></label>
+			<label id="day"></label>
+			<label id="dayLabel"></label>
+			
 			<br>
-
+			<br>
+			<hr style="margin-right: -150px; margin-left: 0px;"><br>
+			<label style="font-size: 20px; padding-right:30px;">시간</label>
+			<select id="hour" class="sle" style="margin-right: 20px;">
+				<option value="17">17시</option>
+				<option value="18">18시</option>
+				<option value="19">19시</option>
+			</select>
+			<select id="min" class="sle">
+				<option value="00">00분</option>
+				<option value="30">30분</option>
+			</select>
+			<hr style="margin-right: -150px; margin-left: 0px;"><br>
+			<label style="font-size: 20px; padding-right:30px;">인원</label>
+			<label style="font-size: 12px;">성인</label>
+			<select id="adult" class="sle2" style="margin-right: 20px;">
+				<%for(int i = 1; i < 101; i ++){ %>
+				<option><%=i %>명</option>
+				<%} %>
+			</select>
+			<label style="font-size: 12px;">어린이</label>
+			<select id="child" class="sle2">
+				<%for(int i = 0; i < 101; i ++){ %>
+				<option><%=i %>명</option>
+				<%} %>
+			</select>
+			<br><br>
+			
+			<hr style="margin-right: -150px; margin-left: 0px;">
+			<h2 style="font-weight: 500;">선택하신 예약 내역</h2>
+			<label style="margin-right:30px; font-size:20px;">일정</label><label id="finaltime"></label><br><br>
+			<label style="margin-right:30px; margin-top:10px; font-size:20px;">인원</label><label id="people"></label>
+			<br><br>
+			<hr style="margin-right: -150px; margin-left: 0px;">
+			<label style="margin-right:150px; margin-top:10px; font-size:20px;">요청사항</label>
+			<textarea cols=40 rows=10 style="resize: none;" placeholder="요청사항을 입력해 주세요."></textarea><br><br>
+			<label>사용하실 포인트 : </label><input type="number" min="0" max="2000"><br><br>
+			
+			<button style="width:100%; height:50px; background: #DE6B6A; color:white; 
+			border:0px; font-size: 26px;">예약하기</button><br>
+			<div align="center">
+				<label style="font-size: 15px;">예약시 보증금 20000원이 결제되며, </label><br>
+				<label style="font-size: 14px;">식사 후 결제될 금액에서 빠지게 됩니다.</label>
+			</div>
 		</div>
 	</div>
+</form>
+	
+	
+	
+	
 <%@ include file="/views/common/footer.jsp" %>
 
 	<div id="calendar"
@@ -115,14 +201,60 @@ label {
 	<img src="images/food.png"
 		style="position: absolute; left: 200px; top: 100px;">
 	<script>
-var day;
 var yearAndMonth;
+var year;
 var month;
+var day;
+var hour = $("#hour").val();
+var min = $("#min").val();
+var week = new Array('일', '월', '화', '수', '목', '금', '토');
+var today = new Date(year + "-" + month + "-" + day).getDay();
+var todayLabel = week[today];
+
+var adult = $("#adult").val();
+var child = $("#child").val();
+
+var check;
+
+var date = new Date();
+var nowyear = date.getFullYear();
+var nowmonth = date.getMonth() + 1;
+var nowdate = date.getDate();
+
+
+$(".sle").change(function(){
+	hour = $("#hour").val();
+	min = $("#min").val();
+	console.log("123123");
+	if(nowyear == year && nowmonth >= month && nowdate >= day){
+		
+	} else{
+	$("#year").html(year + "년");
+	$("#month").html(month + "월");
+	$("#day").html(day + "일");
+	$("#dayLabel").html("("+todayLabel+")");
+	
+	$("#finaltime").html(year + "년 " + month + "월 " + day + "일 (" + todayLabel + 
+			") " + hour + "시 " + min + "분")
+	}
+});
+
+
+$(".sle2").change(function(){
+	adult = $("#adult").val();
+	child = $("#child").val();
+	
+	$("#people").html("어른 "+adult + ", 어린이 " + child) 
+	
+
+});
+
 function dd(){
 	$("#calendar_content div").click(function(){
 		day = this.innerHTML;
 		yearAndMonth = $("#calendar_header h1").html().split(" ");
-		console.log(yearAndMonth);
+		year = yearAndMonth[1];
+		
 		switch(yearAndMonth[0]){
 		case "JANUARY" : month = 1; break;
 		case "FEBRUARY" : month = 2; break;
@@ -137,17 +269,40 @@ function dd(){
 		case "NOVEMBER": month = 11; break;
 		case "DECEMBER": month = 12; break;
 		}
-		console.log(month);
-		console.log(day);
+		
+		week = new Array('일', '월', '화', '수', '목', '금', '토');
+		today = new Date(year + "-" + month + "-" + day).getDay();
+		todayLabel = week[today];
+		
+		if(nowyear == year && nowmonth >= month && nowdate >= day){
+			alert("체크가 불가능 합니다.");
+
+		} else{
+		if(check == null){
+			
+		}else{
+			check.css("background","white");
+		}
+		check = $(this);
+		check.css("background", "yellow");
+		
+		$("#year").html(year + "년");
+		$("#month").html(month + "월");
+		$("#day").html(day + "일");
+		$("#dayLabel").html("("+todayLabel+")");
+		
+		$("#finaltime").html(year + "년 " + month + "월 " + day + "일 (" + todayLabel + 
+				") " + hour + "시 " + min + "분");
+		}
 	});
 }
-
 
  $(document).ready(function(){
 	$("#calendar_content div").click(function(){
 		day = this.innerHTML;
 		yearAndMonth = $("#calendar_header h1").html().split(" ");
-		console.log(yearAndMonth);
+		year = yearAndMonth[1];
+		
 		switch(yearAndMonth[0]){
 		case "JANUARY" : month = 1; break;
 		case "FEBRUARY" : month = 2; break;
@@ -162,8 +317,31 @@ function dd(){
 		case "NOVEMBER": month = 11; break;
 		case "DECEMBER": month = 12; break;
 		}
-		console.log(month);
-		console.log(day);
+		
+		week = new Array('일', '월', '화', '수', '목', '금', '토');
+		today = new Date(year + "-" + month + "-" + day).getDay();
+		todayLabel = week[today];
+		
+		if(nowyear == year && nowmonth >= month && nowdate >= day){
+			alert("체크가 불가능 합니다.");
+
+		} else{
+		if(check == null){
+			
+		}else{
+			check.css("background","white");
+		}
+		check = $(this);
+		check.css("background", "yellow");
+		
+		$("#year").html(year + "년");
+		$("#month").html(month + "월");
+		$("#day").html(day + "일");
+		$("#dayLabel").html("("+todayLabel+")");
+		
+		$("#finaltime").html(year + "년 " + month + "월 " + day + "일 (" + todayLabel + 
+				") " + hour + "시 " + min + "분");
+		}
 	});
 }); 
 
