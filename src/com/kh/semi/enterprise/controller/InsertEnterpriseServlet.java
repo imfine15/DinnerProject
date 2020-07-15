@@ -45,24 +45,7 @@ public class InsertEnterpriseServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String enpName = request.getParameter("enpName");
-		String enpAddress = request.getParameter("enpAddress");
-		String enpPhone = request.getParameter("enpPhone");
-		String enpPartnerType = request.getParameter("enpPartnerType");
-		String menuName = request.getParameter("menuName");
-		int menuPrice = Integer.parseInt(request.getParameter("menuPrice"));
-		String priceRange = request.getParameter("priceRange");
-		String enpHour = request.getParameter("enpHour");
-		String closedDay = request.getParameter("closedDay");
-		String website = request.getParameter("website");
-		String hashTags = request.getParameter("hashTags");
-		String introduce = request.getParameter("inrtoduce");
-		String parkingPossible = request.getParameter("parkingPossible");
-		String enpType = request.getParameter("enpType");
-		String enpStatus = request.getParameter("enpStatus");
 		
-		System.out.println("enpType : " + enpType);
-		System.out.println("menuPrice : " + menuPrice);
 		
 		if(ServletFileUpload.isMultipartContent(request)) {
 			
@@ -87,6 +70,26 @@ public class InsertEnterpriseServlet extends HttpServlet {
 	            originFiles.add(multiRequest.getOriginalFileName(name));
 	            
 			}
+			
+			String enpName = multiRequest.getParameter("enpName");
+			String enpAddress = multiRequest.getParameter("enpAddress");
+			String enpPhone = multiRequest.getParameter("enpPhone");
+			String enpPartnerType = multiRequest.getParameter("enpPartnerType");
+			String menuName = multiRequest.getParameter("menuName");
+			int menuPrice = Integer.parseInt(multiRequest.getParameter("menuPrice"));
+			String priceRange = multiRequest.getParameter("priceRange");
+			String enpHour = multiRequest.getParameter("enpHour");
+			String closedDay = multiRequest.getParameter("closedDay");
+			String website = multiRequest.getParameter("website");
+			String hashTags = multiRequest.getParameter("hashTags");
+			String introduce = multiRequest.getParameter("inrtoduce");
+			String parkingPossible = multiRequest.getParameter("parkingPossible");
+			String enpType = multiRequest.getParameter("enpType");
+			String enpStatus = multiRequest.getParameter("enpStatus");
+			
+			System.out.println("enpType : " + enpType);
+			System.out.println("menuPrice : " + menuPrice);
+			
 			
 			EnpUpVo enpUp = new EnpUpVo();
 			enpUp.setEnpName(enpName);
