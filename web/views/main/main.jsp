@@ -33,7 +33,7 @@
             <button style="height: 100%; background: white; float: left; margin-left: 5px; border: 0px white;">
                <img src="/semiproject/images/Vector.png">
             </button>
-            <input id="search" name="search" type="search" style="height: 100%; width: 70%; border: 1px solid white; background: white; padding-left: 10px; float:left;">
+            <input  onkeyup="if(event.keyCode === 13) { searchEnp(); }" id="search" name="search" type="search" style="height: 100%; width: 70%; border: 1px solid white; background: white; padding-left: 10px; float:left;">
             <button onclick="searchEnp();" style="height: 95%; background: white; border: 0px white; float: right; margin-right: 5px;">
                 <img src="/semiproject/images/searchicon.png">
             </button>
