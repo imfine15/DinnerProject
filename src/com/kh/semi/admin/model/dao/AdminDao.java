@@ -122,10 +122,9 @@ public class AdminDao {
 		ResultSet rset = null;
 		EnpUpVo eu = null;
 		
-		System.out.println("enpNo3 : " + enpNo);
 		
 		String query = prop.getProperty("selectOneEnp");
-		System.out.println(query);
+		
 		try {
 			pstmt = con.prepareStatement(query);
 			pstmt.setString(1, enpNo);
@@ -172,7 +171,7 @@ public class AdminDao {
 		
 		String query = prop.getProperty("selectOneEnpFile");
 		
-		System.out.println(query);
+		
 		
 		try {
 			pstmt = con.prepareStatement(query);

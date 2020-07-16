@@ -71,6 +71,24 @@
 		 margin-left: auto;
 		 margin-right: auto;
 	}
+	input[type=text]{
+		border-radius: 0;
+		border: 1px solid gray;
+		outline-style: none;
+		height: 20px;
+	}
+	textarea{
+		border-radius: 0;
+		border: 1px solid gray;
+		outline-style: none;
+		resize: none;
+	}
+	select{
+		border-radius: 0;
+		border: 1px solid gray;
+		outline-style: none;
+		height: 20px;
+	}
 
 	
 	
@@ -87,53 +105,80 @@
 			<table>
 				<tr>
 					<th>식당명</th>
-					<td><%= eu.getEnpName() %></td>
+					<td><input type="text" value="<%= eu.getEnpName() %>"></td>
 					<th>신청 날짜</th>
-					<td><%= ea.getUploadDate() %></td>
+					<td><input type="text" value="<%= ea.getUploadDate() %>"></td>
 				</tr>
 				<tr>
 					<th>주소</th>
-					<td colspan="3"><%= eu.getEnpAddress() %></td>
+					<td colspan="3"><input type="text" value="<%= eu.getEnpAddress() %>"></td>
 				</tr>
 				<tr>
 					<th>전화번호</th>
-					<td><%= eu.getEnpPhone() %></td>
+					<td><input type="text" value="<%= eu.getEnpPhone() %>"></td>
 					<th>가격대</th>
-					<td><%= eu.getPriceRange() %></td>
+					<td>
+						<select id="priceRange">
+							<option value="~1만원대">~1만원대</option>
+							<option value="1만원 ~ 2만원">1만원 ~ 2만원</option>
+							<option value="2만원 ~ 3만원">2만원 ~ 3만원</option>
+							<option value="3만원 ~ 5만원">3만원 ~ 5만원</option>
+							<option value="5만원 ~ 7만원">5만원 ~ 7만원</option>
+							<option value="7만원대~">7만원대~</option>
+						</select>
+					</td>
 				</tr>
 				<tr>
 					<th>메뉴</th>
-					<td colspan="3"><%= eu.getMenuName() %> <%= eu.getMenuPrice() %>원</td>
+					<td colspan="3"><input type="text" value="<%= eu.getMenuName() %>  <%= eu.getMenuPrice() %>원"></td>
 				</tr>
 				<tr>
 					<th>영업시간</th>
-					<td><%= eu.getEnpHour() %></td>
+					<td><input type="text" value="<%= eu.getEnpHour() %>"></td>
 					<th>휴무일</th>
-					<td><%= eu.getClosedDay() %></td>
+					<td><input type="text" value="<%= eu.getClosedDay() %>"></td>
 				</tr>
 				<tr>
 					<th>해쉬태그</th>
-					<td colspan="3"><%= eu.getHashTags() %></td>
+					<td colspan="3"><input type="text" value="<%= eu.getHashTags() %>"></td>
 				</tr>
 				<tr>
 					<th>소개문구</th>
-					<td colspan="3"><%= eu.getIntroduce() %></td>
+					<td colspan="3"><textarea rows="5px" cols="22px"><%= eu.getIntroduce() %></textarea></td>
 				</tr>
 				<tr>
 					<th>주차공간</th>
-					<td><%= eu.getParkingPossible() %></td>
+					<td><input type="text" value="<%= eu.getParkingPossible() %>"></td>
 					<th>카테고리</th>
-					<td><%= eu.getEnpType() %></td>
+					<td>
+						<select id="enpType">
+							<option value="한식">한식</option>
+							<option value="중식">중식</option>
+							<option value="일식">일식</option>
+							<option value="패스트푸드">패스트푸드</option>
+							<option value="양식">양식</option>
+							<option value="카페">카페</option>
+							<option value="분식">분식</option>
+							<option value="아시아">아시아</option>
+						</select>
+					</td>
 				</tr>
 				<tr>
 					<th>사진파일</th>
 					<td colspan="3"><%= ea.getOriginName() %></td>
 				</tr>
 			</table>
-			<button class="btn" onclick="location.href='<%=request.getContextPath()%>/views/admin/restaurant/restaurantUploadDetail.jsp'" style="background: #E07370; width: 160px;">업로드 및 수정</button>
+			<button class="btn" style="background: #E07370; width: 160px;">업로드 및 수정</button>
 			<button class="btn" style="background: red; width: 100px;">삭제</button>
 		</div>
-		
+		<script>
+		$(document).ready(function(){
+			$("#priceRange option[value='<%= eu.getPriceRange() %>']").attr("selected", true);
+		    $("#enpType option[value='<%= eu.getEnpType() %>']").attr("selected", true);
+		});
+
+
+		</script>
 	</div>
 </body>
 </html>
