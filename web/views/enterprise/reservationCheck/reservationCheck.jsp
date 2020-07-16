@@ -68,7 +68,7 @@
          				<
          			</td>
          			<td style="border:0;">
-         				2020.06.22 <%=loginEnp.getPartnerName() %>
+         				2020.06.22
 					</td>
 					<td style="font-weight: bolder; color:black;  padding-left: 50px; border:0;">
          				>

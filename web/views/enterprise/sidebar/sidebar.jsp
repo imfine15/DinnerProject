@@ -9,6 +9,7 @@
 	 }else{
 	 	asd = Integer.parseInt(request.getParameter("asd")); 
 	 }
+	 
 	
 	String pageName = "";
 	switch(asd){
