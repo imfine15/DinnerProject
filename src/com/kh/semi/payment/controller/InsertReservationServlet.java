@@ -11,7 +11,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
+import com.kh.semi.member.model.vo.MemberVO;
 import com.kh.semi.payment.model.service.ReservationService;
 import com.kh.semi.payment.model.vo.ReservationVO;
 import com.sun.glass.ui.Pixels.Format;
@@ -25,37 +27,33 @@ public class InsertReservationServlet extends HttpServlet {
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		String mNo = request.getParameter("mNo");
+		HttpSession session = request.getSession();
+		MemberVO member = (MemberVO) session.getAttribute("loginUser");
+		String mNo = member.getmNo();
 		String cals = request.getParameter("cals");
 		
 		int year = Integer.parseInt(request.getParameter("year"));
-		System.out.println("!23123");
 		int month = Integer.parseInt(request.getParameter("month"));
 		int day = Integer.parseInt(request.getParameter("day"));
 		int hour = Integer.parseInt(request.getParameter("hour"));
 		int min = Integer.parseInt(request.getParameter("min"));
 		
-		String adult = request.getParameter("adult");
-		String child = request.getParameter("child");
+		int adult = Integer.parseInt(request.getParameter("adult"));
+		int child = Integer.parseInt(request.getParameter("child"));
 		
 		String eNo = "ENP1";
 		String rContent = request.getParameter("rcontent");
 		int point = Integer.parseInt(request.getParameter("point"));
 		
-		System.out.println(123123);
 		
-		SimpleDateFormat fotmatter = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 		Calendar cal = Calendar.getInstance();
 		cal.set(year, month - 1, day, hour, min);
-		String today = fotmatter.format(cal.getTime());
-		Timestamp ts = Timestamp.valueOf(today);
 		
 		Date resTime = new Date(cal.getTime().getTime());
 		ReservationVO insertReservationVO = new ReservationVO();
-		int people = Integer.parseInt(adult + child);
+		int people = adult + child;
 		
-		insertReservationVO.setcNo(mNo);
+		insertReservationVO.setmNo(mNo);
 		insertReservationVO.setcNo(cals);
 		insertReservationVO.setrDate(resTime);
 		insertReservationVO.setPeople(people);
@@ -65,7 +63,13 @@ public class InsertReservationServlet extends HttpServlet {
 		
 		int result = new ReservationService().insertReservation(insertReservationVO);
 		
-		
+		String page = "";
+		if(result > 0) {
+			page = "/semiproject/views/payment/paymentSuccess.jsp";
+		} else {
+			
+		}
+		request.getRequestDispatcher(page).forward(request, response);;
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
