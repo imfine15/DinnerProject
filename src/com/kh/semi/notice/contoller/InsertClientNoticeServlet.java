@@ -53,7 +53,7 @@ public class InsertClientNoticeServlet extends HttpServlet {
 		int result = new ClientNoticeService().insertClientNotice(newNotice);
 		
 		if(result > 0) {
-			response.sendRedirect("/jsp/selectList.no");
+			response.sendRedirect("/semiproject/selectclist.no");
 		} else {
 			request.setAttribute("msg", "공지사항 등록 실패!");
 			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
