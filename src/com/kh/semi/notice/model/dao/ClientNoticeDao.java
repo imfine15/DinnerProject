@@ -106,12 +106,9 @@ public class ClientNoticeDao {
 
 			while(rset.next()) {
 				NoticeVO n = new NoticeVO();
-				n.setNno(rset.getInt("NNO"));
-				n.setnTitle(rset.getString("NTITLE"));
-				n.setnContent(rset.getString("NCONTENT"));
-				n.setNickName(rset.getString("NICK_NAME"));
-				n.setnCount(rset.getInt("NCOUNT"));
-				n.setnDate(rset.getDate("NDATE"));
+				
+				n.setNoticeTitle(rset.getString("NOTICE_TITLE"));
+				n.setNoticeDate(rset.getDate("NOTICE_DATE"));
 
 				list.add(n);
 			}
