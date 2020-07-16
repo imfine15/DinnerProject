@@ -192,6 +192,7 @@ input[type="number"]::-webkit-inner-spin-button {
 			<button onclick="reservation();" style="width:100%; height:50px; background: #DE6B6A; color:white; 
 			border:0px; font-size: 26px;">예약하기</button><br>
 			<div align="center">
+				<input type="hidden" value="20000" name="deposit">
 				<label style="font-size: 15px;">예약시 보증금 20000원이 결제되며, </label><br>
 				<label style="font-size: 14px;">식사 후 결제될 금액에서 빠지게 됩니다.</label>
 			</div>

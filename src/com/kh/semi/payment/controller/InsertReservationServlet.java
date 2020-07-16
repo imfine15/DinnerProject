@@ -5,6 +5,7 @@ import java.util.Calendar;
 import java.sql.Date;
 import java.sql.Timestamp;
 import java.text.DateFormat;
+import java.time.LocalDateTime;
 import java.text.*;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -44,8 +45,9 @@ public class InsertReservationServlet extends HttpServlet {
 		String eNo = "ENP1";
 		String rContent = request.getParameter("rcontent");
 		int point = Integer.parseInt(request.getParameter("point"));
+		int deposit = Integer.parseInt(request.getParameter("deposit"));
 		
-		
+		LocalDateTime ofDateTime = LocalDateTime.of(year, month, day, hour, min);
 		Calendar cal = Calendar.getInstance();
 		cal.set(year, month - 1, day, hour, min);
 		
@@ -55,17 +57,21 @@ public class InsertReservationServlet extends HttpServlet {
 		
 		insertReservationVO.setmNo(mNo);
 		insertReservationVO.setcNo(cals);
-		insertReservationVO.setrDate(resTime);
+		insertReservationVO.setrDate(new Timestamp(resTime.getTime()));
 		insertReservationVO.setPeople(people);
 		insertReservationVO.seteNo(eNo);
 		insertReservationVO.setRqMemo(rContent);
 		insertReservationVO.setpAmount(point);
+		insertReservationVO.setDeposit(deposit);
 		
 		int result = new ReservationService().insertReservation(insertReservationVO);
 		
 		String page = "";
 		if(result > 0) {
-			page = "views/payment/paymentSuccess.jsp";
+			int result2 = new ReservationService().insertReservationHistory(insertReservationVO);
+			if(result2 > 0) {
+				page = "views/payment/paymentSuccess.jsp";
+			}
 		} else {
 			
 		}
