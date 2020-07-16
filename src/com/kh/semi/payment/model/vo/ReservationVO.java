@@ -9,11 +9,12 @@ public class ReservationVO implements java.io.Serializable{
 	private String eNo;
 	private String cNo;
 	private String rqMemo;
-	private String pAmount;
+	private int pAmount;
+	private int people;
 	
 	public ReservationVO() {}
 
-	public ReservationVO(String rNo, Date rDate, String mNo, String eNo, String cNo, String rqMemo, String pAmount) {
+	public ReservationVO(String rNo, Date rDate, String mNo, String eNo, String cNo, String rqMemo, int pAmount, int people) {
 		super();
 		this.rNo = rNo;
 		this.rDate = rDate;
@@ -22,6 +23,7 @@ public class ReservationVO implements java.io.Serializable{
 		this.cNo = cNo;
 		this.rqMemo = rqMemo;
 		this.pAmount = pAmount;
+		this.people = people;
 	}
 
 	public String getrNo() {
@@ -72,18 +74,27 @@ public class ReservationVO implements java.io.Serializable{
 		this.rqMemo = rqMemo;
 	}
 
-	public String getpAmount() {
+	public int getpAmount() {
 		return pAmount;
 	}
 
-	public void setpAmount(String pAmount) {
+	public void setpAmount(int pAmount) {
 		this.pAmount = pAmount;
+	}
+
+	public int getPeople() {
+		return people;
+	}
+
+	public void setPeople(int people) {
+		this.people = people;
 	}
 
 	@Override
 	public String toString() {
 		return "ReservationVO [rNo=" + rNo + ", rDate=" + rDate + ", mNo=" + mNo + ", eNo=" + eNo + ", cNo=" + cNo
-				+ ", rqMemo=" + rqMemo + ", pAmount=" + pAmount + "]";
+				+ ", rqMemo=" + rqMemo + ", pAmount=" + pAmount + ", people=" + people + "]";
 	}
+	
 	
 }
