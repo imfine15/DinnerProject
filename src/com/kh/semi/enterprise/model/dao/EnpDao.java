@@ -10,7 +10,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Properties;
 
 import com.kh.semi.enterprise.model.vo.EnpAttachment;
@@ -310,54 +314,53 @@ public ArrayList<ReservationVO> selectCRList(Connection con, PageInfo pi, String
 	ArrayList<ReservationVO> requestReserve = null;
 	PreparedStatement pstmt = null;
 	ResultSet rset= null;
+	ReservationVO r = null;
 	
 	String query = prop.getProperty("selectList");
+	System.out.println("query : " + query);
+	
+	
 	try {
 		pstmt = con.prepareStatement(query);
 		
 		int startRow = (pi.getCurrentPage() -1) * pi.getLimit() + 1;
 		int endRow = startRow + pi.getLimit() - 1;
 		
-		pstmt.setInt(1, startRow);
-		pstmt.setInt(2, endRow);
-		pstmt.setString(3, enp);
+		pstmt.setString(1, enp);
+		pstmt.setInt(2, startRow);
+		pstmt.setInt(3, endRow);
 		
 		rset = pstmt.executeQuery();
 		
 		requestReserve = new ArrayList<>();
 		
 		while(rset.next()) {
-			/*Board b = new Board();
-			b.setBid(rset.getInt("BID"));
-			b.setbType(rset.getInt("BTYPE"));
-			b.setBno(rset.getInt("BNO"));
-			b.setcName(rset.getString("CNAME"));
-			b.setbTitle(rset.getString("BTITLE"));
-			b.setbContent(rset.getString("BCONTENT"));
-			b.setNickName(rset.getString("NICK_NAME"));
-			b.setbCount(rset.getInt("BCOUNT"));
-			b.setRefBid(rset.getInt("REF_BID"));
-			b.setReplyLevel(rset.getInt("REPLY_LEVEL"));
-			b.setbDate(rset.getDate("BDATE"));
-			b.setStatus(rset.getString("STATUS"));
+			/*SimpleDateFormat df = new SimpleDateFormat("RRRR/MM/DD");
+			String dfdf = df.format(rset.getTimestamp("RESERVATION_DATE"));
+			Date dfdf2 = df.parse(dfdf);
+			Timestamp ts = new Timestamp(dfdf2.getTime());
+			System.out.println(ts);*/
 			
-			list.add(b);*/
-			
-			ReservationVO r = new ReservationVO();
+			r = new ReservationVO();
 			r.setcNo(rset.getString("CALC_NO"));
 			r.seteNo(rset.getString("ENP_NO"));
 			r.setmNo(rset.getString("MEMBER_NO"));
 			r.setpAmount(rset.getInt("POINT_AMMOUNT"));
 			r.setPeople(rset.getInt("PEOPLE"));
-			r.setrDate(rset.getDate("TO_CHAR(RESERVATION_REQUEST_DATE,'RRRR/MM/DD/HH24/MI/SS')"));
+			r.setrDate(rset.getTimestamp("RESERVATION_DATE"));
+			r.setrDate2(rset.getDate("RESERVATION_DATE"));
+			r.setrDate3(rset.getString("TO_CHAR(RESERVATION_DATE,'HH24:MI')"));
 			r.setrNo(rset.getString("RESERVATION_NO"));
 			r.setRqMemo(rset.getString("REQUEST_MEMO"));
 			
+			System.out.println("Dao 호출 cNO : " + r.getcNo());
+			
+			requestReserve.add(r);
 		}
 		
 	} catch (SQLException e) {
 		e.printStackTrace();
-	}finally {
+	} finally {
 		close(pstmt);
 		close(rset);
 	}

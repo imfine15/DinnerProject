@@ -49,6 +49,7 @@ public class SelectConfirmRequestListServlet extends HttpServlet {
 			currentPage = Integer.parseInt(request.getParameter("currentPage"));
 		}
 		String enp = request.getParameter("enpId");
+		System.out.println("enpId : " + enp);
 		//한 페이지에 보여질 목록 갯수
 		limit = 5;
 		
@@ -78,6 +79,12 @@ public class SelectConfirmRequestListServlet extends HttpServlet {
 		ArrayList<ReservationVO> list = new EnpService().selectCRList(pi,enp);
 		
 		String page = "";
+		
+		System.out.println(list);
+		
+		for(ReservationVO r : list) {
+			System.out.println(r.getcNo());
+		}
 		
 		if(list != null) {
 			page = "views/enterprise/confirmRequest/confirmRequest.jsp";
