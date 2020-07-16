@@ -125,8 +125,7 @@ public class InsertEnterpriseServlet extends HttpServlet {
 	         String page = "";
 	         if(result > 0) {
 	        	 page="views/upload/foodSuccess.jsp";
-	        	 request.setAttribute("enpUp", enpUp);
-	        	 request.setAttribute("fileList", fileList);
+	        	 
 	         } else {
 	        	 for(int i = 0 ; i < saveFiles.size(); i++) {
 	                 File failedFile = new File(savePath + saveFiles.get(i));
@@ -136,7 +135,7 @@ public class InsertEnterpriseServlet extends HttpServlet {
 	              page = "views/common/errorPage.jsp";
 	              request.setAttribute("msg", "사진 게시판 등록 실패");
 	         }
-	         request.getRequestDispatcher(page).forward(request, response);
+	        response.sendRedirect(page);
 	         
 	         
 	         
