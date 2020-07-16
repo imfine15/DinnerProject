@@ -13,7 +13,7 @@ public class ReservationVO implements java.io.Serializable{
 	private String rqMemo;
 	private int pAmount;
 	private int people;
-	private Date sysDate;
+	private Timestamp sysDate;
 	private int deposit;
 	private Date rDate2;
 	private String rDate3;
@@ -21,7 +21,7 @@ public class ReservationVO implements java.io.Serializable{
 	public ReservationVO() {}
 
 	public ReservationVO(String rNo, Timestamp rDate, String mNo, String eNo, String cNo, String rqMemo, int pAmount,
-			int people, Date sysDate, int deposit, Date rDate2, String rDate3) {
+			int people, Timestamp sysDate, int deposit, Date rDate2, String rDate3) {
 		super();
 		this.rNo = rNo;
 		this.rDate = rDate;
@@ -117,11 +117,11 @@ public class ReservationVO implements java.io.Serializable{
 		this.people = people;
 	}
 
-	public Date getSysDate() {
+	public Timestamp getSysDate() {
 		return sysDate;
 	}
 
-	public void setSysDate(Date sysDate) {
+	public void setSysDate(Timestamp sysDate) {
 		this.sysDate = sysDate;
 	}
 
