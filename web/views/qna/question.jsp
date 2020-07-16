@@ -18,6 +18,14 @@
    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <!-- select2 javascript cdn -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.9/js/select2.min.js"></script>
+    <!-- jQuery import -->
+<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+<!-- jQuery Form Plugin import -->
+<script src="js/jquery.form.min.js"></script>
+<!-- jQuery MultiFile Plugin import -->
+<script src="js/jQuery.MultiFile.min.js"></script>
+
+    
 <style>
 .wrapper {
 	height: auto;
@@ -118,7 +126,8 @@ tr {
 }
 
 #btn-file {
-	width: 150px;
+	width: 90px;
+	height:35px;
 	float: right;
 }
 
@@ -142,145 +151,9 @@ tr {
 	border: 0;
 	outline: 0;
 }
-
-#file-div {
-	font-size: 12px;
-	font-family: dotum, '돋움';
-}
-
-input.upload_text { /*읽기전용 인풋텍스트*/
-	float: left;
-	width: 100%; /* 버튼 포함 전체 가로 길이*/
-	height: 19px;
-	line-height: 19px;
-	padding: 0 3px;
-	border: 1px solid #bbb;
-}
-
-div.upload-btn_wrap input.input_file { /*파일찾기 폼 투명하게*/
-	position: absolute;
-	top: 0;
-	right: 0;
-	cursor: pointer;
-	opacity: 0;
-	filter: alpha(opacity = 0);
-	-ms-filter: "alpha(opacity=0)";
-	-moz-opacity: 0;
-}
-
-div.upload-btn_wrap { /*버튼테두리 감싼 div*/
-	overflow: hidden;
-	position: relative;
-	float: left;
-	width: 100px; /*width, height 값은 button(찾아보기)값과 같아야함 */
-	height: 30px;
-	padding-left: 3px;
-}
-
-div.upload-btn_wrap button { /*버튼 div*/
-	width: 100px;
-	height: 30px;
-	font-weight: bold;
-	background: #333;
-	border: 1px solid #333;
-	color: #fff;
-	text-align: center;
-}
-
-.file_input_textbox {
-	float: left
-}
-
-.file_input_div {
-	position: relative;
-	width: 100px;
-	height: 23px;
-	overflow: hidden;
-}
-
-.file_input_button {
-	width: 100px;
-	position: absolute;
-	top: 0px;
-	background-color: #33BB00;
-	color: #FFFFFF;
-	border-style: solid;
-}
-
-.file_input_hidden {
-	font-size: 45px;
-	position: absolute;
-	right: 0px;
-	top: 0px;
-	opacity: 0;
-	filter: alpha(opacity = 0);
-	-ms-filter: "alpha(opacity=0)";
-	-khtml-opacity: 0;
-	-moz-opacity: 0;
-}
-
-/* 파일찾아보기 */
-.wrap {
-	width: 260px;
-	position: relative;
-	margin-top: 5px;
-} /* file_wrap의 위치를 임의로 감싸줌 */
-.file_text {
-		background: #f8f8f9;
-	border: 1px solid #d2d2d2;
-	text-align: left;
-	margin-right:0px;
-	margin-top: 10px;
-	margin-bottom: 10px;
-	display:inline-block;
-	float:left;
-	
-}
-	/*float: ;
-	width: 800px;
-	height: 16px;
-	background-color: #f6f6f6;
-	border: 1px #eee;
-	color: #777;
-/* 파일첨부했을 경우 경로가 나오는 input type="text" */
-.file_wrap {
-	display: inline-block;
-	widht: 64px;
-	height: 22px;
-	background: url(../img/btn/btn_fileset.gif) 0 0 no-repeat;
-	position: absolute;
-	top: 0;
-	left: 0;
-}
-/* display:inline-block으로 변경 버튼이미지를 배경이미지로 삽입, 전체 사이즈는 버튼 이미지 사이즈와 동일 위치 절대값 top:0; right0; 또는 top:0; left:input text 박스 크기 및 +여백만큼 */
-.file_add {
-	filter: alpha(opacity : 0);
-	opacity: 0;
-	width: 64px;
-	height: 22px;
-}
-/* input type="file" 투명도를 0으로 만들기. 사이즈는 버튼 이미지 사이즈와 동일하게 */
-.file_wrap_btn_del01 {
-	position: relative;
-	top: 0;
-	left: 264px;
-}
-
-.file_wrap_btn_del03 {
-	position: absolute;
-	top: 0;
-	left: 308px;
-}
-/* 파일삭제버튼 따로 span에 버튼 지정후에 위치지정을 따로함 */
-
-/* 구비서류(첨부파일) 수정 */
-.file_set {
-	line-height: 18px;
-	padding-top: 5px;
-	padding-bottom: 5px;
-}
-/* 구비서류(첨부파일) 선택영역 */
-.box_type03 {
+#uploadFiles {
+	width:790px;
+	height:200px;
 	background: #f8f8f9;
 	border: 1px solid #d2d2d2;
 	text-align: left;
@@ -290,27 +163,6 @@ div.upload-btn_wrap button { /*버튼 div*/
 	display:inline-block;
 	float:left;
 }
-
-.box_file_wrap {
-	position: relative;
-	margin: 0;
-	padding: 0;
-}
-
-.file_wrap_btn_del02 {
-	width: 90px;
-	height:35px;
-	background-color:#ECECEC;
-	color:black;
-	font-size:14px;
-	border: 0.5px solid #6D6D6D;
-}
-#dbtnArea {
-	float:right;
-	display:inline-block;
-	margin-top:10px;
-}
-/* 파일삭제버튼 따로 span에 버튼 지정후에 위치지정을 따로함 */
 </style>
 </head>
 <body>
@@ -353,48 +205,16 @@ div.upload-btn_wrap button { /*버튼 div*/
 					<tr>
 						<td class="first" rowspan="2">첨부파일</td>
 						<td style="border-top:none; border-bottom:none; border-collapse:none;" colspan="3">
-						<!-- 파일찾기영역 -->
-							<div id="file-div">
-								<input type="text" class="upload_text" readonly="readonly"
-									style="width: 750px; height: 26px;">
-								<div class="upload-btn_wrap" style="margin-left: 20px;">
-									<input type="file" class="input_file" title="파일찾기">
-									<button type="button" title="파일찾기" id="btn-file">
-										<div align="center">파일찾기</div>
-									</button>
-									<button type="button" title="파일찾기" id="btn-file">
-										<div align="center">등록하기</div>
-									</button>
-									
-								</div>
-							</div> <!-- //파일찾기영역 -->
+							<div id="fileArea">
+								<input type="file" name="files" onchange="loadFiles">
+							</div>
 						</td>
 					</tr>
 					<tr>
 						<td colspan="3" >
-							<div class="box_file_wrap">
+							<div id="uploadFiles">
 								
-								<!-- 지정된 파일 선택 영역 -->
-								<div class="file_set box_type03 mgt5" style="width: 800px;"
-									tabindex="0">
-									<dl>
-										<dd><label><input type="checkbox" name="ch1"
-												title="파일명" /> 파일명.xls</label></dd>
-										<dd><label><input type="checkbox" name="ch1"
-												title="파일명" /> 파일명.hwp</label></dd>
-										<dd><label><input type="checkbox" name="ch1"
-												title="파일명" /> 파일명.pdf</label></dd>
-										<dd><label><input type="checkbox" name="ch1"
-												title="파일명" /> 파워포인트파일.ppt</label></dd>
-									</dl>
-								</div>
-								<div id="dbtnArea">
-								<button class="t_btn07 file_wrap_btn_del02" onclick="#">파일삭제</button>
-								<!-- //지정된 파일 선택 영역 -->
-								</div>
 							</div>
-
-
 						</td>
 					</tr>
 					<tr>
@@ -451,6 +271,7 @@ var popupY= (window.screen.height / 2) - (popupHeight / 2);
 	//	request.getRequestDispatcher("../common/errorPage.jsp").forward(request, response);
 	//{ %>  -->	
 	<div style="height: 200px;"></div>
+	
 	<script>
 	function questionSubmit() {
 		$("#question-submit").submit();
@@ -460,16 +281,24 @@ var popupY= (window.screen.height / 2) - (popupHeight / 2);
 		$("#question-reset").reset();
 	}
 	
-	$(function(){
-		$('.upload_text').val('');
-		$('.input_file').change(function(){
-			var i = $(this).val();
-			$('.upload_text').val(i);
-		});
-	});
-	
-	
-	
+	function loadFiles(value, num) {
+		if(value.files && value.files[0]) {
+			var reader = new FileReader();
+			
+			reader.onload = function(e) {
+							
+				switch(num) {
+				case 1 : $("#titleImg").attr("src", e.target.result); break;
+				case 2 : $("#contentImg1").attr("src", e.target.result); break;
+				case 3 : $("#contentImg2").attr("src", e.target.result); break;
+				case 4 : $("#contentImg3").attr("src", e.target.result); break;
+				}
+			}
+			
+			reader.readAsDataURL(value.files[0]);
+		}
+	}
+
 	</script>
 	<%@ include file="/views/common/footer.jsp"%>
 </body>
