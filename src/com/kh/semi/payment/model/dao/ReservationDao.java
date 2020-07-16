@@ -20,16 +20,13 @@ public class ReservationDao {
 		try {
 			prop.load(new FileReader(fileName));
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 	
 	public int insertReservation(Connection con, ReservationVO insertReservationVO) {
-		//System.out.println(insertReservationVO);
 		PreparedStatement pstmt = null;
 		int result = 0;
-		
 		String query = prop.getProperty("insertReservation");
 		
 		try {
@@ -44,41 +41,26 @@ public class ReservationDao {
 			pstmt.setInt(8, insertReservationVO.getDeposit());
 			
 			result = pstmt.executeUpdate();
-			
-			if(result > 0) {
-				commit(con);
-			} else {
-				rollback(con);
-			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
 			close(pstmt);
 		}
-		
 		return result;
 	}
 	
-	public int insertReservationHistory(Connection con, ReservationVO insertReservationVO) {
+	public int insertReservationHistory(Connection con, ReservationVO insertReservationVO, int sequence) {
 		PreparedStatement pstmt= null;
-		Statement stmt = null;
 		int result = 0;
 		String query = prop.getProperty("insertReservationHistory");
-		String query2 = prop.getProperty("selectSequence");
-		ResultSet rset = null;
-		System.out.println(query2);
 		try {
-			stmt = con.createStatement();
-			rset = stmt.executeQuery(query);
-			if(rset.next()) {
-				System.out.println(rset.getString("LAST_NUMBER - 1"));
-			}
 			pstmt = con.prepareStatement(query);
-			pstmt.setInt(1, insertReservationVO.getPeople());
-			pstmt.setTimestamp(2, insertReservationVO.getrDate());
-			pstmt.setInt(3, insertReservationVO.getDeposit());
-			pstmt.setString(4, insertReservationVO.getmNo());
+			pstmt.setString(1, "RES"+(sequence-1));
+			pstmt.setInt(2, insertReservationVO.getPeople());
+			pstmt.setTimestamp(3, insertReservationVO.getrDate());
+			pstmt.setInt(4, insertReservationVO.getDeposit());
+			pstmt.setString(5, insertReservationVO.getmNo());
 			
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
@@ -93,12 +75,60 @@ public class ReservationDao {
 		ArrayList<ReservationVO> list = null;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		
 		String query = prop.getProperty("selectReservationList");
-		
-		return null;
+		ReservationVO rvo = null;
+		try {
+			System.out.println(query);
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, mNo);
+			
+			rset = pstmt.executeQuery();
+			while(rset.next()) {
+				rvo = new ReservationVO();
+				rvo.setrNo(rset.getString("RESERVATION_NO"));
+				rvo.setrDate(rset.getTimestamp("RESERVATION_DATE"));
+				rvo.setmNo(mNo);
+				rvo.seteNo(rset.getString("ENP_NO"));
+				rvo.setcNo(rset.getString("CALC_NO"));
+				rvo.setRqMemo(rset.getString("REQUEST_MEMO"));
+				rvo.setpAmount(rset.getInt("POINT_AMMOUNT"));
+				rvo.setPeople(rset.getInt("PEOPLE"));
+				rvo.setSysDate(rset.getDate("RESERVATION_REQUEST_DATE"));
+				rvo.setDeposit(rset.getInt("DEPOSIT"));
+				
+				list.add(rvo);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
+		}
+		return list;
 	}
 
-
-
+	public int selectReservationSequence(Connection con) {
+		
+		Statement stmt = null;
+		int result = 0;
+		String query2 = prop.getProperty("selectSequence");
+		ResultSet rset = null;
+		System.out.println(query2);
+		try {
+			stmt = con.createStatement();
+			rset = stmt.executeQuery(query2);
+			if(rset.next()) {
+				System.out.println("LAST_NUMBER : " + rset.getString("LAST_NUMBER"));
+				result = Integer.parseInt(rset.getString("LAST_NUMBER"));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(stmt);
+			close(rset);
+		}
+		return result;
+	}
 }
