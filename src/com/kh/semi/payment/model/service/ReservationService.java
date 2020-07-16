@@ -42,9 +42,17 @@ public class ReservationService {
 	public ArrayList<ReservationVO> selectReservationList(String mNo) {
 		Connection con = getConnection();
 		ArrayList<ReservationVO> list = new ReservationDao().selectReservation(con, mNo);
-		System.out.println(list);
+		
 		close(con);
 		return list;
+	}
+
+	public ArrayList<String> selectEnpList(ArrayList<ReservationVO> list) {
+		Connection con = getConnection();
+		ArrayList<String> enpList = new ReservationDao().selectEnpList(con, list);
+		
+		close(con);
+		return enpList;
 	}
 
 

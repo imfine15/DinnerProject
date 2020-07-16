@@ -25,12 +25,22 @@ public class SelectReservationListServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		HttpSession sesstion = request.getSession();
-		MemberVO member = (MemberVO)sesstion.getAttribute("loginUser");
+		HttpSession session = request.getSession();
+		MemberVO member = (MemberVO)session.getAttribute("loginUser");
 		
 		String mNo = member.getmNo();
 		ArrayList<ReservationVO> list = new ReservationService().selectReservationList(mNo);
+		ArrayList<String> enpList = new ReservationService().selectEnpList(list);
 		
+		System.out.println(enpList);
+		String page = "";
+		if(list != null) {
+			page = request.getContextPath() + "/views/myPage/detailsOfPayandReservation.jsp";
+			session.setAttribute("list", list);
+		} else {
+			
+		}
+		response.sendRedirect(page);
 		
 	}
 

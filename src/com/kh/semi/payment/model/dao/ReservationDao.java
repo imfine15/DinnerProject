@@ -3,6 +3,7 @@ package com.kh.semi.payment.model.dao;
 import java.sql.Statement;
 import java.io.FileReader;
 import java.io.IOException;
+import java.security.KeyStore.ProtectionParameter;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -81,7 +82,7 @@ public class ReservationDao {
 			System.out.println(query);
 			pstmt = con.prepareStatement(query);
 			pstmt.setString(1, mNo);
-			
+			list = new ArrayList<ReservationVO>();
 			rset = pstmt.executeQuery();
 			
 			while(rset.next()) {
@@ -94,7 +95,7 @@ public class ReservationDao {
 				rvo.setRqMemo(rset.getString("REQUEST_MEMO"));
 				rvo.setpAmount(rset.getInt("POINT_AMMOUNT"));
 				rvo.setPeople(rset.getInt("PEOPLE"));
-				rvo.setSysDate(rset.getDate("RESERVATION_REQUEST_DATE"));
+				rvo.setSysDate(rset.getTimestamp("RESERVATION_REQUEST_DATE"));
 				rvo.setDeposit(rset.getInt("DEPOSIT"));
 				
 				list.add(rvo);
@@ -131,5 +132,36 @@ public class ReservationDao {
 			close(rset);
 		}
 		return result;
+	}
+
+	public ArrayList<String> selectEnpList(Connection con, ArrayList<ReservationVO> list) {
+		PreparedStatement pstmt = null;
+		
+		String query = prop.getProperty("selectEnpname");
+		ArrayList<String> enpList = new ArrayList<>();
+		ResultSet rset = null;
+		int count = 0;
+		while(list != null) {
+			String ename = "";
+			try {
+				pstmt = con.prepareStatement(query);
+				pstmt.setString(1, list.get(count).geteNo());
+				
+				rset = pstmt.executeQuery();
+				if(rset.next()) {
+					ename = rset.getString("ENP_NAME");
+					
+					enpList.add(ename);
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} finally {
+				close(pstmt);
+				close(rset);
+			}
+		}
+
+		return enpList;
 	}
 }
