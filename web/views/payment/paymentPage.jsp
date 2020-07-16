@@ -73,10 +73,6 @@ input[type="number"]::-webkit-inner-spin-button {
 <%@ include file="/views/common/header.jsp" %>
 <form action="<%=request.getContextPath()%>/reservation.me" method="post">
 
-	<%if(loginUser!=null) {%>
-	<input type="hidden" name="mNo" value="<%=loginUser.getmNo()%>">
-	
-	<%} %>
 	<input type="hidden" name="cals" value="CALC1">
 	<div
 		style="width: 80%; height: 1400px; margin-left: auto; margin-right: auto; padding-top: 100px;">
@@ -172,13 +168,13 @@ input[type="number"]::-webkit-inner-spin-button {
 			<select name="adult" id="adult" class="sle2" style="margin-right: 20px;">
 			
 				<%for(int i = 1; i < 101; i ++){ %>
-				<option><%=i %>명</option>
+				<option value="<%=i%>"><%=i %>명</option>
 				<%} %>
 			</select>
 			<label style="font-size: 12px;">어린이</label>
 			<select id="child" class="sle2" name="child">
 				<%for(int i = 0; i < 101; i ++){ %>
-				<option><%=i %>명</option>
+				<option value="<%=i%>"><%=i %>명</option>
 				<%} %>
 			</select>
 			<br><br>
@@ -202,6 +198,7 @@ input[type="number"]::-webkit-inner-spin-button {
 		</div>
 	</div>
 </form>
+
 <script>
 	function reservation(){
 	if($("#finaltime").html() === null || $("#finaltime").html() === ""){
