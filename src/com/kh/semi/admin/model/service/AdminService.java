@@ -14,6 +14,9 @@ public class AdminService {
 		Connection con = getConnection();
 		
 		int listCount = new AdminDao().getListCount(con);
+		
+		System.out.println("listCount2 : " + listCount);
+		
 		close(con);
 		
 		return listCount;
@@ -23,6 +26,8 @@ public class AdminService {
 		Connection con = getConnection();
 		
 		ArrayList<EnpUpVo> list = new AdminDao().selectEntList(con,pi);
+		
+		System.out.println("list2 : " + list);
 		
 		close(con);
 		

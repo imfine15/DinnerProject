@@ -1,5 +1,7 @@
 package com.kh.semi.enterprise.model.vo;
 
+import java.util.Date;
+
 public class EnpUpVo implements java.io.Serializable {
 	private String enpNo;
 	private String enpName;
@@ -18,13 +20,13 @@ public class EnpUpVo implements java.io.Serializable {
 	private String enpStatus;
 	private String enpPartnerType;
 	private String uploadApproval;
-	
+	private Date uploadDate;
 	
 	public EnpUpVo() {}
 
 	public EnpUpVo(String enpNo, String enpName, String enpAddress, String enpPhone, String enpPartnerType,
 			String menuName, int menuPrice, String priceRange, String enpHour, String closedDay, String website,
-			String hashTags, String introduce, String parkingPossible, String enpType, String enpStatus, String uploadApproval) {
+			String hashTags, String introduce, String parkingPossible, String enpType, String enpStatus, String uploadApproval, Date uploadDate) {
 		super();
 		this.enpNo = enpNo;
 		this.enpName = enpName;
@@ -43,9 +45,18 @@ public class EnpUpVo implements java.io.Serializable {
 		this.enpType = enpType;
 		this.enpStatus = enpStatus;
 		this.uploadApproval = uploadApproval;
+		this.uploadDate = uploadDate;
 	}
 	
 	
+
+	public Date getUploadDate() {
+		return uploadDate;
+	}
+
+	public void setUploadDate(Date uploadDate) {
+		this.uploadDate = uploadDate;
+	}
 
 	public String getUploadApproval() {
 		return uploadApproval;
@@ -189,7 +200,7 @@ public class EnpUpVo implements java.io.Serializable {
 				+ enpPhone + ", enpPartnerType=" + enpPartnerType + ", menuName=" + menuName + ", menuPrice="
 				+ menuPrice + ", priceRange=" + priceRange + ", enpHour=" + enpHour + ", closedDay=" + closedDay
 				+ ", website=" + website + ", hashTags=" + hashTags + ", introduce=" + introduce + ", parkingPossible="
-				+ parkingPossible + ", enpType=" + enpType + ", enpStatus=" + enpStatus + ", uploadApproval=" + uploadApproval + "]";
+				+ parkingPossible + ", enpType=" + enpType + ", enpStatus=" + enpStatus + ", uploadApproval=" + uploadApproval + ", uploadDate=" + uploadDate + "]";
 	}
 	
 	

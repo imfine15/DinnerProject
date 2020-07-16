@@ -10,7 +10,10 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Properties;
 
+import javax.swing.plaf.synth.SynthSpinnerUI;
+
 import com.kh.semi.admin.model.vo.PageInfo;
+import com.kh.semi.enterprise.model.vo.EnpAttachment;
 import com.kh.semi.enterprise.model.vo.EnpUpVo;
 
 import static com.kh.semi.common.JDBCTemplate.*;
@@ -37,6 +40,8 @@ public class AdminDao {
 		
 		String query = prop.getProperty("listCount");
 		
+		
+		
 		try {
 			stmt = con.createStatement();
 			rset = stmt.executeQuery(query);
@@ -60,11 +65,13 @@ public class AdminDao {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		ArrayList<EnpUpVo> list = null;
+		EnpUpVo eu;
+		String query = prop.getProperty("selectEntList");
 		
-		String quert = prop.getProperty("selectEntList");
+		
 		
 		try {
-			pstmt = con.prepareStatement(quert);
+			pstmt = con.prepareStatement(query);
 			
 			int startRow = (pi.getCurrentPage() - 1) * pi.getLimit() + 1;
 			int endRow = startRow + pi.getLimit() - 1;
@@ -78,9 +85,32 @@ public class AdminDao {
 			
 			
 			
+			
+			while(rset.next()) {
+				
+				
+				eu = new EnpUpVo();
+				eu.setEnpNo(rset.getString("ENP_NO"));
+				eu.setEnpName(rset.getString("ENP_NAME"));
+				eu.setEnpType(rset.getString("ENP_TYPE"));
+				eu.setUploadDate(rset.getDate("UPLOAD_DATE"));
+				eu.setUploadApproval(rset.getString("UPLOAD_APPROVAL"));
+				
+				
+				
+				list.add(eu);
+				
+				
+			}
+			
+			
+			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
 		}
 		
 		

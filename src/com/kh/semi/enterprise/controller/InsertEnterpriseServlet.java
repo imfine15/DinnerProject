@@ -126,6 +126,7 @@ public class InsertEnterpriseServlet extends HttpServlet {
 	         if(result > 0) {
 	        	 page="views/upload/foodSuccess.jsp";
 	        	 
+	        	 
 	         } else {
 	        	 for(int i = 0 ; i < saveFiles.size(); i++) {
 	                 File failedFile = new File(savePath + saveFiles.get(i));
