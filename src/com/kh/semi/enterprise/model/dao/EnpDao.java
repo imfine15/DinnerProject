@@ -136,6 +136,7 @@ public int insertEnterprise(Connection con, EnpUpVo enpUp) {
 		pstmt.setString(9, enpUp.getWebsite());
 		pstmt.setString(10, enpUp.getIntroduce());
 		pstmt.setString(11, enpUp.getParkingPossible());
+		pstmt.setString(12, enpUp.getUploadApproval());
 		
 		result = pstmt.executeUpdate();
 		
