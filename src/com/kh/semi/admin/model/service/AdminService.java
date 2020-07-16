@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 import com.kh.semi.admin.model.dao.AdminDao;
 import com.kh.semi.admin.model.vo.PageInfo;
+import com.kh.semi.enterprise.model.vo.EnpAttachment;
 import com.kh.semi.enterprise.model.vo.EnpUpVo;
 
 public class AdminService {
@@ -32,6 +33,32 @@ public class AdminService {
 		close(con);
 		
 		return list;
+	}
+
+	public EnpUpVo selectOneEnp(String enpNo) {
+		Connection con = null;
+		
+		EnpUpVo enpUp = null;
+		
+		System.out.println("enpNo2 : " + enpNo);
+		
+		enpUp = new AdminDao().selectOneEnp(con, enpNo);
+		
+		System.out.println("enpUp2 : " + enpUp);
+	
+		return enpUp;
+	}
+
+	public EnpAttachment selectOneEnpFile(String enpNo) {
+		Connection con = null;
+		
+		EnpAttachment ea = null;
+
+		ea = new AdminDao().selectOneEnpFile(con, enpNo);
+		
+		System.out.println("ea2 : " + ea);
+	
+		return ea;
 	}
 
 }
