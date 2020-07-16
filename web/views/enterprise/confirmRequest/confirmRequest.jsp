@@ -1,5 +1,17 @@
+<%@page import="com.kh.semi.enterprise.model.vo.PageInfo"%>
+<%@page import="com.kh.semi.payment.model.vo.ReservationVO"%>
+<%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%
+ArrayList<ReservationVO> list = (ArrayList<ReservationVO>) request.getAttribute("list"); 
+PageInfo pi = (PageInfo) request.getAttribute("pi");
+int listCount = pi.getListCount();
+int currentPage = pi.getCurrentPage();
+int maxPage = pi.getMaxPage();
+int startPage = pi.getStartPage();
+int endPage = pi.getEndPage();
+%>
 <!doctype html>
 <html lang="ko">
 <head>
@@ -134,74 +146,34 @@
                   <td><button class="reservateBtn">확인</button> <button class="cancelBtn" style="background-color: gray;">취소</button></td>
                  
                </tr>
-               <tr>
-                  <td><button  style="background:#EB7673; width:17px; height:17px; border:0;"></button></td>
-                  <td><a href="">00000001</a></td>
-                  <td><a href="">imfine123</a></td>
-                  <td>13:30</td>
-                  <td>3</td>
-                  <td>2020/06/22</td>
-                  <td><button class="moreInfoBtn">확인</button></td>
-                  <td><button class="userInfoBtn">확인</button></td>
-                  <td><button class="reservateBtn">확인</button> <button class="cancelBtn" style="background-color: gray;">취소</button></td>
-                 
-               </tr>
-               <tr>
-                  <td><button  style="background:#EB7673; width:17px; height:17px; border:0;"></button></td>
-                  <td><a href="">00000001</a></td>
-                  <td><a href="">imfine123</a></td>
-                  <td>13:30</td>
-                  <td>3</td>
-                  <td>2020/06/22</td>
-                  <td><button class="moreInfoBtn">확인</button></td>
-                  <td><button class="userInfoBtn">확인</button></td>
-                  <td><button class="reservateBtn">확인</button> <button class="cancelBtn" style="background-color: gray;">취소</button></td>
-                 
-               </tr>
-               <tr>
-                  <td><button  style="background:#EB7673; width:17px; height:17px; border:0;"></button></td>
-                  <td><a href="">00000001</a></td>
-                  <td><a href="">imfine123</a></td>
-                  <td>13:30</td>
-                  <td>3</td>
-                  <td>2020/06/22</td>
-                  <td><button class="moreInfoBtn">확인</button></td>
-                  <td><button class="userInfoBtn">확인</button></td>
-                  <td><button class="reservateBtn">확인</button> <button class="cancelBtn" style="background-color: gray;">취소</button></td>
-                 
-               </tr>
-               <tr>
-                  <td><button  style="background:#5EB8B4; width:17px; height:17px; border:0;"></button></td>
-                  <td><a href="">00000001</a></td>
-                  <td><a href="">imfine123</a></td>
-                  <td>13:30</td>
-                  <td>3</td>
-                  <td>2020/06/22</td>
-                  <td><button class="moreInfoBtn">확인</button></td>
-                  <td><button class="userInfoBtn">확인</button></td>
-                  <td><button class="reservateBtn">확인</button> <button class="cancelBtn" style="background-color: gray;">취소</button></td>
-                 
-               </tr>
-               <tr>
-                  <td><button  style="background:#5EB8B4; width:17px; height:17px; border:0;"></button></td>
-                  <td><a href="">00000001</a></td>
-                  <td><a href="">imfine123</a></td>
-                  <td>13:30</td>
-                  <td>3</td>
-                  <td>2020/06/22</td>
-                  <td><button class="moreInfoBtn">확인</button></td>
-                  <td><button class="userInfoBtn">확인</button></td>
-                  <td><button class="reservateBtn">확인</button> <button class="cancelBtn" style="background-color: gray;">취소</button></td>
-                 
-               </tr>
+               <% for(ReservationVO r : list){ %>
+					<tr>
+					<%-- <input type="hidden" value="<%=b.getBid() %>">
+						<td><%= b.getBno() %></td>
+						<td><%= b.getcName() %></td>
+						<td><%= b.getbTitle() %></td>
+						<td><%= b.getNickName() %></td>
+						<td><%= b.getbCount() %></td>
+						<td><%= b.getbDate() %></td> --%>
+						<td><button  style="background:#EB7673; width:17px; height:17px; border:0;"></button></td>
+                  		<td><a href=""><%=r.getrNo() %></a></td>
+		                <td><a href=""><%=r.getmNo() %></a></td>
+		                <td>13:30</td>
+		                <td><%=r.getPeople() %></td>
+		                <td><%=r.getrDate() %></td>
+		                <td><button class="moreInfoBtn">확인</button></td>
+		                <td><button class="userInfoBtn">확인</button></td>
+		                <td><button class="reservateBtn">확인</button> <button class="cancelBtn" style="background-color: gray;">취소</button></td>
+					</tr>
+				<%} %>
             </tbody>
             </table>
       <div class="pagingArea" align="center">
-         <button class="hide" onclick="location.href='<%=request.getContextPath()%>/selectList.no?currentPage=1'"><<</button>
-         <button class="hide" onclick="location.href='<%=request.getContextPath()%>/selectList.no?currentPage='"><</button>
+         <button class="hide" onclick="location.href='<%=request.getContextPath()%>/selectConfirmRequestList.en?currentPage=1'"><<</button>
+         <button class="hide" onclick="location.href='<%=request.getContextPath()%>/selectConfirmRequestList.en?currentPage='"><</button>
 
-         <button class="hide" onclick="location.href='<%=request.getContextPath()%>/selectList.no?currentPage='">></button>
-         <button class="hide" onclick="location.href='<%=request.getContextPath()%>/selectList.no?currentPage='">>></button>
+         <button class="hide" onclick="location.href='<%=request.getContextPath()%>/selectConfirmRequestList.en?currentPage='">></button>
+         <button class="hide" onclick="location.href='<%=request.getContextPath()%>/selectConfirmRequestList.en?currentPage='">>></button>
       </div>
    </div>
 	<br>	

@@ -189,7 +189,7 @@
 						
 						<textarea rows="5" cols="40" style="resize:none; border-radius: 0; border: 1px solid gray; outline-style: none;"></textarea>
 						<br>
-						<button type="submit" style="text-align: center; margin-left: 80%;">확인</button>
+						<button type="submit" style="text-align: center; margin-left: 80%;  font-weight: bold;">제출</button>
 						
 						
 						
