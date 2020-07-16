@@ -83,6 +83,7 @@
 </head>
 <body>
 <%@ include file="/views/common/header.jsp" %>
+<% if(loginUser != null) {%>
 	<h1 style="margin-left: 200px; margin-top: 30px;">식당 등록</h1>
 		<div class="box" align="center">
 		<form action="<%=request.getContextPath() %>/insert.up"  method="post" enctype="multipart/form-data">
@@ -200,6 +201,15 @@
 	</div>
 		</form>
 		</div>
+	<%} else { %>
+	<script>
+		alert("로그인 후 이용하시길 바랍니다.");
+		document.location.href="/semiproject/views/signIn/signIn.jsp";
+	</script>
+	
+	<% } %>
+	
+
 <%@ include file="/views/common/footer.jsp" %>
 
 

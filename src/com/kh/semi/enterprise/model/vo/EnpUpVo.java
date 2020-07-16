@@ -17,12 +17,14 @@ public class EnpUpVo implements java.io.Serializable {
 	private String enpType;
 	private String enpStatus;
 	private String enpPartnerType;
+	private String uploadApproval;
+	
 	
 	public EnpUpVo() {}
 
 	public EnpUpVo(String enpNo, String enpName, String enpAddress, String enpPhone, String enpPartnerType,
 			String menuName, int menuPrice, String priceRange, String enpHour, String closedDay, String website,
-			String hashTags, String introduce, String parkingPossible, String enpType, String enpStatus) {
+			String hashTags, String introduce, String parkingPossible, String enpType, String enpStatus, String uploadApproval) {
 		super();
 		this.enpNo = enpNo;
 		this.enpName = enpName;
@@ -40,6 +42,17 @@ public class EnpUpVo implements java.io.Serializable {
 		this.parkingPossible = parkingPossible;
 		this.enpType = enpType;
 		this.enpStatus = enpStatus;
+		this.uploadApproval = uploadApproval;
+	}
+	
+	
+
+	public String getUploadApproval() {
+		return uploadApproval;
+	}
+
+	public void setUploadApproval(String uploadApproval) {
+		this.uploadApproval = uploadApproval;
 	}
 
 	public String getEnpNo() {
@@ -176,7 +189,7 @@ public class EnpUpVo implements java.io.Serializable {
 				+ enpPhone + ", enpPartnerType=" + enpPartnerType + ", menuName=" + menuName + ", menuPrice="
 				+ menuPrice + ", priceRange=" + priceRange + ", enpHour=" + enpHour + ", closedDay=" + closedDay
 				+ ", website=" + website + ", hashTags=" + hashTags + ", introduce=" + introduce + ", parkingPossible="
-				+ parkingPossible + ", enpType=" + enpType + ", enpStatus=" + enpStatus + "]";
+				+ parkingPossible + ", enpType=" + enpType + ", enpStatus=" + enpStatus + ", uploadApproval=" + uploadApproval + "]";
 	}
 	
 	

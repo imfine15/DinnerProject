@@ -86,6 +86,7 @@ public class InsertEnterpriseServlet extends HttpServlet {
 			String parkingPossible = multiRequest.getParameter("parkingPossible");
 			String enpType = multiRequest.getParameter("enpType");
 			String enpStatus = multiRequest.getParameter("enpStatus");
+			String uploadApproval = multiRequest.getParameter("uploadApproval");
 			
 			
 			EnpUpVo enpUp = new EnpUpVo();
@@ -104,6 +105,7 @@ public class InsertEnterpriseServlet extends HttpServlet {
 			enpUp.setParkingPossible(parkingPossible);
 			enpUp.setEnpType(enpType);
 			enpUp.setEnpStatus(enpStatus);
+			enpUp.setUploadApproval(uploadApproval);
 			
 			
 			ArrayList<EnpAttachment> fileList = new ArrayList<>();
