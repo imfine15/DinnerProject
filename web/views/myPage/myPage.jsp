@@ -122,24 +122,25 @@ input{
 					<ul class="ir_pm"
 						style="width: 678px; height: 116px; margin: 0 0 52px 16px; overflow: hidden; background: url(images/subbar.png) no-repeat 0 0">
 						<li
-							style="float: left; width: 161px; height: 116px; margin-right: 65px;">
-							<a href="/semiproject/views/myPage/myPoint.jsp"
-							style="display: block; width: 50px; height: 16px; margin-top: 95px">바로가기
-						</a>
+							style="float: left; width: 161px; height: 116px; margin-right: 55px;">
+							<form action="<%=request.getContextPath()%>/selectList.py">
+								<button style="display: block; width: 50px; height: 16px; margin-top: 90px; maring-right:30px; padding-rightL"></button>
+							</form>
 						</li>
 
 						<li
-							style="float: left; width: 161px; height: 116px; margin-right: 65px;">
-							<a href="/semiproject/views/myPage/detailsOfPayandReservation.jsp"
-							style="display: block; width: 50px; height: 16px; margin-top: 95px">바로가기
-						</a>
+							style="float: left; width: 161px; height: 116px; margin-right: 55px;">
+							<form action="<%=request.getContextPath()%>/selectList.py">
+								<button style="display: block; width: 50px; height: 16px; margin-top: 90px; maring-right:30px; padding-rightL"></button>
+							</form>
 						</li>
 						<li
 							style="float: left; width: 161px; height: 116px; margin-right: 65px;">
 							
-							<a href="/semiproject/views/myPage/inquiryHistory.jsp"
-							style="display: block; width: 50px; height: 16px; margin-top: 95px">바로가기
-						</a></li>
+							<form action="<%=request.getContextPath()%>/selectList.py">
+								<button style="display: block; width: 50px; height: 16px; margin-top: 90px; maring-right:30px; padding-rightL"></button>
+							</form>
+						</li>
 					</ul>
 				</div>
 				<!--// mArticle -->
