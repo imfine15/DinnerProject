@@ -38,11 +38,12 @@
 		<div id="food">
 		<section>
 			<article>
-				<div class="inner">
+				<div class="inner" id="inner">
 					<%
 					if(enpList.size() != 0) {
 						Entry<String, Integer> entry = null;
 						for(int i = 0; i < enpList.size(); i++) {
+							double rating = Math.round(enpList.get(i).getRating() * 10.0) / 10.0;
 							HashMap<String, Integer> temp = enpMenus.get(i);
 							Iterator<Map.Entry<String, Integer>> entries = temp.entrySet().iterator();
 								if(entries.hasNext()){
@@ -51,7 +52,11 @@
 					%>
 						<div id="foodArea<%= i + 1 %>" class="foodArea">
 							<img src="/semiproject/images/죠떡.jpg" class="foodImg"><br>
-							<label class="maintext"><%= enpList.get(i).getEnpName() %></label><label class="rating"><%= Math.round(enpList.get(i).getRating() * 10.0) / 10.0 %></label><br>
+							<label class="maintext"><%= enpList.get(i).getEnpName() %></label>
+							<% if(rating != 0.0) { %>
+							<label class="rating"><%= rating %></label>
+							<% } %>
+							<br>
 							<p class="small"><%= enpList.get(i).getEnpAddress() %></p>
 							<p class="small"><%= entry.getKey() %></p>
 						</div>
@@ -74,9 +79,26 @@
 					<button class="keybtn">일식</button>
 					<button class="keybtn">중식</button>
 					<button class="keybtn">양식</button>
-					<button class="keybtn">비건</button>
+					<button class="keybtn">분식</button>
 					<button class="keybtn">패스트푸드</button>
 				</div>
+				<script>
+					$("#keywordArea button").click(function() {
+						var searchWord = "<%= search %>";
+						var keyword = $(this).html();
+						$.ajax({
+							url: "/semiproject/searchKeyWord.se",
+							type: "get",
+							data: {searchWord: searchWord, keyword: keyword},
+							success: function(data) {
+								$div = $("#inner").html("");
+							},
+							error: function(data) {
+								console.log("실패");
+							}
+						});
+					});
+				</script>
 				<!-- 배너광고 -->
 				<div id="ad">
 					<a href="www.naver.com" target="_blank"><img src="/semiproject/images/groupmoa.PNG" id="adImg"></a>
