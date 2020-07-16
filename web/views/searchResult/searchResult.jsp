@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="java.util.*, java.util.Map.*,com.kh.semi.enterprise.model.vo.EnpVO"%>
+    pageEncoding="UTF-8" import="java.util.*, java.util.Map.*,com.kh.semi.enterprise.model.vo.*"%>
 <%
 	ArrayList<EnpVO> enpList = (ArrayList<EnpVO>) session.getAttribute("enpList");
 	String search = (String) session.getAttribute("search");
@@ -46,9 +46,10 @@
 							double rating = Math.round(enpList.get(i).getRating() * 10.0) / 10.0;
 							HashMap<String, Integer> temp = enpMenus.get(i);
 							Iterator<Map.Entry<String, Integer>> entries = temp.entrySet().iterator();
-								if(entries.hasNext()){
-									entry = (Entry<String, Integer>) entries.next();
-								}
+							
+							if(entries.hasNext()){
+								entry = (Entry<String, Integer>) entries.next();
+							}
 					%>
 						<div id="foodArea<%= i + 1 %>" class="foodArea">
 							<img src="/semiproject/images/죠떡.jpg" class="foodImg"><br>
@@ -86,17 +87,7 @@
 					$("#keywordArea button").click(function() {
 						var searchWord = "<%= search %>";
 						var keyword = $(this).html();
-						$.ajax({
-							url: "/semiproject/searchKeyWord.se",
-							type: "get",
-							data: {searchWord: searchWord, keyword: keyword},
-							success: function(data) {
-								$div = $("#inner").html("");
-							},
-							error: function(data) {
-								console.log("실패");
-							}
-						});
+						location.href="<%= request.getContextPath() %>/searchKeyWord.se?search=" + searchWord + "&keyword=" + keyword;
 					});
 				</script>
 				<!-- 배너광고 -->
