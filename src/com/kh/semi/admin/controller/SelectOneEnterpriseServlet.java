@@ -7,6 +7,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.kh.semi.admin.model.service.AdminService;
+import com.kh.semi.enterprise.model.vo.EnpAttachment;
+import com.kh.semi.enterprise.model.vo.EnpUpVo;
+
 /**
  * Servlet implementation class SelectOneEnterpriseServlet
  */
@@ -26,7 +30,28 @@ public class SelectOneEnterpriseServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String enpNo = request.getParameter("no");
 		
+		System.out.println(enpNo);
+		
+		EnpUpVo enpUp = new AdminService().selectOneEnp(enpNo);
+		EnpAttachment ea = new AdminService().selectOneEnpFile(enpNo);
+		
+		System.out.println("enpUp : " + enpUp);
+		System.out.println("ea : " + ea);
+		
+		String page ="";
+		
+		if(enpUp != null && ea != null) {
+			page = "views/admin/restaurant/restaurantUpload.jsp";
+			request.setAttribute("enpUp", enpUp);
+			request.setAttribute("ea", ea);
+			
+		} else {
+			page ="views/common/errorPage.jsp";
+			request.setAttribute("msg", "게시판 조회 실패!");
+		}
+		request.getRequestDispatcher(page).forward(request, response);
 	}
 
 	/**

@@ -130,7 +130,7 @@ height: 25px;
 					<td><%= e.getEnpType() %></td>
 					<td><%= e.getUploadDate() %></td>
 					<td><%= e.getUploadApproval() %></td>
-					<td><button class="btn" onclick="location.href='/selectOneEnt.up'">확인하기</button></td>
+					<td><button class="btn" onclick="location.href='<%=request.getContextPath()%>/selectOneEnt.up?no=<%= e.getEnpNo()%>'">확인하기</button></td>
 				</tr>
 				<%} %>
 			</table>
