@@ -241,6 +241,71 @@ public int insertMenu(Connection con, EnpUpVo enpUp) {
 	return result;
 }
 
+public EnpVO loginCheck(Connection con, EnpVO requestEnp) {
+	PreparedStatement pstmt = null;
+	ResultSet rset = null;
+	EnpVO loginEnp = null;
+	
+	String query = prop.getProperty("loginCheck");
+	
+	try {
+		pstmt = con.prepareStatement(query);
+		pstmt.setString(1, requestEnp.getPartnerId());
+		pstmt.setString(2, requestEnp.getPartnerPwd());
+		
+		rset = pstmt.executeQuery();
+		if(rset.next()) {
+			loginEnp = new EnpVO();
+			loginEnp.setEnpNo(rset.getString("ENP_NO"));
+			loginEnp.setEnpRegisterNo(rset.getString("ENP_REGISTER_NO"));
+			loginEnp.setPartnerCode(rset.getString("PARTNER_CODE"));
+			loginEnp.setPenaltyCount(rset.getInt("PENALTY_COUNT"));
+			loginEnp.setPartnerId(rset.getString("PARTNER_ID"));
+			loginEnp.setPartnerPwd(rset.getString("PARTNER_PWD"));
+			loginEnp.setPartnerEmail(rset.getString("PARTNER_EMAIL"));
+			loginEnp.setPartnerName(rset.getString("PARTNER_NAME"));
+			loginEnp.setAccountHolder(rset.getString("ACCOUNT_HOLDER"));
+			loginEnp.setBank(rset.getString("BANK"));
+			loginEnp.setBankAccount(rset.getString("BANK_ACCOUNT"));
+			loginEnp.setDepositLowerLimit(rset.getInt("DEPOSIT_LOWER_LIMIT"));
+			loginEnp.setDepositHigherLimit(rset.getInt("DEPOSIT_HIGHER_LIMIT"));
+			loginEnp.setSignupApproval(rset.getString("SIGNUP_APPROVAL"));
+			loginEnp.setJuminNo(rset.getString("JUMIN_NO"));
+			loginEnp.setEnpLicense(rset.getString("ENP_LICENCE"));
+			loginEnp.setEnpName(rset.getString("ENP_NAME"));
+			loginEnp.setEnpPhone(rset.getString("ENP_PHONE"));
+			loginEnp.setEnpAddress(rset.getString("ENP_ADDRESS"));
+			loginEnp.setEnpHour(rset.getString("ENP_HOUR"));
+			loginEnp.setEnpType(rset.getString("ENP_TYPE"));
+			loginEnp.setEnpStatus(rset.getString("ENP_STATUS"));
+			loginEnp.setEnpPartnerType(rset.getString("ENP_PARTNER_TYPE"));
+			loginEnp.setHashTags(rset.getString("HASH_TAGS"));
+			loginEnp.setPriceRange(rset.getString("PRICE_RANGE"));
+			loginEnp.setClosedDay(rset.getString("CLOSED_DAY"));
+			loginEnp.setWebsite(rset.getString("WEBSITE"));
+			loginEnp.setIntroduce(rset.getString("INTRODUCE"));
+			loginEnp.setParkingPossible(rset.getString("PARKING_POSSIBLE"));
+			loginEnp.setUploadApproval(rset.getString("UPLOAD_APPROVAL"));
+			
+			/*ENP_NO ENP_REGISTER_NO PARTNER_CODE PENALTY_COUNT PARTNER_ID PARTNER_PWD PARTNER_EMAIL PARTNER_NAME ACCOUNT_HOLDER BANK
+			BANK_ACCOUNT DEPOSIT_LOWER_LIMIT DEPOSIT_HIGHER_LIMIT SIGNUP_APPROVAL JUMIN_NO ENP_LICENCE ENP_NAME ENP_PHONE ENP_ADDRESS ENP_HOUR
+			ENP_TYPE ENP_STATUS ENP_PARTNER_TYPE HASH_TAGS PRICE_RANGE CLOSED_DAY
+			WEBSITE INTRODUCE PARKING_POSSIBLE UPLOAD_APPROVAL*/
+		}
+		
+		
+	} catch (SQLException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}finally {
+		close(pstmt);
+		close(rset);
+	}
+	
+	
+	return loginEnp;
+}
+
 
 
 }

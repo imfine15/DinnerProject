@@ -71,4 +71,14 @@ public int insertEnterprise(EnpUpVo enpUp, ArrayList<EnpAttachment> fileList) {
 	return result;
 }
 
+public EnpVO loginCheck(EnpVO requestEnp) {
+	Connection con = getConnection();
+	
+	EnpVO loginEnp = new EnpDao().loginCheck(con, requestEnp);
+	
+	close(con);
+	
+	return loginEnp;
+}
+
 }

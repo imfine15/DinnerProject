@@ -1,9 +1,11 @@
+<%@page import="com.kh.semi.enterprise.model.vo.EnpVO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%EnpVO loginEnp = (EnpVO)session.getAttribute("loginEnp"); %>
 <% int asd = 1;
 	 
 	 if(request.getParameter("asd") == null){
-		 response.sendRedirect("/semiproject/views/enterprise/signIn/signIn.jsp");
+		 /* response.sendRedirect("/semiproject/views/enterprise/signIn/signIn.jsp"); */
 	 }else{
 	 	asd = Integer.parseInt(request.getParameter("asd")); 
 	 }
@@ -33,10 +35,10 @@
 <body>
 <div style="background: white;">
 		<div class="container2" style="background: white; box-shadow:0px 5px 10px 5px #DE6B6B;">
+			
 			<a href="">
 				<img src="/semiproject/images/YUMEET LOGO.png" style="width: 200px; background:white;">
 			</a>
-				
 			<a href="" style="float: right">
 				<img src="/semiproject/images/myicon.png" style="height:66.63px; width: 95px; background:white;">
 			</a>
@@ -77,6 +79,15 @@
 				<li>
 					<a href="/semiproject/views/enterprise/report/report.jsp?asd=7">보고서</a>
 				</li>
+				<%if(loginEnp != null) {%>
+				<li>
+					<a href="<%=request.getContextPath()%>/logout.en"><%=loginEnp.getPartnerName() %>님의 로그아웃</a>
+				</li>
+				<%} else{%>
+				<li>
+					<a href="/semiproject/views/enterprise/signIn/signIn.jsp">로그인</a>
+				</li>
+				<%} %>
 			</ul>
 		</div>
 	</nav>
