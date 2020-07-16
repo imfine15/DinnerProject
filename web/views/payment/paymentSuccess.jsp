@@ -31,17 +31,19 @@
 		
 		<br><br><br><br>
 		<br>
-		<button id="home">홈으로</button>
+		<button id="home" onclick="home();">홈으로</button>
 		<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 	</div>
 	<%@ include file="/views/common/footer.jsp" %>
 	<script>
-	history.pushState(null, null, "/semiproject/views/main/main.jsp");
-
+	function home(){
+		location.href="/semiproject/views/main/main.jsp";
+	}
+	history.pushState(null, null, location.href);
 	window.onpopstate = function(event) {
-		alert("정보가 만료되었습니다.");
 		history.go(1);
-	};
+		alert("만료된 페이지입니다.");
+	}
 	</script>
 </body>
 </html>
