@@ -32,4 +32,13 @@ public class SearchService {
 		return enpMenus;
 	}
 
+	public List<EnpVO> searchKeyword(String[] words) {
+		Connection con = getConnection();
+		List<EnpVO> enpList = new SearchDao().searchKeyword(con, words);
+		
+		close(con);
+		
+		return enpList;
+	}
+
 }

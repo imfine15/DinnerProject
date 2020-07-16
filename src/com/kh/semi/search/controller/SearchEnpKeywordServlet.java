@@ -1,7 +1,6 @@
 package com.kh.semi.search.controller;
 
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -13,25 +12,20 @@ import javax.servlet.http.HttpServletResponse;
 import com.kh.semi.enterprise.model.vo.EnpVO;
 import com.kh.semi.search.model.service.SearchService;
 
-@WebServlet("/searchEnp.se")
-public class SearchEnpServlet extends HttpServlet {
+@WebServlet("/searchKeyWord.se")
+public class SearchEnpKeywordServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    public SearchEnpServlet() {
+    public SearchEnpKeywordServlet() {
         super();
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String search = request.getParameter("search");
+		String searchWord = request.getParameter("searchWord");
+		String keyword = request.getParameter("keyword");
+		String[] words = {searchWord, keyword};
 		
-		List<EnpVO> enpList = new SearchService().searchEnp(search);
-		List<HashMap<String, Integer>> enpMenus = new SearchService().getMenus(enpList);
-		
-		String page = "views/searchResult/searchResult.jsp";
-		request.getSession().setAttribute("search", search);
-		request.getSession().setAttribute("enpList", enpList);
-		request.getSession().setAttribute("enpMenus", enpMenus);
-		response.sendRedirect(page);
+		List<EnpVO> enpList = new SearchService().searchKeyword(words);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

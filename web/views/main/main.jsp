@@ -41,7 +41,7 @@
             	function searchEnp() {
             		var search = $("#search").val();
             		
-            		location.href="<%=request.getContextPath()%>/searchEnp.me?search=" + search;
+            		location.href="<%= request.getContextPath() %>/searchEnp.se?search=" + search;
             	}
             </script>
          </div>
