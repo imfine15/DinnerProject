@@ -68,7 +68,7 @@
          				2020.06.01
          			</td>
          			<td style="border:0;">
-         				~
+         				~ <%= loginEnp.getPartnerName() %>
 					</td>
 					<td style="border:0;">
 						2020.06.30
