@@ -11,19 +11,8 @@
 <title>YUMEET</title>
 <link rel="shortcut icon" href="/semiproject/images/favicon.ico" type="image/x-icon">
 <link rel="icon" href="/semiproject/images/favicon.ico" type="image/x-icon">
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script async src="//jsfiddle.net/mLjyupjh/1/embed/"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.9/css/select2.min.css" rel="stylesheet" />
-   <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-    <!-- select2 javascript cdn -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.9/js/select2.min.js"></script>
-    <!-- jQuery import -->
-<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
-<!-- jQuery Form Plugin import -->
-<script src="js/jquery.form.min.js"></script>
-<!-- jQuery MultiFile Plugin import -->
-<script src="js/jQuery.MultiFile.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
 
     
 <style>
@@ -206,7 +195,7 @@ tr {
 						<td class="first" rowspan="2">첨부파일</td>
 						<td style="border-top:none; border-bottom:none; border-collapse:none;" colspan="3">
 							<div id="fileArea">
-								<input type="file" name="files" onchange="loadFiles">
+								 <input type="file" name="upFile" id="upFile" onchange="dd(this,'name')"><br /><br />
 							</div>
 						</td>
 					</tr>
@@ -264,6 +253,7 @@ var popupY= (window.screen.height / 2) - (popupHeight / 2);
 					<button type="reset" id="question-reset" onclick="questionReset">취소</button>
 				</div>
 			</form>
+			
 		</div>
 	</div>
 	<!--<% // } >else { 
@@ -271,8 +261,21 @@ var popupY= (window.screen.height / 2) - (popupHeight / 2);
 	//	request.getRequestDispatcher("../common/errorPage.jsp").forward(request, response);
 	//{ %>  -->	
 	<div style="height: 200px;"></div>
-	
+
 	<script>
+	/*<button type="button"id="dd" onclick="qq();">추가</button>*/
+	$("#dd").change(function(){
+		console.log(123);
+	})
+	function qq(){
+		console.log("123123");
+		var input = document.createElement('input');
+		
+		input.setAttribute("type", "file");
+		console.log(input);
+		$("#uploadFiles").append(input);
+	}
+	
 	function questionSubmit() {
 		$("#question-submit").submit();
 	}
@@ -300,6 +303,55 @@ var popupY= (window.screen.height / 2) - (popupHeight / 2);
 	}
 
 	</script>
+	<script>
+ function getCmaFileInfo(obj,stype) {
+    var fileObj, pathHeader , pathMiddle, pathEnd, allFilename, fileName, extName;
+    if(obj == "[object HTMLInputElement]") {
+        fileObj = obj.value
+    } else {
+        fileObj = document.getElementById(obj).value;
+    }
+    if (fileObj != "") {
+            pathHeader = fileObj.lastIndexOf("\\");
+            pathMiddle = fileObj.lastIndexOf(".");
+            pathEnd = fileObj.length;
+            fileName = fileObj.substring(pathHeader+1, pathMiddle);
+            extName = fileObj.substring(pathMiddle+1, pathEnd);
+            allFilename = fileName+"."+extName;
+ 
+            if(stype == "all") {
+                    return allFilename; // 확장자 포함 파일명
+            } else if(stype == "name") {
+                    return fileName; // 순수 파일명만(확장자 제외)
+            } else if(stype == "ext") {
+                    return extName; // 확장자
+            } else {
+                    return fileName; // 순수 파일명만(확장자 제외)
+            }
+    } else {
+            alert("파일을 선택해주세요");
+            return false;
+    }
+    // getCmaFileView(this,'name');
+    // getCmaFileView('upFile','all');
+ }
+ 
+function getCmaFileView(obj,stype) {
+    var s = getCmaFileInfo(obj,stype);
+    alert(s);
+}
+function dd(obj, stype){
+	var div = document.createElement('div');
+	var inputc = document.createElement('input');
+	var text = document.createElement('text');
+	text.innerHTML = getCmaFileInfo(obj, stype);
+	inputc.setAttribute("type","checkbox");
+	
+	div.append(inputc);
+	div.append(text);
+	$("#uploadFiles").append(div);
+}
+</script>
 	<%@ include file="/views/common/footer.jsp"%>
 </body>
 </html>
