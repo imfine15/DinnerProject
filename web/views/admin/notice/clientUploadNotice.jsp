@@ -19,6 +19,7 @@ tr {
 
 td {
 	height: 30px;
+	margin: 5px;
 }
 
 .fileBtn {
@@ -59,6 +60,12 @@ input {
 	margin-bottom: 10px;
 	margin-top: 10px;
 }
+.first {
+	font-size:16px;
+	width:10%;	
+	font-weight:normal;
+	text-align:center;
+}
 </style>
 </head>
 <body style="background: lightgray;">
@@ -68,7 +75,8 @@ input {
 			<h1>고객 공지사항</h1><br>
 		</div>
 		<div align="center" style="padding-left:10px; padding-right:10px; background: white; width:100%; padding-top: 30px; height: 800px;">
-			<form class="notice-form" action="<%= request.getContextPath() %>/insertc.no" method="post" encType="multipart/form-data">
+				<div style="height:20px;"></div>
+			<form class="notice-form" action="<%= request.getContextPath() %>/insertc.no" method="post" >
 			<table>
 				<tr>
 					<td class="first">제목</td>
@@ -80,13 +88,6 @@ input {
 					<td class="first">내용</td>
 					<td colspan="2"><textarea rows="23" cols="100"name="noticeContent" id="nContent"></textarea></td>
 				</tr>
-				<tr>
-					<td>
-					<label>첨부파일</label>
-					</td>
-					<td><textarea rows="11" cols="100"></textarea></td>
-					<td valign="top"><button class="fileBtn" style="background: #FFFFFF; margin-top: 10px;">파일첨부</button><br><br><button class="fileBtn" style="background: #F6F6F6;">파일삭제</button></td>
-				</tr>
 			</table>
 			<button class="noticeBtn" type="submit" id="noticeC-submit" onclick="noticeCSubmit">공지등록</button>
 			</form>
@@ -96,6 +97,9 @@ input {
 		function noticeCSubmit() {
 		$("#noticeC-submit").submit();
 	}
+		
+		document.getElementById('currentDate').value = new Date().toISOString().substring(0, 10);
+		
 	</script>
 </body>
 </html>

@@ -42,84 +42,21 @@ public class InsertClientNoticeServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	
-		if(ServletFileUpload.isMultipartContent(request)) {
-			
-			int maxSize = 1024 * 1024 * 10;
-			
-			String root = request.getSession().getServletContext().getRealPath("/");
-						
-			//파일 저장 경로 설정
-			 String savePath = root + "thumbnail_uploadFile/";
-			 
-			 //FileRenamePolicy 상속 후 오버라이딩
-			 MultipartRequest multiRequest = 
-					 new MultipartRequest(request, savePath, maxSize, "UTF-8", new MyFileRenamePolicy());
-			 
-			 //다중 파일을 묶어서 업로드처리 하기 위해 컬렉션 이용
-			 //저장한 파일의 이름을 저장할 arrayList 생성
-			 ArrayList<String> saveFiles = new ArrayList<>();
-			 //원본 파일 이름을 저장할 arrayList 생성
-			 ArrayList<String> originFiles = new ArrayList<>();
-			 
-			 //파일이 전송된 폼의 name을 반환한다.
-			 multiRequest.getFileNames();
-			 Enumeration<String> files = multiRequest.getFileNames();
-			 			 
-			 //각 파일의 정보를 구해온 후 DB에 저장할 목적의 데이터를 꺼내온다. 
-			 while(files.hasMoreElements()) {
-				 String name = files.nextElement();
-				 				 
-				 saveFiles.add(multiRequest.getFilesystemName(name));
-				 originFiles.add(multiRequest.getOriginalFileName(name));
-			 }
-			 
-			 //multipartRequest객체에서 파일 외의 값들도 꺼낼 수 있다.
-			 String nTitle = multiRequest.getParameter("noticeTitle");
-			 String nContent = multiRequest.getParameter("noticeContent");
-			 
-		//	 int writer = ((Member)(request.getSession().getAttribute("loginUser"))).getUno();
-			 			 
-			 NoticeVO notice = new NoticeVO();
-			 
-			 notice.setMagagerNo(magagerNo);
-			 notice.setNoticeNo(noticeNo);
-			 notice.setNoticeType(noticeType);
-			 notice.setNoticePositionCode(noticePositionCode);
-			 notice.setNoticeTitle(nTitle);
-			 notice.setNoticeContent(nContent);
-			 notice.setNoticeDate(noticeDate);
-			 
-			 ArrayList<NoticeAttachment> fileList = new ArrayList<>();
-			 
-			 for(int i = originFiles.size() - 1; i >= 0; i--) {
-				 
-				 NoticeAttachment nat = new NoticeAttachment();
-				 
-				 nat.setFilePath(savePath);
-				 nat.setOriginName(originFiles.get(i));
-				 nat.setChangeName(saveFiles.get(i));
-				 
-				 fileList.add(nat);
-			 }
-			 			 
-			 int result = new ClientNoticeService().insertClientNotice(notice, fileList);		 
-			 
-			 String page = "";
-			 
-			 if(result > 0) {
-				 page = "";
-				 //넘기는값들 넘기기  셋어트리뷰트로 
-			 } else {
-				 
-				 for(int i = 0; i < saveFiles.size(); i++) {
-					 File faildFile = new File(savePath + saveFiles.get(i));
-					 
-					 faildFile.delete();
-				 }
-				 
-				 request.setAttribute("msg", "문의글 등록에 실패하셨습니다.");
-				 request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);;
-			 }
+		String nTitle = request.getParameter("noticeTitle");
+		String nContent = request.getParameter("noticeContent");
+		
+		NoticeVO newNotice = new NoticeVO();
+		
+		newNotice.setNoticeTitle(nTitle);
+		newNotice.setNoticeContent(nContent);
+				
+		int result = new ClientNoticeService().insertClientNotice(newNotice);
+		
+		if(result > 0) {
+			response.sendRedirect("/jsp/selectList.no");
+		} else {
+			request.setAttribute("msg", "공지사항 등록 실패!");
+			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
 		}
 		
 	}
