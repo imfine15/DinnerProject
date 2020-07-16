@@ -65,11 +65,11 @@ public class InsertReservationServlet extends HttpServlet {
 		
 		String page = "";
 		if(result > 0) {
-			page = "/semiproject/views/payment/paymentSuccess.jsp";
+			page = "views/payment/paymentSuccess.jsp";
 		} else {
 			
 		}
-		request.getRequestDispatcher(page).forward(request, response);;
+		response.sendRedirect(page);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
