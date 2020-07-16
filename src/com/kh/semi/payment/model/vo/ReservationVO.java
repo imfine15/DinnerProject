@@ -16,11 +16,12 @@ public class ReservationVO implements java.io.Serializable{
 	private Date sysDate;
 	private int deposit;
 	private Date rDate2;
+	private String rDate3;
 		
 	public ReservationVO() {}
 
 	public ReservationVO(String rNo, Timestamp rDate, String mNo, String eNo, String cNo, String rqMemo, int pAmount,
-			int people, Date sysDate, int deposit, Date rDate2) {
+			int people, Date sysDate, int deposit, Date rDate2, String rDate3) {
 		super();
 		this.rNo = rNo;
 		this.rDate = rDate;
@@ -33,6 +34,15 @@ public class ReservationVO implements java.io.Serializable{
 		this.sysDate = sysDate;
 		this.deposit = deposit;
 		this.rDate2 = rDate2;
+		this.rDate3 = rDate3;
+	}
+
+	public String getrDate3() {
+		return rDate3;
+	}
+
+	public void setrDate3(String rDate3) {
+		this.rDate3 = rDate3;
 	}
 
 	public Date getrDate2() {

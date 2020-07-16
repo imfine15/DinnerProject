@@ -349,6 +349,7 @@ public ArrayList<ReservationVO> selectCRList(Connection con, PageInfo pi, String
 			r.setPeople(rset.getInt("PEOPLE"));
 			r.setrDate(rset.getTimestamp("RESERVATION_DATE"));
 			r.setrDate2(rset.getDate("RESERVATION_DATE"));
+			r.setrDate3(rset.getString("TO_CHAR(RESERVATION_DATE,'HH24:MI')"));
 			r.setrNo(rset.getString("RESERVATION_NO"));
 			r.setRqMemo(rset.getString("REQUEST_MEMO"));
 			

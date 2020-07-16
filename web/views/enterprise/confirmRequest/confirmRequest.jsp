@@ -159,7 +159,7 @@ int endPage = pi.getEndPage();
 						<td><button  style="background:#EB7673; width:17px; height:17px; border:0;"></button></td>
                   		<td><a href=""><%=r.getrNo() %></a></td>
 		                <td><a href=""><%=r.getmNo() %></a></td>
-		                <td>13:30</td>
+		                <td><%=r.getrDate3() %></td>
 		                <td><%=r.getPeople() %></td>
 		                <td><%=r.getrDate2() %></td>
 		                <td><button class="moreInfoBtn">확인</button></td>
