@@ -14,14 +14,26 @@ public class ReservationService {
 		
 		int result = new ReservationDao().insertReservation(con, insertReservationVO);
 		
+		if(result > 0) {
+			commit(con);
+		} else {
+			rollback(con);
+		}
+		
 		close(con);		
 		return result;
 	}
 
 	public int insertReservationHistory(ReservationVO insertReservationVO) {
 		Connection con = getConnection();
+		int sequence = new ReservationDao().selectReservationSequence(con);
+		int result = new ReservationDao().insertReservationHistory(con, insertReservationVO, sequence);
 		
-		int result = new ReservationDao().insertReservationHistory(con, insertReservationVO);
+		if(result > 0) {
+			commit(con);
+		} else {
+			rollback(con);
+		}
 		
 		close(con);
 		return result;
@@ -30,7 +42,7 @@ public class ReservationService {
 	public ArrayList<ReservationVO> selectReservationList(String mNo) {
 		Connection con = getConnection();
 		ArrayList<ReservationVO> list = new ReservationDao().selectReservation(con, mNo);
-		
+		System.out.println(list);
 		close(con);
 		return list;
 	}
