@@ -3,6 +3,7 @@ package com.kh.semi.payment.controller;
 import java.io.IOException;
 import java.util.Calendar;
 import java.sql.Date;
+import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.*;
 import javax.servlet.ServletException;
@@ -11,11 +12,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.kh.semi.payment.model.service.ReservationService;
+import com.kh.semi.payment.model.vo.ReservationVO;
 import com.sun.glass.ui.Pixels.Format;
 
-/**
- * Servlet implementation class InsertReservationServlet
- */
 @WebServlet("/reservation.me")
 public class InsertReservationServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -38,29 +38,34 @@ public class InsertReservationServlet extends HttpServlet {
 		
 		String adult = request.getParameter("adult");
 		String child = request.getParameter("child");
+		
 		String eNo = "ENP1";
+		String rContent = request.getParameter("rcontent");
+		int point = Integer.parseInt(request.getParameter("point"));
+		
 		System.out.println(123123);
 		
+		SimpleDateFormat fotmatter = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 		Calendar cal = Calendar.getInstance();
-		cal.set(year, month, day, hour, min);
-		cal.set(Calendar.MILLISECOND, 0);
-		Date resTime = (Date) cal.getTime();
+		cal.set(year, month - 1, day, hour, min);
+		String today = fotmatter.format(cal.getTime());
+		Timestamp ts = Timestamp.valueOf(today);
 		
-		System.out.println(mNo);
-		System.out.println(cals);
-		System.out.println(year);
-		System.out.println(month);
-		System.out.println(day);
-		System.out.println(hour);
-		System.out.println(min);
-		System.out.println(adult);
-		System.out.println(child);
-		System.out.println(eNo);
+		Date resTime = new Date(cal.getTime().getTime());
+		ReservationVO insertReservationVO = new ReservationVO();
+		int people = Integer.parseInt(adult + child);
+		
+		insertReservationVO.setcNo(mNo);
+		insertReservationVO.setcNo(cals);
+		insertReservationVO.setrDate(resTime);
+		insertReservationVO.setPeople(people);
+		insertReservationVO.seteNo(eNo);
+		insertReservationVO.setRqMemo(rContent);
+		insertReservationVO.setpAmount(point);
+		
+		int result = new ReservationService().insertReservation(insertReservationVO);
 		
 		
-		
-		
-		System.out.println(resTime);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
