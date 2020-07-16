@@ -1,5 +1,16 @@
+<%@page import="com.kh.semi.admin.model.vo.PageInfo"%>
+<%@page import="com.kh.semi.enterprise.model.vo.EnpUpVo"%>
+<%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<% ArrayList<EnpUpVo> list = (ArrayList<EnpUpVo>)request.getAttribute("list"); 
+PageInfo pi = (PageInfo)request.getAttribute("pi");
+int listCount = pi.getListCount();
+int currentPage = pi.getCurrentPage();
+int maxPage = pi.getMaxPage();
+int startPage = pi.getStartPage();
+int endPage = pi.getEndPage();
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -23,7 +34,7 @@
  		color: #FFFFFF;
 		border: 0;
 		outline: 0;
-		width: 55px;
+		width: 80px;
 		height: 23px;
 		font-size: 14px;
 		border-radius: 3px;
@@ -61,6 +72,7 @@ border: 1px solid gray;
 outline-style: none;
 height: 20px;
 vertical-align: top;
+margin-top: 1px;
 	}
 	
 	select{
@@ -111,14 +123,18 @@ height: 25px;
 					<td>업로드 확인</td>
 					<td>관리</td>
 				</tr>
+				<% for(EnpUpVo e : list) {%>
 				<tr>
-					<td>역삼식당</td>
-					<td>한식</td>
-					<td>20/06/29</td>
-					<td>Y</td>
-					<td><button class="btn">확인</button></td>
+					<input type="hidden" value="<%= e.getEnpNo()%>">
+					<td><%= e.getEnpName() %></td>
+					<td><%= e.getEnpType() %></td>
+					<td><%= e.getUploadDate() %></td>
+					<td><%= e.getUploadApproval() %></td>
+					<td><button class="btn" onclick="location.href='/selectOneEnt.up'">확인하기</button></td>
 				</tr>
+				<%} %>
 			</table>
+			<!-- 검색박스 -->
 			<div class="searchBox">
 				<select>
 					<option>가게명</option>	
@@ -128,17 +144,33 @@ height: 25px;
 				<input type="text">
 				<button class="searchBtn">검색</button>
 			</div>
+			<!-- 페이징처리 -->
 			<div class="pagingArea" align="center" style="background: white;">
       	<button class="hide" onclick="location.href='<%=request.getContextPath()%>/selectEntList.up?currentPage=1'"><img style="width:15px; height:18px" src="/semiproject/views/admin/companyManagement/images/arrow.png"><img style="width:15px; height:18px" src="/semiproject/views/admin/companyManagement/images/arrow.png"></button>
+      	<% if(currentPage <= 1) {%>
+      	<button class="hide" disabled><img style="width:15px; height:18px" src="/semiproject/views/admin/companyManagement/images/arrow.png"></button>
+      	<%} else { %>
       	<button class="hide" onclick="location.href='<%=request.getContextPath()%>/selectEntList.up?currentPage='"><img style="width:15px; height:18px" src="/semiproject/views/admin/companyManagement/images/arrow.png"></button>
+		<%} %>
 		
-		<button class="hide"><div style="height:18px; width:15px;">1</div></button>
-		<button class="hide"><div style="height:18px; width:15px;">2</div></button>
-		<button class="hide"><div style="height:18px; width:15px;">3</div></button>
-		<button class="hide"><div style="height:18px; width:15px;">4</div></button>
-      	
+		<% for(int p = startPage; p <= endPage; p++) { 
+			if(p == currentPage) {
+		%>
+		
+		<button class="hide" disabled><div style="height:18px; width:15px;"><%= p %></div></button>
+		
+		<% } else { %>
+			<button class="hide" onclick="location.href='<%=request.getContextPath()%>/selectEntList.up?currentPage=<%= p%>'"><div style="height:18px; width:15px;"><%= p %></div></button>
+		<% }
+		}%>
+		
+		<% if(currentPage >= maxPage) {%>
+		<button class="hide" disabled><img style="width:15px; height:18px" src="/semiproject/views/admin/companyManagement/images/arrow2.png"></button>
+		<%} else { %>
       	<button class="hide" onclick="location.href='<%=request.getContextPath()%>/selectEntList.up?currentPage='"><img style="width:15px; height:18px" src="/semiproject/views/admin/companyManagement/images/arrow2.png"></button>
+		<%} %>		
       	<button class="hide" onclick="location.href='<%=request.getContextPath()%>/selectEntList.up?currentPage='"><img style="width:15px; height:18px" src="/semiproject/views/admin/companyManagement/images/arrow2.png"><img style="width:15px; height:18px" src="/semiproject/views/admin/companyManagement/images/arrow2.png"></button>
+		
       </div>
 		</div>
 		

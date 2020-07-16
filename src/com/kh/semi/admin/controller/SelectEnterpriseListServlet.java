@@ -48,6 +48,8 @@ public class SelectEnterpriseListServlet extends HttpServlet {
 		
 		int listCount = new AdminService().getListCount();
 		
+		System.out.println("listCount : " + listCount);
+		
 		maxPage = (int)((double)listCount / limit + 0.9);
 		
 		startPage = (((int)((double)currentPage / 10 + 0.9)) -1) * 10 + 1;
@@ -62,10 +64,12 @@ public class SelectEnterpriseListServlet extends HttpServlet {
 		
 		ArrayList<EnpUpVo> list = new AdminService().selectList(pi);
 		
+		System.out.println("list : " + list);
+		
 		String page = "";
 		
 		if(list != null) {
-			page ="views/admin/restaurant/restaurantUploadCheck.jsp";
+			page ="views/admin/restaurant/restaurantUpload.jsp";
 			request.setAttribute("list", list);	
 			request.setAttribute("pi", pi);
 		} else {
