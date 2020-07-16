@@ -60,7 +60,7 @@
 			<h2 id="sidebarTitle"><a href="index.html" class="logo"  style="color:white;"><%= pageName %></a></h2>
 			<ul class="list-unstyled components mb-5">
 				<li>
-					<a href="/semiproject/views/enterprise/confirmRequest/confirmRequest.jsp?asd=1">예약 요청 확인</a>
+					<a href="<%=request.getContextPath()%>/selectConfirmRequestList.en?enpId=<%=loginEnp.getEnpNo()%>">예약 요청 확인</a>
 				</li>
 				<li>
 					<a href="/semiproject/views/enterprise/reservationDate/reservationDate.jsp?asd=2">전체 예약 일정</a>

@@ -90,6 +90,7 @@ public ArrayList<ReservationVO> selectCRList(PageInfo pi, String enp) {
 	
 	close(con);
 	
+	System.out.println("service : "+requestReserve);
 	return requestReserve;
 }
 

@@ -4,7 +4,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%
-ArrayList<ReservationVO> list = (ArrayList<ReservationVO>) request.getAttribute("list"); 
+ArrayList<ReservationVO> list = (ArrayList<ReservationVO>)request.getAttribute("list"); 
 PageInfo pi = (PageInfo) request.getAttribute("pi");
 int listCount = pi.getListCount();
 int currentPage = pi.getCurrentPage();
@@ -146,7 +146,8 @@ int endPage = pi.getEndPage();
                   <td><button class="reservateBtn">확인</button> <button class="cancelBtn" style="background-color: gray;">취소</button></td>
                  
                </tr>
-               <% for(ReservationVO r : list){ %>
+               <% for(ReservationVO r : list){%>
+               		
 					<tr>
 					<%-- <input type="hidden" value="<%=b.getBid() %>">
 						<td><%= b.getBno() %></td>
@@ -160,7 +161,7 @@ int endPage = pi.getEndPage();
 		                <td><a href=""><%=r.getmNo() %></a></td>
 		                <td>13:30</td>
 		                <td><%=r.getPeople() %></td>
-		                <td><%=r.getrDate() %></td>
+		                <td><%=r.getrDate2() %></td>
 		                <td><button class="moreInfoBtn">확인</button></td>
 		                <td><button class="userInfoBtn">확인</button></td>
 		                <td><button class="reservateBtn">확인</button> <button class="cancelBtn" style="background-color: gray;">취소</button></td>
