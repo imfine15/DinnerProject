@@ -83,6 +83,7 @@ public class ReservationDao {
 			pstmt.setString(1, mNo);
 			
 			rset = pstmt.executeQuery();
+			
 			while(rset.next()) {
 				rvo = new ReservationVO();
 				rvo.setrNo(rset.getString("RESERVATION_NO"));
