@@ -7,6 +7,8 @@ import com.kh.semi.enterprise.model.dao.EnpDao;
 import com.kh.semi.enterprise.model.vo.EnpAttachment;
 import com.kh.semi.enterprise.model.vo.EnpUpVo;
 import com.kh.semi.enterprise.model.vo.EnpVO;
+import com.kh.semi.enterprise.model.vo.PageInfo;
+import com.kh.semi.payment.model.vo.ReservationVO;
 
 import static com.kh.semi.common.JDBCTemplate.*;
 
@@ -79,6 +81,26 @@ public EnpVO loginCheck(EnpVO requestEnp) {
 	close(con);
 	
 	return loginEnp;
+}
+
+public ArrayList<ReservationVO> selectCRList(PageInfo pi, String enp) {
+	Connection con = getConnection();
+	
+	ArrayList<ReservationVO> requestReserve = new EnpDao().selectCRList(con,pi,enp); 
+	
+	close(con);
+	
+	return requestReserve;
+}
+
+public int getListCount() {
+	Connection con = getConnection();
+	
+	int listCount = new EnpDao().getListCount(con);
+	
+	close(con);
+	
+	return listCount;
 }
 
 }

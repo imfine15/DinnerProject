@@ -16,13 +16,14 @@ import java.util.Properties;
 import com.kh.semi.enterprise.model.vo.EnpAttachment;
 import com.kh.semi.enterprise.model.vo.EnpUpVo;
 import com.kh.semi.enterprise.model.vo.EnpVO;
+import com.kh.semi.enterprise.model.vo.PageInfo;
+import com.kh.semi.payment.model.vo.ReservationVO;
 
 public class EnpDao {
 Properties prop = new Properties();
    
    public EnpDao() {
       String fileName = EnpDao.class.getResource("/sql/enp/enp-query.properties").getPath();
-      
       try {
          prop.load(new FileReader(fileName));
       } catch (FileNotFoundException e) {
@@ -136,7 +137,6 @@ public int insertEnterprise(Connection con, EnpUpVo enpUp) {
 		pstmt.setString(9, enpUp.getWebsite());
 		pstmt.setString(10, enpUp.getIntroduce());
 		pstmt.setString(11, enpUp.getParkingPossible());
-		pstmt.setString(12, enpUp.getUploadApproval());
 		
 		result = pstmt.executeUpdate();
 		
@@ -304,6 +304,88 @@ public EnpVO loginCheck(Connection con, EnpVO requestEnp) {
 	
 	
 	return loginEnp;
+}
+
+public ArrayList<ReservationVO> selectCRList(Connection con, PageInfo pi, String enp) {
+	ArrayList<ReservationVO> requestReserve = null;
+	PreparedStatement pstmt = null;
+	ResultSet rset= null;
+	
+	String query = prop.getProperty("selectList");
+	try {
+		pstmt = con.prepareStatement(query);
+		
+		int startRow = (pi.getCurrentPage() -1) * pi.getLimit() + 1;
+		int endRow = startRow + pi.getLimit() - 1;
+		
+		pstmt.setInt(1, startRow);
+		pstmt.setInt(2, endRow);
+		pstmt.setString(3, enp);
+		
+		rset = pstmt.executeQuery();
+		
+		requestReserve = new ArrayList<>();
+		
+		while(rset.next()) {
+			/*Board b = new Board();
+			b.setBid(rset.getInt("BID"));
+			b.setbType(rset.getInt("BTYPE"));
+			b.setBno(rset.getInt("BNO"));
+			b.setcName(rset.getString("CNAME"));
+			b.setbTitle(rset.getString("BTITLE"));
+			b.setbContent(rset.getString("BCONTENT"));
+			b.setNickName(rset.getString("NICK_NAME"));
+			b.setbCount(rset.getInt("BCOUNT"));
+			b.setRefBid(rset.getInt("REF_BID"));
+			b.setReplyLevel(rset.getInt("REPLY_LEVEL"));
+			b.setbDate(rset.getDate("BDATE"));
+			b.setStatus(rset.getString("STATUS"));
+			
+			list.add(b);*/
+			
+			ReservationVO r = new ReservationVO();
+			r.setcNo(rset.getString("CALC_NO"));
+			r.seteNo(rset.getString("ENP_NO"));
+			r.setmNo(rset.getString("MEMBER_NO"));
+			r.setpAmount(rset.getInt("POINT_AMMOUNT"));
+			r.setPeople(rset.getInt("PEOPLE"));
+			r.setrDate(rset.getDate("TO_CHAR(RESERVATION_REQUEST_DATE,'RRRR/MM/DD/HH24/MI/SS')"));
+			r.setrNo(rset.getString("RESERVATION_NO"));
+			r.setRqMemo(rset.getString("REQUEST_MEMO"));
+			
+		}
+		
+	} catch (SQLException e) {
+		e.printStackTrace();
+	}finally {
+		close(pstmt);
+		close(rset);
+	}
+	
+	
+	return requestReserve;
+}
+
+public int getListCount(Connection con) {
+	Statement stmt = null;
+	int listCount = 0;
+	ResultSet rset = null;
+	
+	String query = prop.getProperty("listCount");
+	try {
+		stmt = con.createStatement();
+		rset = stmt.executeQuery(query);
+		if(rset.next()) {
+			listCount = rset.getInt(1);
+		}
+	} catch (SQLException e) {
+		e.printStackTrace();
+	}finally {
+		close(stmt);
+		close(rset);
+	}
+	
+	return listCount;
 }
 
 
