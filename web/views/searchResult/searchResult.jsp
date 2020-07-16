@@ -22,8 +22,28 @@
 	<div class="outer" align="center">
 		<!-- 상단 글자랑 필터등등 -->
 		<nav>
+		<div class="container" style="background: white; height: 60px; width: 600px; padding: 1px; border-radius: 10px; font-size: 22px;">
+            <button onclick="searchEnp();" style="height: 95%; background: white; border: 0px white; float: right; margin-right: 25px; margin-left:25px;">
+                <img src="/semiproject/images/searchicon.png">
+            </button>
+            <button style="height: 100%; background: white; float: right; margin-left: 5px; border: 0px white;">
+            	<img src="/semiproject/images/Vector.png">
+            </button>
+            <input  onkeyup="if(event.keyCode === 13) { searchEnp(); }" id="search" name="search" type="search" style="height: 100%; width: 70%; border: 1px solid white; background: white; padding-left: 10px; float:left;">
+            <script>
+            	function searchEnp() {
+            		var search = $("#search").val();
+            		
+            		location.href="<%= request.getContextPath() %>/searchEnp.se?search=" + search;
+            	}
+            </script>
+         </div>
 		<div class="toptext">
+		<% if(!search.equals("")) { %>
 		<p id="text1"><%= search %> 검색 결과</p>
+		<% } else { %>
+		<p id="text1">모든 검색 결과</p>
+		<% } %>
 		</div>
 		<div class="topbtn" align="right">
 			<label class="btntext">맛집</label>
@@ -53,7 +73,11 @@
 					%>
 						<div id="foodArea<%= i + 1 %>" class="foodArea">
 							<img src="/semiproject/images/죠떡.jpg" class="foodImg"><br>
+							<% if(enpList.get(i).getEnpStatus().equals("N")) { %>
 							<label class="maintext"><%= enpList.get(i).getEnpName() %></label>
+							<% } else {%>
+							<label class="maintext" style="color:gray;"><%= enpList.get(i).getEnpName() + " (폐업)"%></label>
+							<% } %>
 							<% if(rating != 0.0) { %>
 							<label class="rating"><%= rating %></label>
 							<% } %>
@@ -92,8 +116,26 @@
 				</script>
 				<!-- 배너광고 -->
 				<div id="ad">
-					<a href="www.naver.com" target="_blank"><img src="/semiproject/images/groupmoa.PNG" id="adImg"></a>
 				</div>
+				<script>
+					$(function() {
+						$.ajax({
+							url: "/semiproject/foundAllAd.ad",
+							type: "get",
+							success: function(data) {
+								$adDiv = $("#ad");
+								
+								$adDiv.html(
+										'<a href="http://' + data.adWebsite + '" target="_blank">'
+										+ '<img src="'
+										+ data.filePath + '" '
+										+ 'title="' + data.adContent + '" id="adImg"></a>'
+										+ '<p class="rating" style="float:none; font-weight:bold;">' + data.adEnpName + '</p>'
+								);
+							}
+						});
+					});
+				</script>
 				<!-- 코스추천 -->
 				<div>
 				<div class="reviewArea">
