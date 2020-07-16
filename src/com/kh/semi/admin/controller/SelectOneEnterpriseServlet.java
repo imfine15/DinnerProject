@@ -6,6 +6,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.kh.semi.admin.model.service.AdminService;
 import com.kh.semi.enterprise.model.vo.EnpAttachment;
@@ -32,20 +33,18 @@ public class SelectOneEnterpriseServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String enpNo = request.getParameter("no");
 		
-		System.out.println(enpNo);
+		HttpSession session = request.getSession();
 		
 		EnpUpVo enpUp = new AdminService().selectOneEnp(enpNo);
 		EnpAttachment ea = new AdminService().selectOneEnpFile(enpNo);
 		
-		System.out.println("enpUp : " + enpUp);
-		System.out.println("ea : " + ea);
 		
 		String page ="";
 		
 		if(enpUp != null && ea != null) {
-			page = "views/admin/restaurant/restaurantUpload.jsp";
-			request.setAttribute("enpUp", enpUp);
-			request.setAttribute("ea", ea);
+			page = "views/admin/restaurant/restaurantUploadCheck.jsp";
+			session.setAttribute("enpUp", enpUp);
+			session.setAttribute("ea", ea);
 			
 		} else {
 			page ="views/common/errorPage.jsp";

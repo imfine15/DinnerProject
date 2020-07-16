@@ -36,27 +36,26 @@ public class AdminService {
 	}
 
 	public EnpUpVo selectOneEnp(String enpNo) {
-		Connection con = null;
+		Connection con = getConnection();
 		
 		EnpUpVo enpUp = null;
 		
-		System.out.println("enpNo2 : " + enpNo);
+		
 		
 		enpUp = new AdminDao().selectOneEnp(con, enpNo);
 		
-		System.out.println("enpUp2 : " + enpUp);
+	
 	
 		return enpUp;
 	}
 
 	public EnpAttachment selectOneEnpFile(String enpNo) {
-		Connection con = null;
+		Connection con = getConnection();
 		
 		EnpAttachment ea = null;
 
 		ea = new AdminDao().selectOneEnpFile(con, enpNo);
 		
-		System.out.println("ea2 : " + ea);
 	
 		return ea;
 	}
