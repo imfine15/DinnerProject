@@ -4,9 +4,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%
-	EnpUpVo eu = (EnpUpVo)request.getAttribute("enpUp");
+	EnpUpVo eu = (EnpUpVo)session.getAttribute("enpUp");
 	ArrayList<EnpAttachment> fileList = (ArrayList<EnpAttachment>)request.getAttribute("fileList");
-	EnpAttachment ea = (EnpAttachment)request.getAttribute("ea");
+	EnpAttachment ea = (EnpAttachment)session.getAttribute("ea");
 %>
 <!DOCTYPE html>
 <html>
@@ -15,6 +15,7 @@
 <title>YUMEET 관리자페이지</title>
 <link rel="shortcut icon" href="/semiproject/images/favicon.ico" type="image/x-icon">
 <link rel="icon" href="/semiproject/images/favicon.ico" type="image/x-icon">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <style>
 	table{
 		border-collapse: collapse;
@@ -105,7 +106,9 @@
 		<div class="header" align="left">
 			<h1>가게 등록 요청</h1><br>
 		</div>
-			<form action="<%=request.getContextPath()%>/updateEnt.up" method="post">
+			<form action="<%=request.getContextPath()%>/updateEnt.up" method="post" enctype="multipart/form-data">
+			<input id="aaa" type="hidden" value="<%=eu.getEnpNo()%>" name="enpNo">
+		
 		<div class="inner">
 			<h3>입점 가게 상세 정보</h3>
 			
@@ -119,6 +122,10 @@
 				<tr>
 					<th>주소</th>
 					<td colspan="3"><input type="text" name="enpAddress" value="<%= eu.getEnpAddress() %>"></td>
+				</tr>
+				<tr>
+					<th>웹사이트</th>
+					<td colspan="3"><input type="text" name="website" value="<%= eu.getWebsite()%>"></td>
 				</tr>
 				<tr>
 					<th>전화번호</th>
@@ -137,28 +144,38 @@
 				</tr>
 				<tr>
 					<th>메뉴</th>
-					<td colspan="3"><input type="text" value="<%= eu.getMenuName() %>  <%= eu.getMenuPrice() %>원"></td>
+					<td colspan="3"><input type="text" name="menuName" value="<%= eu.getMenuName() %>">  <input type="text" name="menuPrice" value="<%= eu.getMenuPrice() %>">원</td>
 				</tr>
 				<tr>
 					<th>영업시간</th>
-					<td><input type="text" value="<%= eu.getEnpHour() %>"></td>
+					<td><input type="text" name="enpHour" value="<%= eu.getEnpHour() %>"></td>
 					<th>휴무일</th>
-					<td><input type="text" value="<%= eu.getClosedDay() %>"></td>
+					<td><input type="text" name="closedDay" value="<%= eu.getClosedDay() %>"></td>
 				</tr>
 				<tr>
 					<th>해쉬태그</th>
-					<td colspan="3"><input type="text" value="<%= eu.getHashTags() %>"></td>
+					
+					<td colspan="3"><input type="hidden" value="" id="ds" name="hash">
+					<input type="button" onclick="dd();"><input type="text" id="h" name="hashTags" value="<%= eu.getHashTags() %>"></td>
+					
+					
 				</tr>
 				<tr>
 					<th>소개문구</th>
-					<td colspan="3"><textarea rows="5px" cols="22px"><%= eu.getIntroduce() %></textarea></td>
+					<td colspan="3"><textarea name="introduce" rows="5px" cols="22px"><%= eu.getIntroduce() %></textarea></td>
 				</tr>
 				<tr>
 					<th>주차공간</th>
-					<td><input type="text" value="<%= eu.getParkingPossible() %>"></td>
+					<td>
+					<select name="parkingPossible" id="parkingPossible">
+					<option value="주차가능">주차가능</option>
+					<option value="주차공간없음">주차공간없음</option>
+					</select>
+					</td>
+
 					<th>카테고리</th>
 					<td>
-						<select id="enpType">
+						<select name="enpType" id="enpType">
 							<option value="한식">한식</option>
 							<option value="중식">중식</option>
 							<option value="일식">일식</option>
@@ -182,10 +199,28 @@
 		$(document).ready(function(){
 			$("#priceRange option[value='<%= eu.getPriceRange() %>']").attr("selected", true);
 		    $("#enpType option[value='<%= eu.getEnpType() %>']").attr("selected", true);
+		    $("#parkingPossible option[value='<%= eu.getParkingPossible() %>']").attr("seleted", true);
 		});
+
+	
 
 
 		</script>
+		<script type="text/javascript">
+	console.log("<%=eu%>");
+	console.log("<%=ea%>");
+	console.log("<%=fileList%>");
+	
+	function dd() {
+		console.log("h : "+$("#h").val());
+		$("#ds").val($("#h").val());
+		console.log("ds : " + $("#ds").val());
+		 
+		console.log("aaa : " + $("#aaa").val());
+		console.log("<%=eu.getEnpNo()%>");
+	} 
+	
+</script>
 	</div>
 </body>
 </html>

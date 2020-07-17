@@ -11,8 +11,10 @@
 <head>
 <meta charset="UTF-8">
 <title>YUMEET 관리자페이지</title>
+
 <link rel="shortcut icon" href="/semiproject/images/favicon.ico" type="image/x-icon">
 <link rel="icon" href="/semiproject/images/favicon.ico" type="image/x-icon">
+
 <style>
 	table{
 		border-collapse: collapse;
@@ -80,6 +82,7 @@
 </style>
 </head>
 <body style="background: lightgray;">
+
 	<%@ include file="/views/admin/common/sidebar.jsp"%>
 	<div class="outer" align="center">
 		<div class="header" align="left">
@@ -87,6 +90,8 @@
 		</div>
 		<div class="inner">
 			<h3>입점 가게 상세 정보</h3>
+			
+			
 			<table>
 				<tr>
 					<th>식당명</th>
@@ -97,6 +102,10 @@
 				<tr>
 					<th>주소</th>
 					<td colspan="3"><%= eu.getEnpAddress() %></td>
+				</tr>
+				<tr>
+					<th>웹사이트</th>
+					<td colspan="3"><%= eu.getWebsite()%></td>
 				</tr>
 				<tr>
 					<th>전화번호</th>
@@ -134,9 +143,14 @@
 				</tr>
 			</table>
 			<button class="btn" onclick="location.href='<%=request.getContextPath()%>/views/admin/restaurant/restaurantUploadDetail.jsp'" style="background: #E07370; width: 160px;">업로드 및 수정</button>
-			<button class="btn" onclick="location.href=''" style="background: red; width: 100px;">삭제</button>
+			<button class="btn" onclick="location.href='<%=request.getContextPath()%>/deleteEnt.up?enpNo=<%=eu.getEnpNo()%>'" style="background: red; width: 100px;">삭제</button>
+
 		</div>
 		
 	</div>
+	<script type="text/javascript">
+	console.log("<%=eu%>");
+	console.log("<%=ea%>");
+</script>
 </body>
 </html>
