@@ -22,14 +22,14 @@
 	<div class="outer" align="center">
 		<!-- 상단 글자랑 필터등등 -->
 		<nav>
-		<div class="container" style="background: white; height: 60px; width: 600px; padding: 1px; border-radius: 10px; font-size: 22px;">
-            <button onclick="searchEnp();" style="height: 95%; background: white; border: 0px white; float: right; margin-right: 25px; margin-left:25px;">
+		<div class="container" style="background: white; height: 60px; width: 600px; padding: 1px; border-radius: 10px; font-size: 22px; border: 1px solid #D5706D;">
+            <button onclick="searchEnp();" style="height: 95%; background: white; border: 0px white; float: right; margin-right: 3px; margin-left:25px;">
                 <img src="/semiproject/images/searchicon.png">
             </button>
             <button style="height: 100%; background: white; float: right; margin-left: 5px; border: 0px white;">
             	<img src="/semiproject/images/Vector.png">
             </button>
-            <input  onkeyup="if(event.keyCode === 13) { searchEnp(); }" id="search" name="search" type="search" style="height: 100%; width: 70%; border: 1px solid white; background: white; padding-left: 10px; float:left;">
+            <input onkeyup="if(event.keyCode === 13) { searchEnp(); }" id="search" name="search" type="search" style="height: 100%; width: 70%; border:0; background: white; margin-left: 10px; float:left;">
             <script>
             	function searchEnp() {
             		var search = $("#search").val();
@@ -141,15 +141,25 @@
 				<div class="reviewArea">
 					<p id="review">코스 리뷰</p>
 				</div>
-				 <div class="img">
-			        <div class="content">
-			           <p style="margin: 3px">장어구이핵꿀맛</p>
-			           <p id="reviewsmall">장어구이맛집추천!</p>
-			        </div>
-			        <div class="img-cover"></div>
-			    </div><br>
+				<!-- 코스추천내용 시작 -->
+				<div id="img">
+			    </div>
+			    <!-- 코스추천내용 끝 -->
+			    <script>
+			    	$(function() {
+			    		$.ajax({
+			    			url: "/semiproject/foundAllBoard.bo",
+			    			success: function(data) {
+			    				boardList = data.boardList;
+			    				$imgDiv = $("#img");
+			    				
+			    				console.log(boardList);
+			    			}
+			    		});
+			    	});
+			    </script>
+			    <br>
 			    <hr width="250px">
-
 				</div>
 			</div>
 		</aside>
