@@ -202,6 +202,130 @@ public class AdminDao {
 		return ea;
 	}
 
+	public int updateEnterprise(Connection con, EnpUpVo enpUp) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String query = prop.getProperty("updateEnterprise");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, enpUp.getEnpName());
+			pstmt.setString(2, enpUp.getEnpPhone());
+			pstmt.setString(3, enpUp.getEnpAddress());
+			pstmt.setString(4, enpUp.getEnpHour());
+			pstmt.setString(5, enpUp.getEnpType());
+			pstmt.setString(6, enpUp.getHashTags());
+			pstmt.setString(7, enpUp.getPriceRange());
+			pstmt.setString(8, enpUp.getClosedDay());
+			pstmt.setString(9, enpUp.getWebsite());
+			pstmt.setString(10, enpUp.getIntroduce());
+			pstmt.setString(11, enpUp.getParkingPossible());
+			pstmt.setString(12, enpUp.getEnpNo());
+			
+			result = pstmt.executeUpdate();
+			
+			
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public String selectCurrval(Connection con) {
+		Statement stmt = null;
+		ResultSet rset = null;
+		String enpNo = "";
+		
+		String query = prop.getProperty("selectCurrval");
+
+		
+		try {
+			stmt = con.createStatement();
+			rset = stmt.executeQuery(query);
+			
+			if(rset.next()) {
+				int id= rset.getInt("currval");
+				
+				enpNo = "ENP" + id;
+				
+			}
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(stmt);
+			close(rset);
+		}
+		
+		
+		return enpNo;
+	}
+
+	public int updateAttachment(Connection con, EnpAttachment enpAttachment) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("updateAttachment");
+
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, enpAttachment.getOriginName());
+			pstmt.setString(2, enpAttachment.getChangeName());
+			pstmt.setString(3, enpAttachment.getFilePath());
+			pstmt.setString(4, enpAttachment.getEnpNo());
+			
+			result = pstmt.executeUpdate();
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		
+		
+		return result;
+	}
+
+	public int updateMenu(Connection con, EnpUpVo enpUp) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("updateMenu");
+		
+		
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, enpUp.getMenuName());
+			pstmt.setInt(2, enpUp.getMenuPrice());
+			pstmt.setString(3, enpUp.getEnpNo());
+			
+			
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
 	
 
 }

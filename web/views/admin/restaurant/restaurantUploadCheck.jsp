@@ -67,12 +67,15 @@
 		 background: white; 
 		 width:95%; 
 		 padding-top: 30px; 
-		 height: 800px;
+		 height: 1000px;
 		 margin-left: auto;
 		 margin-right: auto;
 	}
 
-	
+	#titleImg{
+		width: 300px;
+		height: auto;
+	}
 	
 </style>
 </head>
@@ -127,11 +130,11 @@
 				</tr>
 				<tr>
 					<th>사진파일</th>
-					<td colspan="3"><%= ea.getOriginName() %></td>
+					<td colspan="3"><img id="titleImg" src="<%=request.getContextPath()%>/thumbnail_uploadFile/<%=ea.getChangeName()%>"></td>
 				</tr>
 			</table>
 			<button class="btn" onclick="location.href='<%=request.getContextPath()%>/views/admin/restaurant/restaurantUploadDetail.jsp'" style="background: #E07370; width: 160px;">업로드 및 수정</button>
-			<button class="btn" style="background: red; width: 100px;">삭제</button>
+			<button class="btn" onclick="location.href=''" style="background: red; width: 100px;">삭제</button>
 		</div>
 		
 	</div>
