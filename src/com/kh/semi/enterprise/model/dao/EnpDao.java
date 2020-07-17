@@ -20,6 +20,7 @@ import java.util.Properties;
 import com.kh.semi.enterprise.model.vo.EnpAttachment;
 import com.kh.semi.enterprise.model.vo.EnpUpVo;
 import com.kh.semi.enterprise.model.vo.EnpVO;
+import com.kh.semi.enterprise.model.vo.ForEntCrVO;
 import com.kh.semi.enterprise.model.vo.PageInfo;
 import com.kh.semi.payment.model.vo.ReservationVO;
 
@@ -389,6 +390,94 @@ public int getListCount(Connection con) {
 	}
 	
 	return listCount;
+}
+
+public ArrayList<ForEntCrVO> selectCRModalList(Connection con, String memId) {
+	PreparedStatement pstmt = null;
+	ResultSet rset = null;
+	ArrayList<ForEntCrVO> modalList = null;
+	ForEntCrVO f = null;
+	
+	String query = prop.getProperty("selectCRModalList");
+	try {
+		pstmt = con.prepareStatement(query);
+		pstmt.setString(1, memId);
+		rset = pstmt.executeQuery();
+		
+		modalList = new ArrayList<ForEntCrVO>();
+		while(rset.next()) {
+			f = new ForEntCrVO();
+			f.setRownum(rset.getInt("ROWNUM"));
+			f.setNickName(rset.getString("MEMBER_NICKNAME"));
+			f.setReservationDate(rset.getDate("RESERVATION_DATE"));
+			
+			modalList.add(f);
+		}
+	} catch (SQLException e) {
+		e.printStackTrace();
+	}finally {
+		close(pstmt);
+		close(rset);
+	}
+	
+	return modalList;
+}
+
+public String selectCRMemId(Connection con, String enp) {
+	PreparedStatement pstmt = null;
+	ResultSet rset = null;
+	String memId = "";
+	String query = prop.getProperty("selectCRMemId");
+	
+	try {
+		pstmt = con.prepareStatement(query);
+		pstmt.setString(1, enp);
+		
+		rset = pstmt.executeQuery();
+		while(rset.next()) {
+			memId = rset.getString("MEMBER_NO");
+		}
+	} catch (SQLException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}finally {
+		close(pstmt);
+		close(rset);
+		
+	}
+	
+	
+	return memId;
+}
+
+public ArrayList<Integer> selectCRCount(Connection con, String countId, String enp) {
+	PreparedStatement pstmt = null;
+	ArrayList<Integer> list = null;
+	ResultSet rset = null;
+	int count = 0;
+	String query = prop.getProperty("selectCRCount");
+	try {
+		pstmt = con.prepareStatement(query);
+		pstmt.setString(1, enp);
+		pstmt.setString(2, countId);
+		rset = pstmt.executeQuery();
+		
+		list = new ArrayList<Integer>();
+		while(rset.next()) {
+			count = rset.getInt("COUNT(*)");
+			
+			list.add(count);
+		}
+	} catch (SQLException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}finally {
+		close(pstmt);
+		close(rset);
+	}
+	
+	
+	return list;
 }
 
 

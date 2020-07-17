@@ -63,7 +63,7 @@
 					<a href="<%=request.getContextPath()%>/selectConfirmRequestList.en?enpId=<%=loginEnp.getEnpNo()%>">예약 요청 확인</a>
 				</li>
 				<li>
-					<a href="/semiproject/views/enterprise/reservationDate/reservationDate.jsp?asd=2">전체 예약 일정</a>
+					<a href="<%=request.getContextPath()%>//selectReservationDateList.en?enpId=<%=loginEnp.getEnpNo()%>">전체 예약 일정</a>
 				</li>
 				<li>
 					<a href="/semiproject/views/enterprise/commentManage/commentManage.jsp?asd=3">댓글 관리</a>

@@ -9,24 +9,22 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-
 import com.kh.semi.enterprise.model.service.EnpService;
-import com.kh.semi.enterprise.model.vo.EnpVO;
 import com.kh.semi.enterprise.model.vo.ForEntCrVO;
 import com.kh.semi.enterprise.model.vo.PageInfo;
 import com.kh.semi.payment.model.vo.ReservationVO;
 
 /**
- * Servlet implementation class SelectConfirmRequestListServlet
+ * Servlet implementation class SelectReservationDateListServlet
  */
-@WebServlet("/selectConfirmRequestList.en")
-public class SelectConfirmRequestListServlet extends HttpServlet {
+@WebServlet("/selectReservationDateList.en")
+public class SelectReservationDateListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public SelectConfirmRequestListServlet() {
+    public SelectReservationDateListServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -112,7 +110,7 @@ public class SelectConfirmRequestListServlet extends HttpServlet {
 		}
 		
 		if(list != null && modalList != null) {
-			page = "views/enterprise/confirmRequest/confirmRequest.jsp";
+			page = "views/enterprise/reservationDate/reservationDate.jsp";
 			request.setAttribute("list", list);
 			request.setAttribute("pi", pi);
 			request.setAttribute("modalList", modalList);

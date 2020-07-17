@@ -1,3 +1,4 @@
+<%@page import="com.kh.semi.enterprise.model.vo.ForEntCrVO"%>
 <%@page import="com.kh.semi.enterprise.model.vo.PageInfo"%>
 <%@page import="com.kh.semi.payment.model.vo.ReservationVO"%>
 <%@page import="java.util.ArrayList"%>
@@ -11,6 +12,9 @@ int currentPage = pi.getCurrentPage();
 int maxPage = pi.getMaxPage();
 int startPage = pi.getStartPage();
 int endPage = pi.getEndPage();
+ArrayList<ForEntCrVO> modalList = (ArrayList<ForEntCrVO>)request.getAttribute("modalList");
+ArrayList<Integer> visitCount = (ArrayList<Integer>)request.getAttribute("visitCount");
+ArrayList<Integer> cancelCount = (ArrayList<Integer>)request.getAttribute("cancelCount");
 %>
 <!doctype html>
 <html lang="ko">
@@ -146,7 +150,8 @@ int endPage = pi.getEndPage();
                   <td><button class="reservateBtn">확인</button> <button class="cancelBtn" style="background-color: gray;">취소</button></td>
                  
                </tr>
-               <% for(ReservationVO r : list){%>
+               <% for(ReservationVO r : list){
+               int i = 0 ;%>
                		
 					<tr>
 					<%-- <input type="hidden" value="<%=b.getBid() %>">
@@ -163,10 +168,10 @@ int endPage = pi.getEndPage();
 		                <td><%=r.getPeople() %></td>
 		                <td><%=r.getrDate2() %></td>
 		                <td><button class="moreInfoBtn">확인</button></td>
-		                <td><button class="userInfoBtn">확인</button></td>
+		                <td><button class="userInfoBtn" id="userInfoBtn<%=i%>">확인</button></td>
 		                <td><button class="reservateBtn">확인</button> <button class="cancelBtn" style="background-color: gray;">취소</button></td>
 					</tr>
-				<%} %>
+				<% i++; } %>
             </tbody>
             </table>
       <div class="pagingArea" align="center">
@@ -186,7 +191,8 @@ int endPage = pi.getEndPage();
  	<br>	
 	<br>	
 	
-	<div class="modal fade" id="testModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		         		<% for(int i = 0 ; i < modalList.size(); i++){%>
+	<div class="modal fade" id="testModal<%=i %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 		<div class="modal-dialog" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
@@ -197,8 +203,8 @@ int endPage = pi.getEndPage();
 				</div>
 				<br>
 				<br>
-				<div class="modal-body">
-					<table align="center" >
+				<div class="modal-body" id="">
+					<table align="center">
 					
 		         		<thead>
 			         		<tr style="font-size: 14px; color:black; text-align: center;">
@@ -211,19 +217,19 @@ int endPage = pi.getEndPage();
 		         		</thead>
 		         		<tr style="font-size: 10px; text-align: center;">
 		         			<td style="font-weight: bolder; color:black;">
-		         				1
+		         				<%=visitCount.get(i) %>
 		         			</td>
 		         			<td>
-		         				0
+		         				<%=cancelCount.get(i) %>
 							</td>
 							<td style="font-weight: bolder; color:black;">
 		         				0
 		         			</td>
 		         			<td>
-		         				2020.06.21
+		         				<%=modalList.get(i).getReservationDate() %>
 		         			</td>
 		         			<td>
-		         				군필 여고생
+		         				<%=modalList.get(i).getNickName() %>
 		         			</td>
 		         			
 		         		</tr>
@@ -232,17 +238,24 @@ int endPage = pi.getEndPage();
 				<br>
 				<br>
 				
+				
 				<div class="modal-footer">
 					<!-- <a class="btn" id="modalY" href="#">예</a> -->
 					<button class="btn" type="button" data-dismiss="modal">확인</button>
 				</div>
+		         		<% } %>
+				
 			</div>
 		</div>
 	</div>
 	<br>
 	<br>
 	<br>
-	
+	<br>
+				<br>
+				<br>
+				<br>
+				<br>
 	<%@include file="../../common/enterpriseFooter.jsp" %>
 <br>
 <script>
@@ -256,10 +269,13 @@ int endPage = pi.getEndPage();
 	
 	$(function () {
 		$(".userInfoBtn").click(function () {
-			console.log("asd");
-			$('#testModal').modal("show");
+			
+			var str = $(this).attr('id');
+			var no=str.replace(/[^0-9]/g,'');
+			$('#testModal' + no).modal("show");
 		});
 	});
+	
 	$(function () {
 		$(".reservateBtn").click(function () {
 			$(this).parent().parent().children().children().eq(0).css("background","#5EB8B4");
