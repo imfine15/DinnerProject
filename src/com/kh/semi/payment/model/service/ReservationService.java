@@ -55,6 +55,14 @@ public class ReservationService {
 		return enpList;
 	}
 
+	public ArrayList<String> selectStatusList(ArrayList<ReservationVO> list) {
+		Connection con = getConnection();
+		ArrayList<String> statusList = new ReservationDao().selectStatusList(con, list);
+		
+		close(con);
+		return statusList;
+	}
+
 
 
 

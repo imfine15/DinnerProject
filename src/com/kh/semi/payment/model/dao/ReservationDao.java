@@ -135,15 +135,16 @@ public class ReservationDao {
 	}
 
 	public ArrayList<String> selectEnpList(Connection con, ArrayList<ReservationVO> list) {
-		PreparedStatement pstmt = null;
 		
 		String query = prop.getProperty("selectEnpname");
 		ArrayList<String> enpList = new ArrayList<>();
-		ResultSet rset = null;
 		int count = 0;
-		while(list != null) {
+		while(true) {
 			String ename = "";
+			PreparedStatement pstmt = null;
+			ResultSet rset = null;
 			try {
+				
 				pstmt = con.prepareStatement(query);
 				pstmt.setString(1, list.get(count).geteNo());
 				
@@ -160,8 +161,26 @@ public class ReservationDao {
 				close(pstmt);
 				close(rset);
 			}
+			count ++;
+			if(list.size() == count) break;
 		}
 
 		return enpList;
+	}
+
+	public ArrayList<String> selectStatusList(Connection con, ArrayList<ReservationVO> list) {
+		ArrayList<String> statusList = new ArrayList<String>();
+		int count = 0;
+		String query = prop.getProperty("selectStatusList");
+		
+		
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		
+		
+		
+		return statusList;
 	}
 }
