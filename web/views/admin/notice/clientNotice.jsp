@@ -50,8 +50,8 @@
 		<div style="background: #F9F9F9;width: 100%; margin-bottom: 10px; height:50px; padding-left:10px; padding-right:10px;">
 			<h1>고객 공지사항</h1><br>
 		</div>
-		<div align="center" style="padding-left:10px; padding-right:10px; background: white; width:100%; padding-top: 30px; height: 800px;">
-			<table>
+		<div align="center" style="padding-left:10px; padding-right:10px; background: white; width:100%; padding-top: 30px; height: 80%;">
+			<table id="listArea">
 				<tr>
 					<td width="800px" align="center">제목</td>
 					<td align="center" width="150px">등록날짜</td>
@@ -70,7 +70,6 @@
 			</table>
 			<button class="writebtn">글쓰기</button>
 		</div>
-	</div>
 			<div class="pageingArea" align="center">
 			<button
 				onclick="location.href='<%=request.getContextPath()%>/selectclist.no?currentPage=1'"><<</button>
@@ -129,18 +128,17 @@
 				<% } %>
 			</div> --%>
 		</div>
+		</div>
 	<script>
 		$(function() {
 			$("#listArea td").mouseenter(function() {
 				$(this).parent().css({"background":"darkgray", "cursor":"pointer"});
 			}).mouseout(function() {
-				$(this).parent().css({"background":"black"});
+				$(this).parent().css({"background":"white"});
 			}).click(function() {
 				var num = $(this).parent().children().eq(0).text();
-				
-				//console.log(num);
-				
-				location.href="<%=request.getContextPath()%>/selectOne.no?num="+ num;
+					
+				location.href="<%=request.getContextPath()%>/ClinetselectOne.no?num="+ num;
 							});
 		});
 	</script>
