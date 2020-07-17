@@ -109,6 +109,8 @@ public class ClientNoticeDao {
 				
 				n.setNoticeTitle(rset.getString("NOTICE_TITLE"));
 				n.setNoticeDate(rset.getDate("NOTICE_DATE"));
+				n.setNoticeNo(rset.getString("SUBSTR(NOTICE_NO,2,1)"));
+				n.setNoticeContent(rset.getString("NOTICE_CONTENT"));
 
 				list.add(n);
 			}
@@ -138,16 +140,12 @@ public class ClientNoticeDao {
 			if(rset.next()) {
 				notice = new NoticeVO();
 				
-				/*
-				 * notice.setNno(rset.getInt("NNO"));
-				 * notice.setnTitle(rset.getString("NTITLE"));
-				 * notice.setnContent(rset.getString("NCONTENT"));
-				 * notice.setNickName(rset.getString("NICK_NAME"));
-				 * notice.setnCount(rset.getInt("NCOUNT"));
-				 * notice.setnDate(rset.getDate("NDATE"));
-				 */
-				
-				notice.
+				notice.setNoticeNo(rset.getString("SUBSTR(NOTICE_NO,2,1)"));
+				notice.setNoticeTitle(rset.getString("NOTICE_TITLE"));
+				notice.setNoticeContent(rset.getString("NOTICE_CONTENT"));
+				notice.setNoticeDate(rset.getDate("NOTICE_DATE"));
+				notice.setMagagerNo(rset.getString("MANAGER_NO"));
+			
 			}
 
 		} catch (SQLException e) {

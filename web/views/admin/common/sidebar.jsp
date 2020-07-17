@@ -40,6 +40,7 @@
 
 .sidenav .main-buttons>li {
 	padding: 16px 40px;
+	padding-left:50px;
 	-moz-box-sizing: border-box;
 	-webkit-box-sizing: border-box;
 	box-sizing: border-box;
@@ -150,41 +151,111 @@ html, body {
 	<!-- sidebar start -->
 	<div id="sidebar">
 		<nav class="sidenav">
+			<div style="height:50px"></div>
 			<ul class="main-buttons">
 				<li><i class="fa fa-circle fa-2x"></i> 예약/가게/리뷰 관리
 					<ul class="hidden">
-						<li>예약 내역</li>
-						<li>가게 등록 요청</li>
-						<li>리뷰 게시글 관리</li>
+						<div style="height:50px"></div>
+						<li onclick="goReservationHistory();">예약 내역</li>
+						<li onclick="goRegistrationStoreRequest();">가게 등록 요청</li>
+						<li onclick="goReviewManage();">리뷰 게시글 관리</li>
 					</ul></li>
+					
 				<li><i class="fa fa-circle fa-2x"></i> 공지사항
 					<ul class="hidden">
-						<li>고객 공지사항</li>
-						<li>업체 공지사항</li>
-						<li>관리자 공지사항</li>
+						<div style="height:50px"></div>
+						<li onclick="goClientNotice();">고객 공지사항</li>
+						<li onclick="goEnterNotice();">업체 공지사항</li>
+						<li onclick="goAdminNotice();">관리자 공지사항</li>
 					</ul></li>
 				<li><i class="fa fa-circle fa-2x"></i> 정산 환불관리
 					<ul class="hidden">
-						<li>회원 환불 내역</li>
-						<li>정산 요청 관리</li>
-						<li>정산 이의신청 내역</li>
+						<div style="height:50px"></div>
+						<li onclick="goMemberRefundHistory();">회원 환불 내역</li>
+						<li onclick="goCalculateRequestManage();">정산 요청 관리</li>
+						<li onclick="goDemurrerHistory();">정산 이의신청 내역</li>
 					</ul></li>
 				<li><i class="fa fa-circle fa-2x"></i> 문의사항 관리
 					<ul class="hidden">
-						<li>제휴 문의 관리</li>
-						<li>광고 문의 관리</li>
-						<li>회원 문의 관리</li>
+						<div style="height:50px"></div>
+						<li onclick="goPartnerRequestManage();">제휴 문의 관리</li>
+						<li onclick="goAdRequestManage();">광고 문의 관리</li>
+						<li onclick="goMemberQuestionManage();">회원 문의 관리</li>
 					</ul></li>
 				<li><i class="fa fa-circle fa-2x"></i> 고객 관리
 					<ul class="hidden">
-						<li>회원 관리</li>
-						<li>업체 관리</li>
-						<li>회원 신고내역 관리</li>
+						<div style="height:50px"></div>
+						<li onclick="goMemberManage();">회원 관리</li>
+						<li onclick="goEnterManage();">업체 관리</li>
+						<li onclick="goMemberReportHistory();">회원 신고내역 관리</li>
 					</ul></li>
 
 			</ul>
 		</nav>
 	</div>
 	<!-- sidebar end -->
+	<script>
+		function goClientNotice() {
+			location.href="<%=request.getContextPath()%>/selectclist.no";
+		}
+		
+		function goReservationHistory() {
+			location.href="<%=request.getContextPath()%>/";
+		}
+		
+		function goRegistrationStoreRequest() {
+			location.href="<%=request.getContextPath()%>/";
+		}
+		
+		function goReviewManage() {
+			location.href="<%=request.getContextPath()%>/";
+		}
+		
+		function goEnterNotice() {
+			location.href="<%=request.getContextPath()%>/";
+		}
+		
+		function goAdminNotice() {
+			location.href="<%=request.getContextPath()%>/";
+		}
+		
+		function goMemberRefundHistory() {
+			location.href="<%=request.getContextPath()%>/";
+		}
+		
+		function goCalculateRequestManage() {
+			location.href="<%=request.getContextPath()%>/";
+		}
+		
+		function goDemurrerHistory() {
+			location.href="<%=request.getContextPath()%>/";
+		}
+		
+		function goPartnerRequestManage() {
+			location.href="<%=request.getContextPath()%>/";
+		}
+		
+		function goAdRequestManage() {
+			location.href="<%=request.getContextPath()%>/";
+		}
+		
+		function goMemberQuestionManage() {
+			location.href="<%=request.getContextPath()%>/";
+		}
+		
+		function goMemberManage() {
+			location.href="<%=request.getContextPath()%>/";
+		}
+		
+		function goEnterManage() {
+			location.href="<%=request.getContextPath()%>/";
+		}
+		
+		function goMemberReportHistory() {
+			location.href="<%=request.getContextPath()%>/";
+		}
+		
+	</script>
 </body>
 </html>
+

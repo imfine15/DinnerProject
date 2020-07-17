@@ -1,26 +1,29 @@
 package com.kh.semi.notice.contoller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.kh.semi.admin.model.vo.PageInfo;
 import com.kh.semi.notice.model.service.ClientNoticeService;
 import com.kh.semi.notice.model.vo.NoticeVO;
 
 /**
- * Servlet implementation class SelectOneClientNoticeServlet
+ * Servlet implementation class SelectClientNoticeServlet
  */
-@WebServlet("/clientSelectOne.no")
-public class SelectOneClientNoticeServlet extends HttpServlet {
+@WebServlet("/selectClient.no")
+public class SelectClientNoticeServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public SelectOneClientNoticeServlet() {
+    public SelectClientNoticeServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -29,6 +32,7 @@ public class SelectOneClientNoticeServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	
 		
 		String num = request.getParameter("num");
 		
@@ -38,19 +42,51 @@ public class SelectOneClientNoticeServlet extends HttpServlet {
 			cnno = Integer.parseInt(num);
 		} 
 		
+		
+		int currentPage;
+		int limit;
+		int maxPage;
+		int startPage;
+		int endPage;
+		
+		currentPage = 1;
+		
+		if(request.getParameter("currentPage") != null) {
+			currentPage = Integer.parseInt(request.getParameter("currentPage"));
+		}
+		
+		limit = 10;
+		
+		int listCount = new ClientNoticeService().getListCount();
+		
+		maxPage = (int)((double) listCount / limit + 0.9);
+		
+		startPage = (((int) ((double) currentPage / 10 + 0.9)) - 1) * 10 + 1;
+		
+		endPage = startPage + 10 - 1;
+		
+		if(maxPage < endPage) {
+			endPage = maxPage;
+		}
+		
+		PageInfo pi = new PageInfo(currentPage, listCount, limit, maxPage, startPage, endPage);
+		
+		ArrayList<NoticeVO> list = new ClientNoticeService().selectList(pi);
 		NoticeVO cNotice = new ClientNoticeService().selectOne(cnno);
 		
 		String page = "";
-		if(cNotice != null) {
-			page = "/views/admin/notice/clientDetailNotice.jsp";
+		
+		if(list != null) {
+			page = "/views/notice/notice.jsp";
+			request.setAttribute("list", list);
+			request.setAttribute("pi", pi);
 			request.setAttribute("cNotice", cNotice);
 		} else {
 			page = "views/common/errorPage.jsp";
-			request.setAttribute("msg", "게시글 상세 보기 실패!");
+			request.setAttribute("msg", "게시판 조회 실패!");
 		}
 		
-		request.getRequestDispatcher(page).forward(request, response);
-		
+		request.getRequestDispatcher(page).forward(request, response);	
 		
 	}
 
