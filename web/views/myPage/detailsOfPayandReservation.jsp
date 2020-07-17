@@ -1,6 +1,11 @@
+<%@page import="java.text.SimpleDateFormat"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8" import="com.kh.semi.payment.model.vo.*, java.util.*"%>
+<%
+	ArrayList<ReservationVO> list = (ArrayList<ReservationVO>)session.getAttribute("list"); 
+	ArrayList<String> enpList = (ArrayList<String>) session.getAttribute("enpList");
 
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -192,27 +197,20 @@ ul li a span:hover{
 						<label style="margin-left: 100px;"class="text">결제일자</label>
 					</div>
 					<table style="border-bottom: 1px solid pink; table-layout: fixed;" id="listArea" >
+					<%for(int i = list.size() - 1; i >= 0; i --) {
+						SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+						String rDate = format.format(list.get(i).getrDate());
+						String sysDate = format.format(list.get(i).getSysDate());
+						
+					%>
 						<tr>
-							<td><div style="padding-left:30px; width:30px" class="text2">3</div></td>
-							<td><div style="padding-left:10px; width:110px;" class="text2" >돼지되지</div></td>
-							<td><div style="padding-left:10px; width:150px;" class="text2">2020/09/17 19:00</div></td>
+							<td><div style="padding-left:30px; width:30px" class="text2"><%=i+1 %></div></td>
+							<td><div style="padding-left:10px; width:110px;" class="text2" ><%=enpList.get(i) %></div></td>
+							<td><div style="padding-left:10px; width:150px;" class="text2"><%=rDate%></div></td>
 							<td><div style="padding-left:30px; width:80px;" class="text2">결제완료</div></td>
-							<td><div style="padding-left:50px; width:187px;" class="text2">2020/07/17 19:00</div></td>
+							<td><div style="padding-left:50px; width:187px;" class="text2"><%=sysDate %></div></td>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              
 						</tr>
-						<tr>
-							<td><div style="padding-left:30px; width:30px" class="text2">2</div></td>
-							<td><div style="padding-left:10px; width:110px;" class="text2" >돼지되지</div></td>
-							<td><div style="padding-left:10px; width:150px;" class="text2">2020/09/17 19:00</div></td>
-							<td><div style="padding-left:30px; width:80px;" class="text2">결제완료</div></td>
-							<td><div style="padding-left:50px; width:187px;" class="text2">2020/07/17 19:00</div></td>
-						</tr>
-						<tr>
-							<td><div style="padding-left:30px; width:30px" class="text2">1</div></td>
-							<td><div style="padding-left:10px; width:110px;" class="text2" >돼지되지</div></td>
-							<td><div style="padding-left:10px; width:150px;" class="text2">2020/09/17 19:00</div></td>
-							<td><div style="padding-left:30px; width:80px;" class="text2">결제완료</div></td>
-							<td><div style="padding-left:50px; width:187px;" class="text2">2020/07/17 19:00</div></td>
-						</tr>
+						<%} %>
 					</table>
 					</div>
 					
@@ -225,34 +223,22 @@ ul li a span:hover{
 						<label style="margin-left: 60px;"class="text">예약신청일자</label>
 					</div>
 					<table style="border-bottom: 1px solid pink; table-layout: fixed;" id="listArea" >
+					<%for(int i = list.size() - 1; i >= 0; i --) {
+						SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+						String rDate = format.format(list.get(i).getrDate());
+						String sysDate = format.format(list.get(i).getSysDate());
+						
+					%>
 						<tr>
-							<td><div style="padding-left:30px; width:30px" class="text2">3</div></td>
-							<td><div style="padding-left:10px; width:110px;" class="text2" >돼지되지</div></td>
-							<td><div style="padding-left:10px; width:150px;" class="text2">2020/09/17 19:00</div></td>
+							<td><div style="padding-left:30px; width:30px" class="text2"><%=i + 1 %></div></td>
+							<td><div style="padding-left:10px; width:110px;" class="text2" ><%=enpList.get(i) %></div></td>
+							<td><div style="padding-left:10px; width:150px;" class="text2"><%=rDate %></div></td>
 							<td><div style="padding-left:30px; width:80px;" class="text2">예약중</div></td>
-							<td><div style="padding-left:10px; width:120px;" class="text2">2020/07/17 19:00</div></td>
+							<td><div style="padding-left:10px; width:120px;" class="text2"><%=sysDate %></div></td>
 							<td><div align="center" class="butt"><button>수정</button></div></td>
 							<td><div align="center" class="butt"><button>취소</button></div></td>
 						</tr>
-						<tr>
-							<td><div style="padding-left:30px; width:30px" class="text2">2</div></td>
-							<td><div style="padding-left:10px; width:110px;" class="text2" >예약확인</div></td>
-							<td><div style="padding-left:10px; width:150px;" class="text2">2020/09/17 19:00</div></td>
-							<td><div style="padding-left:30px; width:80px;" class="text2">결제완료</div></td>
-							<td><div style="padding-left:10px; width:120px;" class="text2">2020/07/17 19:00</div></td>
-							<td><div align="center" class="butt"><button>수정</button></div></td>
-							<td><div align="center" class="butt"><button>취소</button></div></td>
-						</tr>
-						<tr>
-							<td><div style="padding-left:30px; width:30px" class="text2">1</div></td>
-							<td><div style="padding-left:10px; width:110px;" class="text2" >돼지되지</div></td>
-							<td><div style="padding-left:10px; width:150px;" class="text2">2020/09/17 19:00</div></td>
-							<td><div style="padding-left:30px; width:80px;" class="text2">방문완료</div></td>
-							<td><div style="padding-left:10px; width:120px;" class="text2">2020/07/17 19:00</div></td>
-							<td><div align="center" class="butt"><button>수정</button></div></td>
-							<td><div align="center" class="butt"><button>취소</button></div></td>
-							<td></td>
-						</tr>
+						<%} %>
 					</table>
 					</div>
 				</div>

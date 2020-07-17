@@ -31,12 +31,14 @@ public class SelectReservationListServlet extends HttpServlet {
 		String mNo = member.getmNo();
 		ArrayList<ReservationVO> list = new ReservationService().selectReservationList(mNo);
 		ArrayList<String> enpList = new ReservationService().selectEnpList(list);
+		ArrayList<String> statusList = new ReservationService().selectStatusList(list);
 		
 		System.out.println(enpList);
 		String page = "";
 		if(list != null) {
 			page = request.getContextPath() + "/views/myPage/detailsOfPayandReservation.jsp";
 			session.setAttribute("list", list);
+			session.setAttribute("enpList", enpList);
 		} else {
 			
 		}
