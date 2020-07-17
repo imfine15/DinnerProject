@@ -212,7 +212,7 @@ html, body {
 				<ul style="margin-top:10px;">
 					<br>
 					<br>
-					<li style="padding:8px">공지사항</li>
+					<li style="padding:8px" onclick="goNotice();">공지사항</li>
 					<li style="padding:8px">이용약관</li>
 					<li style="padding:8px">가이드라인</li>
 					<li style="padding:8px">개인정보 처리방침</li>
@@ -253,5 +253,10 @@ html, body {
 		</div>
 	</div>
 	<!-- END OF FOOTER -->
+	<script>
+		function goNotice() {
+			location.href="<%=request.getContextPath()%>/selectClient.no";
+		}
+	</script>
 </body>
 </html>

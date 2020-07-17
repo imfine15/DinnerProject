@@ -19,28 +19,27 @@
 <link rel="icon" href="/semiproject/images/favicon.ico" type="image/x-icon">
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<style>
+
 <style>
 	table{
 		border-collapse: collapse;
 	}
 	tr{
-		border-bottom: 1px solid #CBCDD1;
+		border-bottom: 1px solid #E4E4E4;
+		height:50px;
 	}
-	td{
-		height: 30px;
-	}
+	
 	.writebtn{
 		background: #E07370;
  		color: #FFFFFF;
 		border: 0;
 		outline: 0;
-		width: 60px;
-		height: 25px;
-		font-size: 14px;
+		width: 90px;
+		height: 30px;
+		font-size: 16px;
 		margin-top: 20px;
 		float: right;
-		margin-right: 150px;
+		margin-right: 45px;
 	}
 </style>
 </head>
@@ -53,22 +52,23 @@
 		<div align="center" style="padding-left:10px; padding-right:10px; background: white; width:100%; padding-top: 30px; height: 80%;">
 			<table id="listArea">
 				<tr>
-					<td width="800px" align="center">제목</td>
-					<td align="center" width="150px">등록날짜</td>
+					<th width="100px"></th>
+					<th width="800px" align="center">제목</th>
+					<th align="center" width="150px">등록날짜</th>
 				</tr>
-				<tr>
 				<%
 					for (NoticeVO n : list) {
 				%>
 				<tr>
+					<td align="center"><%=n.getNoticeNo() %></td>
 					<td><%=n.getNoticeTitle()%></td>
-					<td><%=n.getNoticeDate()%></td>
+					<td align="center"><%=n.getNoticeDate()%></td>
 				</tr>
 				<%
 					}
 				%>
 			</table>
-			<button class="writebtn">글쓰기</button>
+			<button class="writebtn" onclick="location.href='<%=request.getContextPath()%>/views/admin/notice/clientUploadNotice.jsp'">글쓰기</button>
 		</div>
 			<div class="pageingArea" align="center">
 			<button
@@ -132,13 +132,14 @@
 	<script>
 		$(function() {
 			$("#listArea td").mouseenter(function() {
-				$(this).parent().css({"background":"darkgray", "cursor":"pointer"});
+				$(this).parent().css({"background":"#E4E4E4", "cursor":"pointer"});
 			}).mouseout(function() {
 				$(this).parent().css({"background":"white"});
 			}).click(function() {
+				
 				var num = $(this).parent().children().eq(0).text();
-					
-				location.href="<%=request.getContextPath()%>/ClinetselectOne.no?num="+ num;
+				
+				location.href="<%=request.getContextPath()%>/clientSelectOne.no?num="+ num;
 							});
 		});
 	</script>

@@ -1,5 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="java.util.*, com.kh.semi.notice.model.vo.*"%>
+<% NoticeVO notice = (NoticeVO) request.getAttribute("cNotice"); %>
+<%@ page import="com.kh.semi.admin.model.vo.PageInfo" %>
+<%
+	ArrayList<NoticeVO> list = (ArrayList<NoticeVO>) request.getAttribute("list");
+	PageInfo pi = (PageInfo) request.getAttribute("pi");
+	int listCount = pi.getListCount();
+	int currentPage = pi.getCurrentPage();
+	int maxPage = pi.getMaxPage();
+	int startPage = pi.getStartPage();
+	int endPage = pi.getEndPage();
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,8 +20,8 @@
 
 	* { margin: 0; padding: 0; }
 	.outer{
-		width:900px;
-		height:500px;
+		width:100%;
+		height:auto;
 		margin-left:auto;
 		margin-right:auto;
 		margin-top:50px;
@@ -83,14 +94,13 @@ button{
 		
 	<br><br><br>
 		<dl>
-		    <dt>이거시바로공지<span><img src="/semiproject/images/toggle.png" class="toggle"><br><a>2020-07-24</a></span></dt>
-		    <dd>몰ㄹ라아리단모ㅗ양이은러ㅣㅓ니</dd>
-		   
-		    <dt>이거슨과거공지<span><img src="/semiproject/images/toggle.png" class="toggle"><br><a>2020-07-22</a></span></dt>
-		    <dd>웅앵웅</dd>
-		    
+		<% 
+		for (NoticeVO n : list) {
+		%>
+		    <dt><%=notice.getNoticeTitle() %><span><img src="/semiproject/images/toggle.png" class="toggle"><br><a><%=notice.getNoticeDate() %></a></span></dt>
+		    <dd><%=notice.getNoticeContent() %></dd>
+		<% } %>
 		</dl>
-		
 		<!-- search area start -->
 		<div class="searchArea" align="center">
 			<select id="searchCondition" name="searchCondition">
