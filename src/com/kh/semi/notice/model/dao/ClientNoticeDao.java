@@ -121,6 +121,44 @@ public class ClientNoticeDao {
 		return list;
 	}
 
+	public NoticeVO selectOne(Connection con, int cnno) {
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		NoticeVO notice = null;
+
+		String query = prop.getProperty("selectOneClient");
+
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1,  cnno);
+
+			rset = pstmt.executeQuery();
+
+			if(rset.next()) {
+				notice = new NoticeVO();
+				
+				/*
+				 * notice.setNno(rset.getInt("NNO"));
+				 * notice.setnTitle(rset.getString("NTITLE"));
+				 * notice.setnContent(rset.getString("NCONTENT"));
+				 * notice.setNickName(rset.getString("NICK_NAME"));
+				 * notice.setnCount(rset.getInt("NCOUNT"));
+				 * notice.setnDate(rset.getDate("NDATE"));
+				 */
+				
+				notice.
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+
+		return notice;
+	}
+
 }
 
 

@@ -48,6 +48,31 @@ public class ClientNoticeService {
 		
 		return list;
 	}
+	
+	//개인회원 공지 관리자 상세보기용 
+	public NoticeVO selectOne(int cnno) {
 
+		Connection con = getConnection();
 
+		int result = 0;
+
+		NoticeVO notice = new ClientNoticeDao().selectOne(con, cnno);
+
+		if(notice != null) {
+
+			result = new ClientNoticeDao().updateCount(con, cnno);
+
+			if(result > 0) {
+				commit(con);
+			} else {
+				rollback(con);
+				notice = null;
+			}
+		}
+
+		close(con);
+
+		return notice;
+
+	}
 }
