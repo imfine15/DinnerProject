@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 import com.kh.semi.admin.model.dao.AdminDao;
 import com.kh.semi.admin.model.vo.PageInfo;
+import com.kh.semi.enterprise.model.dao.EnpDao;
 import com.kh.semi.enterprise.model.vo.EnpAttachment;
 import com.kh.semi.enterprise.model.vo.EnpUpVo;
 
@@ -16,7 +17,6 @@ public class AdminService {
 		
 		int listCount = new AdminDao().getListCount(con);
 		
-		System.out.println("listCount2 : " + listCount);
 		
 		close(con);
 		
@@ -58,6 +58,46 @@ public class AdminService {
 		
 	
 		return ea;
+	}
+
+	public int updateEnterprise(EnpUpVo enpUp, ArrayList<EnpAttachment> fileList) {
+		Connection con = getConnection();
+		
+		int result = 0;
+		
+		int result1 = 0;
+		
+		int result2 = 0;
+		
+		int result3 = 0;
+		
+		result1 = new AdminDao().updateEnterprise(con, enpUp);
+		if(result1 > 0) {
+			String enpNo = new AdminDao().selectCurrval(con);
+			
+			for(int i = 0; i < fileList.size(); i++) {
+				fileList.get(i).setEnpNo(enpNo);
+				enpUp.setEnpNo(enpNo);
+				
+				
+				result2 += new AdminDao().updateAttachment(con, fileList.get(i));
+				
+				
+			}
+			result3 = new AdminDao().updateMenu(con, enpUp);
+		}
+		
+		
+		if(result1 > 0 && result3 > 0 && result2 == fileList.size()) {
+			commit(con);
+			result = 1;
+		} else {
+			rollback(con);
+		}
+		
+		
+		return result;
+		
 	}
 
 }

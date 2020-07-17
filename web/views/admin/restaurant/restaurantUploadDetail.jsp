@@ -1,10 +1,12 @@
+<%@page import="java.util.ArrayList"%>
 <%@page import="com.kh.semi.enterprise.model.vo.EnpAttachment"%>
 <%@page import="com.kh.semi.enterprise.model.vo.EnpUpVo"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%
-	EnpUpVo eu = (EnpUpVo)session.getAttribute("enpUp");
-	EnpAttachment ea = (EnpAttachment)session.getAttribute("ea");
+	EnpUpVo eu = (EnpUpVo)request.getAttribute("enpUp");
+	ArrayList<EnpAttachment> fileList = (ArrayList<EnpAttachment>)request.getAttribute("fileList");
+	EnpAttachment ea = (EnpAttachment)request.getAttribute("ea");
 %>
 <!DOCTYPE html>
 <html>
@@ -67,7 +69,7 @@
 		 background: white; 
 		 width:95%; 
 		 padding-top: 30px; 
-		 height: 800px;
+		 height: 1000px;
 		 margin-left: auto;
 		 margin-right: auto;
 	}
@@ -90,7 +92,10 @@
 		height: 20px;
 	}
 
-	
+	#titleImg{
+		width: 300px;
+		height: auto;
+	}
 	
 </style>
 </head>
@@ -100,25 +105,27 @@
 		<div class="header" align="left">
 			<h1>가게 등록 요청</h1><br>
 		</div>
+			<form action="<%=request.getContextPath()%>/updateEnt.up" method="post">
 		<div class="inner">
 			<h3>입점 가게 상세 정보</h3>
+			
 			<table>
 				<tr>
 					<th>식당명</th>
-					<td><input type="text" value="<%= eu.getEnpName() %>"></td>
+					<td><input type="text" name="enpName" value="<%= eu.getEnpName() %>"></td>
 					<th>신청 날짜</th>
-					<td><input type="text" value="<%= ea.getUploadDate() %>"></td>
+					<td><input type="text" name="uploadApproval" value="<%= ea.getUploadDate() %>"></td>
 				</tr>
 				<tr>
 					<th>주소</th>
-					<td colspan="3"><input type="text" value="<%= eu.getEnpAddress() %>"></td>
+					<td colspan="3"><input type="text" name="enpAddress" value="<%= eu.getEnpAddress() %>"></td>
 				</tr>
 				<tr>
 					<th>전화번호</th>
-					<td><input type="text" value="<%= eu.getEnpPhone() %>"></td>
+					<td><input type="text" name="enpPhone" value="<%= eu.getEnpPhone() %>"></td>
 					<th>가격대</th>
 					<td>
-						<select id="priceRange">
+						<select name="priceRange" id="priceRange">
 							<option value="~1만원대">~1만원대</option>
 							<option value="1만원 ~ 2만원">1만원 ~ 2만원</option>
 							<option value="2만원 ~ 3만원">2만원 ~ 3만원</option>
@@ -165,12 +172,12 @@
 				</tr>
 				<tr>
 					<th>사진파일</th>
-					<td colspan="3"><%= ea.getOriginName() %></td>
+					<td colspan="3"><img id="titleImg" src="<%=request.getContextPath()%>/thumbnail_uploadFile/<%=ea.getChangeName()%>"></td>
 				</tr>
 			</table>
-			<button class="btn" style="background: #E07370; width: 160px;">업로드 및 수정</button>
-			<button class="btn" style="background: red; width: 100px;">삭제</button>
+			<button type="submit" class="btn" style="background: #E07370; width: 160px;">업로드 및 수정</button>
 		</div>
+		</form>
 		<script>
 		$(document).ready(function(){
 			$("#priceRange option[value='<%= eu.getPriceRange() %>']").attr("selected", true);
