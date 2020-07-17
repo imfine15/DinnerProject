@@ -1,10 +1,11 @@
+<%@page import="java.sql.Timestamp"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8" import="com.kh.semi.payment.model.vo.*, java.util.*"%>
 <%
 	ArrayList<ReservationVO> list = (ArrayList<ReservationVO>)session.getAttribute("list"); 
 	ArrayList<String> enpList = (ArrayList<String>) session.getAttribute("enpList");
-
+	ArrayList<String> statusList = (ArrayList<String>) session.getAttribute("statusList");
 %>
 <!DOCTYPE html>
 <html>
@@ -17,18 +18,7 @@
 	href="/semiproject/views/myPage/css/myPage.css" />
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	<script>
-   $(function(){
-	  	$("#listArea td").mouseenter(function(){
-	  		$(this).parent().css({"background":"darkgray","cursor":"pointer"});
-	  	}).mouseout(function(){
-	  		$(this).parent().css({"background":"white"});
-	  	}).click(function(){
-	  		var num = $(this).parent().children().eq(0).text();
-	  		
-	  		console.log(num);
-	  		location.href="<%=request.getContextPath()%>/selectOne.no?num=" + num;
-	  	})
-   });
+
    </script>
 <style>
 .info {
@@ -184,9 +174,15 @@ ul li a span:hover{
 					<button class="text6" id="reservation">예약</button><button class="text6" id="payment">결제</button>
 					</div>
 					<div style="width:340px; display: inline-block;!important;" align="right">
-					<button class="text5">전체</button><button class="text5">결제완료</button><button class="text5" style="margin-right:5px;">결제취소</button>
-					<button class="tex">전체</button><button class="tex">완료</button><button class="tex">예약중</button><button class="tex" style="margin-right:5px;">예약취소</button>
+					<button class="text5" id="payAreaAll">전체</button>
+					<button class="text5" id="payAreaSuc">결제완료</button>
+					<button class="text5" style="margin-right:5px;" id="payAreaClo">결제취소</button>
+					<button class="tex" id="reserAreaAll">전체</button>
+					<button class="tex" id="reserAreaSuc">완료</button>
+					<button class="tex" id="reserAreaYet">예약중</button>
+					<button class="tex" style="margin-right:5px;" id="reserAreaClo">취소</button>
 					</div>
+					<!-- 결제전체 Area -->
 					<div id="paymentArea">
 					<br><br>
 					<div style="width: 100%; background-color: pink; height: 30px; margin-top:-20px; vertical-align: middle; padding-top: 5px;'">
@@ -197,23 +193,111 @@ ul li a span:hover{
 						<label style="margin-left: 100px;"class="text">결제일자</label>
 					</div>
 					<table style="border-bottom: 1px solid pink; table-layout: fixed;" id="listArea" >
-					<%for(int i = list.size() - 1; i >= 0; i --) {
+					<%
+					int psuc = 0;
+					int pclo = 0;
+					
+					for(int i = list.size() - 1; i >= 0; i --) {
 						SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 						String rDate = format.format(list.get(i).getrDate());
 						String sysDate = format.format(list.get(i).getSysDate());
-						
+						String status = "";
+						switch(statusList.get(i)){
+						case "RSC1": status = "결제완료"; psuc++; break;
+						case "RSC2": status = "결제완료"; psuc++; break;
+						case "RSC3": status = "결제취소"; pclo++; break;
+						case "RSC4": status = "결제취소"; pclo++; break;
+						case "RSC5": status = "결제완료"; psuc++; break;
+						}
 					%>
 						<tr>
 							<td><div style="padding-left:30px; width:30px" class="text2"><%=i+1 %></div></td>
 							<td><div style="padding-left:10px; width:110px;" class="text2" ><%=enpList.get(i) %></div></td>
 							<td><div style="padding-left:10px; width:150px;" class="text2"><%=rDate%></div></td>
-							<td><div style="padding-left:30px; width:80px;" class="text2">결제완료</div></td>
+							<td><div style="padding-left:30px; width:80px;" class="text2"><%=status %></div></td>
 							<td><div style="padding-left:50px; width:187px;" class="text2"><%=sysDate %></div></td>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              
 						</tr>
 						<%} %>
 					</table>
 					</div>
 					
+					<!-- 결제 완료 Area -->
+					<div id="paymentSucArea">
+					<br><br>
+					<div style="width: 100%; background-color: pink; height: 30px; margin-top:-20px; vertical-align: middle; padding-top: 5px;'">
+						<label style="margin-left: 20px;"class="text">번호</label>
+						<label style="margin-left: 20px;"class="text">가게명</label>
+						<label style="margin-left: 70px;"class="text">방문 예정 일자</label>
+						<label style="margin-left: 80px;"class="text">상태</label>
+						<label style="margin-left: 100px;"class="text">결제일자</label>
+					</div>
+					<table style="border-bottom: 1px solid pink; table-layout: fixed;" id="listArea" >
+					<%
+					int psucCount = psuc;
+					for(int i = list.size() - 1; i >= 0; i --) {
+						SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+						String rDate = format.format(list.get(i).getrDate());
+						String sysDate = format.format(list.get(i).getSysDate());
+						String status = "";
+						switch(statusList.get(i)){
+						case "RSC1": status = "결제완료"; break;
+						case "RSC2": status = "결제완료"; break;
+						case "RSC3": status = "결제취소"; break;
+						case "RSC4": status = "결제취소"; break;
+						case "RSC5": status = "결제완료"; break;
+						}
+						if(status.equals("결제완료")){
+					%>
+						<tr>
+							<td><div style="padding-left:30px; width:30px" class="text2"><%=i+1 %></div></td>
+							<td><div style="padding-left:10px; width:110px;" class="text2" ><%=enpList.get(i) %></div></td>
+							<td><div style="padding-left:10px; width:150px;" class="text2"><%=rDate%></div></td>
+							<td><div style="padding-left:30px; width:80px;" class="text2"><%=status %></div></td>
+							<td><div style="padding-left:50px; width:187px;" class="text2"><%=sysDate %></div></td>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              
+						</tr>
+						<%psucCount--;}} %>
+					</table>
+					</div>
+					
+					<!-- 결제 취소 Area-->
+					<div id="paymentCloArea">
+					<br><br>
+					<div style="width: 100%; background-color: pink; height: 30px; margin-top:-20px; vertical-align: middle; padding-top: 5px;'">
+						<label style="margin-left: 20px;"class="text">번호</label>
+						<label style="margin-left: 20px;"class="text">가게명</label>
+						<label style="margin-left: 70px;"class="text">방문 예정 일자</label>
+						<label style="margin-left: 80px;"class="text">상태</label>
+						<label style="margin-left: 100px;"class="text">결제일자</label>
+					</div>
+					<table style="border-bottom: 1px solid pink; table-layout: fixed;" id="listArea" >
+					<%
+					int pCloCount = pclo;
+					for(int i = list.size() - 1; i >= 0; i --) {
+						SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+						String rDate = format.format(list.get(i).getrDate());
+						String sysDate = format.format(list.get(i).getSysDate());
+						String status = "";
+						switch(statusList.get(i)){
+						case "RSC1": status = "결제완료"; break;
+						case "RSC2": status = "결제완료"; break;
+						case "RSC3": status = "결제취소"; break;
+						case "RSC4": status = "결제취소"; break;
+						case "RSC5": status = "결제완료"; break;
+						}
+						if(status.equals("결제취소")){
+					%>
+						<tr>
+							<td><div style="padding-left:30px; width:30px" class="text2"><%=pCloCount %></div></td>
+							<td><div style="padding-left:10px; width:110px;" class="text2" ><%=enpList.get(i) %></div></td>
+							<td><div style="padding-left:10px; width:150px;" class="text2"><%=rDate%></div></td>
+							<td><div style="padding-left:30px; width:80px;" class="text2"><%=status %></div></td>
+							<td><div style="padding-left:50px; width:187px;" class="text2"><%=sysDate %></div></td>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              
+						</tr>
+						<%pCloCount--;}} %>
+					</table>
+					</div>
+					
+					<!-- 예약전체 Area -->
 					<div id="reservationArea">
 					<div style="width: 100%; background-color: pink; height: 30px; margin-top:16px; vertical-align: middle; padding-top: 5px;'">
 						<label style="margin-left: 20px;"class="text">번호</label>
@@ -223,31 +307,233 @@ ul li a span:hover{
 						<label style="margin-left: 60px;"class="text">예약신청일자</label>
 					</div>
 					<table style="border-bottom: 1px solid pink; table-layout: fixed;" id="listArea" >
-					<%for(int i = list.size() - 1; i >= 0; i --) {
+					<%
+					int suc = 0;
+					int yet = 0;
+					int clo = 0;
+					int cc = 0;
+					for(int i = list.size() - 1; i > -1; i --) {
+						
 						SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 						String rDate = format.format(list.get(i).getrDate());
 						String sysDate = format.format(list.get(i).getSysDate());
 						
+						Calendar cal = Calendar.getInstance();
+						String today = format.format(cal.getTime());
+						
+						
+						Date systamp = format.parse(today);
+						Date rstamp = format.parse(rDate);
+						
+						int compare = systamp.compareTo(rstamp);
+						
+						String status = "";
+						switch(statusList.get(i)){
+						case "RSC1": status = "예약중"; yet++; break;
+						case "RSC2": status = "예약완료"; suc++; break;
+						case "RSC3": status = "결제취소"; clo++; break;
+						case "RSC4": status = "예약거절"; clo++; break;
+						case "RSC5": status = "방문완료"; suc++; break;
+						}
 					%>
 						<tr>
 							<td><div style="padding-left:30px; width:30px" class="text2"><%=i + 1 %></div></td>
 							<td><div style="padding-left:10px; width:110px;" class="text2" ><%=enpList.get(i) %></div></td>
 							<td><div style="padding-left:10px; width:150px;" class="text2"><%=rDate %></div></td>
-							<td><div style="padding-left:30px; width:80px;" class="text2">예약중</div></td>
+							<td><div style="padding-left:30px; width:80px;" class="text2"><%=status %></div></td>
 							<td><div style="padding-left:10px; width:120px;" class="text2"><%=sysDate %></div></td>
-							<td><div align="center" class="butt"><button>수정</button></div></td>
-							<td><div align="center" class="butt"><button>취소</button></div></td>
+							<%if(compare < 0 && (status.equals("예약중")) || status.equals("예약완료")){ %>
+							<td><div align="center" class="butt"><button style="width: 100%; height: 100%;" class="change" value="<%=list.get(i).getrNo()%>">수정</button></div></td>
+							<td><div align="center" class="butt"><button style="width: 100%; height: 100%;">취소</button></div></td>
+							<td><input id="d" type="hidden" value="<%=list.get(i).getrNo()%>"></td>
+							
+							<%}%>
 						</tr>
-						<%} %>
+						<%}%>
 					</table>
 					</div>
+					
+					<!-- 방문완료, 예약완료 Area -->
+					<div id="reservationSucArea">
+					<div style="width: 100%; background-color: pink; height: 30px; margin-top:16px; vertical-align: middle; padding-top: 5px;'">
+						<label style="margin-left: 20px;"class="text">번호</label>
+						<label style="margin-left: 20px;"class="text">가게명</label>
+						<label style="margin-left: 70px;"class="text">방문 예정 일자</label>
+						<label style="margin-left: 80px;"class="text">상태</label>
+						<label style="margin-left: 60px;"class="text">예약신청일자</label>
+					</div>
+					<table style="border-bottom: 1px solid pink; table-layout: fixed;" id="listArea" >
+					<%
+					
+					int sucCount = suc;
+					for(int i = list.size() - 1; i > -1; i --) {
+						
+						String status = "";
+						switch(statusList.get(i)){
+						case "RSC1": status = "예약중"; break;
+						case "RSC2": status = "예약완료"; break;
+						case "RSC3": status = "결제취소"; break;
+						case "RSC4": status = "예약거절"; break;
+						case "RSC5": status = "방문완료"; break;
+						}
+						if(status.equals("방문완료") || status.equals("예약완료")){
+						
+						
+						SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+						String rDate = format.format(list.get(i).getrDate());
+						String sysDate = format.format(list.get(i).getSysDate());
+						
+						Calendar cal = Calendar.getInstance();
+						String today = format.format(cal.getTime());
+						
+						
+						Date systamp = format.parse(today);
+						Date rstamp = format.parse(rDate);
+						
+						int compare = systamp.compareTo(rstamp);
+						
+						
+					%>
+						<tr>
+							<td><div style="padding-left:30px; width:30px" class="text2"><%=sucCount %></div></td>
+							<td><div style="padding-left:10px; width:110px;" class="text2" ><%=enpList.get(i) %></div></td>
+							<td><div style="padding-left:10px; width:150px;" class="text2"><%=rDate %></div></td>
+							<td><div style="padding-left:30px; width:80px;" class="text2"><%=status %></div></td>
+							
+							<%if(compare < 0 && (status.equals("예약중")) || status.equals("예약완료")){ %>
+							<td><div style="padding-left:10px; width:120px;" class="text2"><%=sysDate %></div></td>
+							<td><div align="center" class="butt"><button style="width: 100%; height: 100%;">수정</button></div></td>
+							<td><div align="center" class="butt"><button style="width: 100%; height: 100%;">취소</button></div></td>
+							<%} else {%>
+							<td><div style="padding-left:10px; width:230px;" class="text2"><%=sysDate %></div></td>
+							<%} %>
+						</tr>
+						<%sucCount--;}
+						} %>
+					</table>
+					</div>
+					
+					<!-- 예약중Area -->
+					<div id="reservationYetArea">
+					<div style="width: 100%; background-color: pink; height: 30px; margin-top:16px; vertical-align: middle; padding-top: 5px;'">
+						<label style="margin-left: 20px;"class="text">번호</label>
+						<label style="margin-left: 20px;"class="text">가게명</label>
+						<label style="margin-left: 70px;"class="text">방문 예정 일자</label>
+						<label style="margin-left: 80px;"class="text">상태</label>
+						<label style="margin-left: 60px;"class="text">예약신청일자</label>
+					</div>
+					<table style="border-bottom: 1px solid pink; table-layout: fixed;" id="listArea" >
+					<%
+					int yetCount = yet;
+					for(int i = list.size() - 1; i > -1; i --) {
+						
+						String status = "";
+						switch(statusList.get(i)){
+						case "RSC1": status = "예약중"; break;
+						case "RSC2": status = "예약완료"; break;
+						case "RSC3": status = "결제취소"; break;
+						case "RSC4": status = "예약거절"; break;
+						case "RSC5": status = "방문완료"; break;
+						}
+						if(status.equals("예약중")){
+							
+						SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+						String rDate = format.format(list.get(i).getrDate());
+						String sysDate = format.format(list.get(i).getSysDate());
+						
+						Calendar cal = Calendar.getInstance();
+						String today = format.format(cal.getTime());
+						
+						
+						Date systamp = format.parse(today);
+						Date rstamp = format.parse(rDate);
+						
+						int compare = systamp.compareTo(rstamp);
+						
+						
+					%>
+						<tr>
+							<td><div style="padding-left:30px; width:30px" class="text2"><%=yetCount %></div></td>
+							<td><div style="padding-left:10px; width:110px;" class="text2" ><%=enpList.get(i) %></div></td>
+							<td><div style="padding-left:10px; width:150px;" class="text2"><%=rDate %></div></td>
+							<td><div style="padding-left:30px; width:80px;" class="text2"><%=status %></div></td>
+							
+							<%if(compare < 0 && (status.equals("예약중")) || status.equals("예약완료")){ %>
+							<td><div style="padding-left:10px; width:120px;" class="text2"><%=sysDate %></div></td>
+							<td><div align="center" class="butt"><button style="width: 100%; height: 100%;">수정</button></div></td>
+							<td><div align="center" class="butt"><button style="width: 100%; height: 100%;">취소</button></div></td>
+							<%} else {%>
+							<td><div style="padding-left:10px; width:230px;" class="text2"><%=sysDate %></div></td>
+							<%} %>
+						</tr>
+						<%
+						yetCount --;
+						}
+						} %>
+					</table>
+					</div>
+					
+					<!-- 결제취소, 예약취소 Area -->
+					<div id="reservationCloArea">
+					<div style="width: 100%; background-color: pink; height: 30px; margin-top:16px; vertical-align: middle; padding-top: 5px;'">
+						<label style="margin-left: 20px;"class="text">번호</label>
+						<label style="margin-left: 20px;"class="text">가게명</label>
+						<label style="margin-left: 70px;"class="text">방문 예정 일자</label>
+						<label style="margin-left: 80px;"class="text">상태</label>
+						<label style="margin-left: 60px;"class="text">예약신청일자</label>
+					</div>
+					<table style="border-bottom: 1px solid pink; table-layout: fixed;" id="listArea" >
+					<%
+					int cloCount = clo;
+					for(int i = list.size() - 1; i > -1; i --) {
+						
+						String status = "";
+						switch(statusList.get(i)){
+						case "RSC1": status = "예약중"; break;
+						case "RSC2": status = "예약완료"; break;
+						case "RSC3": status = "결제취소"; break;
+						case "RSC4": status = "예약거절"; break;
+						case "RSC5": status = "방문완료"; break;
+						}
+						if(status.equals("예약거절")||status.equals("결제취소")){
+						SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+						String rDate = format.format(list.get(i).getrDate());
+						String sysDate = format.format(list.get(i).getSysDate());
+						
+						Calendar cal = Calendar.getInstance();
+						String today = format.format(cal.getTime());
+						
+						
+						Date systamp = format.parse(today);
+						Date rstamp = format.parse(rDate);
+						
+						int compare = systamp.compareTo(rstamp);
+						
+						
+					%>
+						<tr>
+							<td><div style="padding-left:30px; width:30px" class="text2"><%=cloCount %></div></td>
+							<td><div style="padding-left:10px; width:110px;" class="text2" ><%=enpList.get(i) %></div></td>
+							<td><div style="padding-left:10px; width:150px;" class="text2"><%=rDate %></div></td>
+							<td><div style="padding-left:30px; width:80px;" class="text2"><%=status %></div></td>
+							
+							<%if(compare < 0 && (status.equals("예약중")) || status.equals("예약완료")){ %>
+							<td><div style="padding-left:10px; width:120px;" class="text2"><%=sysDate %></div></td>
+							<td><div align="center" class="butt"><button style="width: 100%; height: 100%;">수정</button></div></td>
+							<td><div align="center" class="butt"><button style="width: 100%; height: 100%;">취소</button></div></td>
+							<%} else {%>
+							<td><div style="padding-left:10px; width:230px;" class="text2"><%=sysDate %></div></td>
+							<%} %>
+						</tr>
+						<%
+						cloCount --;
+						}
+						} %>
+					</table>
+					</div>
+					
 				</div>
-
-
-
-
-
-
+				
 
 				<!--// mArticle -->
 				<div id="mAside">
@@ -297,24 +583,131 @@ ul li a span:hover{
 		<div id="wrapMinidaum"></div>
 	</div>
 <script>
+
+	$(".change").click(function(){
+		location.href="<%=request.getContextPath()%>/views/payment/paymentPage.jsp";
+	});
+	
+</script>
+<script>
 	$("#reservationArea").hide();
 	$(".tex").hide();
-	$("#reservation").click(function(){
-		$("#paymentArea").hide();
-		$(".text5").hide();
-		
-		$("#reservationArea").show();
-		$(".tex").show();
-		});
+	$("#reservationSucArea").hide();
+	$("#reservationYetArea").hide();
+	$("#reservationCloArea").hide();
+	$("#paymentSucArea").hide();
+	$("#paymentCloArea").hide();
 	
-	$("#payment").click(function(){
+	$("#payment, #payAreaAll").click(function(){
 		$("#paymentArea").show();
 		$(".text5").show();
 		
 		$("#reservationArea").hide();
 		$(".tex").hide();
 		
+		$("#reservationSucArea").hide();
+		$("#reservationYetArea").hide();
+		$("#reservationCloArea").hide();
+		
+		$("#paymentSucArea").hide();
+		$("#paymentCloArea").hide();
+
 	});
+	
+	$("#payAreaSuc").click(function(){
+		$("#paymentArea").hide();
+		$(".text5").show();
+		
+		$("#reservationArea").hide();
+		$(".tex").hide();
+		
+		$("#reservationSucArea").hide();
+		$("#reservationYetArea").hide();
+		$("#reservationCloArea").hide();
+		
+		$("#paymentSucArea").show();
+		$("#paymentCloArea").hide();
+
+	});
+	
+	$("#payAreaClo").click(function(){
+		$("#paymentArea").hide();
+		$(".text5").show();
+		
+		$("#reservationArea").hide();
+		$(".tex").hide();
+		
+		$("#reservationSucArea").hide();
+		$("#reservationYetArea").hide();
+		$("#reservationCloArea").hide();
+		
+		$("#paymentSucArea").hide();
+		$("#paymentCloArea").show();
+
+	});
+	$("#reservation, #reserAreaAll").click(function(){
+		$("#paymentArea").hide();
+		$(".text5").hide();
+		
+		$("#reservationArea").show();
+		$(".tex").show();
+		
+		$("#reservationSucArea").hide();
+		$("#reservationYetArea").hide();
+		$("#reservationCloArea").hide();
+
+		$("#paymentSucArea").hide();
+		$("#paymentCloArea").hide();
+		
+		});
+	
+
+	
+	$("#reserAreaSuc").click(function(){
+		$("#paymentArea").hide();
+		$(".text5").hide();
+		
+		$("#reservationArea").hide();
+		$(".tex").show();
+		
+		$("#reservationYetArea").hide();
+		$("#reservationSucArea").show();
+		$("#reservationCloArea").hide();
+
+		$("#paymentSucArea").hide();
+		$("#paymentCloArea").hide();
+	});
+	
+	$("#reserAreaYet").click(function(){
+		$("#paymentArea").hide();
+		$(".text5").hide();
+		
+		$("#reservationArea").hide();
+		$(".tex").show();
+		
+		$("#reservationYetArea").show();
+		$("#reservationSucArea").hide();
+		$("#reservationCloArea").hide();
+		
+		$("#paymentSucArea").hide();
+		$("#paymentCloArea").hide();
+	});
+	
+	$("#reserAreaClo").click(function(){
+		$("#paymentArea").hide();
+		$(".text5").hide();
+		
+		$("#reservationArea").hide();
+		$(".tex").show();
+		
+		$("#reservationYetArea").hide();
+		$("#reservationSucArea").hide();
+		$("#reservationCloArea").show();
+		
+		$("#paymentSucArea").hide();
+		$("#paymentCloArea").hide();
+	});
+	
 </script>
 
 </body>

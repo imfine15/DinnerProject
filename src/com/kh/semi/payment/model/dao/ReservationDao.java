@@ -172,14 +172,31 @@ public class ReservationDao {
 		ArrayList<String> statusList = new ArrayList<String>();
 		int count = 0;
 		String query = prop.getProperty("selectStatusList");
-		
-		
-		
+
+
+		while(true) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		
-		
-		
+		try {
+			String status = "";
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, list.get(count).getrNo());
+
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				status = rset.getString("STATUS_CODE");
+				statusList.add(status);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
+		}
+		count++;
+		if(list.size() == count) break;
+		}
 		
 		return statusList;
 	}
