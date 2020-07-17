@@ -143,6 +143,7 @@ public class AdminDao {
 				eu.setPriceRange(rset.getString("PRICE_RANGE"));
 				eu.setEnpHour(rset.getString("ENP_HOUR"));
 				eu.setClosedDay(rset.getString("CLOSED_DAY"));
+				eu.setWebsite(rset.getString("WEBSITE"));
 				eu.setHashTags(rset.getString("HASH_TAGS"));
 				eu.setIntroduce(rset.getString("INTRODUCE"));
 				eu.setParkingPossible(rset.getString("PARKING_POSSIBLE"));
@@ -224,8 +225,9 @@ public class AdminDao {
 			
 			result = pstmt.executeUpdate();
 			
-			
-			
+			System.out.println("resultup : " + result);
+			System.out.println("enpName : " + enpUp.getEnpName());
+			System.out.println("hashtags : " +enpUp.getHashTags());
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -256,6 +258,7 @@ public class AdminDao {
 				
 			}
 			
+			System.out.println("enpNo : " + enpNo);
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -274,7 +277,8 @@ public class AdminDao {
 		int result = 0;
 		
 		String query = prop.getProperty("updateAttachment");
-
+		
+		System.out.println();
 		
 		try {
 			pstmt = con.prepareStatement(query);
@@ -285,6 +289,7 @@ public class AdminDao {
 			
 			result = pstmt.executeUpdate();
 			
+			System.out.println("resultat : " + result);
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -322,6 +327,32 @@ public class AdminDao {
 		} finally {
 			close(pstmt);
 		}
+		
+		return result;
+	}
+
+	public int deleteEnterprise(Connection con, EnpUpVo enpUp) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("deleteEnterprise");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, enpUp.getEnpNo());
+			
+			result = pstmt.executeUpdate();
+			
+			System.out.println("result3 : " + result);
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		
 		
 		return result;
 	}

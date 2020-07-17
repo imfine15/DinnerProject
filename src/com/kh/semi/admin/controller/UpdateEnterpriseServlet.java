@@ -10,6 +10,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
 
@@ -41,7 +42,7 @@ public class UpdateEnterpriseServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		if(ServletFileUpload.isMultipartContent(request)) {
-			
+			HttpSession session = request.getSession();
 			int maxSize = 1024 * 1024 * 10;
 			
 			String root = request.getSession().getServletContext().getRealPath("/");
@@ -63,25 +64,34 @@ public class UpdateEnterpriseServlet extends HttpServlet {
 	            originFiles.add(multiRequest.getOriginalFileName(name));
 	            
 			}
-			
 			String enpNo = multiRequest.getParameter("enpNo");
 			String enpName = multiRequest.getParameter("enpName");
 			String enpAddress = multiRequest.getParameter("enpAddress");
 			String enpPhone = multiRequest.getParameter("enpPhone");
 			String enpPartnerType = multiRequest.getParameter("enpPartnerType");
+			
+			
+			
 			String menuName = multiRequest.getParameter("menuName");
 			int menuPrice = Integer.parseInt(multiRequest.getParameter("menuPrice"));
 			String priceRange = multiRequest.getParameter("priceRange");
 			String enpHour = multiRequest.getParameter("enpHour");
 			String closedDay = multiRequest.getParameter("closedDay");
+			
+			
 			String website = multiRequest.getParameter("website");
 			String hashTags = multiRequest.getParameter("hashTags");
 			String introduce = multiRequest.getParameter("introduce");
 			String parkingPossible = multiRequest.getParameter("parkingPossible");
 			String enpType = multiRequest.getParameter("enpType");
+			
+		
+			
+			
 			String enpStatus = multiRequest.getParameter("enpStatus");
 			String uploadApproval = multiRequest.getParameter("uploadApproval");
 			
+		
 			
 			EnpUpVo enpUp = new EnpUpVo();
 			enpUp.setEnpNo(enpNo);
@@ -103,6 +113,9 @@ public class UpdateEnterpriseServlet extends HttpServlet {
 			enpUp.setUploadApproval(uploadApproval);
 			
 			
+
+			
+			
 			ArrayList<EnpAttachment> fileList = new ArrayList<>();
 	         for(int i = originFiles.size() -1; i>= 0; i--) {
 	            EnpAttachment at = new EnpAttachment();
@@ -119,11 +132,14 @@ public class UpdateEnterpriseServlet extends HttpServlet {
 	        
 	         int result = new AdminService().updateEnterprise(enpUp, fileList);
 	         
+	         System.out.println("fileList : " + fileList);
+	         System.out.println("result : " + result);
+	         
 	         String page = "";
 	         if(result > 0) {
 	        	 page="views/admin/restaurant/restaurantUploadDetail.jsp";
-	        	 request.setAttribute("enpUp", enpUp);
-	        	 request.setAttribute("fileList", fileList);
+	        	 session.setAttribute("enpUp", enpUp);
+	        	 session.setAttribute("fileList", fileList);
 	        	 
 	         } else {
 	        	 for(int i = 0 ; i < saveFiles.size(); i++) {

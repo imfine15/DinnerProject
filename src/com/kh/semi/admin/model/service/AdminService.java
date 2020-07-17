@@ -71,6 +71,7 @@ public class AdminService {
 		
 		int result3 = 0;
 		
+		
 		result1 = new AdminDao().updateEnterprise(con, enpUp);
 		if(result1 > 0) {
 			String enpNo = new AdminDao().selectCurrval(con);
@@ -88,6 +89,7 @@ public class AdminService {
 		}
 		
 		
+		System.out.println("result1 : " + result1 + ", result2 : " + result2 + ", result3 : " + result3);
 		if(result1 > 0 && result3 > 0 && result2 == fileList.size()) {
 			commit(con);
 			result = 1;
@@ -98,6 +100,22 @@ public class AdminService {
 		
 		return result;
 		
+	}
+
+	public int deleteEnterprise(EnpUpVo enpUp) {
+		Connection con = getConnection();
+		
+		int result = new AdminDao().deleteEnterprise(con, enpUp);
+		
+		System.out.println("result2 : " + result);
+		
+		if(result > 0) {
+			commit(con);
+		} else {
+			rollback(con);
+		}
+		
+		return result;
 	}
 
 }
