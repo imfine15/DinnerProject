@@ -3,6 +3,10 @@
 <%
 	String backPage = request.getContextPath() + "/views/payment/paymentPage.jsp";
 	session.setAttribute("backPage", backPage);
+	int check = 0;
+	if(session.getAttribute("check") != null){
+		check = 1;
+	}
 %>
 <!DOCTYPE html>
 <html>
