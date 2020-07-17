@@ -1,5 +1,6 @@
 package com.kh.semi.board.model.vo;
 
+import java.sql.Date;
 import java.util.Arrays;
 
 public class BoardVO implements java.io.Serializable {
@@ -15,12 +16,16 @@ public class BoardVO implements java.io.Serializable {
 	private String hashTags; // 해시태그
 	private String courseNo; // 코스게시글번호
 	private String[] filePaths; // 파일경로들
+	private String uploadNo; // 업로드내역번호
+	private String statusName; // 업로드상태
+	private Date uploadDate; // 업로드일자
+	private int likeCount; // 추천수
 	
 	public BoardVO() {}
 
 	public BoardVO(String boardNo, String boardTitle, String memberNo, String managerNo, String boardKeyword,
 			String boardContent, String boardCategory, String enpNo, int viewCount, String hashTags, String courseNo,
-			String[] filePaths) {
+			String[] filePaths, String uploadNo, String statusName, Date uploadDate, int likeCount) {
 		super();
 		this.boardNo = boardNo;
 		this.boardTitle = boardTitle;
@@ -34,6 +39,10 @@ public class BoardVO implements java.io.Serializable {
 		this.hashTags = hashTags;
 		this.courseNo = courseNo;
 		this.filePaths = filePaths;
+		this.uploadNo = uploadNo;
+		this.statusName = statusName;
+		this.uploadDate = uploadDate;
+		this.likeCount = likeCount;
 	}
 
 	public String getBoardNo() {
@@ -132,12 +141,45 @@ public class BoardVO implements java.io.Serializable {
 		this.filePaths = filePaths;
 	}
 
+	public String getUploadNo() {
+		return uploadNo;
+	}
+
+	public void setUploadNo(String uploadNo) {
+		this.uploadNo = uploadNo;
+	}
+
+	public String getStatusName() {
+		return statusName;
+	}
+
+	public void setStatusName(String statusName) {
+		this.statusName = statusName;
+	}
+
+	public Date getUploadDate() {
+		return uploadDate;
+	}
+
+	public void setUploadDate(Date uploadDate) {
+		this.uploadDate = uploadDate;
+	}
+
+	public int getLikeCount() {
+		return likeCount;
+	}
+
+	public void setLikeCount(int likeCount) {
+		this.likeCount = likeCount;
+	}
+
 	@Override
 	public String toString() {
 		return "BoardVO [boardNo=" + boardNo + ", boardTitle=" + boardTitle + ", memberNo=" + memberNo + ", managerNo="
 				+ managerNo + ", boardKeyword=" + boardKeyword + ", boardContent=" + boardContent + ", boardCategory="
 				+ boardCategory + ", enpNo=" + enpNo + ", viewCount=" + viewCount + ", hashTags=" + hashTags
-				+ ", courseNo=" + courseNo + ", filePaths=" + Arrays.toString(filePaths) + "]";
+				+ ", courseNo=" + courseNo + ", filePaths=" + Arrays.toString(filePaths) + ", uploadNo=" + uploadNo
+				+ ", statusName=" + statusName + ", uploadDate=" + uploadDate + ", likeCount=" + likeCount + "]";
 	}
 
 }

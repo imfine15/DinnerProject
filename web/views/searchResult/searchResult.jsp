@@ -1,9 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="java.util.*, java.util.Map.*,com.kh.semi.enterprise.model.vo.*"%>
+    pageEncoding="UTF-8"%>
+<%@ page import="java.util.*, java.util.Map.*, com.kh.semi.enterprise.model.vo.*, com.kh.semi.board.model.vo.*" %>
 <%
 	ArrayList<EnpVO> enpList = (ArrayList<EnpVO>) session.getAttribute("enpList");
 	String search = (String) session.getAttribute("search");
 	List<HashMap<String, Integer>> enpMenus = (List<HashMap<String, Integer>>) session.getAttribute("enpMenus");
+	ArrayList<BoardVO> viewSortBoardList = (ArrayList<BoardVO>) session.getAttribute("viewSortBoardList");
+	ArrayList<BoardVO> dateSortBoardList = (ArrayList<BoardVO>) session.getAttribute("dateSortBoardList");
+	ArrayList<BoardVO> rateSortBoardList = (ArrayList<BoardVO>) session.getAttribute("rateSortBoardList");
 %>
 <!DOCTYPE html>
 <html>
@@ -51,7 +55,6 @@
 			<label for="switch1" class="round"></label>
 			<label class="btntext">리뷰</label>
 			<img src="/semiproject/images/filter.png" id="filterImg">
-		
 		</div>
 		</nav>
 		<!-- 맛집일때보일창 -->
@@ -150,10 +153,23 @@
 			    		$.ajax({
 			    			url: "/semiproject/foundAllBoard.bo",
 			    			success: function(data) {
-			    				boardList = data.boardList;
-			    				$imgDiv = $("#img");
+			    				$img = $("#img");
 			    				
-			    				console.log(boardList);
+			    				var random1 = Math.floor(Math.random() * data.length);
+			    				var rBoard = data[random1];
+			    				
+			    				var random2 = Math.floor(Math.random() * rBoard.filePaths.length);
+			    				var rFile = rBoard.filePaths[random2];
+			    				
+			    				$img.html(
+			    						'<div class="img" style="background-image: url('
+			    						+ rFile
+			    						+ ');"><div class="content"><p style="width:224px; margin: 3px">'
+			    						+ rBoard.boardTitle
+			    						+ '</p><br><p id="reviewsmall">'
+			    						+ rBoard.hashTags
+			    						+ '</p></div><div class="img-cover"></div></div>'
+			    						);
 			    			}
 			    		});
 			    	});
@@ -164,21 +180,17 @@
 			</div>
 		</aside>
 		</div>
-		
-		<!-- 맛집끝 ...-->
+		<!-- 맛집끝 -->
 	<!-- 일정검색창시작 -->
 	<div id="schedule" align="center" style="display: none;">
 		<p id="text2" align="left">베스트 코스리뷰</p><br>
+		<% for(int i = 0; i < 1; i++) { %>
 		<div class="best" align="left">
-			<img src="/semiproject/images/장어구이.jpg" style="width: 450px; height: 200px;">
-			<p class="bestBig">"튀김과 함께 밤하늘의 나는 오열한다."</p>
-			<p class="bestSmall">당일치기 튀김 완벽 정복</p>
+			<img src="<%= viewSortBoardList.get(i).getFilePaths()[0] %>" style="width: 450px; height: 200px;">
+			<p class="bestBig"><%= viewSortBoardList.get(i).getBoardTitle() %></p>
+			<p class="bestSmall"><%= viewSortBoardList.get(i).getHashTags() %></p>
 		</div>
-		<div class="best" align="left">
-			<img src="/semiproject/images/연어.jpg" style="width: 450px; height: 200px;">
-			<p class="bestBig">"아침의 Breakfast"</p>
-			<p class="bestSmall">베이컨에 쌈을 싸서 드셔보세요!</p>
-		</div>
+		<% } %>
 		<!-- 리뷰게시판시작 -->
 		<div class="inner2" align="center">
 			<div align="left">
@@ -190,6 +202,13 @@
 				<button class="check">최신순</button>
 				<button id="write">글쓰기</button>
 			</div>
+			<script>
+				$(function() {
+					$("#btnArea button").click(function() {
+						console.log($(this).html());
+					});
+				});
+			</script>
 			<hr>
 			<div class="textArea">
 			
