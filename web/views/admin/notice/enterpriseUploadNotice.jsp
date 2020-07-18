@@ -8,52 +8,54 @@
 <link rel="shortcut icon" href="/semiproject/images/favicon.ico" type="image/x-icon">
 <link rel="icon" href="/semiproject/images/favicon.ico" type="image/x-icon">
 <style>
-	table{
-		border-collapse: collapse;
-	}
-	tr{
-		border-bottom: 1px solid lightgray;
-	}
-	td{
-		height: 30px;
-	}
-	.fileBtn{
-		
- 		color: #000000;
-		border: 1px solid black;
-		outline: 0;
-		width: 100px;
-		height: 25px;
-		font-size: 14px;
-		float: right;
-		
-	}
-	.noticeBtn{
-		background: #E07370;
-		color: #FFFFFF;
-		border: 0;
-		outline: 0;
-		width: 100px;
-		height: 26px;
-		font-size: 16px;
-		margin-top: 10px;
-		
-	}
-		textarea{
-		resize: none;
-		border-radius: 0;
-border: 1px solid gray;
-outline-style: none;
-margin-bottom: 10px;
-margin-top: 10px;
-	}
-	input{
+table {
+	border-collapse: collapse;
+}
+
+tr {
+	border-bottom: 1px solid lightgray;
+}
+
+td {
+	height: 30px;
+}
+
+.fileBtn {
+	color: #000000;
+	border: 1px solid black;
+	outline: 0;
+	width: 100px;
+	height: 25px;
+	font-size: 14px;
+	float: right;
+}
+
+.noticeBtn {
+	background: #E07370;
+	color: #FFFFFF;
+	border: 0;
+	width: 180px;
+	height: 50px;
+	font-size: 18px;
+	margin-top: 30px;
+}
+
+textarea {
+	resize: none;
 	border-radius: 0;
-border: 1px solid gray;
-outline-style: none;
-margin-bottom: 10px;
-margin-top: 10px;
-	}
+	border: 1px solid gray;
+	outline-style: none;
+	margin-bottom: 10px;
+	margin-top: 10px;
+}
+
+input {
+	border-radius: 0;
+	border: 1px solid gray;
+	outline-style: none;
+	margin-bottom: 10px;
+	margin-top: 10px;
+}
 </style>
 </head>
 <body style="background: lightgray;">
@@ -63,6 +65,7 @@ margin-top: 10px;
 			<h1>업체 공지사항</h1><br>
 		</div>
 		<div align="center" style="padding-left:50px; background: white; width:95%; padding-top: 30px; height: 800px;">
+		<form class="notice-form" action="<%= request.getContextPath() %>/insertEnter.no" method="post" >	
 			<table>
 				<tr>
 					<td>제목</td>
@@ -78,7 +81,8 @@ margin-top: 10px;
 					<td valign="top"><button class="fileBtn" style="background: #FFFFFF; margin-top: 10px;">파일첨부</button><br><br><button class="fileBtn" style="background: #F6F6F6;">파일삭제</button></td>
 				</tr>
 			</table>
-			<button class="noticeBtn">공지등록</button>
+				<button class="noticeBtn" type="submit" id="noticeC-submit" onclick="noticeCSubmit">공지등록</button>
+			</form>
 		</div>
 		
 	</div>

@@ -66,7 +66,7 @@ public class SelectClientNoticeServlet extends HttpServlet {
 		String page = "";
 		
 		if(list != null) {
-			page = "/views/admin/notice/clientNotice.jsp";
+			page = "/views/notice/notice.jsp";
 			request.setAttribute("list", list);
 			request.setAttribute("pi", pi);
 		} else {

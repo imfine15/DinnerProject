@@ -60,6 +60,8 @@ public class ClientNoticeDao {
 
 	public int getListCount(Connection con) {
 		
+		System.out.println("123");
+		
 		Statement stmt = null;
 		ResultSet rset = null;
 		int listCount = 0;

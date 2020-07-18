@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%
-   String backPage = request.getContextPath() + "/views/upload/foodUpload.jsp";
+   String backPage = request.getContextPath() + "/views/qna/question.jsp";
    session.setAttribute("backPage", backPage);
 %>
 <!DOCTYPE html>
@@ -141,7 +141,7 @@ tr {
 	outline: 0;
 }
 #uploadFiles {
-	width:790px;
+	width:770px;
 	height:200px;
 	background: #f8f8f9;
 	border: 1px solid #d2d2d2;
@@ -151,6 +151,28 @@ tr {
 	margin-bottom: 10px;
 	display:inline-block;
 	float:left;
+	padding-top:20px;
+	padding-bottom:20px;
+	padding-left:20px;
+}
+#fileDelete {
+	margin-top:10px;
+	margin-left:10px;
+	width:100px;
+	font-size:15px;
+}
+#fileWindow {
+	border: 1px solid #d2d2d2;
+	width: 770px;
+	height:30px;
+	float:left;
+	padding-left:20px;
+	cursor:pointer;
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+#fileBtn {
+	float:right;
 }
 </style>
 </head>
@@ -195,8 +217,13 @@ tr {
 						<td class="first" rowspan="2">첨부파일</td>
 						<td style="border-top:none; border-bottom:none; border-collapse:none;" colspan="3">
 							<div id="fileArea">
-								 <input type="file" name="upFile" id="upFile" onchange="dd(this,'name')"><br /><br />
+								 <input style="display:none" type="file" name="upFile" id="upFile" onchange="dd(this,'name')">
+								 <div id="fileWindow" class="button" onclick="onclick=document.upFile.file.click()">
+								 </div>
+								 <div id="fileBtn"></div>
+								 <br /><br />
 							</div>
+							
 						</td>
 					</tr>
 					<tr>
@@ -204,6 +231,7 @@ tr {
 							<div id="uploadFiles">
 								
 							</div>
+							<input type="button" value="파일삭제" id="fileDelete"> 
 						</td>
 					</tr>
 					<tr>
