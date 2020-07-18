@@ -27,22 +27,16 @@ public class SignUpMemberServlet extends HttpServlet {
 		String gender = request.getParameter("gender"); // male/female
 		String email = request.getParameter("email");
 		String phone = request.getParameter("phone");
-		String admit = request.getParameter("admit"); // 동의했을경우 on
-		String termsAdmit = "0";
-		if(admit.equals("on")) {
-			termsAdmit = "1"; // 비동의시 0, 동의시 1
-		}
-		
+
 		MemberVO requestMember = new MemberVO();
 		
-		requestMember.setId(id);
-		requestMember.setPassword(password);
-		requestMember.setName(name);
-		requestMember.setEmail(email);
-		requestMember.setPhone(phone);
-		requestMember.setGender(gender);
-		requestMember.setNickName(nickName);
-		requestMember.setTermsAdmit(termsAdmit);
+		requestMember.setmId(id);
+		requestMember.setmPwd(password);
+		requestMember.setmName(name);
+		requestMember.setmEmail(email);
+		requestMember.setmPhone(phone);
+		requestMember.setmGender(gender);
+		requestMember.setmNickname(nickName);
 		
 		int result = new MemberService().insertMember(requestMember);
 		

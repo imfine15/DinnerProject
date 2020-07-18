@@ -63,6 +63,15 @@ public class ReservationService {
 		return statusList;
 	}
 
+	public String selectEnpName(String eNo) {
+		Connection con = getConnection();
+		String eName = new ReservationDao().selectEnpName(con, eNo);
+		
+		close(con);
+		
+		return eName;
+	}
+
 
 
 

@@ -343,10 +343,9 @@ ul li a span:hover{
 							<td><div style="padding-left:30px; width:80px;" class="text2"><%=status %></div></td>
 							<td><div style="padding-left:10px; width:120px;" class="text2"><%=sysDate %></div></td>
 							<%if(compare < 0 && (status.equals("예약중")) || status.equals("예약완료")){ %>
-							<td><div align="center" class="butt"><button style="width: 100%; height: 100%;" class="change" value="<%=list.get(i).getrNo()%>">수정</button></div></td>
-							<td><div align="center" class="butt"><button style="width: 100%; height: 100%;">취소</button></div></td>
-							<td><input id="d" type="hidden" value="<%=list.get(i).getrNo()%>"></td>
-							
+							<td><div align="center" class="butt"><button style="width: 100%; height: 100%;" class="change" value="<%=list.get(i).geteNo()%>">수정</button></div></td>
+							<td><div align="center" class="butt"><button style="width: 100%; height: 100%;" class="cencle" value="<%=list.get(i).geteNo()%>">취소</button></div></td>
+							<td><input type="hidden" value="<%=list.get(i).getrNo()%>"></td>
 							<%}%>
 						</tr>
 						<%}%>
@@ -588,8 +587,18 @@ ul li a span:hover{
 		location.href="<%=request.getContextPath()%>/views/payment/paymentPage.jsp";
 	});
 	
+	$(".cencle").click(function(){
+		console.log(this.value);
+		
+		console.log($(this).parent().parent().next().children().val());
+		var rNo = $(this).parent().parent().next().children().val();
+		location.href="<%=request.getContextPath()%>/views/payment/cancel.jsp?eNo=" + this.value + "&rNo=" + rNo;
+		
+	});
+	
 </script>
 <script>
+
 	$("#reservationArea").hide();
 	$(".tex").hide();
 	$("#reservationSucArea").hide();
