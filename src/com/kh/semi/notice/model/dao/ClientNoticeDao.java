@@ -157,6 +157,46 @@ public class ClientNoticeDao {
 		return notice;
 	}
 
+	public ArrayList<NoticeVO> selectClientNotice(Connection con, PageInfo pi) {
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<NoticeVO> list = null;
+		
+		String query = prop.getProperty("selectClientNotice");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			
+			int startRow = (pi.getCurrentPage() - 1) * pi.getLimit() + 1;
+			int endRow = startRow + pi.getLimit() - 1;
+			
+			pstmt.setInt(1,  startRow);
+			pstmt.setInt(2,  endRow);
+			
+			rset = pstmt.executeQuery();
+			
+			list = new ArrayList<>();
+
+			while(rset.next()) {
+				NoticeVO n = new NoticeVO();
+				
+				n.setNoticeTitle(rset.getString("NOTICE_TITLE"));
+				n.setNoticeDate(rset.getDate("NOTICE_DATE"));
+				n.setNoticeNo(rset.getString("SUBSTR(NOTICE_NO,2,1)"));
+				n.setNoticeContent(rset.getString("NOTICE_CONTENT"));
+
+				list.add(n);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
+		}
+		return list;
+	}
+
 }
 
 

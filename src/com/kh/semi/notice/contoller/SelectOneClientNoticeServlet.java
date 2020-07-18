@@ -45,7 +45,7 @@ public class SelectOneClientNoticeServlet extends HttpServlet {
 			page = "/views/admin/notice/clientDetailNotice.jsp";
 			request.setAttribute("cNotice", cNotice);
 		} else {
-			page = "views/common/errorPage.jsp";
+		
 			request.setAttribute("msg", "게시글 상세 보기 실패!");
 		}
 		
