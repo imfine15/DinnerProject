@@ -33,6 +33,9 @@ public class SearchEnpKeywordServlet extends HttpServlet {
 		List<BoardVO> viewSortBoardList = new BoardService().viewSortBoard();
 		List<BoardVO> dateSortBoardList = new BoardService().dateSortBoard();
 		List<BoardVO> likeSortBoardList = new BoardService().likeSortBoard();
+		List<BoardVO> viewSortBoardEnpList = new BoardService().viewSortEnpBoard();
+		List<BoardVO> dateSortBoardEnpList = new BoardService().dateSortEnpBoard();
+		List<BoardVO> likeSortBoardEnpList = new BoardService().likeSortEnpBoard();
 		
 		String page = "views/searchResult/searchResult.jsp";
 		request.getSession().setAttribute("search", searchWord);
@@ -41,6 +44,9 @@ public class SearchEnpKeywordServlet extends HttpServlet {
 		request.getSession().setAttribute("viewSortBoardList", viewSortBoardList);
 		request.getSession().setAttribute("dateSortBoardList", dateSortBoardList);
 		request.getSession().setAttribute("likeSortBoardList", likeSortBoardList);
+		request.getSession().setAttribute("viewSortBoardEnpList", viewSortBoardEnpList);
+		request.getSession().setAttribute("dateSortBoardEnpList", dateSortBoardEnpList);
+		request.getSession().setAttribute("likeSortBoardEnpList", likeSortBoardEnpList);
 		response.sendRedirect(page);
 	}
 

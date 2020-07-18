@@ -1,12 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="com.kh.semi.enterprise.model.vo.*"%>
 <!DOCTYPE html>
+<%
+EnpVO selectedEnp = (EnpVO)session.getAttribute("selectedEnp");
+double rating = (double)session.getAttribute("rating");
+%>
 <html>
 <head>
 <link rel="stylesheet" type="text/css" href="/semiproject/views/restaurantInfo/css/restaurantInfoStyle.css"/>
 <meta charset="UTF-8">
-<%-- 나중에 음식점 이름 알아와서 타이틀에 넣는것도 좋을 것 같아요 --%>
-<title>YUMEET</title>
+<title>YUMEET - <%= selectedEnp.getEnpName() %></title>
 <link rel="shortcut icon" href="/semiproject/images/favicon.ico" type="image/x-icon">
 <link rel="icon" href="/semiproject/images/favicon.ico" type="image/x-icon">
 </head>
@@ -14,9 +17,9 @@
 	<%@ include file="/views/common/header.jsp" %>
 	<div id="infoTop">
 		<div id="top1">
-			<span id="title">돼지되지</span>
+			<span id="title"><%= selectedEnp.getEnpName() %></span>
 			<img alt="별점 이미지" src="/semiproject/images/Star.png" id="star">
-			<span id="score">4.6</span>
+			<span id="score"><%= rating %></span>
 			<br>
 			<img alt="즐겨찾기 이미지" src="/semiproject/images/heart.png" id="heart">
 			<p id="likeCount">250</p>
@@ -42,11 +45,11 @@
 			<table id="infoTable">
 				<tr>
 					<td class="infoTitle">전화번호</td>
-					<td class="infoContent">02-555-6666</td>
+					<td class="infoContent"><%= selectedEnp.getEnpPhone() %></td>
 				</tr>
 				<tr>
 					<td class="infoTitle">가격대</td>
-					<td class="infoContent">만원 ~ 2만원</td>
+					<td class="infoContent"><%= selectedEnp.getPriceRange() %></td>
 				</tr>
 				<tr>
 					<td class="infoTitle">메뉴</td>
@@ -54,32 +57,29 @@
 				</tr>
 				<tr>
 					<td class="infoTitle">웹 사이트</td>
-					<td class="infoContent">http://www.gyukatsuhouse.com/</td>
+					<td class="infoContent"><%= selectedEnp.getWebsite() %></td>
 				</tr>
 				<tr>
 					<td class="infoTitle">영업시간</td>
-					<td class="infoContent">10 : 00 ~ 21 : 00</td>
+					<td class="infoContent"><%= selectedEnp.getEnpHour() %></td>
 				</tr>
 				<tr>
 					<td class="infoTitle">휴무일</td>
-					<td class="infoContent">매주 화요일 휴무</td>
+					<td class="infoContent"><%= selectedEnp.getClosedDay() %></td>
 				</tr>
 				<tr>
 					<td class="infoTitle">주차공간</td>
-					<td class="infoContent">주차공간 없음</td>
+					<td class="infoContent"><%= selectedEnp.getParkingPossible() %></td>
 				</tr>
 				<tr>
 					<td class="infoTitle">해시태그</td>
-					<td class="infoContent">#규카츠 #일식 #카츠동 #규동 #양재동</td>
+					<td class="infoContent"><%= selectedEnp.getHashTags() %></td>
 				</tr>
 				<tr>
 					<td class="infoTitle">주소</td>
 					<td class="infoContent">
-						서울특별시 강남구 역삼동 파덕로 80길 파덕상가
+						<%= selectedEnp.getEnpAddress() %>
 						<br>
-						<br>
-						<span id="oldAddress">지번</span>
-						서울시 강남구 역삼동 59 파덕상가
 					</td>
 				</tr>
 			</table>

@@ -8,6 +8,9 @@
 	ArrayList<BoardVO> viewSortBoardList = (ArrayList<BoardVO>) session.getAttribute("viewSortBoardList");
 	ArrayList<BoardVO> dateSortBoardList = (ArrayList<BoardVO>) session.getAttribute("dateSortBoardList");
 	ArrayList<BoardVO> likeSortBoardList = (ArrayList<BoardVO>) session.getAttribute("likeSortBoardList");
+	ArrayList<BoardVO> viewSortBoardEnpList = (ArrayList<BoardVO>) session.getAttribute("viewSortBoardEnpList");
+	ArrayList<BoardVO> dateSortBoardEnpList = (ArrayList<BoardVO>) session.getAttribute("dateSortBoardEnpList");
+	ArrayList<BoardVO> likeSortBoardEnpList = (ArrayList<BoardVO>) session.getAttribute("likeSortBoardEnpList");
 %>
 <!DOCTYPE html>
 <html>
@@ -88,6 +91,13 @@
 							<p class="small"><%= enpList.get(i).getEnpAddress() %></p>
 							<p class="small"><%= entry.getKey() %></p>
 						</div>
+						<script>
+							$("#foodArea<%= i + 1 %>").click(function() {
+								var enpNo = "<%= enpList.get(i).getEnpNo() %>";
+								
+								location.href="<%= request.getContextPath() %>/selectEnp.en?enpNo=" + enpNo + "&rating=" + <%= rating %>;
+							});
+						</script>
 					<% }
 					} else { %>
 					<div style="text-align:center;">
@@ -196,7 +206,7 @@
 			<div align="left">
 				<label id="text3">일정 리뷰</label>
 			</div>
-			<div align="right" id="btnArea">
+			<div align="right" id="btnArea1">
 				<button class="check">조회순</button>
 				<button class="check">추천순</button>
 				<button class="check">최신순</button>
@@ -204,7 +214,7 @@
 			</div>
 			<script>
 				$(function() {
-					$("#btnArea button").click(function() {
+					$("#btnArea1 button").click(function() {
 						var sort = $(this).html();
 						
 						<% ArrayList<BoardVO> courseBoardList = viewSortBoardList; %>
@@ -229,7 +239,7 @@
 					<td align="right" valign="bottom"><%= courseBoardList.get(i).getUploadDate() %></td>
 					<td rowspan="2" width="180px" align="center">
 						<div class="profileBox" align="center">
-							<img id="profilePic" class="profile" src="">
+							<img id="cprofilePic<%= i %>" class="profile" src="">
 						</div>
 					</td>
 				</tr>
@@ -239,7 +249,7 @@
 				</tr>
 				<tr>
 					<td align="right"><button class="report">신고</button></td>
-					<td id="profileNickName" align="center"></td>
+					<td id="cprofileNickName<%= i %>" align="center"></td>
 				</tr>
 			</table>
 			<script>
@@ -251,8 +261,8 @@
 						type: "post",
 						data: {mNo: mNo},
 						success: function(data) {
-							$("#profilePic").attr("src", data.filePath);
-							$("#profileNickName").html(data.mNickname);
+							$("#cprofilePic<%= i %>").attr("src", data.filePath);
+							$("#cprofileNickName<%= i %>").html(data.mNickname);
 						}
 					});
 				});
@@ -268,7 +278,7 @@
 			<div align="left">
 				<label id="text3">맛집 리뷰</label>
 			</div>
-			<div align="right" id="btnArea">
+			<div align="right" id="btnArea2">
 				<button class="check">조회순</button>
 				<button class="check">추천순</button>
 				<button class="check">최신순</button>
@@ -276,14 +286,14 @@
 			</div>
 			<script>
 				$(function() {
-					$("#btnArea button").click(function() {
+					$("#btnArea2 button").click(function() {
 						var sort = $(this).html();
 						
-						<% ArrayList<BoardVO> enpBoardList = viewSortBoardList; %>
+						<% ArrayList<BoardVO> enpBoardList = viewSortBoardEnpList; %>
 						switch(sort) {
-							case '조회순' : <% enpBoardList = viewSortBoardList; enpReview(); %> break;
-							case '추천순' : <% enpBoardList = likeSortBoardList; enpReview(); %> break;
-							case '최신순' : <% enpBoardList = dateSortBoardList; enpReview(); %> break;
+							case '조회순' : <% enpBoardList = viewSortBoardEnpList; enpReview(); %> break;
+							case '추천순' : <% enpBoardList = likeSortBoardEnpList; enpReview(); %> break;
+							case '최신순' : <% enpBoardList = dateSortBoardEnpList; enpReview(); %> break;
 						}
 					});
 				});
@@ -301,7 +311,7 @@
 					<td align="right" valign="bottom"><%= enpBoardList.get(i).getUploadDate() %></td>
 					<td rowspan="2" width="180px" align="center">
 						<div class="profileBox" align="center">
-							<img id="profilePic" class="profile" src="">
+							<img id="eprofilePic<%= i %>" class="profile" src="">
 						</div>
 					</td>
 				</tr>
@@ -311,7 +321,7 @@
 				</tr>
 				<tr>
 					<td align="right"><button class="report">신고</button></td>
-					<td id="profileNickName" align="center"></td>
+					<td id="eprofileNickName<%= i %>" align="center"></td>
 				</tr>
 			</table>
 			<script>
@@ -323,8 +333,8 @@
 						type: "post",
 						data: {mNo: mNo},
 						success: function(data) {
-							$("#profilePic").attr("src", data.filePath);
-							$("#profileNickName").html(data.mNickname);
+							$("#eprofilePic<%= i %>").attr("src", data.filePath);
+							$("#eprofileNickName<%= i %>").html(data.mNickname);
 						}
 					});
 				});

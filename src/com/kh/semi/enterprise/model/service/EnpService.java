@@ -135,4 +135,13 @@ public ArrayList<Integer> selectCRCount(String countId, String enp) {
 	return count;
 }
 
+public EnpVO selectEnp(String enpNo) {
+	Connection con = getConnection();
+	EnpVO selectedEnp = new EnpDao().selectEnp(con, enpNo);
+	
+	close(con);
+	
+	return selectedEnp;
+}
+
 }
