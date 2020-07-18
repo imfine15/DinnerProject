@@ -1,5 +1,23 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="com.kh.semi.payment.model.vo.*, java.util.*"%>
+<%@page import="java.sql.Timestamp"%>
+<%@page import="java.text.SimpleDateFormat"%>
+
+<%
+	ArrayList<ReservationVO> list = (ArrayList<ReservationVO>)session.getAttribute("list"); 
+	ArrayList<String> enpList = (ArrayList<String>) session.getAttribute("enpList");
+	ArrayList<String> statusList = (ArrayList<String>) session.getAttribute("statusList");
+	String eNo = request.getParameter("eNo");
+	String rNo = request.getParameter("rNo");
+	ReservationVO reser = null;
+	for(int i = 0; i < list.size(); i++){
+		if(rNo.equals(list.get(i).getrNo())){
+			reser = list.get(i);
+		}
+	}
+	SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+	String rDate = format.format(reser.getrDate());
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,6 +25,8 @@
 <title>YUMEET</title>
 <link rel="shortcut icon" href="/semiproject/images/favicon.ico" type="image/x-icon">
 <link rel="icon" href="/semiproject/images/favicon.ico" type="image/x-icon">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
 <style>
 	.outer{
 		width:100%; 
@@ -64,10 +84,10 @@
 					<th colspan="2">예약 금액</th>
 				</tr>
 				<tr>
-					<td>파스타학교</td>
-					<td>2020년 09월 18일 (금)</td>
-					<td>현금 : 99,400 원</td>
-					<td>포인트 : 600 점</td>
+					<td id="eName"></td>
+					<td><%=rDate %></td>
+					<td>카드결제 금액 <br> <%=reser.getDeposit() %></td>
+					<td>포인트 <br> <%=reser.getpAmount() %></td>
 				</tr>
 			</table>
 		<div align="left">
@@ -97,5 +117,30 @@
 		</div>
 
 <%@ include file="/views/common/footer.jsp" %>
+<script>
+	console.log("<%=list%>");
+	console.log("<%=enpList%>");
+	console.log("<%=statusList%>");
+	console.log("<%=eNo%>");
+	var no = "<%=eNo%>";
+	console.log(no);
+	$(document).ready(function(){
+		$.ajax({
+			type: "get",
+			url: "/semiproject/selectEnp.na",
+			data:{
+				eNo: "<%=eNo%>"
+			},
+			success: function(data){
+				console.log(data);
+				$("#eName").html(data);
+				console.log("eName : " + $("#eName").html());
+			},
+			error: function(){
+				console.log("123");
+			}
+		});
+	});
+</script>
 </body>
 </html>

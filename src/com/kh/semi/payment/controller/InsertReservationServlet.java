@@ -42,7 +42,7 @@ public class InsertReservationServlet extends HttpServlet {
 		int adult = Integer.parseInt(request.getParameter("adult"));
 		int child = Integer.parseInt(request.getParameter("child"));
 		
-		String eNo = "ENP1";
+		String eNo = "ENP3";
 		String rContent = request.getParameter("rcontent");
 		int point = Integer.parseInt(request.getParameter("point"));
 		int deposit = Integer.parseInt(request.getParameter("deposit"));

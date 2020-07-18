@@ -200,4 +200,33 @@ public class ReservationDao {
 		
 		return statusList;
 	}
+
+
+
+	public String selectEnpName(Connection con, String eNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String query = prop.getProperty("selectEnpName");
+		String eName = "";
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, eNo);
+			
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				eName = rset.getString("ENP_NAME");
+				System.out.println(eName);
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return eName;
+	}
 }
