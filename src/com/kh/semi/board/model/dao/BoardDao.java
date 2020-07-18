@@ -163,6 +163,141 @@ public class BoardDao {
 		return likeSortBoardList;
 	}
 	
+	public List<BoardVO> viewSortEnpBoard(Connection con) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String query = prop.getProperty("viewSortEnpBoard");
+		List<BoardVO> viewSortEnpBoardList = null;
+		
+		try {
+			viewSortEnpBoardList = new ArrayList<>();
+			
+			pstmt = con.prepareStatement(query);
+			
+			pstmt.setString(1, "맛집");
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				BoardVO b = new BoardVO();
+				
+				b.setBoardNo(rset.getString("BOARD_NO"));
+				b.setBoardTitle(rset.getString("BOARD_TITLE"));
+				b.setMemberNo(rset.getString("MEMBER_NO"));
+				b.setManagerNo(rset.getString("MANAGER_NO"));
+				b.setBoardKeyword(rset.getString("BOARD_KEYWORD"));
+				b.setBoardContent(rset.getString("BOARD_CONTENT"));
+				b.setBoardCategory(rset.getString("BOARD_CATEGORY"));
+				b.setEnpNo(rset.getString("ENP_NO"));
+				b.setViewCount(rset.getInt("VIEW_COUNT"));
+				b.setHashTags(rset.getString("HASH_TAGS"));
+				b.setUploadNo(rset.getString("UPLOAD_NO"));
+				b.setStatusName(rset.getString("STATUS_NAME"));
+				b.setUploadDate(rset.getDate("UPLOAD_DATE"));
+				b.setLikeCount(rset.getInt("LIKE_COUNT"));
+				
+				viewSortEnpBoardList.add(b);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return viewSortEnpBoardList;
+	}
+	
+	public List<BoardVO> dateSortEnpBoard(Connection con) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String query = prop.getProperty("dateSortEnpBoard");
+		List<BoardVO> dateSortEnpBoardList = null;
+		
+		try {
+			dateSortEnpBoardList = new ArrayList<>();
+			
+			pstmt = con.prepareStatement(query);
+			
+			pstmt.setString(1, "맛집");
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				BoardVO b = new BoardVO();
+				
+				b.setBoardNo(rset.getString("BOARD_NO"));
+				b.setBoardTitle(rset.getString("BOARD_TITLE"));
+				b.setMemberNo(rset.getString("MEMBER_NO"));
+				b.setManagerNo(rset.getString("MANAGER_NO"));
+				b.setBoardKeyword(rset.getString("BOARD_KEYWORD"));
+				b.setBoardContent(rset.getString("BOARD_CONTENT"));
+				b.setBoardCategory(rset.getString("BOARD_CATEGORY"));
+				b.setEnpNo(rset.getString("ENP_NO"));
+				b.setViewCount(rset.getInt("VIEW_COUNT"));
+				b.setHashTags(rset.getString("HASH_TAGS"));
+				b.setUploadNo(rset.getString("UPLOAD_NO"));
+				b.setStatusName(rset.getString("STATUS_NAME"));
+				b.setUploadDate(rset.getDate("UPLOAD_DATE"));
+				b.setLikeCount(rset.getInt("LIKE_COUNT"));
+				
+				dateSortEnpBoardList.add(b);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return dateSortEnpBoardList;
+	}
+	
+	public List<BoardVO> likeSortEnpBoard(Connection con) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String query = prop.getProperty("likeSortEnpBoard");
+		List<BoardVO> likeSortEnpBoardList = null;
+		
+		try {
+			likeSortEnpBoardList = new ArrayList<>();
+			
+			pstmt = con.prepareStatement(query);
+			
+			pstmt.setString(1, "맛집");
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				BoardVO b = new BoardVO();
+				
+				b.setBoardNo(rset.getString("BOARD_NO"));
+				b.setBoardTitle(rset.getString("BOARD_TITLE"));
+				b.setMemberNo(rset.getString("MEMBER_NO"));
+				b.setManagerNo(rset.getString("MANAGER_NO"));
+				b.setBoardKeyword(rset.getString("BOARD_KEYWORD"));
+				b.setBoardContent(rset.getString("BOARD_CONTENT"));
+				b.setBoardCategory(rset.getString("BOARD_CATEGORY"));
+				b.setEnpNo(rset.getString("ENP_NO"));
+				b.setViewCount(rset.getInt("VIEW_COUNT"));
+				b.setHashTags(rset.getString("HASH_TAGS"));
+				b.setUploadNo(rset.getString("UPLOAD_NO"));
+				b.setStatusName(rset.getString("STATUS_NAME"));
+				b.setUploadDate(rset.getDate("UPLOAD_DATE"));
+				b.setLikeCount(rset.getInt("LIKE_COUNT"));
+				
+				likeSortEnpBoardList.add(b);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return likeSortEnpBoardList;
+	}
+	
 	public int getFileCount(Connection con, String boardNo) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
