@@ -52,24 +52,24 @@ public class BoardService {
 		return dateSortBoardList;
 	}
 	
-	// 별점순 코스게시물 조회
-	public List<BoardVO> rateSortBoard() {
+	// 추천순 코스게시물 조회
+	public List<BoardVO> likeSortBoard() {
 		Connection con = getConnection();
 		
-		List<BoardVO> rateSortBoardList = new BoardDao().rateSortBoard(con);
-		for(int i = 0; i < rateSortBoardList.size(); i++) {
-			String boardNo = rateSortBoardList.get(i).getBoardNo();
+		List<BoardVO> likeSortBoardList = new BoardDao().likeSortBoard(con);
+		for(int i = 0; i < likeSortBoardList.size(); i++) {
+			String boardNo = likeSortBoardList.get(i).getBoardNo();
 			
 			int fileCount = new BoardDao().getFileCount(con, boardNo);
 			String[] filePaths = new String[fileCount];
 				
 			filePaths = new BoardDao().getFilePaths(con, filePaths, boardNo);
 			
-			rateSortBoardList.get(i).setFilePaths(filePaths);
+			likeSortBoardList.get(i).setFilePaths(filePaths);
 		}
 		
 		close(con);
 		
-		return rateSortBoardList;
+		return likeSortBoardList;
 	}
 }

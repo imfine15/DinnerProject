@@ -3,11 +3,7 @@ package com.kh.semi.member.model.service;
 import static com.kh.semi.common.JDBCTemplate.*;
 
 import java.sql.Connection;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 
-import com.kh.semi.enterprise.model.vo.EnpVO;
 import com.kh.semi.member.model.dao.MemberDao;
 import com.kh.semi.member.model.vo.MemberVO;
 
@@ -35,6 +31,15 @@ public class MemberService {
 		close(con);
 		
 		return responseMember;
+	}
+
+	public MemberVO selectMember(String mNo) {
+		Connection con = getConnection();
+		MemberVO selectMember = new MemberDao().selectMember(con, mNo);
+		
+		close(con);
+		
+		return selectMember;
 	}
 
 }

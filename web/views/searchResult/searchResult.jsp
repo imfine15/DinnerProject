@@ -7,7 +7,7 @@
 	List<HashMap<String, Integer>> enpMenus = (List<HashMap<String, Integer>>) session.getAttribute("enpMenus");
 	ArrayList<BoardVO> viewSortBoardList = (ArrayList<BoardVO>) session.getAttribute("viewSortBoardList");
 	ArrayList<BoardVO> dateSortBoardList = (ArrayList<BoardVO>) session.getAttribute("dateSortBoardList");
-	ArrayList<BoardVO> rateSortBoardList = (ArrayList<BoardVO>) session.getAttribute("rateSortBoardList");
+	ArrayList<BoardVO> likeSortBoardList = (ArrayList<BoardVO>) session.getAttribute("likeSortBoardList");
 %>
 <!DOCTYPE html>
 <html>
@@ -205,75 +205,61 @@
 			<script>
 				$(function() {
 					$("#btnArea button").click(function() {
-						console.log($(this).html());
+						var sort = $(this).html();
+						
+						<% ArrayList<BoardVO> courseBoardList = viewSortBoardList; %>
+						switch(sort) {
+							case '조회순' : <% courseBoardList = viewSortBoardList; courseReview(); %> break;
+							case '추천순' : <% courseBoardList = likeSortBoardList; courseReview(); %> break;
+							case '최신순' : <% courseBoardList = dateSortBoardList; courseReview(); %> break;
+						}
 					});
 				});
 			</script>
 			<hr>
 			<div class="textArea">
-			
+			<%! public void courseReview() { %>
+			<% for(int i = 0; i < courseBoardList.size(); i++) { %>
 			<table style="border-bottom: 1px solid black;">
 				<tr>
-					<td rowspan="3" width="100px">0001</td>
-					<td rowspan="3"><img src="/semiproject/images/닭갈비.jpg" width="200px" height="150px"></td>
-					<td align="left" valign="bottom"><label class="textreview">울부짖어라, '닭갈비'</label></td>
+					<td rowspan="3" width="100px"><%= courseBoardList.get(i).getBoardNo() %></td>
+					<td rowspan="3"><img src="<%= courseBoardList.get(i).getFilePaths()[0] %>" width="200px" height="150px"></td>
+					<td align="left" valign="bottom"><label class="textreview"><%= courseBoardList.get(i).getBoardTitle() %></label></td>
 					<td rowspan="3" valign="top" width="40px"><img class="heart" src="/semiproject/images/heartblack.png"></td>
-					<td align="right" valign="bottom">2020.07.06</td>
-					<td rowspan="2" width="180px" align="center"><div class="profileBox" align="center">
-						<img class="profile" src="/semiproject/images/imfine.png">
-					</div></td>
+					<td align="right" valign="bottom"><%= courseBoardList.get(i).getUploadDate() %></td>
+					<td rowspan="2" width="180px" align="center">
+						<div class="profileBox" align="center">
+							<img id="profilePic" class="profile" src="">
+						</div>
+					</td>
 				</tr>
 				<tr>
-					<td width="400px" align="left" valign="top" rowspan="2"><lable>오늘 배가 너무 고픈데 덥기까지 해...</label></td>
-					<td align="right" valign="top" width="100px">조회수 : 10</td>
+					<td width="400px" align="left" valign="top" rowspan="2"><label><%= courseBoardList.get(i).getHashTags() %></label></td>
+					<td align="right" valign="top" width="100px">조회수 : <%= courseBoardList.get(i).getViewCount() %></td>
 				</tr>
 				<tr>
 					<td align="right"><button class="report">신고</button></td>
-					<td align="center">임피네</td>
-				</tr>
-				</table>
-				<table style="border-bottom: 1px solid black;">
-				<tr>
-					<td rowspan="3" width="100px">0001</td>
-					<td rowspan="3"><img src="/semiproject/images/죠떡.jpg" width="200px" height="150px"></td>
-					<td align="left" valign="bottom"><label class="textreview">떡볶이냠냠</label></td>
-					<td rowspan="3" valign="top" width="40px"><img class="heart" src="/semiproject/images/heartblack.png"></td>
-					<td align="right" valign="bottom">2020.07.06</td>
-					<td rowspan="2" width="180px" align="center"><div class="profileBox" align="center">
-						<img class="profile" src="/semiproject/images/imfine.png">
-					</div></td>
-				</tr>
-				<tr>
-					<td width="400px" align="left" valign="top" rowspan="2"><lable>오늘 배가 너무 고픈데 덥기까지 해...</label></td>
-					<td align="right" valign="top" width="100px">조회수 : 10</td>
-				</tr>
-				<tr>
-					<td align="right"><button class="report">신고</button></td>
-					<td align="center">임피네</td>
-				</tr>
-				</table>
-				<table style="border-bottom: 1px solid black;">
-				<tr>
-					<td rowspan="3" width="100px">0002</td>
-					<td rowspan="3"><img src="/semiproject/images/장어구이.jpg" width="200px" height="150px"></td>
-					<td align="left" valign="bottom"><label class="textreview">장어야야ㅏ아앙</label></td>
-					<td rowspan="3" valign="top" width="40px"><img class="heart" src="/semiproject/images/heartblack.png"></td>
-					<td align="right" valign="bottom">2020.07.05</td>
-					<td rowspan="2" width="180px" align="center"><div class="profileBox" align="center">
-						<img class="profile" src="/semiproject/images/ddu.png">
-					</div></td>
-				</tr>
-				<tr>
-					<td width="400px" align="left" valign="top" rowspan="2"><lable>빨리집에가고싶다그칭</label></td>
-					<td align="right" valign="top" width="100px">조회수 : 100</td>
-				</tr>
-				<tr>
-					<td align="right"><button class="report">신고</button></td>
-					<td align="center">뚜뚜링</td>
+					<td id="profileNickName" align="center"></td>
 				</tr>
 			</table>
+			<script>
+				$(function() {
+					var mNo = "<%= courseBoardList.get(i).getMemberNo() %>";
+					
+					$.ajax({
+						url: "/semiproject/selectMember.me",
+						type: "post",
+						data: {mNo: mNo},
+						success: function(data) {
+							$("#profilePic").attr("src", data.filePath);
+							$("#profileNickName").html(data.mNickname);
+						}
+					});
+				});
+			</script>
+			<% } %>
+			<%! } %>
 			</div>
-
 		</div>
 		<!-- 리뷰게시판끝 -->
 		<!-- 페이징처리해야하는부분 -->
@@ -288,69 +274,63 @@
 				<button class="check">최신순</button>
 				<button id="write">글쓰기</button>
 			</div>
+			<script>
+				$(function() {
+					$("#btnArea button").click(function() {
+						var sort = $(this).html();
+						
+						<% ArrayList<BoardVO> enpBoardList = viewSortBoardList; %>
+						switch(sort) {
+							case '조회순' : <% enpBoardList = viewSortBoardList; enpReview(); %> break;
+							case '추천순' : <% enpBoardList = likeSortBoardList; enpReview(); %> break;
+							case '최신순' : <% enpBoardList = dateSortBoardList; enpReview(); %> break;
+						}
+					});
+				});
+			</script>
 			<hr>
 			<div class="textArea">
-			
+			<%! public void enpReview() { %>
+			<% for(int i = 0; i < enpBoardList.size(); i++) { %>
 			<table style="border-bottom: 1px solid black;">
 				<tr>
-					<td rowspan="3" width="100px">0001</td>
-					<td rowspan="3"><img src="/semiproject/images/닭갈비.jpg" width="200px" height="150px"></td>
-					<td align="left" valign="bottom"><label class="textreview">울부짖어라, '닭갈비'</label></td>
+					<td rowspan="3" width="100px"><%= enpBoardList.get(i).getBoardNo() %></td>
+					<td rowspan="3"><img src="<%= enpBoardList.get(i).getFilePaths()[0] %>" width="200px" height="150px"></td>
+					<td align="left" valign="bottom"><label class="textreview"><%= enpBoardList.get(i).getBoardTitle() %></label></td>
 					<td rowspan="3" valign="top" width="40px"><img class="heart" src="/semiproject/images/heartblack.png"></td>
-					<td align="right" valign="bottom">2020.07.06</td>
-					<td rowspan="2" width="180px" align="center"><div class="profileBox" align="center">
-						<img class="profile" src="/semiproject/images/imfine.png">
-					</div></td>
+					<td align="right" valign="bottom"><%= enpBoardList.get(i).getUploadDate() %></td>
+					<td rowspan="2" width="180px" align="center">
+						<div class="profileBox" align="center">
+							<img id="profilePic" class="profile" src="">
+						</div>
+					</td>
 				</tr>
 				<tr>
-					<td width="400px" align="left" valign="top" rowspan="2"><lable>오늘 배가 너무 고픈데 덥기까지 해...</label></td>
-					<td align="right" valign="top" width="100px">조회수 : 10</td>
+					<td width="400px" align="left" valign="top" rowspan="2"><label><%= enpBoardList.get(i).getHashTags() %></label></td>
+					<td align="right" valign="top" width="100px">조회수 : <%= enpBoardList.get(i).getViewCount() %></td>
 				</tr>
 				<tr>
 					<td align="right"><button class="report">신고</button></td>
-					<td align="center">임피네</td>
-				</tr>
-				</table>
-				<table style="border-bottom: 1px solid black;">
-				<tr>
-					<td rowspan="3" width="100px">0002</td>
-					<td rowspan="3"><img src="/semiproject/images/장어구이.jpg" width="200px" height="150px"></td>
-					<td align="left" valign="bottom"><label class="textreview">장어야야ㅏ아앙</label></td>
-					<td rowspan="3" valign="top" width="40px"><img class="heart" src="/semiproject/images/heartblack.png"></td>
-					<td align="right" valign="bottom">2020.07.05</td>
-					<td rowspan="2" width="180px" align="center"><div class="profileBox" align="center">
-						<img class="profile" src="/semiproject/images/ddu.png">
-					</div></td>
-				</tr>
-				<tr>
-					<td width="400px" align="left" valign="top" rowspan="2"><lable>빨리 한번 더 가고싶어요</label></td>
-					<td align="right" valign="top" width="100px">조회수 : 100</td>
-				</tr>
-				<tr>
-					<td align="right"><button class="report">신고</button></td>
-					<td align="center">뚜뚜링</td>
+					<td id="profileNickName" align="center"></td>
 				</tr>
 			</table>
-			<table style="border-bottom: 1px solid black;">
-				<tr>
-					<td rowspan="3" width="100px">0001</td>
-					<td rowspan="3"><img src="/semiproject/images/죠떡.jpg" width="200px" height="150px"></td>
-					<td align="left" valign="bottom"><label class="textreview">떡볶이냠냠</label></td>
-					<td rowspan="3" valign="top" width="40px"><img class="heart" src="/semiproject/images/heartblack.png"></td>
-					<td align="right" valign="bottom">2020.07.06</td>
-					<td rowspan="2" width="180px" align="center"><div class="profileBox" align="center">
-						<img class="profile" src="/semiproject/images/imfine.png">
-					</div></td>
-				</tr>
-				<tr>
-					<td width="400px" align="left" valign="top" rowspan="2"><lable>오늘 배가 너무 고픈데 덥기까지 해...</label></td>
-					<td align="right" valign="top" width="100px">조회수 : 10</td>
-				</tr>
-				<tr>
-					<td align="right"><button class="report">신고</button></td>
-					<td align="center">임피네</td>
-				</tr>
-				</table>
+			<script>
+				$(function() {
+					var mNo = "<%= enpBoardList.get(i).getMemberNo() %>";
+					
+					$.ajax({
+						url: "/semiproject/selectMember.me",
+						type: "post",
+						data: {mNo: mNo},
+						success: function(data) {
+							$("#profilePic").attr("src", data.filePath);
+							$("#profileNickName").html(data.mNickname);
+						}
+					});
+				});
+			</script>
+			<% } %>
+			<%! } %>
 			</div>
 		</div>
 		<!-- 페이징처리해야할부분 -->

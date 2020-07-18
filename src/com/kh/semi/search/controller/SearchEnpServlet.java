@@ -30,7 +30,7 @@ public class SearchEnpServlet extends HttpServlet {
 		List<HashMap<String, Integer>> enpMenus = new SearchService().getMenus(enpList);
 		List<BoardVO> viewSortBoardList = new BoardService().viewSortBoard();
 		List<BoardVO> dateSortBoardList = new BoardService().dateSortBoard();
-		List<BoardVO> rateSortBoardList = new BoardService().rateSortBoard();
+		List<BoardVO> likeSortBoardList = new BoardService().likeSortBoard();
 		
 		String page = "views/searchResult/searchResult.jsp";
 		request.getSession().setAttribute("search", search);
@@ -38,7 +38,7 @@ public class SearchEnpServlet extends HttpServlet {
 		request.getSession().setAttribute("enpMenus", enpMenus);
 		request.getSession().setAttribute("viewSortBoardList", viewSortBoardList);
 		request.getSession().setAttribute("dateSortBoardList", dateSortBoardList);
-		request.getSession().setAttribute("rateSortBoardList", rateSortBoardList);
+		request.getSession().setAttribute("likeSortBoardList", likeSortBoardList);
 		response.sendRedirect(page);
 	}
 
