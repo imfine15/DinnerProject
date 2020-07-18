@@ -106,10 +106,12 @@
 		<div class="header" align="left">
 			<h1>가게 등록 요청</h1><br>
 		</div>
-			<form action="<%=request.getContextPath()%>/updateEnt.up" method="post" enctype="multipart/form-data">
-			<input id="aaa" type="hidden" value="<%=eu.getEnpNo()%>" name="enpNo">
 		
 		<div class="inner">
+			<form action="<%=request.getContextPath()%>/updateEnt.up" method="post" enctype="multipart/form-data">
+			<input id="aaa" type="hidden" value="<%=eu.getEnpNo()%>" name="enpNo">
+			<input type="hidden" value="<%=ea.getOriginName()%>" name="originName">
+			<input type="hidden" value="<%=ea.getFilePath()%>" name="filePath">
 			<h3>입점 가게 상세 정보</h3>
 			
 			<table>
@@ -189,12 +191,15 @@
 				</tr>
 				<tr>
 					<th>사진파일</th>
-					<td colspan="3"><img id="titleImg" src="<%=request.getContextPath()%>/thumbnail_uploadFile/<%=ea.getChangeName()%>"></td>
+					<td colspan="3">
+					<img id="titleImg" name="changeName" src="<%=request.getContextPath()%>/thumbnail_uploadFile/<%=ea.getChangeName()%>">
+					</td>
 				</tr>
 			</table>
-			<button type="submit" class="btn" style="background: #E07370; width: 160px;">업로드 및 수정</button>
-		</div>
+			<button type="button" class="btn" style="background: #E07370; width: 90px;">업로드</button>
+			<button type="submit" class="btn" style="background: #E07370; width: 90px;">수정</button>
 		</form>
+		</div>
 		<script>
 		$(document).ready(function(){
 			$("#priceRange option[value='<%= eu.getPriceRange() %>']").attr("selected", true);

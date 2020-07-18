@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.kh.semi.admin.model.service.AdminService;
 import com.kh.semi.admin.model.vo.PageInfo;
@@ -65,6 +66,8 @@ public class SelectEnterpriseListServlet extends HttpServlet {
 		ArrayList<EnpUpVo> list = new AdminService().selectList(pi);
 		
 		System.out.println("list : " + list);
+		
+		HttpSession session = request.getSession();
 		
 		String page = "";
 		

@@ -129,6 +129,8 @@ public class UpdateEnterpriseServlet extends HttpServlet {
 	            
 	            fileList.add(at);
 	         }
+	         
+	         System.out.println("fileList123 : ");
 	        
 	         int result = new AdminService().updateEnterprise(enpUp, fileList);
 	         

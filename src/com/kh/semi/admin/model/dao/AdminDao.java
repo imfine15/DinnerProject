@@ -343,7 +343,6 @@ public class AdminDao {
 			
 			result = pstmt.executeUpdate();
 			
-			System.out.println("result3 : " + result);
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -353,6 +352,54 @@ public class AdminDao {
 		}
 		
 		
+		
+		return result;
+	}
+
+	public int deleteAttachment(Connection con, EnpUpVo enpUp) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("deleteAttachment");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, enpUp.getEnpNo());
+			
+			result = pstmt.executeUpdate();
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		
+		
+		return result;
+	}
+
+	public int deleteMenu(Connection con, EnpUpVo enpUp) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("deleteMenu");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, enpUp.getEnpNo());
+			
+			result = pstmt.executeUpdate();
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
 		
 		return result;
 	}

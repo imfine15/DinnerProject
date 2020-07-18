@@ -204,7 +204,7 @@ html, body {
 		}
 		
 		function goRegistrationStoreRequest() {
-			location.href="<%=request.getContextPath()%>/";
+			location.href="<%=request.getContextPath()%>/selectEntList.up";
 		}
 		
 		function goReviewManage() {

@@ -154,7 +154,7 @@
 		<tr>
 				
 				<td><label>해시태그</label><label class="star">* </label></td>
-				<td><input type="text" name="hashTages" placeholder="#을 이용하여 태그를 사용해보세요."></td>
+				<td><input type="text" name="hashTags" placeholder="#을 이용하여 태그를 사용해보세요."></td>
 			</tr>
 			<tr>
 				
