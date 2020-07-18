@@ -43,6 +43,7 @@ public class UpdateEnterpriseServlet extends HttpServlet {
 		
 		if(ServletFileUpload.isMultipartContent(request)) {
 			HttpSession session = request.getSession();
+			String changeName = (String)request.getAttribute("changeName");
 			int maxSize = 1024 * 1024 * 10;
 			
 			String root = request.getSession().getServletContext().getRealPath("/");
@@ -56,6 +57,7 @@ public class UpdateEnterpriseServlet extends HttpServlet {
 			ArrayList<String> originFiles = new ArrayList<>();
 			
 			Enumeration<String> file = multiRequest.getFileNames();
+			
 			
 			while(file.hasMoreElements()) {
 				String name  = file.nextElement();
@@ -92,7 +94,7 @@ public class UpdateEnterpriseServlet extends HttpServlet {
 			String uploadApproval = multiRequest.getParameter("uploadApproval");
 			
 		
-			
+		
 			EnpUpVo enpUp = new EnpUpVo();
 			enpUp.setEnpNo(enpNo);
 			enpUp.setEnpName(enpName);
@@ -117,31 +119,41 @@ public class UpdateEnterpriseServlet extends HttpServlet {
 			
 			
 			ArrayList<EnpAttachment> fileList = new ArrayList<>();
+			EnpAttachment at = new EnpAttachment();
 	         for(int i = originFiles.size() -1; i>= 0; i--) {
-	            EnpAttachment at = new EnpAttachment();
 	            
 	            at.setFilePath(savePath);
 	            at.setOriginName(originFiles.get(i));
 	            at.setChangeName(saveFiles.get(i));
 	            
-	            
-	            
-	            
 	            fileList.add(at);
 	         }
 	         
-	         System.out.println("fileList123 : ");
+	         
 	        
 	         int result = new AdminService().updateEnterprise(enpUp, fileList);
 	         
-	         System.out.println("fileList : " + fileList);
-	         System.out.println("result : " + result);
+	         
+	         fileList = new ArrayList<>();
+	         EnpAttachment ea = new EnpAttachment();
+	         for(int i = originFiles.size() -1; i>= 0; i--) {
+	            
+	            ea.setFilePath(savePath);
+	            ea.setOriginName(originFiles.get(i));
+	            ea.setChangeName(saveFiles.get(i));
+	            
+	            fileList.add(ea);
+	         }
+	         
+	         
 	         
 	         String page = "";
 	         if(result > 0) {
 	        	 page="views/admin/restaurant/restaurantUploadDetail.jsp";
 	        	 session.setAttribute("enpUp", enpUp);
-	        	 session.setAttribute("fileList", fileList);
+	        	 request.setAttribute("fileList", fileList);
+	        	 session.setAttribute("ea", ea);
+	        	 
 	        	 
 	         } else {
 	        	 for(int i = 0 ; i < saveFiles.size(); i++) {

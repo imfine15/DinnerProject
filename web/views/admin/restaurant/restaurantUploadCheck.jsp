@@ -14,7 +14,7 @@
 
 <link rel="shortcut icon" href="/semiproject/images/favicon.ico" type="image/x-icon">
 <link rel="icon" href="/semiproject/images/favicon.ico" type="image/x-icon">
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <style>
 	table{
 		border-collapse: collapse;
@@ -146,11 +146,14 @@
 			<button class="btn" onclick="location.href='<%=request.getContextPath()%>/deleteEnt.up?enpNo=<%=eu.getEnpNo()%>'" style="background: red; width: 100px;">삭제</button>
 
 		</div>
-		
+			<button id="dd"></button>
 	</div>
 	<script type="text/javascript">
 	console.log("<%=eu%>");
 	console.log("<%=ea%>");
+	$("#dd").click(function() {
+		console.log(123);
+	});
 </script>
 </body>
 </html>
