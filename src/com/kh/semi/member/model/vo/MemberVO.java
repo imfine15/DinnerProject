@@ -1,21 +1,23 @@
 package com.kh.semi.member.model.vo;
 
 public class MemberVO {
-	private String mNo;
-	private String mId;
-	private String mPwd;
-	private String mName;
-	private String mEmail;
-	private String mPhone;
-	private String mGender;
-	private String mNickname;
-	private String mGrade;
-	private String status;
+	private String mNo; // 회원번호
+	private String mId; // 아이디
+	private String mPwd; // 비밀번호
+	private String mName; // 이름
+	private String mEmail; // 이메일
+	private String mPhone; // 전화번호
+	private String mGender; // 성별
+	private String mNickname; // 별명
+	private String mGrade; // 회원등급
+	private String status; // 탈퇴여부
+	private int noshowCount; // 노쇼횟수
+	private String filePath; // 첨부파일(프로필사진) 저장경로
 	
 	public MemberVO() {}
 
 	public MemberVO(String mNo, String mId, String mPwd, String mName, String mEmail, String mPhone, String mGender,
-			String mNickname, String mGrade, String status) {
+			String mNickname, String mGrade, String status, int noshowCount, String filePath) {
 		super();
 		this.mNo = mNo;
 		this.mId = mId;
@@ -27,6 +29,8 @@ public class MemberVO {
 		this.mNickname = mNickname;
 		this.mGrade = mGrade;
 		this.status = status;
+		this.noshowCount = noshowCount;
+		this.filePath = filePath;
 	}
 
 	public String getmNo() {
@@ -109,12 +113,27 @@ public class MemberVO {
 		this.status = status;
 	}
 
+	public int getNoshowCount() {
+		return noshowCount;
+	}
+
+	public void setNoshowCount(int noshowCount) {
+		this.noshowCount = noshowCount;
+	}
+
+	public String getFilePath() {
+		return filePath;
+	}
+
+	public void setFilePath(String filePath) {
+		this.filePath = filePath;
+	}
+
 	@Override
 	public String toString() {
 		return "MemberVO [mNo=" + mNo + ", mId=" + mId + ", mPwd=" + mPwd + ", mName=" + mName + ", mEmail=" + mEmail
 				+ ", mPhone=" + mPhone + ", mGender=" + mGender + ", mNickname=" + mNickname + ", mGrade=" + mGrade
-				+ ", status=" + status + "]";
+				+ ", status=" + status + ", noshowCount=" + noshowCount + ", filePath=" + filePath + "]";
 	}
-	
 
 }

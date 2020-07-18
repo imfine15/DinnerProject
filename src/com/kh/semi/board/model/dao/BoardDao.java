@@ -119,14 +119,14 @@ public class BoardDao {
 		return dateSortBoardList;
 	}
 	
-	public List<BoardVO> rateSortBoard(Connection con) {
+	public List<BoardVO> likeSortBoard(Connection con) {
 		Statement stmt = null;
 		ResultSet rset = null;
-		String query = prop.getProperty("rateSortBoard");
-		List<BoardVO> rateSortBoardList = null;
+		String query = prop.getProperty("likeSortBoard");
+		List<BoardVO> likeSortBoardList = null;
 		
 		try {
-			rateSortBoardList = new ArrayList<>();
+			likeSortBoardList = new ArrayList<>();
 			
 			stmt = con.createStatement();
 			
@@ -151,7 +151,7 @@ public class BoardDao {
 				b.setUploadDate(rset.getDate("UPLOAD_DATE"));
 				b.setLikeCount(rset.getInt("LIKE_COUNT"));
 				
-				rateSortBoardList.add(b);
+				likeSortBoardList.add(b);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -160,7 +160,7 @@ public class BoardDao {
 			close(stmt);
 		}
 		
-		return rateSortBoardList;
+		return likeSortBoardList;
 	}
 	
 	public int getFileCount(Connection con, String boardNo) {

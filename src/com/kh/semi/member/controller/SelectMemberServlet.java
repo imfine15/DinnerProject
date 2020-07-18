@@ -1,7 +1,6 @@
-package com.kh.semi.board.controller;
+package com.kh.semi.member.controller;
 
 import java.io.IOException;
-import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,24 +9,25 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
-import com.kh.semi.board.model.service.BoardService;
-import com.kh.semi.board.model.vo.BoardVO;
+import com.kh.semi.member.model.service.MemberService;
+import com.kh.semi.member.model.vo.MemberVO;
 
-@WebServlet("/foundAllBoard.bo")
-public class FoundAllBoardServlet extends HttpServlet {
+@WebServlet("/selectMember.me")
+public class SelectMemberServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    public FoundAllBoardServlet() {
+    public SelectMemberServlet() {
         super();
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		List<BoardVO> boardList = new BoardService().viewSortBoard();
+		String mNo = request.getParameter("mNo");
+		MemberVO selectMember = new MemberService().selectMember(mNo);
 		
 		response.setContentType("application/json");
 		response.setCharacterEncoding("UTF-8");
 		
-		new Gson().toJson(boardList, response.getWriter());
+		new Gson().toJson(selectMember, response.getWriter());
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

@@ -94,4 +94,42 @@ public class MemberDao {
 		return responseMember;
 	}
 
+	public MemberVO selectMember(Connection con, String mNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String query = prop.getProperty("selectMember");
+		MemberVO selectMember = null;
+		
+		try {
+			selectMember = new MemberVO();
+			
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, mNo);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				selectMember.setmNo(rset.getString("MEMBER_NO"));
+				selectMember.setmId(rset.getString("MEMBER_ID"));
+				selectMember.setmPwd(rset.getString("MEMBER_PWD"));
+				selectMember.setmName(rset.getString("MEMBER_NAME"));
+				selectMember.setmEmail(rset.getString("MEMBER_EMAIL"));
+				selectMember.setmPhone(rset.getString("MEMBER_PHONE"));
+				selectMember.setmGender(rset.getString("MEMBER_GENDER"));
+				selectMember.setmNickname(rset.getString("MEMBER_NICKNAME"));
+				selectMember.setmGrade(rset.getString("MEMBER_GRADE"));
+				selectMember.setStatus(rset.getString("MEMBER_STATUS"));
+				selectMember.setNoshowCount(rset.getInt("NOSHOW_COUNT"));
+				selectMember.setFilePath(rset.getString("FILE_PATH"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return selectMember;
+	}
+
 }
