@@ -28,7 +28,6 @@ public class AdminService {
 		
 		ArrayList<EnpUpVo> list = new AdminDao().selectEntList(con,pi);
 		
-		System.out.println("list2 : " + list);
 		
 		close(con);
 		
@@ -80,14 +79,14 @@ public class AdminService {
 				fileList.get(i).setEnpNo(enpNo);
 				enpUp.setEnpNo(enpNo);
 				
-				
+				System.out.println("fileListEnpNo : " + fileList.get(i).getEnpNo());
 				result2 += new AdminDao().updateAttachment(con, fileList.get(i));
 				
 				
 			}
 			result3 = new AdminDao().updateMenu(con, enpUp);
 		}
-		
+		System.out.println("fileListSize : " + fileList.size());
 		
 		System.out.println("result1 : " + result1 + ", result2 : " + result2 + ", result3 : " + result3);
 		if(result1 > 0 && result3 > 0 && result2 == fileList.size()) {
@@ -105,17 +104,33 @@ public class AdminService {
 	public int deleteEnterprise(EnpUpVo enpUp) {
 		Connection con = getConnection();
 		
-		int result = new AdminDao().deleteEnterprise(con, enpUp);
+		int result = 0;
 		
-		System.out.println("result2 : " + result);
+		int result1 = 0;
 		
-		if(result > 0) {
+		int result2 = 0;
+		
+		int result3 = 0;
+		
+		result2 = new AdminDao().deleteAttachment(con, enpUp);
+		result3 = new AdminDao().deleteMenu(con, enpUp);
+		if(result2 > 0 && result3 > 0) {
+			result1 = new AdminDao().deleteEnterprise(con, enpUp);
+			
+		}
+		
+		
+		
+		if(result1 > 0 && result2 >0 && result3 > 0) {
 			commit(con);
+			result = 1;
 		} else {
 			rollback(con);
 		}
 		
 		return result;
 	}
+
+	
 
 }
