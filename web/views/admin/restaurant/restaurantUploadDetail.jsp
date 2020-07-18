@@ -7,6 +7,10 @@
 	EnpUpVo eu = (EnpUpVo)session.getAttribute("enpUp");
 	ArrayList<EnpAttachment> fileList = (ArrayList<EnpAttachment>)request.getAttribute("fileList");
 	EnpAttachment ea = (EnpAttachment)session.getAttribute("ea");
+	if(fileList != null){
+		ea = fileList.get(0);
+	System.out.println("fileList null : "+ea);
+	}
 %>
 <!DOCTYPE html>
 <html>
@@ -112,6 +116,7 @@
 			<input id="aaa" type="hidden" value="<%=eu.getEnpNo()%>" name="enpNo">
 			<input type="hidden" value="<%=ea.getOriginName()%>" name="originName">
 			<input type="hidden" value="<%=ea.getFilePath()%>" name="filePath">
+			<input type="hidden" value="<%=ea.getChangeName()%>" name="changName">
 			<h3>입점 가게 상세 정보</h3>
 			
 			<table>
@@ -192,7 +197,8 @@
 				<tr>
 					<th>사진파일</th>
 					<td colspan="3">
-					<img id="titleImg" name="changeName" src="<%=request.getContextPath()%>/thumbnail_uploadFile/<%=ea.getChangeName()%>">
+					<img id="titleImg" src="<%=request.getContextPath()%>/thumbnail_uploadFile/<%=ea.getChangeName()%>">
+					<input type="file" name="updateFile" onchange="loadImg(this,1);">
 					</td>
 				</tr>
 			</table>
@@ -215,6 +221,7 @@
 	console.log("<%=eu%>");
 	console.log("<%=ea%>");
 	console.log("<%=fileList%>");
+	console.log("<%=ea.getChangeName()%>");
 	
 	function dd() {
 		console.log("h : "+$("#h").val());
@@ -224,6 +231,27 @@
 		console.log("aaa : " + $("#aaa").val());
 		console.log("<%=eu.getEnpNo()%>");
 	} 
+	function loadImg(value, num) {
+		if(value.files && value.files[0]){
+			var reader = new FileReader();
+			
+			reader.onload = function(e) {
+				
+				
+				
+				switch(num){
+				
+				case 1 : $("#titleImg").attr("src", e.target.result); break;
+				
+				
+				}
+				
+				
+			}
+			
+			reader.readAsDataURL(value.files[0]);
+		}
+	}
 	
 </script>
 	</div>

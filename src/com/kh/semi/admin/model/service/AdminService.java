@@ -73,13 +73,11 @@ public class AdminService {
 		
 		result1 = new AdminDao().updateEnterprise(con, enpUp);
 		if(result1 > 0) {
-			String enpNo = new AdminDao().selectCurrval(con);
+			String enpNo = enpUp.getEnpNo();
 			
 			for(int i = 0; i < fileList.size(); i++) {
 				fileList.get(i).setEnpNo(enpNo);
-				enpUp.setEnpNo(enpNo);
 				
-				System.out.println("fileListEnpNo : " + fileList.get(i).getEnpNo());
 				result2 += new AdminDao().updateAttachment(con, fileList.get(i));
 				
 				
