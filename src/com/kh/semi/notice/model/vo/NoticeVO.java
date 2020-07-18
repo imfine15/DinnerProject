@@ -10,12 +10,11 @@ public class NoticeVO implements java.io.Serializable {
 	private Date noticeDate;
 	private String noticeContent;
 	private String noticeType;
-	private String noticePositionCode;
 	
 	public NoticeVO() {}
-	
+
 	public NoticeVO(String noticeNo, String magagerNo, String noticeTitle, Date noticeDate, String noticeContent,
-			String noticeType, String noticePositionCode) {
+			String noticeType) {
 		super();
 		this.noticeNo = noticeNo;
 		this.magagerNo = magagerNo;
@@ -23,7 +22,6 @@ public class NoticeVO implements java.io.Serializable {
 		this.noticeDate = noticeDate;
 		this.noticeContent = noticeContent;
 		this.noticeType = noticeType;
-		this.noticePositionCode = noticePositionCode;
 	}
 
 	public String getNoticeNo() {
@@ -74,19 +72,11 @@ public class NoticeVO implements java.io.Serializable {
 		this.noticeType = noticeType;
 	}
 
-	public String getNoticePositionCode() {
-		return noticePositionCode;
-	}
-
-	public void setNoticePositionCode(String noticePositionCode) {
-		this.noticePositionCode = noticePositionCode;
-	}
-
 	@Override
 	public String toString() {
 		return "NoticeVO [noticeNo=" + noticeNo + ", magagerNo=" + magagerNo + ", noticeTitle=" + noticeTitle
 				+ ", noticeDate=" + noticeDate + ", noticeContent=" + noticeContent + ", noticeType=" + noticeType
-				+ ", noticePositionCode=" + noticePositionCode + "]";
+				+ "]";
 	}
 	
 	

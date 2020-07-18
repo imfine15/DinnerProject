@@ -30,15 +30,23 @@ tr {
 	margin-left: 10px;
 }
 #btnArea {
-	margin-right:50px;
+	margin-top:30px;
+	margin-right:250px;
 }
+#goNotice:link,#goNotice:visited, #goNotice:active, #goNotice:hover {
+	text-decoration:none; color:black;
+	text-decoration:none; color:black;
+	text-decoration:none; color:black;
+	text-decoration:none; color:black;
+}
+
 </style>
 </head>
 <body style="background: lightgray;">
 	<%@ include file="/views/admin/common/sidebar.jsp"%>
 <div style="width:80%; height:600px;margin-left: 230px; padding-top:40px; padding-left:30px;">
 		<div style="background: #F9F9F9;width: 100%; margin-bottom: 10px; height:50px; padding-left:10px; padding-right:10px;">
-			<h1>고객 공지사항</h1><br>
+			<h1><a id="goNotice"href="<%=request.getContextPath()%>/selectclist.no" target = "_self">고객 공지사항</a></h1><br>
 		</div>
 		<div align="center" style="padding-left:10px; padding-right:10px; background: white; width:100%; padding-top: 30px; height: 80%;">
 			<form>
@@ -53,12 +61,12 @@ tr {
 					</td>
 				</tr>
 			</table>
+			</form>
 			<div id="btnArea">
 			<button class="btn" style="background: #5BB0AC;" onclick="update();">수정</button>
 			<button class="btn" style="background: #C4C4C4;" onclick="deleteNotice();">삭제</button>
 			<button class="btn" style="background: #E07370;" onclick="location.href='<%=request.getContextPath()%>/views/admin/notice/clientUploadNotice.jsp'">글쓰기</button>
 			</div>
-			</form>
 		</div>
 	</div>
 	<script type="text/javascript">

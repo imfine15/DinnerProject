@@ -13,7 +13,7 @@ import com.kh.semi.admin.model.vo.PageInfo;
 import com.kh.semi.notice.model.service.ClientNoticeService;
 import com.kh.semi.notice.model.vo.NoticeVO;
 
-/**
+/** 회원보기용/사이트뷰 공지사항 서블릿 읽는것. 
  * Servlet implementation class SelectClientNoticeServlet
  */
 @WebServlet("/selectClient.no")
@@ -32,16 +32,6 @@ public class SelectClientNoticeServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	
-		
-		String num = request.getParameter("num");
-		
-		int cnno = 0;
-		
-		if(num != "" && num != null) {
-			cnno = Integer.parseInt(num);
-		} 
-		
 		
 		int currentPage;
 		int limit;
@@ -71,16 +61,14 @@ public class SelectClientNoticeServlet extends HttpServlet {
 		
 		PageInfo pi = new PageInfo(currentPage, listCount, limit, maxPage, startPage, endPage);
 		
-		ArrayList<NoticeVO> list = new ClientNoticeService().selectList(pi);
-		NoticeVO cNotice = new ClientNoticeService().selectOne(cnno);
+		ArrayList<NoticeVO> list = new ClientNoticeService().selectClientNotice(pi);
 		
 		String page = "";
 		
 		if(list != null) {
-			page = "/views/notice/notice.jsp";
+			page = "/views/admin/notice/clientNotice.jsp";
 			request.setAttribute("list", list);
 			request.setAttribute("pi", pi);
-			request.setAttribute("cNotice", cNotice);
 		} else {
 			page = "views/common/errorPage.jsp";
 			request.setAttribute("msg", "게시판 조회 실패!");
