@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8" import="java.util.*, com.kh.semi.member.model.vo.*"%>
+<% MemberVO loginUsers = (MemberVO) session.getAttribute("loginUser"); %>
 <%
    String backPage = request.getContextPath() + "/views/qna/question.jsp";
    session.setAttribute("backPage", backPage);
@@ -116,7 +117,7 @@ tr {
 
 #btn-file {
 	width: 90px;
-	height:35px;
+	height: 35px;
 	float: right;
 }
 
@@ -140,40 +141,87 @@ tr {
 	border: 0;
 	outline: 0;
 }
+
 #uploadFiles {
-	width:770px;
-	height:200px;
+	width: 770px;
+	height: 200px;
 	background: #f8f8f9;
 	border: 1px solid #d2d2d2;
 	text-align: left;
-	margin-right:0px;
+	margin-right: 0px;
 	margin-top: 10px;
 	margin-bottom: 10px;
-	display:inline-block;
-	float:left;
-	padding-top:20px;
-	padding-bottom:20px;
-	padding-left:20px;
+	display: inline-block;
+	float: left;
+	padding-top: 20px;
+	padding-bottom: 20px;
+	padding-left: 20px;
 }
+
 #fileDelete {
-	margin-top:10px;
-	margin-left:10px;
-	width:100px;
-	font-size:15px;
+	margin-top: 10px;
+	margin-left: 10px;
+	width: 100px;
+	font-size: 15px;
 }
+
 #fileWindow {
 	border: 1px solid #d2d2d2;
 	width: 770px;
-	height:30px;
-	float:left;
-	padding-left:20px;
-	cursor:pointer;
+	height: 30px;
+	float: left;
+	padding-left: 20px;
+	cursor: pointer;
 	margin-top: 10px;
 	margin-bottom: 10px;
 }
-#fileBtn {
-	float:right;
+
+.file_input_textbox {
+	float: left;
+	width: 770px;
+	padding-left: 20px;
+	margin-right: 10px;
+	height: 30px;
+	margin-right: 0px;
+	margin-top: 10px;
+	margin-bottom: 10px;
 }
+
+.file_input_div {
+	position: relative;
+	width: 100px;
+	height: 30px;
+	overflow: hidden;
+	margin: 0px;
+	padding: 0px;
+}
+
+.file_input_button {
+	width: 100px;
+	background-color: white;
+	color: black;
+	border-style: solid;
+	font-size: 15px;
+	margin-top: 10px;
+	margin-left: 10px;
+	width: 100px;
+	font-size: 15px;
+	height: 30px;
+}
+
+.file_input_hidden {
+	width:100%;
+	font-size: 45px;
+	position: absolute;
+	right: 0px;
+	top: 0px;
+	opacity: 0;
+	filter: alpha(opacity = 0);
+	-ms-filter: "alpha(opacity=0)";
+	-khtml-opacity: 0;
+	-moz-opacity: 0;
+}
+
 </style>
 </head>
 <body>
@@ -188,12 +236,12 @@ tr {
 				<table style="width: 1000px">
 					<tr class="td-top">
 						<td class="first" style="width: 100px;">ID</td>
-						<td style="width: 400px;">겟로그인유저아이디</td>
+						<td style="width: 400px;"><%= loginUsers.getmId() %></td>
 						<td style="text-align: center; width: 100px; font-weight:bolder;">고객명</td>
-						<td style="width: 400px;">겟로그인유저네임</td>
+						<td style="width: 400px;"><%= loginUsers.getmName() %></td>
 					</tr>
 					<tr>
-						<td class="first" style="width: 100px;">문의 분류</td>
+						<td class="first" style="width: 100px;" >문의 분류</td>
 						<td colspan="3">
 							<select style="height:30px; width:897px; font-size:16px;" name="qCategory">
 								<option value="QTC1">예약 문의</option>
@@ -216,14 +264,12 @@ tr {
 					<tr>
 						<td class="first" rowspan="2">첨부파일</td>
 						<td style="border-top:none; border-bottom:none; border-collapse:none;" colspan="3">
-							<div id="fileArea">
-								 <input style="display:none" type="file" name="upFile" id="upFile" onchange="dd(this,'name')">
-								 <div id="fileWindow" class="button" onclick="onclick=document.upFile.file.click()">
-								 </div>
-								 <div id="fileBtn"></div>
-								 <br /><br />
+								<input id="fileName" class="file_input_textbox" readonly />
+							<div class="file_input_div">
+							<input type="button" value="파일찾기" class="file_input_button" />
+								<input type="file" class="file_input_hidden" name="upFile" id="upFile" onchange="dd(this,'name')"> 
 							</div>
-							
+
 						</td>
 					</tr>
 					<tr>
@@ -238,13 +284,13 @@ tr {
 						<td class="first" rowspan="2">답변 <br>알림받기</td>
 						<td colspan="3">
 							<p style="line-height: 40px;">※ 답변 등록 시 이메일로 보내드립니다.</p> 
-							<input type="checkbox" id="mailAdmit"> 
-							<div id="agree-div"><label style="line-height: 40px;">
+							<input type="radio" id="mailAdmit" name="mailAgree" value="agree"> 
+							<div id="agree-div"><label style="line-height: 40px;" for="mailAdmit">
 							(선택)이메일 수집 및 이용 동의</label></div><div class="phone-div">
 							<button class="btn-agree" id="mail-agree"
 							onclick="window.open('/semiproject/views/qna/questionDetailMail.jsp', '_blank', 'width=650px,height=550px,toolbars=no,scrollbars=no'); return false;">전문보기</button></div>
 							<br><br>
-							<input type="email" id="qMail" placeholder="이메일 주소 입력" style="width:500px; height:26px; font-size:16px;"> 
+							<input type="email" name="eMail"id="qMail" placeholder="이메일 주소 입력" style="width:500px; height:26px; font-size:16px;"> 
 						<br>
 						<br>
 						</td>
@@ -252,8 +298,8 @@ tr {
 					<tr>
 						<td colspan="3">
 						<p style="line-height: 40px;">※ 답변 등록 시 알림문자를 보내드립니다.</p>
-						<input type="checkbox" id="phoneAdmit"> 
-						<div id="agree-div2"><label style="line-height: 40px;">
+						<input type="radio" id="phoneAdmit" name="pAdmit" value="agree"> 
+						<div id="agree-div2"><label style="line-height: 40px;" for="phoneAdmit">
 						(선택)휴대폰번호 수집 및 이용 동의&nbsp;( -(하이픈) 을 제외하고 입력해주세요.)<br>
 						
 						</label></div><div class="phone-div">
@@ -261,15 +307,15 @@ tr {
 						<!--
 						window.open('', '', 'status=no, height=' + popupHeight  + ', width=' + popupWidth  + ', left='+ popupX + ', top='+ popupY);
 						
-var popupX = (window.screen.width / 2) - (popupWidth / 2);
-// 만들 팝업창 width 크기의 1/2 만큼 보정값으로 빼주었음
+						var popupX = (window.screen.width / 2) - (popupWidth / 2);
+					// 만들 팝업창 width 크기의 1/2 만큼 보정값으로 빼주었음
 
-var popupY= (window.screen.height / 2) - (popupHeight / 2);
+						var popupY= (window.screen.height / 2) - (popupHeight / 2);
 						!-->
 						<button class="btn-agree" id="phone-agree" 
 						onclick="window.open('/semiproject/views/qna/questionDetail.jsp', '_blank', 'width=650px,height=550px,toolbars=no,scrollbars=no'); return false;">전문보기</button></div>
 						<br> <br>
-							<input type="text" id="qPhone" placeholder="전화번호 입력" style="width:500px; height:26px; font-size:16px;"> 
+							<input type="text" id="qPhone" name="phone" placeholder="전화번호 입력" style="width:500px; height:26px; font-size:16px;"> 
 						<br>
 
 						<br>
@@ -291,6 +337,8 @@ var popupY= (window.screen.height / 2) - (popupHeight / 2);
 	<div style="height: 200px;"></div>
 
 	<script>
+	
+	
 	/*<button type="button"id="dd" onclick="qq();">추가</button>*/
 	$("#dd").change(function(){
 		console.log(123);
