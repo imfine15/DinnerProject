@@ -427,6 +427,36 @@ function dd(obj, stype){
 	div.append(text);
 	$("#uploadFiles").append(div);
 }
+
+$("input[type=radio]").each(function(){
+    var chk = $(this).is(":checked");
+    var name = $(this).attr('name');
+
+    if(chk == true) $("input[name='"+name+"']").data("previous",$(this).val());
+
+});
+
+$("input[type=radio]").click(function(){
+
+    var pre = $(this).data("previous");
+
+    var chk = $(this).is(":checked");
+
+    var name = $(this).attr('name');
+
+    if(chk == true && pre == $(this).val()){
+
+        $(this).prop('checked',false);
+
+        $("input[name='"+name+"']").data("previous",'');
+
+    }else{
+
+        if(chk == true) $("input[name='"+name+"']").data("previous",$(this).val());
+
+    }
+
+});
 </script>
 	<%@ include file="/views/common/footer.jsp"%>
 </body>
