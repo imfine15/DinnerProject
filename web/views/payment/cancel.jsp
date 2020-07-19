@@ -17,6 +17,7 @@
 	}
 	SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 	String rDate = format.format(reser.getrDate());
+	String mNo = reser.getmNo();
 %>
 <!DOCTYPE html>
 <html>
@@ -26,7 +27,20 @@
 <link rel="shortcut icon" href="/semiproject/images/favicon.ico" type="image/x-icon">
 <link rel="icon" href="/semiproject/images/favicon.ico" type="image/x-icon">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
+<script>
+$.ajax({
+	type: "get",
+	url: "/semiproject/selectEnp.na",
+	data:{
+		eNo: "<%=eNo%>"
+	},
+	success: function(data){
+		$("#eName").html(data);
+	},
+	error: function(){
+	}
+});
+</script>
 <style>
 	.outer{
 		width:100%; 
@@ -102,45 +116,38 @@
 * 기타 문의사항은 고객센터(010-3410-6215)로 연락하여 주시기 바립니다.</pre>
 		</div>
 		<div align="left">
-		<p>취소 사유를 입력해주세요 (선택)</p>
-		<textarea rows="10" cols="132px" style="resize: none;" placeholder="이곳에 취소 사유를 입력해 주세요."></textarea>
-		<br><input type="checkbox" value="" ><label>상기 내용을 확인하고 동의합니다.</label>
+		<br><input type="checkbox" id="sub" ><label>상기 내용을 확인하고 동의합니다.</label>
 		</div>
 		<div>
 			<button class="btn" style="background: #757575;">취소</button>
-			<button class="btn" style="background: #EB7673;">확인</button>
+			<button onclick="sub();" type="button" class="btn" style="background: #EB7673;" >확인</button>
 		</div>
 		
 		
 	</div>
 
 		</div>
-
+<form name="deletereser" method="post" action="<%=request.getContextPath()%>/deleteReser.me">
+	<input type="hidden" name="rNo" value="<%=rNo%>">
+	<input type="hidden" name="mNo" value="<%=mNo%>">
+</form>
 <%@ include file="/views/common/footer.jsp" %>
 <script>
-	console.log("<%=list%>");
-	console.log("<%=enpList%>");
-	console.log("<%=statusList%>");
-	console.log("<%=eNo%>");
-	var no = "<%=eNo%>";
-	console.log(no);
-	$(document).ready(function(){
-		$.ajax({
-			type: "get",
-			url: "/semiproject/selectEnp.na",
-			data:{
-				eNo: "<%=eNo%>"
-			},
-			success: function(data){
-				console.log(data);
-				$("#eName").html(data);
-				console.log("eName : " + $("#eName").html());
-			},
-			error: function(){
-				console.log("123");
+	function sub(){
+		if($("#sub").is(":checked") != true){
+			alert("동의란 체크가 필요합니다.");
+			return false;
+		} else {
+			if(confirm("정말 취소하시겠습니까?")==true){
+				alert("취소가 완료되었습니다.");
+				document.deletereser.submit();
+			}else {
+				return false;
 			}
-		});
-	});
+		}
+	}
+	var no = "<%=eNo%>";
+
 </script>
 </body>
 </html>

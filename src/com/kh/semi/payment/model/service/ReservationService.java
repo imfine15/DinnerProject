@@ -72,6 +72,30 @@ public class ReservationService {
 		return eName;
 	}
 
+	public int deleteReserInfo(String rNo, String mNo) {
+		Connection con = getConnection();
+		int result = new ReservationDao().deleteReserInfo(con, rNo, mNo);
+		
+		if(result > 0) {
+			commit(con);
+		} else {
+			rollback(con);
+		}
+		return result;
+	}
+
+	public int insertPaymentHistory(String muid, String payprice) {
+		Connection con = getConnection();
+		int result = new ReservationDao().insertPaymentHistory(con, muid, payprice);
+		
+		if(result > 0) {
+			commit(con);
+		} else {
+			rollback(con);
+		}
+		return result;
+	}
+
 
 
 
