@@ -1,35 +1,33 @@
-package com.kh.semi.enterprise.controller;
+package com.kh.semi.review.controller;
 
 import java.io.IOException;
+import java.util.List;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.kh.semi.enterprise.model.service.EnpService;
 import com.kh.semi.enterprise.model.vo.EnpVO;
+import com.kh.semi.review.model.service.ReviewService;
+import com.kh.semi.review.model.vo.ReviewVO;
 
-@WebServlet("/selectEnp.en")
-public class SelectEnterpriseServlet extends HttpServlet {
+@WebServlet("/getEnpReviews.re")
+public class GetSelectedEnpReviews extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    public SelectEnterpriseServlet() {
+    public GetSelectedEnpReviews() {
         super();
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String enpNo = request.getParameter("enpNo");
-		EnpVO selectedEnp = new EnpService().selectEnp(enpNo);
+		String enpNo = ((EnpVO)(request.getSession().getAttribute("selectedEnp"))).getEnpNo();
+		List<ReviewVO> reviews = new ReviewService().getSelectedEnpReviews(enpNo);
 		
-		double rating = Double.parseDouble(request.getParameter("rating"));
+		request.getSession().setAttribute("reviews", reviews);
 		
-		request.getSession().setAttribute("selectedEnp", selectedEnp);
-		request.getSession().setAttribute("rating", rating);
-		
-		request.getRequestDispatcher("/semiproject/getEnpReviews.re").forward(request, response);
+		response.sendRedirect("views/restaurantInfo/restaurantInfo.jsp");
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

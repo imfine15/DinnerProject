@@ -62,7 +62,6 @@ Properties prop = new Properties();
          pstmt.setString(9, requestEnp.getIntroduce());
          pstmt.setString(10, requestEnp.getParkingPossible());
          
-         
          result = pstmt.executeUpdate();
       } catch (SQLException e) {
          e.printStackTrace();
@@ -291,6 +290,7 @@ Properties prop = new Properties();
 				loginEnp.setIntroduce(rset.getString("INTRODUCE"));
 				loginEnp.setParkingPossible(rset.getString("PARKING_POSSIBLE"));
 				loginEnp.setUploadApproval(rset.getString("UPLOAD_APPROVAL"));
+				loginEnp.setLikeCount(rset.getInt("LIKE_COUNT"));
 				
 				/*ENP_NO ENP_REGISTER_NO PARTNER_CODE PENALTY_COUNT PARTNER_ID PARTNER_PWD PARTNER_EMAIL PARTNER_NAME ACCOUNT_HOLDER BANK
 				BANK_ACCOUNT DEPOSIT_LOWER_LIMIT DEPOSIT_HIGHER_LIMIT SIGNUP_APPROVAL JUMIN_NO ENP_LICENCE ENP_NAME ENP_PHONE ENP_ADDRESS ENP_HOUR
@@ -511,6 +511,7 @@ Properties prop = new Properties();
 				selectedEnp.setIntroduce(rset.getString("INTRODUCE"));
 				selectedEnp.setParkingPossible(rset.getString("PARKING_POSSIBLE"));
 				selectedEnp.setUploadApproval(rset.getString("UPLOAD_APPROVAL"));
+				selectedEnp.setLikeCount(rset.getInt("LIKE_COUNT"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -521,5 +522,5 @@ Properties prop = new Properties();
 		
 		return selectedEnp;
 	}
-
+	
 }
