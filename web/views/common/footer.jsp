@@ -223,7 +223,7 @@ html, body {
 				<ul style="margin-top:10px;">
 					<br>
 					<br>
-					<li style="padding:8px">문의하기</li>
+					<li style="padding:8px" onclick="goQuestion();">문의하기</li>
 					<li style="padding:8px">이용정책</li>
 					<li style="padding:8px">제휴문의</li>
 					<li style="padding:8px">광고문의</li>
@@ -247,8 +247,7 @@ html, body {
 						src="/semiproject/images/youtube.png" style="width: 60px;"></li>
 				</ul>
 			</div>
-			
-			
+	
 			<div class="clearfix"></div>
 		</div>
 	</div>
@@ -256,6 +255,10 @@ html, body {
 	<script>
 		function goNotice() {
 			location.href="<%=request.getContextPath()%>/selectClient.no";
+		}
+		
+		function goQuestion() {
+			location.href="<%=request.getContextPath()%>/views/qna/question.jsp";
 		}
 	</script>
 </body>

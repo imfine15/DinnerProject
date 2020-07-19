@@ -3,6 +3,7 @@ package com.kh.semi.question.controller;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Enumeration;
 
 import javax.servlet.ServletException;
@@ -96,12 +97,32 @@ public class InsertQuestionServlet extends HttpServlet {
 				 saveFiles.add(multiRequest.getFilesystemName(name));
 				 originFiles.add(multiRequest.getOriginalFileName(name));
 			 }
-			 
+				private String questionNo;
+				private String managerNo;
+				private String memberNo;
+				private String memberName;
+				private String questionType;
+				private String questionTitle;
+				private String questionContent;
+				private String questionEmail;
+				private String emailAdmit;
+				private String questionPhone;
+				private String phoneAdmit;
+				private Date questionDate;
+				private String historyNo;
+				private String questionDisposalCode;
+				private Date disposalDate; 
+				private String fileNo;
+				private String originName;
+				private String changeName;
+				private String filePath;
+				private Date uploadDate;
+				private String questionNo;
 			 //multipartRequest객체에서 파일 외의 값들도 꺼낼 수 있다.
 			 String qCategory = multiRequest.getParameter("qCategory");
 			 String qTitle = multiRequest.getParameter("qTitle");
 			 String qContent = multiRequest.getParameter("qContent");
-			 String writer = multiRequest.getParameter("writer");
+			 
 			 
 			 
 		//	 int writer = ((Member)(request.getSession().getAttribute("loginUser"))).getUno();
