@@ -1,9 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="com.kh.semi.enterprise.model.vo.*, java.util.Map.*, java.util.*"%>
+    pageEncoding="UTF-8" import="com.kh.semi.enterprise.model.vo.*, java.util.Map.*, java.util.*, com.kh.semi.review.model.vo.*"%>
 <!DOCTYPE html>
 <%
 EnpVO selectedEnp = (EnpVO)session.getAttribute("selectedEnp");
 double rating = (double)session.getAttribute("rating");
+ArrayList<ReviewVO> reviews = (ArrayList<ReviewVO>)session.getAttribute("reviews");
 %>
 <html>
 <head>
@@ -23,9 +24,21 @@ double rating = (double)session.getAttribute("rating");
 			<span id="score"><%= rating %></span>
 			<br>
 			<img alt="즐겨찾기 이미지" src="/semiproject/images/heart.png" id="heart">
-			<p id="likeCount">250</p> <%-- ajax로 작성할것 --%>
+			<p id="likeCount"><%= selectedEnp.getLikeCount() %></p>
 			<img alt="리뷰 이미지" src="/semiproject/images/comment.png" id="comment">
-			<p id="commentCount">112</p>
+			<p id="commentCount"></p>
+			<script>
+				$(function() {
+					$.ajax({
+						url: "/semiproject/countComment.re",
+						type: "post",
+						data: {enpNo: "<%= selectedEnp.getEnpNo() %>"},
+						success: function(data) {
+							$("#commentCount").html(data);
+						}
+					});
+				});
+			</script>
 		</div>
 		<div id="top2">
 			<div id="likeDiv">
@@ -130,8 +143,6 @@ double rating = (double)session.getAttribute("rating");
 				url: "/semiproject/foundAllAd.ad",
 				type: "get",
 				success: function(data) {
-					console.log(data);
-					
 					$("#adInfoBtn").click(function() {
 						window.open("http://" + data.adWebsite, "_blank");
 					});
@@ -149,7 +160,19 @@ double rating = (double)session.getAttribute("rating");
 	</script>
 	<hr class="hr">
 	<div class="ReviewDiv">
-		<div class="ReviewCount">방문자 리뷰 (32)</div>
+		<div class="ReviewCount" id="visitReviewCount"></div>
+		<script>
+			$(function() {
+				$.ajax({
+					url: "/semiproject/countTypeReview.re",
+					type: "post",
+					data: {enpNo: "<%= selectedEnp.getEnpNo() %>", type: "방문"},
+					success: function(data) {
+						$("#visitReviewCount").html("방문자 리뷰(" + data + ")");
+					}
+				});
+			});
+		</script>
 		<div class="ReviewWrite">작성하기 <img alt="리뷰 작성 버튼" src="/semiproject/images/writeReview.png" class="writeReviewBtn"></div>
 	</div>
 	<hr class="hr">
@@ -265,7 +288,19 @@ double rating = (double)session.getAttribute("rating");
 	<br>
 	<hr class="hr">
 	<div class="ReviewDiv">
-		<div class="ReviewCount">일반 리뷰 (51)</div>
+		<div class="ReviewCount" id="normalReviewCount"></div>
+		<script>
+			$(function() {
+				$.ajax({
+					url: "/semiproject/countTypeReview.re",
+					type: "post",
+					data: {enpNo: "<%= selectedEnp.getEnpNo() %>", type: "일반"},
+					success: function(data) {
+						$("#normalReviewCount").html("일반 리뷰(" + data + ")");
+					}
+				});
+			});
+		</script>
 		<div class="ReviewWrite">작성하기 <img alt="리뷰 작성 버튼" src="/semiproject/images/writeReview.png" class="writeReviewBtn"></div>
 	</div>
 	<hr class="hr">
