@@ -17,6 +17,7 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 
+
 <style>
 .subb {
 	width: 44%;
@@ -68,8 +69,6 @@ input[type="number"]::-webkit-inner-spin-button {
 <link rel="stylesheet" href="css/style.css">
 <link href='http://fonts.googleapis.com/css?family=Lato'
 	rel='stylesheet' type='text/css'>
-<script
-	src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
 <script src="js/index.js"></script>
 </head>
 <body>

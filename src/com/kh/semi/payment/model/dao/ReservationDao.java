@@ -11,6 +11,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Properties;
 
+import com.kh.semi.payment.model.vo.PaymentHistoryVO;
 import com.kh.semi.payment.model.vo.ReservationVO;
 import static com.kh.semi.common.JDBCTemplate.*;
 public class ReservationDao {
@@ -250,18 +251,73 @@ public class ReservationDao {
 		return result;
 	}
 
-	public int insertPaymentHistory(Connection con, String muid, String payprice) {
+
+	public int insertPaymentHistory(Connection con, PaymentHistoryVO payHistoryVO) {
 		PreparedStatement pstmt = null;
 		String query = prop.getProperty("insertPaymentHistory");
 		int result = 0;
 		
 		try {
 			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, payHistoryVO.getPayPrice());
+			pstmt.setTimestamp(2, payHistoryVO.getpDate());
+			pstmt.setString(3, payHistoryVO.getmNo());
+			pstmt.setInt(4, payHistoryVO.getpAmount());
+			pstmt.setString(5, payHistoryVO.getrNo());
+			pstmt.setString(6, payHistoryVO.getpNo());
 			
+			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} finally {
+			close(pstmt);
 		}
-				
-		return 0;
+		
+		return result;
+	}
+
+	public PaymentHistoryVO selectPayment(Connection con, String rNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String query = prop.getProperty("selectPayment");
+		PaymentHistoryVO paymentHistoryVO = null;
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, rNo);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				paymentHistoryVO = new PaymentHistoryVO();
+				paymentHistoryVO.setpAmount(rset.getInt("USE_POINT_AMMOUNT"));
+				paymentHistoryVO.setPayPrice(rset.getInt("PAY_PRICE"));
+				paymentHistoryVO.sethNo(rset.getString("PAY_HISTORY_NO"));
+				paymentHistoryVO.setpNo(rset.getString("PAY_UNIQUE_CODE"));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		return paymentHistoryVO;
 	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

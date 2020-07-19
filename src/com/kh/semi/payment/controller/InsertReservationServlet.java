@@ -1,6 +1,7 @@
 package com.kh.semi.payment.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.sql.Date;
 import java.sql.Timestamp;
@@ -16,6 +17,7 @@ import javax.servlet.http.HttpSession;
 
 import com.kh.semi.member.model.vo.MemberVO;
 import com.kh.semi.payment.model.service.ReservationService;
+import com.kh.semi.payment.model.vo.PaymentHistoryVO;
 import com.kh.semi.payment.model.vo.ReservationVO;
 import com.sun.glass.ui.Pixels.Format;
 
@@ -68,12 +70,18 @@ public class InsertReservationServlet extends HttpServlet {
 		insertReservationVO.setDeposit(deposit);
 		
 		int result = new ReservationService().insertReservation(insertReservationVO);
+		PaymentHistoryVO payHistoryVO = new PaymentHistoryVO();
 		
+		payHistoryVO.setPayPrice(deposit);
+		payHistoryVO.setpDate(insertReservationVO.getrDate());
+		payHistoryVO.setmNo(mNo);
+		payHistoryVO.setpAmount(point);
+		payHistoryVO.setpNo(muid);
 		String page = "";
 		if(result > 0) {
 			int result2 = new ReservationService().insertReservationHistory(insertReservationVO);
-			int result3 = new ReservationService().insertPaymentHistory(muid, payprice);
-			if(result2 > 0) {
+			int result3 = new ReservationService().insertPaymentHistory(payHistoryVO);
+			if(result2 > 0 && result3 > 0) {
 				page = "views/payment/paymentSuccess.jsp";
 			}
 		} else {
