@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="com.kh.semi.enterprise.model.vo.*"%>
+    pageEncoding="UTF-8" import="com.kh.semi.enterprise.model.vo.*, java.util.Map.*, java.util.*"%>
 <!DOCTYPE html>
 <%
 EnpVO selectedEnp = (EnpVO)session.getAttribute("selectedEnp");
@@ -8,6 +8,7 @@ double rating = (double)session.getAttribute("rating");
 <html>
 <head>
 <link rel="stylesheet" type="text/css" href="/semiproject/views/restaurantInfo/css/restaurantInfoStyle.css"/>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <meta charset="UTF-8">
 <title>YUMEET - <%= selectedEnp.getEnpName() %></title>
 <link rel="shortcut icon" href="/semiproject/images/favicon.ico" type="image/x-icon">
@@ -22,7 +23,7 @@ double rating = (double)session.getAttribute("rating");
 			<span id="score"><%= rating %></span>
 			<br>
 			<img alt="즐겨찾기 이미지" src="/semiproject/images/heart.png" id="heart">
-			<p id="likeCount">250</p>
+			<p id="likeCount">250</p> <%-- ajax로 작성할것 --%>
 			<img alt="리뷰 이미지" src="/semiproject/images/comment.png" id="comment">
 			<p id="commentCount">112</p>
 		</div>
@@ -53,7 +54,7 @@ double rating = (double)session.getAttribute("rating");
 				</tr>
 				<tr>
 					<td class="infoTitle">메뉴</td>
-					<td class="infoContent">규카츠정식 14900원<br>카츠동 9900원<br>규동 9900원</td>
+					<td class="infoContent" id="menus"></td>
 				</tr>
 				<tr>
 					<td class="infoTitle">웹 사이트</td>
@@ -84,6 +85,20 @@ double rating = (double)session.getAttribute("rating");
 				</tr>
 			</table>
 		</div>
+		<script>
+			$(function() {
+				$.ajax({
+					url: "/semiproject/getMenu.se",
+					type: "post",
+					data: {enpNo: "<%= selectedEnp.getEnpNo() %>"},
+					success: function(data) {
+						$.each(data, function(key, value) {
+							$("#menus").append(key + " " + value + "원<br>");
+						});
+					}
+				});
+			});
+		</script>
 		<div id="infoRight">
 			<img alt="매장 대표사진" src="/semiproject/images/dishPic.png" id="dishPic">
 		</div>
@@ -91,18 +106,47 @@ double rating = (double)session.getAttribute("rating");
 	<div id="reservationDiv">
 		<button>예약하기</button>
 	</div>
+	<script>
+		var enpNo = "<%= selectedEnp.getEnpNo() %>";
+		$("#reservationDiv button").click(function() {
+			location.href="<%= request.getContextPath() %>/views/payment/paymentPage.jsp?enpNo=" + enpNo; 
+		});
+	</script>
 	<div id="adDiv">
 		<div id="adContent">
 			<div id="adBtn">
 				<div id="adCloseBtn"><img alt="광고 종료 버튼" src="/semiproject/images/adCloseBtn.png"></div>
 				<div id="adInfoBtn"><img alt="광고 정보 버튼" src="/semiproject/images/adInfoBtn.png"></div>
 			</div>
-			<span>세상에서 가장 간편한 스낵</span>
+			<span></span>
 		</div>
 		<div id="adPic">
-			<img alt="배너광고" src="/semiproject/images/snackKing.png" id="ad">
+			<img alt="배너광고" src="" id="ad">
 		</div>
 	</div>
+	<script>
+		$(function() {
+			$.ajax({
+				url: "/semiproject/foundAllAd.ad",
+				type: "get",
+				success: function(data) {
+					console.log(data);
+					
+					$("#adInfoBtn").click(function() {
+						window.open("http://" + data.adWebsite, "_blank");
+					});
+					
+					$("#adCloseBtn").click(function() {
+						$("#adDiv").hide();
+					});
+					
+					$("#adContent span").html(data.adContent);
+					
+					$("#ad").attr("src", data.filePath).css({"width":"420px", "height":"106px"});
+				}
+			});
+		});
+	</script>
 	<hr class="hr">
 	<div class="ReviewDiv">
 		<div class="ReviewCount">방문자 리뷰 (32)</div>
@@ -137,7 +181,6 @@ double rating = (double)session.getAttribute("rating");
 			</div>
 		</div>
 		<div class="likeAndReport">
-			
 			<div class="reviewReport">
 				<button class="reviewReportBtn">신고하기</button>
 			</div>

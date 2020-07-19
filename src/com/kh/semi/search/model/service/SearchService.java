@@ -7,6 +7,7 @@ import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.kh.semi.enterprise.model.vo.EnpVO;
 import com.kh.semi.search.model.dao.SearchDao;
@@ -39,6 +40,15 @@ public class SearchService {
 		close(con);
 		
 		return enpList;
+	}
+
+	public Map<String, Integer> getSelectedEnpMenus(String enpNo) {
+		Connection con = getConnection();
+		Map<String, Integer> menus = new SearchDao().getSelectedEnpMenus(con, enpNo);
+		
+		close(con);
+		
+		return menus;
 	}
 
 }

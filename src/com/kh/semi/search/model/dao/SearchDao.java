@@ -9,10 +9,11 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Properties;
 
 import com.kh.semi.enterprise.model.vo.EnpVO;
@@ -221,6 +222,34 @@ public class SearchDao {
 		}
 		
 		return enpList;
+	}
+
+	public Map<String, Integer> getSelectedEnpMenus(Connection con, String enpNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String query = prop.getProperty("selectedEnpMenus");
+		Map<String, Integer> menus = null;
+		
+		try {
+			menus = new LinkedHashMap<>();
+			
+			pstmt = con.prepareStatement(query);
+			
+			pstmt.setString(1, enpNo);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				menus.put(rset.getString("MENU_NAME"), rset.getInt("MENU_PRICE"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return menus;
 	}
 
 }

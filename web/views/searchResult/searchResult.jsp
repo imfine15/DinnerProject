@@ -96,6 +96,7 @@
 								var enpNo = "<%= enpList.get(i).getEnpNo() %>";
 								
 								location.href="<%= request.getContextPath() %>/selectEnp.en?enpNo=" + enpNo + "&rating=" + <%= rating %>;
+								<% session.setAttribute("enpMenus", entries); %>
 							});
 						</script>
 					<% }
