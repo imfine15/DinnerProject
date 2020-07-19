@@ -358,7 +358,7 @@ public class BoardDao {
 		return filePaths;
 	}
 
-	public int insertBoard(Connection con, BoardUpVo board, ArrayList<BoardUpVo> fileList) {
+	public int insertBoard(Connection con, BoardUpVo board) {
 		PreparedStatement pstmt = null;
 		int result = 0;
 		
@@ -368,17 +368,105 @@ public class BoardDao {
 			pstmt = con.prepareStatement(query);
 			pstmt.setString(1, board.getBoardTitle());
 			pstmt.setString(2, board.getMemberNo());
-			pstmt.setString(3, board.getManagerNo());
-			pstmt.setString(4, board.getBoardContent());
+			pstmt.setString(3, board.getBoardContent());
+			pstmt.setString(4, board.getBoardCategory());
+			pstmt.setString(5, board.getHashTags());
 			
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public int insertAttachment(Connection con, BoardUpVo file) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("insertAttachment");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, file.getOriginName());
+			pstmt.setString(2, file.getChangeName());
+			pstmt.setString(3, file.getFilePath());
+			pstmt.setString(4, file.getBoardNo());
+			
+			result = pstmt.executeUpdate();
 			
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} finally {
+			close(pstmt);
 		}
+		
 		
 		return result;
 	}
+
+	public String selectCurrval(Connection con) {
+		Statement stmt = null;
+		ResultSet rset = null;
+		String boardNo = "";
+		
+		String query = prop.getProperty("selectCurrval");
+		
+		try {
+			stmt = con.createStatement();
+			
+			rset = stmt.executeQuery(query);
+			
+			if(rset.next()) {
+				int id = rset.getInt("currval");
+				
+				boardNo = "B"+id;
+			}
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(stmt);
+			close(rset);
+		}
+		
+		
+		return boardNo;
+	}
+
+	public int insertHistory(Connection con, String boardNo) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("insertHistory");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, boardNo);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		
+		
+		return result;
+	}
+
+	
 
 }

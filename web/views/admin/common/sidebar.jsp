@@ -208,7 +208,7 @@ html, body {
 		}
 		
 		function goReviewManage() {
-			location.href="<%=request.getContextPath()%>/";
+			location.href="<%=request.getContextPath()%>/selectListSchedule.up";
 		}
 		
 		function goEnterNotice() {

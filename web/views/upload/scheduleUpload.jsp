@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<% 
+String backPage = request.getContextPath() + "/views/upload/scheduleUpload.jsp";
+session.setAttribute("backPage", backPage);
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -93,23 +97,24 @@
 </head>
 <body>
 <%@ include file="/views/common/header.jsp" %>
+	<% if(loginUser != null) {%>
 	<h1>일정 및 맛집 등록</h1>
 	<div align="center">
 		<hr class="line">
 		<div align="left"  class="namelable">
-		<label>ID</label>
+		<label>ID</label><label><%loginUser.getmId(); %></label>
 		</div>
 		<div align="right" class="namelable">
-		<label>고객명</label>
+		<label>고객명</label><label><%loginUser.getmName(); %></label>
 		</div>
 		<br>
 		<hr class="line">
 		<div style="margin-bottom: 80px;">
 			<form action="<%=request.getContextPath() %>/insertSchedule.up"  method="post" enctype="multipart/form-data">
-			<input type="hidden" name="memberNo">
-			<input type="hidden" name="managerNo">
-			<input type="hidden" name="enpNo">
-			<input type="hidden" name="boardCategory">
+			<input type="hidden" name="memberNo" value="<%=loginUser.getmNo()%>">
+			<!-- 보드카테고리랑 키워드추가해서 할까생각중 -->
+			<input type="hidden" name="boardCategory" value="코스">
+			<input type="hidden" name="boardKeyword" value="">
 				<table id="addtr">
 				<thead>
 					<tr>
@@ -172,6 +177,13 @@
 			
 		});
 	</script>
+	<%} else { %>
+	<script>
+		alert("로그인 후 이용하시길 바랍니다.");
+		document.location.href="/semiproject/views/signIn/signIn.jsp";
+	</script>
+	
+	<% } %>
 	<%@ include file="/views/common/footer.jsp" %>
 </body>
 </html>
