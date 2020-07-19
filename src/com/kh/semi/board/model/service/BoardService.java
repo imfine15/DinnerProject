@@ -1,13 +1,17 @@
 package com.kh.semi.board.model.service;
 
-import static com.kh.semi.common.JDBCTemplate.close;
+import static com.kh.semi.common.JDBCTemplate.*;
 import static com.kh.semi.common.JDBCTemplate.getConnection;
 
 import java.sql.Connection;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.kh.semi.board.model.dao.BoardDao;
+import com.kh.semi.board.model.vo.BoardUpVo;
 import com.kh.semi.board.model.vo.BoardVO;
+
+import oracle.jdbc.OracleConnection.CommitOption;
 
 public class BoardService {
 	// 조회수순 코스게시물 조회
@@ -134,5 +138,23 @@ public class BoardService {
 			close(con);
 			
 			return likeSortEnpBoardList;
+		}
+
+		public int insertBoard(BoardUpVo board, ArrayList<BoardUpVo> fileList) {
+			Connection con = getConnection();
+			int result = 0;
+			
+			result = new BoardDao().insertBoard(con, board, fileList);
+			
+			System.out.println("result : " + result);
+			
+			if(result > 0) {
+				commit(con);
+			} else {
+				rollback(con);
+			}
+			
+			
+			return result;
 		}
 }

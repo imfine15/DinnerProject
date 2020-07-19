@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
+import com.kh.semi.board.model.vo.BoardUpVo;
 import com.kh.semi.board.model.vo.BoardVO;
 
 public class BoardDao {
@@ -355,6 +356,29 @@ public class BoardDao {
 		}
 		
 		return filePaths;
+	}
+
+	public int insertBoard(Connection con, BoardUpVo board, ArrayList<BoardUpVo> fileList) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("insertBoard");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, board.getBoardTitle());
+			pstmt.setString(2, board.getMemberNo());
+			pstmt.setString(3, board.getManagerNo());
+			pstmt.setString(4, board.getBoardContent());
+			
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return result;
 	}
 
 }
