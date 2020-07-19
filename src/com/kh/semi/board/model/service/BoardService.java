@@ -144,12 +144,34 @@ public class BoardService {
 			Connection con = getConnection();
 			int result = 0;
 			
-			result = new BoardDao().insertBoard(con, board, fileList);
+			int result1 = 0;
+			int result2 = 0;
+			int result3 = 0;
+				
+				result1 += new BoardDao().insertBoard(con, board);
+				if(result1 > 0) {
+					String boardNo = new BoardDao().selectCurrval(con);
+					
+				for(int i = 0; i < fileList.size(); i++) {
+					fileList.get(i).setBoardNo(boardNo);
+					board.setBoardNo(boardNo);
+								
+					result2 += new BoardDao().insertAttachment(con, fileList.get(i));
+					
+				}
+				if(result2==fileList.size()) {
+					
+					result3 = new BoardDao().insertHistory(con, boardNo);
+				}
+			}
 			
 			System.out.println("result : " + result);
-			
-			if(result > 0) {
+			System.out.println("result1 : " + result1);
+			System.out.println("result2 : " + result2);
+			System.out.println("result3 : " + result3);
+			if(result1 > 0 && result2 == fileList.size() && result3>0) {
 				commit(con);
+				result = 1;
 			} else {
 				rollback(con);
 			}

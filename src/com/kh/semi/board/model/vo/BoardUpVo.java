@@ -10,7 +10,7 @@ public class BoardUpVo implements java.io.Serializable {
 	private String memberNo;
 	private String managerNo;
 	private String boardKeyword;
-	private String[] boardContent;
+	private String boardContent;
 	private String boardCategory;
 	private String enpNo;
 	private int viewCount;
@@ -27,7 +27,7 @@ public class BoardUpVo implements java.io.Serializable {
 	public BoardUpVo() {}
 
 	public BoardUpVo(String boardNo, String boardTitle, String memberNo, String managerNo, String boardKeyword,
-			String[] boardContent, String boardCategory, String enpNo, int viewCount, String hashTags, String fileNo,
+			String boardContent, String boardCategory, String enpNo, int viewCount, String hashTags, String fileNo,
 			String originName, String changeName, String filePath, Date uploadDate, String replyNo, Date replyDate,
 			String replyContent) {
 		super();
@@ -91,11 +91,11 @@ public class BoardUpVo implements java.io.Serializable {
 		this.boardKeyword = boardKeyword;
 	}
 
-	public String[] getBoardContent() {
+	public String getBoardContent() {
 		return boardContent;
 	}
 
-	public void setBoardContent(String[] boardContent) {
+	public void setBoardContent(String boardContent) {
 		this.boardContent = boardContent;
 	}
 
@@ -199,7 +199,7 @@ public class BoardUpVo implements java.io.Serializable {
 	public String toString() {
 		return "BoardUpVo [boardNo=" + boardNo + ", boardTitle=" + boardTitle + ", memberNo=" + memberNo
 				+ ", managerNo=" + managerNo + ", boardKeyword=" + boardKeyword + ", boardContent="
-				+ Arrays.toString(boardContent) + ", boardCategory=" + boardCategory + ", enpNo=" + enpNo
+				+ boardContent + ", boardCategory=" + boardCategory + ", enpNo=" + enpNo
 				+ ", viewCount=" + viewCount + ", hashTags=" + hashTags + ", fileNo=" + fileNo + ", originName="
 				+ originName + ", changeName=" + changeName + ", filePath=" + filePath + ", uploadDate=" + uploadDate
 				+ ", replyNo=" + replyNo + ", replyDate=" + replyDate + ", replyContent=" + replyContent + "]";

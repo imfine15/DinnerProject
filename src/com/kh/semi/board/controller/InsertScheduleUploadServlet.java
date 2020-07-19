@@ -69,37 +69,37 @@ if(ServletFileUpload.isMultipartContent(request)) {
 			
 			String boardTitle = multiRequest.getParameter("boardTitle");
 			String memberNo = multiRequest.getParameter("memberNo");
-			String managerNo = multiRequest.getParameter("managerNo");
-			
-			
-			String[] boardContent = multiRequest.getParameterValues("boardContent");
+						
+			String[] boardContents = multiRequest.getParameterValues("boardContent");
 			
 			
 			String boardCategory = multiRequest.getParameter("boardCategory");
-			String enpNo = multiRequest.getParameter("enpNo");
 			String hashTags = multiRequest.getParameter("hashTags");
 			
 //			System.out.println("boardTitle : " + boardTitle);
 //			System.out.println("memberNo : " + memberNo);
-//			System.out.println("managerNo : " + managerNo);
-//			System.out.println("boardContent : " + boardContent);
 //			System.out.println("boardCategory : " + boardCategory);
-//			System.out.println("enpNo : " + enpNo);
 //			System.out.println("hashTags : " + hashTags);
 			
 			
 			BoardUpVo board = new BoardUpVo();
-			board.setBoardTitle(boardTitle);
-			board.setMemberNo(memberNo);
-			board.setManagerNo(managerNo);
-			board.setBoardContent(boardContent);
-			board.setBoardCategory(boardCategory);
-			board.setEnpNo(enpNo);
-			board.setHashTags(hashTags);
 			
-			
-			
-			
+			String boardContent = "";
+			for(int i = 0; i < boardContents.length; i++) {
+				if(i == boardContents.length-1) {
+					boardContent+=boardContents[i];
+				} else {
+					boardContent+=boardContents[i]+"||";
+				}
+			}
+				board.setBoardContent(boardContent);
+				board.setBoardTitle(boardTitle);
+				board.setMemberNo(memberNo);
+				board.setBoardCategory(boardCategory);
+				board.setHashTags(hashTags);
+				
+				
+			//System.out.println("board : " + board);
 			
 			ArrayList<BoardUpVo> fileList = new ArrayList<>();
 	         for(int i = originFiles.size() -1; i>= 0; i--) {
@@ -113,6 +113,7 @@ if(ServletFileUpload.isMultipartContent(request)) {
 	            
 	            fileList.add(board);
 	         }
+	        // System.out.println("fileList : " + fileList);
 	        
 	         int result = new BoardService().insertBoard(board, fileList);
 	         
