@@ -17,6 +17,7 @@ import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
 import com.kh.semi.common.MyFileRenamePolicy;
 import com.kh.semi.enterprise.model.vo.EnpAttachment;
 import com.kh.semi.question.model.service.QuestionService;
+import com.kh.semi.question.model.vo.QuestionFileVO;
 import com.kh.semi.question.model.vo.QuestionVO;
 import com.oreilly.servlet.MultipartRequest;
 
@@ -97,52 +98,45 @@ public class InsertQuestionServlet extends HttpServlet {
 				 saveFiles.add(multiRequest.getFilesystemName(name));
 				 originFiles.add(multiRequest.getOriginalFileName(name));
 			 }
-				private String questionNo;
-				private String managerNo;
-				private String memberNo;
-				private String memberName;
-				private String questionType;
-				private String questionTitle;
-				private String questionContent;
-				private String questionEmail;
-				private String emailAdmit;
-				private String questionPhone;
-				private String phoneAdmit;
-				private Date questionDate;
-				private String historyNo;
-				private String questionDisposalCode;
-				private Date disposalDate; 
-				private String fileNo;
-				private String originName;
-				private String changeName;
-				private String filePath;
-				private Date uploadDate;
-				private String questionNo;
+
 			 //multipartRequest객체에서 파일 외의 값들도 꺼낼 수 있다.
 			 String qCategory = multiRequest.getParameter("qCategory");
 			 String qTitle = multiRequest.getParameter("qTitle");
 			 String qContent = multiRequest.getParameter("qContent");
-			 
-			 
+			 String mAdmit = multiRequest.getParameter("mailAgree");
+			 String pAdmit = multiRequest.getParameter("pAdmit");
+			 String eMail = multiRequest.getParameter("eMail");
+			 String phone = multiRequest.getParameter("phone");
+			 String mNo = multiRequest.getParameter("memberNo");
+			 String mName = multiRequest.getParameter("memberName");
 			 
 		//	 int writer = ((Member)(request.getSession().getAttribute("loginUser"))).getUno();
-			 			 
+	
 			 QuestionVO question = new QuestionVO();
 			 question.setQuestionTitle(qTitle);
 			 question.setQuestionContent(qContent);
-			 question.setMemberName(writer);
 			 question.setQuestionType(qCategory);
+			 question.setPhoneAdmit(pAdmit);
+			 question.setQuestionPhone(phone);
+			 question.setEmailAdmit(mAdmit);
+			 question.setQuestionEmail(eMail);
+			 question.setMemberNo(mNo);
+			 question.setMemberName(mName);
 			 
-			 ArrayList<EnpAttachment> fileList = new ArrayList<>();
+			 
+			 System.out.println(mAdmit);
+			 System.out.println(pAdmit);
+			 
+			 ArrayList<QuestionFileVO> fileList = new ArrayList<>();
 			 
 			 for(int i = originFiles.size() - 1; i >= 0; i--) {
-				 EnpAttachment eat = new EnpAttachment();
+				 QuestionFileVO qFile = new QuestionFileVO();
 				 
-				 eat.setFilePath(savePath);
-				 eat.setOriginName(originFiles.get(i));
-				 eat.setChangeName(saveFiles.get(i));
+				 qFile.setFilePath(savePath);
+				 qFile.setOriginName(originFiles.get(i));
+				 qFile.setChangeName(saveFiles.get(i));
 				 
-				 fileList.add(eat);
+				 fileList.add(qFile);
 			 }
 			 			 
 			 int result = new QuestionService().insertQuestion(question, fileList);		 
@@ -161,7 +155,7 @@ public class InsertQuestionServlet extends HttpServlet {
 				 }
 				 
 				 request.setAttribute("msg", "문의글 등록에 실패하셨습니다.");
-				 request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);;
+				 request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
 			 }
 		}
 		

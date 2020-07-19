@@ -172,5 +172,5 @@ public class QuestionVO implements java.io.Serializable{
 				+ questionDate + ", historyNo=" + historyNo + ", questionDisposalCode=" + questionDisposalCode
 				+ ", disposalDate=" + disposalDate + "]";
 	}
-	
+
 }

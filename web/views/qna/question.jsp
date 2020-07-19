@@ -284,7 +284,7 @@ tr {
 						<td class="first" rowspan="2">답변 <br>알림받기</td>
 						<td colspan="3">
 							<p style="line-height: 40px;">※ 답변 등록 시 이메일로 보내드립니다.</p> 
-							<input type="radio" id="mailAdmit" name="mailAgree" value="agree"> 
+							<input type="radio" id="mailAdmit" name="mailAgree"> 
 							<div id="agree-div"><label style="line-height: 40px;" for="mailAdmit">
 							(선택)이메일 수집 및 이용 동의</label></div><div class="phone-div">
 							<button class="btn-agree" id="mail-agree"
@@ -298,7 +298,7 @@ tr {
 					<tr>
 						<td colspan="3">
 						<p style="line-height: 40px;">※ 답변 등록 시 알림문자를 보내드립니다.</p>
-						<input type="radio" id="phoneAdmit" name="pAdmit" value="agree"> 
+						<input type="radio" id="phoneAdmit" name="pAdmit"> 
 						<div id="agree-div2"><label style="line-height: 40px;" for="phoneAdmit">
 						(선택)휴대폰번호 수집 및 이용 동의&nbsp;( -(하이픈) 을 제외하고 입력해주세요.)<br>
 						
@@ -317,7 +317,9 @@ tr {
 						<br> <br>
 							<input type="text" id="qPhone" name="phone" placeholder="전화번호 입력" style="width:500px; height:26px; font-size:16px;"> 
 						<br>
-
+							<input type="hidden" name="memberNo" value="<%= loginUsers.getmNo() %>">
+							<input type="hidden" name="memberName" value="<%= loginUsers.getmName() %>">
+							<input type="hidden" name="memberId" value="<%= loginUsers.getmId() %>>">
 						<br>
 						</td>
 					</tr>
@@ -327,7 +329,6 @@ tr {
 					<button type="reset" id="question-reset" onclick="questionReset">취소</button>
 				</div>
 			</form>
-			
 		</div>
 	</div>
 	<!--<% // } >else { 
@@ -431,32 +432,35 @@ function dd(obj, stype){
 $("input[type=radio]").each(function(){
     var chk = $(this).is(":checked");
     var name = $(this).attr('name');
-
     if(chk == true) $("input[name='"+name+"']").data("previous",$(this).val());
-
 });
 
 $("input[type=radio]").click(function(){
-
     var pre = $(this).data("previous");
-
     var chk = $(this).is(":checked");
-
     var name = $(this).attr('name');
-
     if(chk == true && pre == $(this).val()){
 
         $(this).prop('checked',false);
 
         $("input[name='"+name+"']").data("previous",'');
-
     }else{
-
         if(chk == true) $("input[name='"+name+"']").data("previous",$(this).val());
-
     }
 
 });
+
+if($("#mailAdmit").is(":checked")==true) {
+	$("#mailAdmit").attr('value','Y');
+} else {
+	$("#mailAdmit").attr('value','N');
+}
+
+if($("#phoneAdmit").is(":checked")==true) {
+	$("#phoneAdmit").attr('value','Y');
+} else {
+	$("#phoneAdmit").attr('value','N');
+}
 </script>
 	<%@ include file="/views/common/footer.jsp"%>
 </body>

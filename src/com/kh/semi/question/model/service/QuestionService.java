@@ -6,12 +6,13 @@ import java.util.ArrayList;
 
 import com.kh.semi.enterprise.model.vo.EnpAttachment;
 import com.kh.semi.question.model.dao.QuestionDao;
+import com.kh.semi.question.model.vo.QuestionFileVO;
 import com.kh.semi.question.model.vo.QuestionVO;
 
 
 public class QuestionService {
 
-	public int insertQuestion(QuestionVO question, ArrayList<EnpAttachment> fileList) {
+	public int insertQuestion(QuestionVO question, ArrayList<QuestionFileVO> fileList) {
 		
 		Connection con = getConnection();
 		int result = 0;
@@ -23,15 +24,19 @@ public class QuestionService {
 		result1 = new QuestionDao().insertQuestion(con, question);
 
 		if(result1 > 0) {
-			String qNo = new QuestionDao().selectCurrval(con);
+			
+			String questionNo = new QuestionDao().selectCurrval(con);
 			
 			for(int i = 0; i < fileList.size(); i++) {
-				fileList.get(i).setQuestionNo(qNo);
+				
+				fileList.get(i).setQuestionNo(questionNo);
 				
 				result2 += new QuestionDao().insertAttachment(con, fileList.get(i));
 			}
+			
+			
+			System.out.println(questionNo);
 		}
-		
 		if(result1 > 0 && result2 == fileList.size()) {
 			commit(con);
 			result = 1;
@@ -43,6 +48,7 @@ public class QuestionService {
 		
 		return result;
 	}
+
 	
 	
 	
