@@ -182,6 +182,7 @@ ul li a span:hover{
 					<button class="tex" id="reserAreaYet">예약중</button>
 					<button class="tex" style="margin-right:5px;" id="reserAreaClo">취소</button>
 					</div>
+					
 					<!-- 결제전체 Area -->
 					<div id="paymentArea">
 					<br><br>
@@ -249,7 +250,7 @@ ul li a span:hover{
 						if(status.equals("결제완료")){
 					%>
 						<tr>
-							<td><div style="padding-left:30px; width:30px" class="text2"><%=i+1 %></div></td>
+							<td><div style="padding-left:30px; width:30px" class="text2"><%=psucCount %></div></td>
 							<td><div style="padding-left:10px; width:110px;" class="text2" ><%=enpList.get(i) %></div></td>
 							<td><div style="padding-left:10px; width:150px;" class="text2"><%=rDate%></div></td>
 							<td><div style="padding-left:30px; width:80px;" class="text2"><%=status %></div></td>

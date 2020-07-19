@@ -229,4 +229,39 @@ public class ReservationDao {
 		
 		return eName;
 	}
+
+	public int deleteReserInfo(Connection con, String rNo, String mNo) {
+		PreparedStatement pstmt = null;
+		String query = prop.getProperty("deleteReserInfo");
+		int result = 0;
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, rNo);
+			pstmt.setString(2, mNo);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public int insertPaymentHistory(Connection con, String muid, String payprice) {
+		PreparedStatement pstmt = null;
+		String query = prop.getProperty("insertPaymentHistory");
+		int result = 0;
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+				
+		return 0;
+	}
 }

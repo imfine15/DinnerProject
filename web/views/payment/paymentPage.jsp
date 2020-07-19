@@ -15,6 +15,8 @@
 
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
+
 <style>
 .subb {
 	width: 44%;
@@ -72,7 +74,7 @@ input[type="number"]::-webkit-inner-spin-button {
 </head>
 <body>
 <%@ include file="/views/common/header.jsp" %>
-<form action="<%=request.getContextPath()%>/reservation.me" method="post">
+<form action="<%=request.getContextPath()%>/reservation.me" method="post" name="reserInfo">
 
 	<input type="hidden" name="cals" value="CALC1">
 	<div
@@ -190,7 +192,7 @@ input[type="number"]::-webkit-inner-spin-button {
 			<textarea cols=40 rows=10 style="resize: none;" placeholder="요청사항을 입력해 주세요." name="rcontent"></textarea><br><br>
 			<label>사용하실 포인트 : </label><input name="point" type="number" min="0" max="2000" value="0"><br><br>
 			
-			<button onclick="reservation();" style="width:100%; height:50px; background: #DE6B6A; color:white; 
+			<button type="button" onclick="reservation();" style="width:100%; height:50px; background: #DE6B6A; color:white; 
 			border:0px; font-size: 26px;">예약하기</button><br>
 			<div align="center">
 				<input type="hidden" value="20000" name="deposit">
@@ -199,18 +201,52 @@ input[type="number"]::-webkit-inner-spin-button {
 			</div>
 		</div>
 	</div>
+	<input id="muid" name="muid" type="hidden" value="">
+	<input id="payprice" name="payprice" type="hidden" value="">
 </form>
 
 <script>
+	var IMP = window.IMP;
+	IMP.init("imp12858574");
 	function reservation(){
 	if($("#finaltime").html() === null || $("#finaltime").html() === ""){
 		alert("날짜 입력를 입력해주세요.");
-	}
-	if($("#information").is(":checked") != true){
+		return false;
+	} else if($("#information").is(":checked") != true){
 		alert("이용자 약관 동의를 해주세요.");
-	}
-	if($("#people").html() === null || $("#people").html() === ""){
+		return false;
+	} else if($("#people").html() === null || $("#people").html() === ""){
 		alert("인원을 입력해주세요.");
+		return false;
+	} else {
+		console.log(123);
+		IMP.request_pay({
+		    pg : 'inicis', // version 1.1.0부터 지원.
+		    pay_method : 'card',
+		    merchant_uid : 'merchant_' + new Date().getTime(),
+		    name : '주문명:결제테스트',
+		    amount : 1000,
+		    buyer_email : 'iamport@siot.do',
+		    buyer_name : '구매자이름',
+		    buyer_tel : '010-1234-5678',
+		    buyer_addr : '서울특별시 강남구 삼성동',
+		    buyer_postcode : '123-456'
+		}, function(rsp) {
+		    if ( rsp.success ) {
+		        var msg = '결제가 완료되었습니다.';
+		        msg += '고유ID : ' + rsp.imp_uid;
+		        msg += '상점 거래ID : ' + rsp.merchant_uid;
+		        msg += '결제 금액 : ' + rsp.paid_amount;
+		        msg += '카드 승인번호 : ' + rsp.apply_num;
+				$("#payprice").val(rsp.paid_amount);
+				$("#muid").val(rsp.merchant_uid);
+		        document.reserInfo.submit();
+		    } else {
+		        var msg = '결제에 실패하였습니다.';
+		        msg += '에러내용 : ' + rsp.error_msg;
+		    }
+		    alert(msg);
+		});
 	}
 	}
 </script>

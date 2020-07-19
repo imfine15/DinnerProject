@@ -33,6 +33,9 @@ public class InsertReservationServlet extends HttpServlet {
 		String mNo = member.getmNo();
 		String cals = request.getParameter("cals");
 		
+		String muid = request.getParameter("muid");
+		String payprice = request.getParameter("payprice");
+		
 		int year = Integer.parseInt(request.getParameter("year"));
 		int month = Integer.parseInt(request.getParameter("month"));
 		int day = Integer.parseInt(request.getParameter("day"));
@@ -69,6 +72,7 @@ public class InsertReservationServlet extends HttpServlet {
 		String page = "";
 		if(result > 0) {
 			int result2 = new ReservationService().insertReservationHistory(insertReservationVO);
+			int result3 = new ReservationService().insertPaymentHistory(muid, payprice);
 			if(result2 > 0) {
 				page = "views/payment/paymentSuccess.jsp";
 			}
