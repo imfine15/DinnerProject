@@ -27,9 +27,10 @@
 <link rel="shortcut icon" href="/semiproject/images/favicon.ico" type="image/x-icon">
 <link rel="icon" href="/semiproject/images/favicon.ico" type="image/x-icon">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 <script>
 $.ajax({
-	type: "get",
+	type: "post",
 	url: "/semiproject/selectEnp.na",
 	data:{
 		eNo: "<%=eNo%>"
@@ -38,6 +39,19 @@ $.ajax({
 		$("#eName").html(data);
 	},
 	error: function(){
+	}
+});
+$.ajax({
+	type: "post",
+	url: "/semiproject/selectPay.na",
+	data: {
+		rNo: "<%=rNo%>",
+	},
+	success: function(data){
+		$("#pNo").val(data.pNo);
+	},
+	error: function(){
+		console.log("error");
 	}
 });
 </script>
@@ -86,7 +100,7 @@ $.ajax({
 <%@ include file="/views/common/header.jsp" %>
 
 <div class="outer" align="center">
-	
+		<input id="pNo" type="hidden" value="">
 		<div class="header" align="left">
 			<h3>예약취소</h3>
 		</div>
@@ -133,14 +147,74 @@ $.ajax({
 </form>
 <%@ include file="/views/common/footer.jsp" %>
 <script>
+	var IMP = window.IMP;
+	IMP.init("imp12858574");
+	
 	function sub(){
 		if($("#sub").is(":checked") != true){
 			alert("동의란 체크가 필요합니다.");
 			return false;
 		} else {
 			if(confirm("정말 취소하시겠습니까?")==true){
-				alert("취소가 완료되었습니다.");
-				document.deletereser.submit();
+				      jQuery.ajax({
+				        url: "http://www.myservice.com/payments/cancel",
+				        type: "POST",
+				        contentType: "application/json",
+				        data: JSON.stringify({
+				        	"merchant_uid": "mid_" + new Date().getTime(), // 주문번호
+				            "cancel_request_amount": 1000, // 환불금액
+				            "reason": "테스트 결제 환불" // 환불사유
+				        }),
+				        "dataType": "json"
+				      });
+				      
+					  $.ajax('http://www.myservice.com/payments/cancel', async (req, res, next) => {
+						    try {
+						      /* 액세스 토큰(access token) 발급 */
+						       const getToken = await axios({
+       								 url: "https://api.iamport.kr/users/getToken",
+       								 method: "post", // POST method
+       								 headers: { 
+        								  "Content-Type": "application/json" 
+        								},
+       								 data: {
+        								  imp_key: "6231776324951366", // [아임포트 관리자] REST API키
+        								  imp_secret: "TpIS8mJJE3SlLyHYZDz5WcM6pADhbqL4PtWYQGIuKBQv9xu8a3e6f1cFCQWNgIR6bO52vNwfpmLyUfH4" // [아임포트 관리자] REST API Secret
+        								}
+     								 });
+						      
+						      
+						      /* ... 중략 ... */
+						      /* 결제정보 조회 */
+						      const { body } = req;
+						      const { merchant_uid } = body; // 클라이언트로부터 전달받은 주문번호
+						      $.ajax({ merchant_uid }, async function(err, payment) { 
+						        if (err) {
+						          return res.json(err);
+						        }
+						        
+						        const { imp_uid } = $("#rNo").val();
+						        const getCancelData = await axios({
+						            url: "https://api.iamport.kr/payments/cancel",
+						            method: "post",
+						            headers: {
+						              "Content-Type": "application/json",
+						              "Authorization": access_token // 아임포트 서버로부터 발급받은 엑세스 토큰
+						            },
+						            data: {
+						              reason, // 가맹점 클라이언트로부터 받은 환불사유
+						              imp_uid, // imp_uid를 환불 고유번호로 입력
+						              amount: cancel_request_amount
+						            }
+						          });
+						          const { response } = getCancelData.data; // 환불 결과
+						      
+						      });
+						    } catch (error) {
+						      res.status(400).send(error);
+						    }
+						  });
+
 			}else {
 				return false;
 			}

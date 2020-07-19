@@ -5,6 +5,7 @@ import java.sql.Connection;
 import java.util.ArrayList;
 
 import com.kh.semi.payment.model.dao.ReservationDao;
+import com.kh.semi.payment.model.vo.PaymentHistoryVO;
 import com.kh.semi.payment.model.vo.ReservationVO;
 import static com.kh.semi.common.JDBCTemplate.*;
 public class ReservationService {
@@ -84,9 +85,13 @@ public class ReservationService {
 		return result;
 	}
 
-	public int insertPaymentHistory(String muid, String payprice) {
+
+	public int insertPaymentHistory(PaymentHistoryVO payHistoryVO) {
 		Connection con = getConnection();
-		int result = new ReservationDao().insertPaymentHistory(con, muid, payprice);
+		int sequence = new ReservationDao().selectReservationSequence(con);
+		System.out.println("sequence : " + sequence);
+		payHistoryVO.setrNo("RES" + (sequence-1));
+		int result = new ReservationDao().insertPaymentHistory(con, payHistoryVO);
 		
 		if(result > 0) {
 			commit(con);
@@ -94,6 +99,18 @@ public class ReservationService {
 			rollback(con);
 		}
 		return result;
+	}
+
+	public PaymentHistoryVO selectPayment(String rNo) {
+		Connection con = getConnection();
+		PaymentHistoryVO paymentHistoryVO = new ReservationDao().selectPayment(con, rNo);
+		
+		if(paymentHistoryVO != null) {
+			commit(con);
+		} else {
+			rollback(con);
+		}
+		return paymentHistoryVO;
 	}
 
 
