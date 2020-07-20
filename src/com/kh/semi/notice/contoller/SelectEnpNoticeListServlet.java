@@ -11,19 +11,20 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.kh.semi.admin.model.vo.PageInfo;
 import com.kh.semi.notice.model.service.NoticeService;
+import com.kh.semi.notice.model.vo.EntNoticeVO;
 import com.kh.semi.notice.model.vo.NoticeVO;
 
 /**
- * Servlet implementation class SelectClientNoticeListServlet
+ * Servlet implementation class SelectEnpNoticeListServlet
  */
-@WebServlet("/selectclist.no")
-public class SelectClientNoticeListServlet extends HttpServlet {
+@WebServlet("/selectElist.no")
+public class SelectEnpNoticeListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public SelectClientNoticeListServlet() {
+    public SelectEnpNoticeListServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -47,7 +48,7 @@ public class SelectClientNoticeListServlet extends HttpServlet {
 		
 		limit = 10;
 		
-		int listCount = new NoticeService().getListCount();
+		int listCount = new NoticeService().getEntListCount();
 		
 		maxPage = (int)((double) listCount / limit + 0.9);
 		
@@ -61,12 +62,12 @@ public class SelectClientNoticeListServlet extends HttpServlet {
 		
 		PageInfo pi = new PageInfo(currentPage, listCount, limit, maxPage, startPage, endPage);
 		
-		ArrayList<NoticeVO> list = new NoticeService().selectList(pi);
+		ArrayList<EntNoticeVO> list = new NoticeService().selectEntList(pi);
 		
 		String page = "";
 		
 		if(list != null) {
-			page = "/views/admin/notice/clientNotice.jsp";
+			page = "/views/admin/notice/enterpriseNotice.jsp";
 			request.setAttribute("list", list);
 			request.setAttribute("pi", pi);
 		} else {
@@ -75,7 +76,6 @@ public class SelectClientNoticeListServlet extends HttpServlet {
 		}
 		
 		request.getRequestDispatcher(page).forward(request, response);	
-		
 	}
 
 	/**

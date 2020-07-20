@@ -15,7 +15,7 @@ import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
 
 import com.kh.semi.common.MyFileRenamePolicy;
 import com.kh.semi.enterprise.model.vo.EnpAttachment;
-import com.kh.semi.notice.model.service.ClientNoticeService;
+import com.kh.semi.notice.model.service.NoticeService;
 import com.kh.semi.notice.model.vo.NoticeAttachment;
 import com.kh.semi.notice.model.vo.NoticeVO;
 import com.kh.semi.question.model.service.QuestionService;
@@ -50,7 +50,7 @@ public class InsertClientNoticeServlet extends HttpServlet {
 		newNotice.setNoticeTitle(nTitle);
 		newNotice.setNoticeContent(nContent);
 				
-		int result = new ClientNoticeService().insertClientNotice(newNotice);
+		int result = new NoticeService().insertClientNotice(newNotice);
 		
 		if(result > 0) {
 			response.sendRedirect("/semiproject/selectclist.no");

@@ -2,6 +2,7 @@ package com.kh.semi.notice.contoller;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,21 +10,22 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.kh.semi.admin.model.vo.PageInfo;
 import com.kh.semi.notice.model.service.NoticeService;
+import com.kh.semi.notice.model.vo.EntNoticeVO;
+import com.kh.semi.notice.model.vo.NoticeAttachment;
 import com.kh.semi.notice.model.vo.NoticeVO;
 
 /**
- * Servlet implementation class SelectClientNoticeListServlet
+ * Servlet implementation class SelectOneEnpNoticeServlet
  */
-@WebServlet("/selectclist.no")
-public class SelectClientNoticeListServlet extends HttpServlet {
+@WebServlet("/EntSelectOne.no")
+public class SelectOneEnpNoticeServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public SelectClientNoticeListServlet() {
+    public SelectOneEnpNoticeServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -33,48 +35,27 @@ public class SelectClientNoticeListServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		int currentPage;
-		int limit;
-		int maxPage;
-		int startPage;
-		int endPage;
+		int num = Integer.parseInt(request.getParameter("num"));
 		
-		currentPage = 1;
+		HashMap<String, Object> hmap = new NoticeService().selectOneEnt(num);
 		
-		if(request.getParameter("currentPage") != null) {
-			currentPage = Integer.parseInt(request.getParameter("currentPage"));
-		}
-		
-		limit = 10;
-		
-		int listCount = new NoticeService().getListCount();
-		
-		maxPage = (int)((double) listCount / limit + 0.9);
-		
-		startPage = (((int) ((double) currentPage / 10 + 0.9)) - 1) * 10 + 1;
-		
-		endPage = startPage + 10 - 1;
-		
-		if(maxPage < endPage) {
-			endPage = maxPage;
-		}
-		
-		PageInfo pi = new PageInfo(currentPage, listCount, limit, maxPage, startPage, endPage);
-		
-		ArrayList<NoticeVO> list = new NoticeService().selectList(pi);
+		EntNoticeVO eNotice = (EntNoticeVO) hmap.get("eNotice");
+		ArrayList<NoticeAttachment> filelist = (ArrayList<NoticeAttachment>) hmap.get("entAttachment");
 		
 		String page = "";
-		
-		if(list != null) {
-			page = "/views/admin/notice/clientNotice.jsp";
-			request.setAttribute("list", list);
-			request.setAttribute("pi", pi);
+		if(hmap != null) {
+			page = "/views/admin/notice/enterpriseDetailNotice.jsp";
+			request.setAttribute("eNotice", eNotice);
+			request.setAttribute("filelist", filelist);
 		} else {
 			page = "views/common/errorPage.jsp";
-			request.setAttribute("msg", "게시판 조회 실패!");
+			request.setAttribute("msg", "공지사항 상세 보기 실패!");
 		}
 		
-		request.getRequestDispatcher(page).forward(request, response);	
+		request.getRequestDispatcher(page).forward(request, response);
+		
+		
+		
 		
 	}
 
