@@ -108,7 +108,7 @@ public class ReviewDao {
 				r.setEnpNo(rset.getString("ENP_NO"));
 				r.setVisitDate(rset.getDate("VISIT_DATE"));
 				r.setAverageRating(rset.getDouble("AVERAGE_RATING"));
-				r.setReservationHistoryNo(rset.getString("RESETVATION_HISTORY_NO"));
+				r.setReservationHistoryNo(rset.getString("RESERVATION_HISTORY_NO"));
 				
 				reviews.add(r);
 			}
@@ -130,7 +130,24 @@ public class ReviewDao {
 			
 			reviewsWithFiles = new ArrayList<>();
 			
-			
+			for(int i = 0; i < reviews.size(); i++) {
+				String reviewNo = reviews.get(i).getReviewNo();
+
+				pstmt.setString(1, reviewNo);
+				
+				rset = pstmt.executeQuery();
+				
+				String[] filePaths = new String[2];
+				int j = 0;
+				while(rset.next()) {
+					filePaths[j] = rset.getString("FILE_PATH");
+					j++;
+				}
+				
+				reviews.get(i).setFilePaths(filePaths);
+				
+				reviewsWithFiles.add(reviews.get(i));
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
