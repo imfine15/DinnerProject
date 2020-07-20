@@ -10,7 +10,7 @@ public class NoticeAttachment implements java.io.Serializable{
 	private String filePath;
 	private Date uploadDate;
 	private String noticeNo;
-	
+
 	public NoticeAttachment() {}
 
 	public NoticeAttachment(String fileNo, String originName, String changeName, String filePath, Date uploadDate,

@@ -13,9 +13,6 @@
 <link rel="shortcut icon" href="/semiproject/images/favicon.ico" type="image/x-icon">
 <link rel="icon" href="/semiproject/images/favicon.ico" type="image/x-icon">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
-
-    
 <style>
 .wrapper {
 	height: auto;
@@ -156,6 +153,7 @@ tr {
 	padding-top: 20px;
 	padding-bottom: 20px;
 	padding-left: 20px;
+	letter-spacing :0.5px;
 }
 
 #fileDelete {
@@ -194,6 +192,7 @@ tr {
 	overflow: hidden;
 	margin: 0px;
 	padding: 0px;
+		cursor:pointer;
 }
 
 .file_input_button {
@@ -207,6 +206,7 @@ tr {
 	width: 100px;
 	font-size: 15px;
 	height: 30px;
+	cursor:pointer;
 }
 
 .file_input_hidden {
@@ -264,10 +264,10 @@ tr {
 					<tr>
 						<td class="first" rowspan="2">첨부파일</td>
 						<td style="border-top:none; border-bottom:none; border-collapse:none;" colspan="3">
-								<input id="fileName" class="file_input_textbox" readonly />
+								<input id="fileName" class="file_input_textbox" placeholder="10MB 이하의 파일만 업로드 가능합니다." readonly/>
 							<div class="file_input_div">
-							<input type="button" value="파일찾기" class="file_input_button" />
-								<input type="file" class="file_input_hidden" name="upFile" id="upFile" onchange="dd(this,'name')"> 
+							<input type="button" value="파일찾기" class="file_input_button" style="cursor:pointer;"/>
+								<input type="file" class="file_input_hidden" style="cursor:pointer;" name="upFile" id="upFile" onchange="dd(this,'name')"> 
 							</div>
 
 						</td>
@@ -277,7 +277,7 @@ tr {
 							<div id="uploadFiles">
 								
 							</div>
-							<input type="button" value="파일삭제" id="fileDelete"> 
+							<input type="button" value="파일삭제" id="fileDelete" onclick="deleteFile(this.form)" style="cursor:pointer;"> 
 						</td>
 					</tr>
 					<tr>
@@ -360,25 +360,6 @@ tr {
 	function questionReset() {
 		$("#question-reset").reset();
 	}
-	
-	function loadFiles(value, num) {
-		if(value.files && value.files[0]) {
-			var reader = new FileReader();
-			
-			reader.onload = function(e) {
-							
-				switch(num) {
-				case 1 : $("#titleImg").attr("src", e.target.result); break;
-				case 2 : $("#contentImg1").attr("src", e.target.result); break;
-				case 3 : $("#contentImg2").attr("src", e.target.result); break;
-				case 4 : $("#contentImg3").attr("src", e.target.result); break;
-				}
-			}
-			
-			reader.readAsDataURL(value.files[0]);
-		}
-	}
-
 	</script>
 	<script>
  function getCmaFileInfo(obj,stype) {
@@ -461,6 +442,19 @@ if($("#phoneAdmit").is(":checked")==true) {
 } else {
 	$("#phoneAdmit").attr('value','N');
 }
+
+$(document).ready(function() {
+    $('#fileDelete input[type=file]').bind('change focus click', SITE.fileInputs);
+    
+    /* here is my problem *************************
+    how can i remove file completely when i click on "Remove" so that the same file name 
+    doesn't come up again when i click on the "choose file" button to upload another file?
+    */ 
+    $('.file_input_button').live('click', function() {
+        $(this).closest('div').remove();
+        return false;
+    });
+});
 </script>
 	<%@ include file="/views/common/footer.jsp"%>
 </body>

@@ -39,7 +39,7 @@ body {
 			</a>
 			<%}  else {%>
 			<a style="float: right">
-				<img src="/semiproject/images/myicon.png" style="width: 100px;">
+				<img src="/semiproject/images/myicon.png" onclick="goMypage();" style="width: 100px; cursor:pointer;">
 			</a>
 			<%} %>
 			<a href="" style="float: right">
@@ -55,7 +55,9 @@ body {
 			console.log(123123);
 			location.href = "/semiproject/views/signIn/signIn.jsp";
 		});
-		
+		function goMypage() {
+		location.href="<%=request.getContextPath()%>/views/myPage/myPage.jsp";
+		}
 	</script>
 </body>
 </html>

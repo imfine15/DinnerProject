@@ -22,16 +22,6 @@ td {
 	margin: 5px;
 }
 
-.fileBtn {
-	color: #000000;
-	border: 1px solid black;
-	outline: 0;
-	width: 100px;
-	height: 25px;
-	font-size: 14px;
-	float: right;
-}
-
 .noticeBtn {
 	background: #E07370;
 	color: #FFFFFF;
