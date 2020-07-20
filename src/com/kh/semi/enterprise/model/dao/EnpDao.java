@@ -20,6 +20,7 @@ import java.util.Properties;
 import com.kh.semi.enterprise.model.vo.EnpAttachment;
 import com.kh.semi.enterprise.model.vo.EnpUpVo;
 import com.kh.semi.enterprise.model.vo.EnpVO;
+import com.kh.semi.enterprise.model.vo.ForCmVO;
 import com.kh.semi.enterprise.model.vo.ForEntCrVO;
 import com.kh.semi.enterprise.model.vo.PageInfo;
 import com.kh.semi.payment.model.vo.ReservationVO;
@@ -521,6 +522,70 @@ Properties prop = new Properties();
 		}
 		
 		return selectedEnp;
+	}
+
+	public ArrayList<ForCmVO> selectCmMemberVal(Connection con, String enp) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		ArrayList<ForCmVO> list = null;
+		ForCmVO vo = null;
+		
+		String query = prop.getProperty("selectCmMemberVal");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, enp);
+			
+			rset = pstmt.executeQuery();
+			list = new ArrayList<ForCmVO>();
+			
+			while(rset.next()) {
+				/*ENP_NO
+			     , REVIEW_NO
+			     , R.REVIEW_CONTENT
+			     , R.REVIEW_TYPE
+			     , R.VISIT_DATE
+			     , R.REVIEW_DATE
+			     , R.AVERAGE_RATING
+			     , RR.REPLY_CONTENT
+			     , MEMBER_NO
+			     , M.MEMBER_NAME
+			     , E.ENP_NAME 
+			     , M.MEMBER_NICKNAME
+			     , MF.FILE_NO     
+			     , MF.ORIGIN_NAME
+			     , MF.CHANGE_NAME
+			     , MF.FILE_PATH */
+				vo = new ForCmVO();
+				vo.setEnpNo(rset.getString("ENP_NO"));
+				vo.setReviewNo(rset.getString("REVIEW_NO"));
+				vo.setReviewContent(rset.getString("REVIEW_CONTENT"));
+				vo.setReviewType(rset.getString("REVIEW_TYPE"));
+				vo.setVisitDate(rset.getDate("VISIT_DATE"));
+				vo.setReviewDate(rset.getDate("REVIEW_DATE"));
+				vo.setAverageRating(rset.getDouble("AVERAGE_RATING"));
+				vo.setReplyContent(rset.getString("REPLY_CONTENT"));
+				vo.setMemberNo(rset.getString("MEMBER_NO"));
+				vo.setMemberName(rset.getString("MEMBER_NAME"));
+				vo.setEnpName(rset.getString("ENP_NAME"));
+				vo.setMemberNickname(rset.getString("MEMBER_NICKNAME"));
+				vo.setFileNo(rset.getString("FILE_NO"));
+				vo.setOriginName(rset.getString("ORIGIN_NAME"));
+				vo.setChangeName(rset.getString("CHANGE_NAME"));
+				vo.setFilePath(rset.getString("FILE_PATH"));
+				
+				list.add(vo);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		return list;
 	}
 	
 }

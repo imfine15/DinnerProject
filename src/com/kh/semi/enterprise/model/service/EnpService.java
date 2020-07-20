@@ -7,6 +7,7 @@ import com.kh.semi.enterprise.model.dao.EnpDao;
 import com.kh.semi.enterprise.model.vo.EnpAttachment;
 import com.kh.semi.enterprise.model.vo.EnpUpVo;
 import com.kh.semi.enterprise.model.vo.EnpVO;
+import com.kh.semi.enterprise.model.vo.ForCmVO;
 import com.kh.semi.enterprise.model.vo.ForEntCrVO;
 import com.kh.semi.enterprise.model.vo.PageInfo;
 import com.kh.semi.payment.model.vo.ReservationVO;
@@ -142,6 +143,21 @@ public class EnpService {
 		close(con);
 		
 		return selectedEnp;
+	}
+
+	public ArrayList<ForCmVO> selectCmList(String enp) {
+		Connection con = getConnection();
+		
+		ArrayList<ForCmVO> list = null;
+		
+		list = new EnpDao().selectCmMemberVal(con, enp);
+		
+		close(con);
+		
+		
+		
+		
+		return list;
 	}
 	
 }
