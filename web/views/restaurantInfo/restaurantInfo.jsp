@@ -114,8 +114,20 @@ ArrayList<ReviewVO> normalReviews = (ArrayList<ReviewVO>)session.getAttribute("n
 			});
 		</script>
 		<div id="infoRight">
-			<img alt="매장 대표사진" src="/semiproject/images/dishPic.png" id="dishPic">
+			<img alt="매장 대표사진" src="" id="dishPic">
 		</div>
+		<script>
+			$(function() {
+				$.ajax({
+					url: "/semiproject/getEnpFile.en",
+					type: "post",
+					data: {enpNo: "<%= selectedEnp.getEnpNo() %>"},
+					success: function(data) {
+						$("#dishPic").attr("src", data);
+					}
+				});
+			});
+		</script>
 	</div>
 	<div id="reservationDiv">
 		<button>예약하기</button>
@@ -307,10 +319,9 @@ ArrayList<ReviewVO> normalReviews = (ArrayList<ReviewVO>)session.getAttribute("n
 	<div id="recommendDiv">
 		<div id="recommendDiv1">
 			<img alt="추천 맛집 첫번째" src="/semiproject/images/연어.jpg">
-			<p>내 뱃살보다 두툼한 연어</p>			
-			<span></span>
+			<p>내 뱃살보다 두툼한 연어</p>
 		</div>
-		<div id="recommendDiv2">
+		<div id="recommendDiv2">.
 			<img alt="추천 맛집 두번째" src="/semiproject/images/장어구이.jpg">
 			<p>하나먹다 셋이죽는 장어 맛집</p>
 		</div>
@@ -319,6 +330,9 @@ ArrayList<ReviewVO> normalReviews = (ArrayList<ReviewVO>)session.getAttribute("n
 			<p>죠스떡볶이는 전설이다...</p>
 		</div>
 	</div>
+	<script>
+		
+	</script>
 	<%@ include file="/views/common/footer.jsp" %>
 </body>
 </html>

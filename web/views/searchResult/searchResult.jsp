@@ -78,7 +78,7 @@
 							}
 					%>
 						<div id="foodArea<%= i + 1 %>" class="foodArea">
-							<img src="/semiproject/images/죠떡.jpg" class="foodImg"><br>
+							<img id="foodImg<%= i %>" src="" class="foodImg"><br>
 							<% if(enpList.get(i).getEnpStatus().equals("N")) { %>
 							<label class="maintext"><%= enpList.get(i).getEnpName() %></label>
 							<% } else {%>
@@ -97,6 +97,17 @@
 								
 								location.href="<%= request.getContextPath() %>/selectEnp.en?enpNo=" + enpNo + "&rating=" + <%= rating %>;
 								<% session.setAttribute("enpMenus", entries); %>
+							});
+							
+							$(function() {
+								$.ajax({
+									url: "/semiproject/getEnpFile.en",
+									type: "post",
+									data: {enpNo: "<%= enpList.get(i).getEnpNo() %>"},
+									success: function(data) {
+										$("#foodImg<%= i %>").attr("src", data);
+									}
+								});
 							});
 						</script>
 					<% }

@@ -1,6 +1,7 @@
-package com.kh.semi.enterprise.controller;
+package com.kh.semi.board.controller;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -8,26 +9,19 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.google.gson.Gson;
-import com.kh.semi.enterprise.model.service.EnpService;
+import com.kh.semi.board.model.service.BoardService;
+import com.kh.semi.board.model.vo.BoardVO;
 
-@WebServlet("/getEnpFile.en")
-public class GetEnpFileServlet extends HttpServlet {
+@WebServlet("/selectTopThree.bo")
+public class SelectTopThreeBoardServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    public GetEnpFileServlet() {
+    public SelectTopThreeBoardServlet() {
         super();
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String enpNo = request.getParameter("enpNo");
-		
-		String filePath = new EnpService().getEnpFile(enpNo);
-		
-		response.setContentType("application/json");
-		response.setCharacterEncoding("UTF-8");
-		
-		new Gson().toJson(filePath, response.getWriter());
+		List<BoardVO> selectThree = new BoardService().selectTopThree();
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

@@ -172,5 +172,14 @@ public class EnpService {
 		
 		return result;
 	}
+
+	public String getEnpFile(String enpNo) {
+		Connection con = getConnection();
+		String filePath = new EnpDao().getEnpFile(con, enpNo);
+		
+		close(con);
+		
+		return filePath;
+	}
 	
 }

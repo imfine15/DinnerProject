@@ -653,6 +653,26 @@ public class BoardDao {
 		return list;
 	}
 
+	public List<BoardVO> selectTopThree(Connection con) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String query = prop.getProperty("selectTopThree");
+		List<BoardVO> selectThree = null;
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			
+			pstmt.setString(1, "맛집");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return selectThree;
+	}
+
 	
 
 }
