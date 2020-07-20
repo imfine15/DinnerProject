@@ -630,5 +630,31 @@ Properties prop = new Properties();
 		
 		return result;
 	}
+
+	public String getEnpFile(Connection con, String enpNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String query = prop.getProperty("getEnpFile");
+		String filePath = "";
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			
+			pstmt.setString(1, enpNo);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				filePath = rset.getString("FILE_PATH");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return filePath;
+	}
 	
 }

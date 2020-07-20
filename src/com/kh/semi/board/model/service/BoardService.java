@@ -240,4 +240,13 @@ public class BoardService {
 			
 			return list;
 		}
+
+		public List<BoardVO> selectTopThree() {
+			Connection con = getConnection();
+			List<BoardVO> selectThree = new BoardDao().selectTopThree(con);
+			
+			close(con);
+			
+			return selectThree;
+		}
 }
