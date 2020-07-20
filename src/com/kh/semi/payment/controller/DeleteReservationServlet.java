@@ -20,11 +20,22 @@ public class DeleteReservationServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String rNo = request.getParameter("rNo");
 		String mNo = request.getParameter("mNo");
-		System.out.println(rNo);
-		System.out.println(mNo);
+		String pNo = request.getParameter("pNo2");
 		
 		int result = new ReservationService().deleteReserInfo(rNo, mNo);
-				
+		int result2 = new ReservationService().deletePayInfo(rNo, mNo, pNo);
+		
+		String page = "";
+		
+		if(result > 0 && result2 > 0) {
+			page = "/semiproject/views/payment/paymentCancel.jsp";
+			System.out.println("통과입니다.");
+		} else {
+			System.out.println("불통과입니다.");
+		}
+		
+		response.sendRedirect(page);
+		System.out.println("완료입니다.");
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

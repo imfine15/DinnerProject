@@ -260,11 +260,10 @@ public class ReservationDao {
 		try {
 			pstmt = con.prepareStatement(query);
 			pstmt.setInt(1, payHistoryVO.getPayPrice());
-			pstmt.setTimestamp(2, payHistoryVO.getpDate());
-			pstmt.setString(3, payHistoryVO.getmNo());
-			pstmt.setInt(4, payHistoryVO.getpAmount());
-			pstmt.setString(5, payHistoryVO.getrNo());
-			pstmt.setString(6, payHistoryVO.getpNo());
+			pstmt.setString(2, payHistoryVO.getmNo());
+			pstmt.setInt(3, payHistoryVO.getpAmount());
+			pstmt.setString(4, payHistoryVO.getrNo());
+			pstmt.setString(5, payHistoryVO.getpNo());
 			
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
@@ -304,6 +303,26 @@ public class ReservationDao {
 		}
 		
 		return paymentHistoryVO;
+	}
+
+	public int deletePayInfo(Connection con, String rNo, String mNo, String pNo) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String query = prop.getProperty("deletePayInfo");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, mNo);
+			pstmt.setString(2, rNo);
+			pstmt.setString(3, pNo);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
 	}
 }
 

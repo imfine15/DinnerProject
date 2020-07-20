@@ -50,6 +50,7 @@ $.ajax({
 	},
 	success: function(data){
 		$("#pNo").val(data.pNo);
+		$("#pNo2").val(data.pNo);
 	},
 	error: function(){
 		console.log("error");
@@ -145,6 +146,7 @@ $.ajax({
 <form name="deletereser" method="post" action="<%=request.getContextPath()%>/deleteReser.me">
 	<input type="hidden" name="rNo" value="<%=rNo%>">
 	<input type="hidden" name="mNo" value="<%=mNo%>">
+	<input id="pNo2" type="hidden" name="pNo2" value="">
 </form>
 <%@ include file="/views/common/footer.jsp" %>
 <script>
@@ -158,22 +160,21 @@ $.ajax({
 		} else {
 			if(confirm("정말 취소하시겠습니까?")==true){
 				      jQuery.ajax({
-				          url: "http://www.myservice.com/payments/cancel",
+				          url: "/semiproject/cancel.na",
 				          type: "POST",
-				          contentType: "application/json",
-				          data: JSON.stringify({
+				          data: {
 				        	merchant_uid: $("#pNo").val(), // 주문번호
 				            cancel_request_amount: 1000, // 환불금액
 				            reason: "테스트 결제 환불" // 환불사유
-				        }),
-				        dataType: "json"
+				        }
 				      });
+				document.deletereser.submit();
+				console.log(123);
 			}else {
 				return false;
 			}
 		}
 	}
-	var no = "<%=eNo%>";
 
 </script>
 </body>

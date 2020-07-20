@@ -82,6 +82,7 @@ public class ReservationService {
 		} else {
 			rollback(con);
 		}
+		close(con);
 		return result;
 	}
 
@@ -98,6 +99,7 @@ public class ReservationService {
 		} else {
 			rollback(con);
 		}
+		close(con);
 		return result;
 	}
 
@@ -110,7 +112,21 @@ public class ReservationService {
 		} else {
 			rollback(con);
 		}
+		close(con);
 		return paymentHistoryVO;
+	}
+
+	public int deletePayInfo(String rNo, String mNo, String pNo) {
+		Connection con = getConnection();
+		int result = new ReservationDao().deletePayInfo(con, rNo, mNo, pNo);
+		
+		if(result > 0) {
+			commit(con);
+		} else {
+			rollback(con);
+		}
+		close(con);
+		return result;
 	}
 
 
