@@ -17,7 +17,7 @@ import com.kh.semi.enterprise.model.vo.ForCmVO;
 /**
  * Servlet implementation class SelectCommentManageListServlet
  */
-@WebServlet("/selectCML")
+@WebServlet("/selectCML.en")
 public class SelectCommentManageListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 

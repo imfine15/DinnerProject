@@ -604,5 +604,31 @@ Properties prop = new Properties();
 		
 		return list;
 	}
+
+	public int insertComment(Connection con, String reviewNum,String comment, String enpNo) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("insertComment");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			
+			pstmt.setString(1, reviewNum);
+			pstmt.setString(2, comment);
+			pstmt.setString(3, enpNo);
+			
+			result = pstmt.executeUpdate();
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
 	
 }
