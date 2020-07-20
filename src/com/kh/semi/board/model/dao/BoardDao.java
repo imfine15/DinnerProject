@@ -11,6 +11,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Properties;
 
@@ -547,8 +548,109 @@ public class BoardDao {
 		
 		String query = prop.getProperty("selectOneBoard");
 		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, boardNo);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				bu = new BoardUpVo();
+				
+				bu.setBoardTitle(rset.getString("BOARD_TITLE"));
+				bu.setMemberNo(rset.getString("MEMBER_NO"));
+				bu.setManagerNo(rset.getString("MANAGER_NO"));
+				bu.setBoardKeyword(rset.getString("BOARD_KEYWORD"));
+				bu.setBoardContent(rset.getString("BOARD_CONTENT"));
+				bu.setBoardCategory(rset.getString("BOARD_CATEGORY"));
+				bu.setEnpNo(rset.getString("ENP_NO"));
+				bu.setViewCount(rset.getInt("VIEW_COUNT"));
+				bu.setHashTags(rset.getString("HASH_TAGS"));
+				bu.setMemberId(rset.getString("MEMBER_ID"));
+				bu.setUploadDate(rset.getDate("UPLOAD_DATE"));
+				
+				
+				
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
+		}
 		
 		return bu;
+	}
+
+	public int updateCount(Connection con, String boardNo) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String query = prop.getProperty("updateCount");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, boardNo);
+			pstmt.setString(2, boardNo);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		
+		return result;
+	}
+
+	public ArrayList<HashMap<String, Object>> selectThumbnailList(Connection con, String boardNo) {
+		PreparedStatement pstmt = null;
+		ArrayList<HashMap<String, Object>> list = null;
+		HashMap<String, Object> hmap = null;
+		ResultSet rset = null;
+		
+		String query = prop.getProperty("selectThumbnailList");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, boardNo);
+			
+			rset = pstmt.executeQuery();
+			
+			list = new ArrayList<>();
+			
+			while(rset.next()) {
+				hmap = new HashMap<>();
+				
+				hmap.put("fileNo", rset.getString("FILE_NO"));
+				hmap.put("originName", rset.getString("ORIGIN_NAME"));
+				hmap.put("changeName", rset.getString("CHANGE_NAME"));
+				hmap.put("filePath", rset.getString("FILE_PATH"));
+				hmap.put("uploadDate", rset.getDate("UPLOAD_DATE"));
+				hmap.put("boardNo", rset.getString("BOARD_NO"));
+				
+				
+				list.add(hmap);
+				
+
+			}
+			
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		
+		
+		return list;
 	}
 
 	

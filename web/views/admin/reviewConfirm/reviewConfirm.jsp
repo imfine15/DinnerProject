@@ -168,7 +168,7 @@ tr {
 							<td><%=b.getMemberId() %></td>
 							<td><%=b.getUploadDate() %></td>
 							<td>
-								<button id="upload-btn" onclick="location.href='<%=request.getContextPath()%>/selectOneBoard.up?no=<%= b.getBoardNo()%>'">업로드</button>
+								<button type="button" id="upload-btn" onclick="location.href='<%=request.getContextPath()%>/selectOneBoard.up?no=<%= b.getBoardNo()%>'">업로드</button>
 								<button id="delete-btn">삭제</button>
 							</td>
 						</tr>
