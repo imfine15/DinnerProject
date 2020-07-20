@@ -574,6 +574,23 @@ Properties prop = new Properties();
 				vo.setOriginName(rset.getString("ORIGIN_NAME"));
 				vo.setChangeName(rset.getString("CHANGE_NAME"));
 				vo.setFilePath(rset.getString("FILE_PATH"));
+				System.out.println(rset.getString(17));
+				System.out.println(rset.getString(18));
+				String originNames = rset.getString(17);
+				String changeNames = rset.getString(18);
+				
+				String[] originList = originNames.split(", ");
+				String[] changeList = changeNames.split(", ");
+				
+				vo.setRfOriginName1(originList[0]);
+				vo.setRfOriginName2(originList[1]);
+				vo.setRfChangeName1(changeList[0]);
+				vo.setRfChangeName2(changeList[1]);
+				
+				System.out.println("ON1 : " + vo.getRfOriginName1());
+				System.out.println("ON2 : " + vo.getRfOriginName2());
+				System.out.println("CN1 : " + vo.getRfChangeName1());
+				System.out.println("CN2 : " + vo.getRfChangeName2());
 				
 				list.add(vo);
 			}

@@ -26,6 +26,7 @@
 <html lang="ko">
 <head>
 <title>사장님 페이지</title>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -63,10 +64,10 @@
 					<a href="<%=request.getContextPath()%>/selectConfirmRequestList.en?enpId=<%=loginEnp.getEnpNo()%>">예약 요청 확인</a>
 				</li>
 				<li>
-					<a href="<%=request.getContextPath()%>//selectReservationDateList.en?enpId=<%=loginEnp.getEnpNo()%>">전체 예약 일정</a>
+					<a href="<%=request.getContextPath()%>/selectReservationDateList.en?enpId=<%=loginEnp.getEnpNo()%>">전체 예약 일정</a>
 				</li>
 				<li>
-					<a href="/semiproject/views/enterprise/commentManage/commentManage.jsp?asd=3">댓글 관리</a>
+					<a href="<%=request.getContextPath()%>/selectCML?enpId=<%=loginEnp.getEnpNo()%>">댓글 관리</a>
 				</li>
 				<li>
 					<a href="/semiproject/views/enterprise/paymentHistory/paymentHistory.jsp?asd=4">정산 내역</a>

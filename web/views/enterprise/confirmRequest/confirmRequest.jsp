@@ -20,6 +20,8 @@ ArrayList<Integer> cancelCount = (ArrayList<Integer>)request.getAttribute("cance
 <html lang="ko">
 <head>
 <title>YUMEET 사장님페이지</title>
+<link rel="shortcut icon" href="/semiproject/images/favicon.ico" type="image/x-icon">
+<link rel="icon" href="/semiproject/images/favicon.ico" type="image/x-icon">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>

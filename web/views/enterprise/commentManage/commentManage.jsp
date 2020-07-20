@@ -1,9 +1,14 @@
+<%@page import="com.kh.semi.enterprise.model.vo.ForCmVO"%>
+<%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%ArrayList<ForCmVO> cmList = (ArrayList<ForCmVO>) request.getAttribute("cmList");%>
 <!doctype html>
 <html lang="ko">
 <head>
 <title>YUMEET 사장님페이지</title>
+<link rel="shortcut icon" href="/semiproject/images/favicon.ico" type="image/x-icon">
+<link rel="icon" href="/semiproject/images/favicon.ico" type="image/x-icon">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -165,35 +170,38 @@
       </div>
       </div>
       </form>
+      <%for(ForCmVO c : cmList) {%>
+      
       <br><br>
          <form action="" style="margin-left: 10%;">
          <div style="border:1px solid black; margin-left: 20%; width:900px; height:400px;">
         <div class="visitorInfo"  style="border-right:1px solid black; height:398px;">
          <table>
             <tr style="padding-bottom: 10%;">
-               <td style="border:0"><img alt="사용자 프로필 사진" src="/semiproject/images/userPic1.png"></td>
+               <td style="border:0"><img alt="사용자 프로필 사진" src="<%=request.getContextPath()%>/images/<%=c.getChangeName()%>"
+                style="width:97px; height:97px; border-radius: 50%;"></td>
             </tr>
             <tr>
-               <td style="border:0"><br>파덕이사생팬</td>
+               <td style="border:0"><br><%=c.getMemberNickname() %></td>
             </tr>
             <tr>
-               <td style="border:0">방문일 : 2020-06-17</td>
+               <td style="border:0">방문일 : <%=c.getVisitDate() %></td>
             </tr>
             <tr>
-               <td style="border:0">예약번호 : 20200710</td>
+               <td style="border:0">예약번호 : <%=c.getReviewNo() %></td>
             </tr>
          </table>
       </div>
       <div class="visitorReviewContent">
          <div class="visitorReviewArticle">
-            <span class="reviewDate">2020-06-18</span>
+            <span class="reviewDate"><%=c.getReviewDate() %></span>
             <img alt="리뷰 별점" src="/semiproject/images/Star.png" class="reviewRateStar">
-            <span class="reviewRate">4.5</span>
-            <p>서비스가 맛있고 돈까스가 친절해요. 다섯이 가서 넷이 죽어도 모를 맛입니다. 최고입니다.</p>
+            <span class="reviewRate"><%=c.getAverageRating() %></span>
+            <p><%=c.getReviewContent() %></p>
          </div>
          <div class="visitorReviewPic">
-            <img alt="음식 사진" src="/semiproject/images/규카츠.jpg">
-            <img alt="음식 사진" src="/semiproject/images/dishPic.png">
+            <img alt="음식 사진" src="<%=request.getContextPath()%>/thumbnail_uploadFile/<%=c.getRfChangeName1()%>">
+            <img alt="음식 사진" src="<%=request.getContextPath()%>/thumbnail_uploadFile/<%=c.getRfChangeName2()%>">
             <br>
             <br>
             <textarea rows="4" cols="80" style="resize:none;"></textarea>
@@ -202,6 +210,7 @@
       </div>
       </div>
       </form>
+      <%} %>
       <br><br><form action="" style="margin-left: 10%;">
          <div style="border:1px solid black; margin-left: 20%; width:900px; height:400px;">
         <div class="visitorInfo"  style="border-right:1px solid black; height:398px;">

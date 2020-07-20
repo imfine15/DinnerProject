@@ -7,6 +7,8 @@
 <meta charset="UTF-8">
 <link rel="stylesheet" type="text/css" href="/semiproject/views/signIn/css/signInStyle.css"/>
 <title>YUMEET 사장님페이지 로그인</title>
+<link rel="shortcut icon" href="/semiproject/images/favicon.ico" type="image/x-icon">
+<link rel="icon" href="/semiproject/images/favicon.ico" type="image/x-icon">
 </head>
 <body>
 	<img alt="여밋 로고" src="/semiproject/images/YUMEET LOGO WITH REST.png" id="logo">
