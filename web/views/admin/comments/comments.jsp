@@ -1,17 +1,5 @@
-<%@page import="com.kh.semi.admin.model.vo.PageInfo"%>
-<%@page import="com.kh.semi.board.model.vo.BoardUpVo"%>
-<%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%
-	ArrayList<BoardUpVo> list = (ArrayList<BoardUpVo>)request.getAttribute("list");
-	PageInfo pi = (PageInfo)request.getAttribute("pi");
-	int listCount = pi.getListCount();
-	int currentPage = pi.getCurrentPage();
-	int maxPage = pi.getMaxPage();
-	int startPage = pi.getStartPage();
-	int endPage = pi.getEndPage();
-%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -22,7 +10,6 @@
 <link
 	href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300&display=swap"
 	rel="stylesheet">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <style>
 .hide {
 	background-color: white;
@@ -131,22 +118,13 @@ tr {
 	color:black;
 	border:none;
 }
-.hide{
-		border: 0;
-		outline: 0;
-		background: white;
-		vertical-align: middle;
-	}
-		.pagingArea{
-		margin-top: 50px;
-	}
 </style>
 </head>
 <body style="background: lightgray;">
 	<%@ include file="/views/admin/common/sidebar.jsp"%>
 	<div id="wrapper">
 		<div id="title-box">
-			<p>게시글 관리</p>
+			<p>리뷰 댓글 관리</p>
 			<br>
 		</div>
 		<div id="inner-wrap">
@@ -159,20 +137,65 @@ tr {
 							<th>제목</th>
 							<th>회원 ID</th>
 							<th>등록 날짜</th>
+							<th>포인트 지급</th>
 							<th>관리</th>
 						</tr>
-						<% for(BoardUpVo b : list) {%>
 						<tr>
 							<td id="check-box"><input type="checkbox"></td>
-							<td><%=b.getBoardTitle() %></td>
-							<td><%=b.getMemberId() %></td>
-							<td><%=b.getUploadDate() %></td>
+							<td>울부짖어라, ‘닭갈비'</td>
+							<td>imfine_123</td>
+							<td>20/06/19 17:33</td>
 							<td>
-								<button id="upload-btn" onclick="location.href='<%=request.getContextPath()%>/selectOneBoard.up?no=<%= b.getBoardNo()%>'">업로드</button>
+								<button id="send-btn">지급</button>
+							</td>
+							<td>
+								<button id="upload-btn">업로드</button>
+								<button id="update-btn">수정</button>
 								<button id="delete-btn">삭제</button>
 							</td>
 						</tr>
-						<%} %>
+						<tr>
+							<td id="check-box"><input type="checkbox"></td>
+							<td>울부짖어라, ‘닭갈비'</td>
+							<td>imfine_123</td>
+							<td>20/06/19 17:33</td>
+							<td>
+								<button id="send-btn">지급</button>
+							</td>
+							<td>
+								<button id="upload-btn">업로드</button>
+								<button id="update-btn">수정</button>
+								<button id="delete-btn">삭제</button>
+							</td>
+						</tr>
+						<tr>
+							<td id="check-box"><input type="checkbox"></td>
+							<td>울부짖어라, ‘닭갈비'</td>
+							<td>imfine_123</td>
+							<td>20/06/19 17:33</td>
+							<td>
+								<button id="send-btn">지급</button>
+							</td>
+							<td>
+								<button id="upload-btn">업로드</button>
+								<button id="update-btn">수정</button>
+								<button id="delete-btn">삭제</button>
+							</td>
+						</tr>
+						<tr>
+							<td id="check-box"><input type="checkbox"></td>
+							<td>울부짖어라, ‘닭갈비'</td>
+							<td>imfine_123</td>
+							<td>20/06/19 17:33</td>
+							<td>
+								<button id="sendcom-btn">지급완료</button>
+							</td>
+							<td>
+								<button id="upload-btn">업로드</button>
+								<button id="update-btn">수정</button>
+								<button id="delete-btn">삭제</button>
+							</td>
+						</tr>
 					</table>
 				</form>
 				<div style="height: 30px;"></div>
@@ -191,40 +214,42 @@ tr {
 								</td>
 							</tr>
 						</table>
-						
 					</form>
 				</div>
-							<!-- 페이징처리 -->
-			<div class="pagingArea" align="center" style="background: white;">
-      	<button class="hide" onclick="location.href='<%=request.getContextPath()%>/selectList.up?currentPage=1'"><img style="width:15px; height:18px" src="/semiproject/views/admin/companyManagement/images/arrow.png"><img style="width:15px; height:18px" src="/semiproject/views/admin/companyManagement/images/arrow.png"></button>
-      	<% if(currentPage <= 1) {%>
-      	<button class="hide" disabled><img style="width:15px; height:18px" src="/semiproject/views/admin/companyManagement/images/arrow.png"></button>
-      	<%} else { %>
-      	<button class="hide" onclick="location.href='<%=request.getContextPath()%>/selectList.up?currentPage='"><img style="width:15px; height:18px" src="/semiproject/views/admin/companyManagement/images/arrow.png"></button>
-		<%} %>
-		
-		<% for(int p = startPage; p <= endPage; p++) { 
-			if(p == currentPage) {
-		%>
-		
-		<button class="hide" disabled><div style="height:18px; width:15px;"><%= p %></div></button>
-		
-		<% } else { %>
-			<button class="hide" onclick="location.href='<%=request.getContextPath()%>/selectList.up?currentPage=<%= p%>'"><div style="height:18px; width:15px;"><%= p %></div></button>
-		<% }
-		}%>
-		
-		<% if(currentPage >= maxPage) {%>
-		<button class="hide" disabled><img style="width:15px; height:18px" src="/semiproject/views/admin/companyManagement/images/arrow2.png"></button>
-		<%} else { %>
-      	<button class="hide" onclick="location.href='<%=request.getContextPath()%>/selectList.up?currentPage='"><img style="width:15px; height:18px" src="/semiproject/views/admin/companyManagement/images/arrow2.png"></button>
-		<%} %>		
-      	<button class="hide" onclick="location.href='<%=request.getContextPath()%>/selectList.up?currentPage='"><img style="width:15px; height:18px" src="/semiproject/views/admin/companyManagement/images/arrow2.png"><img style="width:15px; height:18px" src="/semiproject/views/admin/companyManagement/images/arrow2.png"></button>
-		
-      </div>
 			</div>
 		</div>
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		<div class="pagingArea" align="center">
+			<button class="hide"
+				onclick="location.href='<%=request.getContextPath()%>/selectList.no?currentPage=1'"><<</button>
+			<button class="hide"
+				onclick="location.href='<%=request.getContextPath()%>/selectList.no?currentPage='"><</button>
+
+			<button class="hide"
+				onclick="location.href='<%=request.getContextPath()%>/selectList.no?currentPage='">
+				<img style="width: 15px; height: 15px"
+					src="/semiproject/images/arrow.png">
+			</button>
+			<button class="hide"
+				onclick="location.href='<%=request.getContextPath()%>/selectList.no?currentPage='">>></button>
+		</div>
 	</div>
 
 </body>

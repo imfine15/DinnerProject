@@ -43,7 +43,7 @@ public class AdminService {
 		
 		enpUp = new AdminDao().selectOneEnp(con, enpNo);
 		
-	
+		close(con);
 	
 		return enpUp;
 	}
@@ -55,7 +55,7 @@ public class AdminService {
 
 		ea = new AdminDao().selectOneEnpFile(con, enpNo);
 		
-	
+		close(con);
 		return ea;
 	}
 
@@ -94,7 +94,7 @@ public class AdminService {
 			rollback(con);
 		}
 		
-		
+		close(con);
 		return result;
 		
 	}
@@ -125,7 +125,7 @@ public class AdminService {
 		} else {
 			rollback(con);
 		}
-		
+		close(con);
 		return result;
 	}
 

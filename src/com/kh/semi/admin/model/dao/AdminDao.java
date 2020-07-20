@@ -54,7 +54,8 @@ public class AdminDao {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
-			
+			close(stmt);
+			close(rset);
 		}
 		
 		

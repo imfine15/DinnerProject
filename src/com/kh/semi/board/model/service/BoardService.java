@@ -1,12 +1,12 @@
 package com.kh.semi.board.model.service;
 
 import static com.kh.semi.common.JDBCTemplate.*;
-import static com.kh.semi.common.JDBCTemplate.getConnection;
 
 import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.kh.semi.admin.model.vo.PageInfo;
 import com.kh.semi.board.model.dao.BoardDao;
 import com.kh.semi.board.model.vo.BoardUpVo;
 import com.kh.semi.board.model.vo.BoardVO;
@@ -165,10 +165,10 @@ public class BoardService {
 				}
 			}
 			
-			System.out.println("result : " + result);
-			System.out.println("result1 : " + result1);
-			System.out.println("result2 : " + result2);
-			System.out.println("result3 : " + result3);
+//			System.out.println("result : " + result);
+//			System.out.println("result1 : " + result1);
+//			System.out.println("result2 : " + result2);
+//			System.out.println("result3 : " + result3);
 			if(result1 > 0 && result2 == fileList.size() && result3>0) {
 				commit(con);
 				result = 1;
@@ -178,5 +178,42 @@ public class BoardService {
 			
 			
 			return result;
+		}
+
+		public int getListCount() {
+			Connection con = getConnection();
+			
+			int listCount = new BoardDao().getListCount(con);
+			
+			close(con);
+			
+			System.out.println("listCount : " + listCount);
+			
+			return listCount;
+		}
+
+		public ArrayList<BoardUpVo> selectList(PageInfo pi) {
+			Connection con = getConnection();
+			
+			ArrayList<BoardUpVo> list = new BoardDao().selectList(con, pi);
+			
+			close(con);
+			
+			System.out.println("listservice : " + list);
+			
+			
+			return list;
+		}
+
+		public BoardUpVo selectOneBoard(String boardNo) {
+			Connection con = getConnection();
+			
+			BoardUpVo board = null;
+			
+			board = new BoardDao().selectOneBoard(con, boardNo);
+			
+			close(con);
+			
+			return board;
 		}
 }
