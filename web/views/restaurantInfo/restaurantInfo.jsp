@@ -4,7 +4,8 @@
 <%
 EnpVO selectedEnp = (EnpVO)session.getAttribute("selectedEnp");
 double rating = (double)session.getAttribute("rating");
-ArrayList<ReviewVO> reviews = (ArrayList<ReviewVO>)session.getAttribute("reviews");
+ArrayList<ReviewVO> visitReviews = (ArrayList<ReviewVO>)session.getAttribute("visitReviews");
+ArrayList<ReviewVO> normalReviews = (ArrayList<ReviewVO>)session.getAttribute("normalReviews");
 %>
 <html>
 <head>
@@ -178,33 +179,46 @@ ArrayList<ReviewVO> reviews = (ArrayList<ReviewVO>)session.getAttribute("reviews
 	<hr class="hr">
 	<!-- visitorReview Div start -->
 	<div class="visitorReview">
-	<% for(int i = 0; i < reviews.size(); i++) { %>
+	<% if(visitReviews.size() != 0) {
+	for(int i = 0; i < visitReviews.size(); i++) { %>
 		<div class="visitorInfo">
 			<table>
 				<tr>
-					<td><img alt="사용자 프로필 사진" src="/semiproject/images/userPic1.png"></td>
+					<td><img id="profilePic<%= i %>" alt="사용자 프로필 사진" src=""></td>
 				</tr>
 				<tr>
-					<td>파덕이사생팬</td>
+					<td id="profileNickName<%= i %>"></td>
 				</tr>
 				<tr>
-					<td>방문일 : 2020-06-17</td>
+					<td>방문일 : <%= visitReviews.get(i).getVisitDate() %></td>
 				</tr>
 			</table>
 		</div>
 		<script>
-		
+			$(function() {
+				var mNo = "<%= visitReviews.get(i).getMemberNo() %>";
+				
+				$.ajax({
+					url: "/semiproject/selectMember.me",
+					type: "post",
+					data: {mNo: mNo},
+					success: function(data) {
+						$("#profilePic<%= i %>").attr("src", data.filePath).css({"width" : "110px", "height" : "110px"});
+						$("#profileNickName<%= i %>").html(data.mNickname);
+					}
+				});
+			});
 		</script>
 		<div class="visitorReviewContent">
 			<div class="visitorReviewArticle">
-				<span class="reviewDate">2020-06-18</span>
+				<span class="reviewDate"><%= visitReviews.get(i).getReviewDate() %></span>
 				<img alt="리뷰 별점" src="/semiproject/images/Star.png" class="reviewRateStar">
-				<span class="reviewRate">4.5</span>
-				<p>서비스가 맛있고 돈까스가 친절해요. 다섯이 가서 넷이 죽어도 모를 맛입니다. 최고입니다.</p>
+				<span class="reviewRate"><%= visitReviews.get(i).getAverageRating() %></span>
+				<p><%= visitReviews.get(i).getReviewContent() %></p>
 			</div>
 			<div class="visitorReviewPic">
-				<img alt="음식 사진" src="/semiproject/images/규카츠.jpg">
-				<img alt="음식 사진" src="/semiproject/images/dishPic.png">
+				<img alt="음식 사진" src="<%= visitReviews.get(i).getFilePaths()[0] %>">
+				<img alt="음식 사진" src="<%= visitReviews.get(i).getFilePaths()[1] %>">
 			</div>
 		</div>
 		<div class="likeAndReport">
@@ -215,6 +229,9 @@ ArrayList<ReviewVO> reviews = (ArrayList<ReviewVO>)session.getAttribute("reviews
 	</div>
 	<!-- visitorReview Div end -->
 	<hr class="hr">
+	<% 	} %>
+	<% } else { %>
+		<div style="margin:20px 0px; text-align:center;">아직 방문자 리뷰가 없습니다.</div>
 	<% } %>
 	<div id="showMore">
 		<button>더보기 ▼</button>
@@ -238,95 +255,46 @@ ArrayList<ReviewVO> reviews = (ArrayList<ReviewVO>)session.getAttribute("reviews
 		<div class="ReviewWrite">작성하기 <img alt="리뷰 작성 버튼" src="/semiproject/images/writeReview.png" class="writeReviewBtn"></div>
 	</div>
 	<hr class="hr">
-	<div class="visitorReview">
+	<% if(normalReviews.size() != 0) { 
+		for(int i = 0; i < normalReviews.size(); i++) { %>
+	<div class="visitorReview" style="height:150px;">
 		<div class="visitorInfo">
-			<p>IMFINE</p>
+			<p id="normalProfileNickName<%= i %>"></p>
 		</div>
+		<script>
+			$(function() {
+				var mNo = "<%= normalReviews.get(i).getMemberNo() %>";
+				
+				$.ajax({
+					url: "/semiproject/selectMember.me",
+					type: "post",
+					data: {mNo: mNo},
+					success: function(data) {
+						$("#normalProfileNickName<%= i %>").html(data.mNickname);
+					}
+				});
+			});
+		</script>
 		<div class="visitorReviewContent">
 			<div class="visitorReviewArticle">
-				<span class="reviewDate">2019-09-15</span>
-				<p>규카츠가 장관이네요..절경이고요..신이 주신 선물이네요.</p>
+				<span class="reviewDate"><%= normalReviews.get(i).getReviewDate() %></span>
+				<p><%= normalReviews.get(i).getReviewContent() %></p>
 			</div>
 		</div>
 		<div class="likeAndReport">
-			
 			<div class="reviewReport">
 				<button class="reviewReportBtn">신고하기</button>
 			</div>
 		</div>
 	</div>
-		<div class="visitorReview">
-		<div class="visitorInfo">
-			<p>IMFINE</p>
-		</div>
-		<div class="visitorReviewContent">
-			<div class="visitorReviewArticle">
-				<span class="reviewDate">2019-09-15</span>
-				<p>규카츠가 장관이네요..절경이고요..신이 주신 선물이네요.</p>
-			</div>
-		</div>
-		<div class="likeAndReport">
-			
-			<div class="reviewReport">
-				<button class="reviewReportBtn">신고하기</button>
-			</div>
-		</div>
-	</div>
-		<div class="visitorReview">
-		<div class="visitorInfo">
-			<p>IMFINE</p>
-		</div>
-		<div class="visitorReviewContent">
-			<div class="visitorReviewArticle">
-				<span class="reviewDate">2019-09-15</span>
-				<p>규카츠가 장관이네요..절경이고요..신이 주신 선물이네요.</p>
-			</div>
-		</div>
-		<div class="likeAndReport">
-			
-			<div class="reviewReport">
-				<button class="reviewReportBtn">신고하기</button>
-			</div>
-		</div>
-	</div>
-		<div class="visitorReview">
-		<div class="visitorInfo">
-			<p>IMFINE</p>
-		</div>
-		<div class="visitorReviewContent">
-			<div class="visitorReviewArticle">
-				<span class="reviewDate">2019-09-15</span>
-				<p>규카츠가 장관이네요..절경이고요..신이 주신 선물이네요.</p>
-			</div>
-		</div>
-		<div class="likeAndReport">
-			
-			<div class="reviewReport">
-				<button class="reviewReportBtn">신고하기</button>
-			</div>
-		</div>
-	</div>
-		<div class="visitorReview">
-		<div class="visitorInfo">
-			<p>IMFINE</p>
-		</div>
-		<div class="visitorReviewContent">
-			<div class="visitorReviewArticle">
-				<span class="reviewDate">2019-09-15</span>
-				<p>규카츠가 장관이네요..절경이고요..신이 주신 선물이네요.</p>
-			</div>
-		</div>
-		<div class="likeAndReport">
-			
-			<div class="reviewReport">
-				<button class="reviewReportBtn">신고하기</button>
-			</div>
-		</div>
-	</div>
+	<hr class="hr">
+	<% 	} %>
+	<% } else { %>
+		<div style="margin:20px 0px; text-align:center;">아직 일반 리뷰가 없습니다.</div>
+	<% } %>
 	<div id="showMore">
 		<button>더보기 ▼</button>
 	</div>
-	<hr class="hr">
 	<div id="restaurantCloseReport">
 		<button>폐업신고</button>
 	</div>

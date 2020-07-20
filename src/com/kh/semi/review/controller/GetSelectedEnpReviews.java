@@ -23,9 +23,11 @@ public class GetSelectedEnpReviews extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String enpNo = ((EnpVO)(request.getSession().getAttribute("selectedEnp"))).getEnpNo();
-		List<ReviewVO> reviews = new ReviewService().getSelectedEnpReviews(enpNo);
+		List<ReviewVO> visitReviews = new ReviewService().getSelectedEnpVisitReviews(enpNo);
+		List<ReviewVO> normalReviews = new ReviewService().getSelectedEnpNormalReviews(enpNo);
 		
-		request.getSession().setAttribute("reviews", reviews);
+		request.getSession().setAttribute("visitReviews", visitReviews);
+		request.getSession().setAttribute("normalReviews", normalReviews);
 		
 		response.sendRedirect("views/restaurantInfo/restaurantInfo.jsp");
 	}

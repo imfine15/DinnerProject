@@ -36,7 +36,7 @@
             <button style="height: 100%; background: white; float: right; margin-left: 5px; border: 0px white;">
             	<img src="/semiproject/images/Vector.png">
             </button>
-            <input onkeyup="if(event.keyCode === 13) { searchEnp(); }" id="search" name="search" type="search" style="height: 100%; width: 70%; border:0; background: white; margin-left: 10px; float:left;">
+            <input onkeyup="if(event.keyCode === 13) { searchEnp(); }" id="search" name="search" type="search" style="height: 100%; width: 70%; border:0; background: white; font-size: 22px; margin-left: 10px; float:left;">
             <script>
             	function searchEnp() {
             		var search = $("#search").val();

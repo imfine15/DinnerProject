@@ -28,13 +28,23 @@ public class ReviewService {
 		return count;
 	}
 
-	public List<ReviewVO> getSelectedEnpReviews(String enpNo) {
+	public List<ReviewVO> getSelectedEnpVisitReviews(String enpNo) {
 		Connection con = getConnection();
-		List<ReviewVO> reviews = new ReviewDao().getSelectedEnpReviews(con, enpNo);
-		List<ReviewVO> reviewsWithFiles = new ReviewDao().getReviewFilePaths(con, reviews);
+		List<ReviewVO> visitReviews = new ReviewDao().getSelectedEnpVisitReviews(con, enpNo);
+		List<ReviewVO> visitReviewsWithFiles = new ReviewDao().getReviewFilePaths(con, visitReviews);
 		
 		close(con);
 		
-		return reviewsWithFiles;
+		return visitReviewsWithFiles;
+	}
+
+	public List<ReviewVO> getSelectedEnpNormalReviews(String enpNo) {
+		Connection con = getConnection();
+		List<ReviewVO> normalReviews = new ReviewDao().getSelectedEnpNormalReviews(con, enpNo);
+		List<ReviewVO> normalReviewsWithFiles = new ReviewDao().getReviewFilePaths(con, normalReviews);
+		
+		close(con);
+		
+		return normalReviewsWithFiles;
 	}
 }
