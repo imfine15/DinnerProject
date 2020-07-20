@@ -178,6 +178,7 @@ ArrayList<ReviewVO> reviews = (ArrayList<ReviewVO>)session.getAttribute("reviews
 	<hr class="hr">
 	<!-- visitorReview Div start -->
 	<div class="visitorReview">
+	<% for(int i = 0; i < reviews.size(); i++) { %>
 		<div class="visitorInfo">
 			<table>
 				<tr>
@@ -191,6 +192,9 @@ ArrayList<ReviewVO> reviews = (ArrayList<ReviewVO>)session.getAttribute("reviews
 				</tr>
 			</table>
 		</div>
+		<script>
+		
+		</script>
 		<div class="visitorReviewContent">
 			<div class="visitorReviewArticle">
 				<span class="reviewDate">2020-06-18</span>
@@ -211,77 +215,7 @@ ArrayList<ReviewVO> reviews = (ArrayList<ReviewVO>)session.getAttribute("reviews
 	</div>
 	<!-- visitorReview Div end -->
 	<hr class="hr">
-	<!-- visitorReview Div start -->
-	<div class="visitorReview">
-		<div class="visitorInfo">
-			<table>
-				<tr>
-					<td><img alt="사용자 프로필 사진" src="/semiproject/images/userPic2.png"></td>
-				</tr>
-				<tr>
-					<td>효근짱123</td>
-				</tr>
-				<tr>
-					<td>방문일 : 2020-06-07</td>
-				</tr>
-			</table>
-		</div>
-		<div class="visitorReviewContent">
-			<div class="visitorReviewArticle">
-				<span class="reviewDate">2020-06-09</span>
-				<img alt="리뷰 별점" src="/semiproject/images/Star.png" class="reviewRateStar">
-				<span class="reviewRate">4.0</span>
-				<p>스물셋 제 생에 최고의 규카츠였습니다....오래오래 장사해주세요 뚜뚜사장님^^</p>
-			</div>
-			<div class="visitorReviewPic">
-				<img alt="음식 사진" src="/semiproject/images/규카츠.jpg">
-				<img alt="음식 사진" src="/semiproject/images/dishPic.png">
-			</div>
-		</div>
-		<div class="likeAndReport">
-			
-			<div class="reviewReport">
-				<button class="reviewReportBtn">신고하기</button>
-			</div>
-		</div>
-	</div>
-	<!-- visitorReview Div end -->
-		<hr class="hr">
-	<!-- visitorReview Div start -->
-	<div class="visitorReview">
-		<div class="visitorInfo">
-			<table>
-				<tr>
-					<td><img alt="사용자 프로필 사진" src="/semiproject/images/userPic2.png"></td>
-				</tr>
-				<tr>
-					<td>효근짱123</td>
-				</tr>
-				<tr>
-					<td>방문일 : 2020-06-07</td>
-				</tr>
-			</table>
-		</div>
-		<div class="visitorReviewContent">
-			<div class="visitorReviewArticle">
-				<span class="reviewDate">2020-06-09</span>
-				<img alt="리뷰 별점" src="/semiproject/images/Star.png" class="reviewRateStar">
-				<span class="reviewRate">4.0</span>
-				<p>스물셋 제 생에 최고의 규카츠였습니다....오래오래 장사해주세요 뚜뚜사장님^^</p>
-			</div>
-			<div class="visitorReviewPic">
-				<img alt="음식 사진" src="/semiproject/images/규카츠.jpg">
-				<img alt="음식 사진" src="/semiproject/images/dishPic.png">
-			</div>
-		</div>
-		<div class="likeAndReport">
-			
-			<div class="reviewReport">
-				<button class="reviewReportBtn">신고하기</button>
-			</div>
-		</div>
-	</div>
-	<!-- visitorReview Div end -->
+	<% } %>
 	<div id="showMore">
 		<button>더보기 ▼</button>
 	</div>
