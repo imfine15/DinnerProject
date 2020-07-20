@@ -157,6 +157,21 @@ public class EnpService {
 		return list;
 	}
 
-	
+	public int insertComment(String reviewNum,String comment, String enpNo) {
+		Connection con = getConnection();
+		
+		int result = new EnpDao().insertComment(con,reviewNum,comment,enpNo);
+		
+		if(result > 0) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		
+		close(con);
+		
+		return result;
+	}
+
 	
 }
