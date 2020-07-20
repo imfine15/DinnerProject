@@ -133,7 +133,7 @@ session.setAttribute("backPage", backPage);
 ※ 게시 후 1주일 이내에는 삭제 및 수정 불가."></textarea></td>
 					</tr>
 					<tr>
-					<td colspan="2" align="center"><input type="file" name="scheduleImg[]"></td>
+					<td colspan="2" align="center"><input type="file" name="scheduleImg0"></td>
 					</tr>
 				</tbody>
 				</table>
@@ -158,9 +158,10 @@ session.setAttribute("backPage", backPage);
 		</div>
 	</div>
 	<script>
+	var count = 1;
 		$("#btnadd").click(function() {
-			$("#addtr >tbody:last").append('<tr><td width="70px;">내용</td><td><textarea name="boardContent" cols="100px" rows="15px" class="area"></textarea></td></tr><tr><td colspan="2" align="center"><input type="file" name="scheduleImg[]"></td></tr>');
-			
+			$("#addtr >tbody:last").append('<tr><td width="70px;">내용</td><td><textarea name="boardContent" cols="100px" rows="15px" class="area"></textarea></td></tr><tr><td colspan="2" align="center"><input type="file" name="scheduleImg'+count+'"></td></tr>');
+			count += 1;
 		});
 		
 		$("#btndel").click(function() {

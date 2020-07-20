@@ -42,7 +42,7 @@ public class InsertScheduleUploadServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-if(ServletFileUpload.isMultipartContent(request)) {
+		if(ServletFileUpload.isMultipartContent(request)) {
 			
 			int maxSize = 1024 * 1024 * 10;
 			
@@ -58,14 +58,19 @@ if(ServletFileUpload.isMultipartContent(request)) {
 			
 			Enumeration<String> file = multiRequest.getFileNames();
 			
+			System.out.println("file : " + file);
+			
 			while(file.hasMoreElements()) {
 				String name  = file.nextElement();
+				
+				System.out.println("name : " + name);
 				
 				saveFiles.add(multiRequest.getFilesystemName(name));
 	            originFiles.add(multiRequest.getOriginalFileName(name));
 	            
 			}
-			
+			System.out.println(saveFiles);
+			System.out.println(originFiles);
 			
 			String boardTitle = multiRequest.getParameter("boardTitle");
 			String memberNo = multiRequest.getParameter("memberNo");
@@ -99,21 +104,23 @@ if(ServletFileUpload.isMultipartContent(request)) {
 				board.setHashTags(hashTags);
 				
 				
-			//System.out.println("board : " + board);
+			System.out.println("board : " + board);
 			
 			ArrayList<BoardUpVo> fileList = new ArrayList<>();
 	         for(int i = originFiles.size() -1; i>= 0; i--) {
 	            
-	            
+	            System.out.println("board title : " + board.getBoardTitle());
 	            board.setFilePath(savePath);
 	            board.setOriginName(originFiles.get(i));
 	            board.setChangeName(saveFiles.get(i));
 	            
 	            
-	            
+	            System.out.println("originFile"+i+" : " + originFiles.get(i));
+	            System.out.println("saveFiles"+i+" : " + saveFiles.get(i));
 	            fileList.add(board);
+	            board = new BoardUpVo();
 	         }
-	        // System.out.println("fileList : " + fileList);
+	         System.out.println("fileList : " + fileList);
 	        
 	         int result = new BoardService().insertBoard(board, fileList);
 	         
