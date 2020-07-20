@@ -83,18 +83,19 @@ public class ReviewDao {
 		return count;
 	}
 
-	public List<ReviewVO> getSelectedEnpReviews(Connection con, String enpNo) {
+	public List<ReviewVO> getSelectedEnpVisitReviews(Connection con, String enpNo) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		String query = prop.getProperty("getEnpReviews");
-		List<ReviewVO> reviews = null;
+		String query = prop.getProperty("getEnpTypeReviews");
+		List<ReviewVO> visitReviews = null;
 		
 		try {
 			pstmt = con.prepareStatement(query);
 			
-			reviews = new ArrayList<>();
+			visitReviews = new ArrayList<>();
 			
 			pstmt.setString(1, enpNo);
+			pstmt.setString(2, "방문");
 			
 			rset = pstmt.executeQuery();
 			
@@ -110,15 +111,52 @@ public class ReviewDao {
 				r.setAverageRating(rset.getDouble("AVERAGE_RATING"));
 				r.setReservationHistoryNo(rset.getString("RESERVATION_HISTORY_NO"));
 				
-				reviews.add(r);
+				visitReviews.add(r);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		
-		return reviews;
+		return visitReviews;
 	}
 
+	public List<ReviewVO> getSelectedEnpNormalReviews(Connection con, String enpNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String query = prop.getProperty("getEnpTypeReviews");
+		List<ReviewVO> normalReviews = null;
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			
+			normalReviews = new ArrayList<>();
+			
+			pstmt.setString(1, enpNo);
+			pstmt.setString(2, "일반");
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				ReviewVO r = new ReviewVO();
+				r.setReviewNo(rset.getString("REVIEW_NO"));
+				r.setReviewContent(rset.getString("REVIEW_CONTENT"));
+				r.setMemberNo(rset.getString("MEMBER_NO"));
+				r.setReviewDate(rset.getDate("REVIEW_DATE"));
+				r.setReviewType(rset.getString("REVIEW_TYPE"));
+				r.setEnpNo(rset.getString("ENP_NO"));
+				r.setVisitDate(rset.getDate("VISIT_DATE"));
+				r.setAverageRating(rset.getDouble("AVERAGE_RATING"));
+				r.setReservationHistoryNo(rset.getString("RESERVATION_HISTORY_NO"));
+				
+				normalReviews.add(r);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return normalReviews;
+	}
+	
 	public List<ReviewVO> getReviewFilePaths(Connection con, List<ReviewVO> reviews) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
