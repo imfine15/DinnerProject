@@ -40,28 +40,10 @@ public class InsertQuestionServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
     
-//
-//	int category = Integer.parseInt(request.getParameter("category"));
-//	String title = request.getParameter("title");
-//	String content = request.getParameter("content");	
+
 //	HttpSession session = request.getSession();	
 //	Member loginUser = (Member)session.getAttribute("loginUser");
 //	int uno = loginUser.getUno();
-//	
-//	
-//	/*
-//	 * System.out.println("category : " + category); System.out.println("title : " +
-//	 * title); System.out.println("content : " + content);
-//	 * System.out.println("uno : " + uno);
-//	 */
-//	
-//	Board board = new Board();
-//	board.setCid(category);
-//	board.setbTitle(title);
-//	board.setbContent(content);
-//	board.setbWriter(uno);
-//	
-//	int result = new BoardService().insertBoard(board);
 //	
     
     

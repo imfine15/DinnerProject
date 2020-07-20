@@ -212,7 +212,7 @@ html, body {
 		}
 		
 		function goEnterNotice() {
-			location.href="<%=request.getContextPath()%>/";
+			location.href="<%=request.getContextPath()%>/selectElist.no";
 		}
 		
 		function goAdminNotice() {

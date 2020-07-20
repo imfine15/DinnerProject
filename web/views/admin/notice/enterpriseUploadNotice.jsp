@@ -7,6 +7,7 @@
 <title>YUMEET 관리자페이지</title>
 <link rel="shortcut icon" href="/semiproject/images/favicon.ico" type="image/x-icon">
 <link rel="icon" href="/semiproject/images/favicon.ico" type="image/x-icon">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <style>
 
 table {
@@ -169,17 +170,17 @@ input {
 		</div>
 		<div align="center" style="padding-left:10px; padding-right:10px; background: white; width:100%; padding-top: 30px; height: 800px;">
 				<div style="height:20px;"></div>
-			<form class="notice-form" action="<%= request.getContextPath() %>/insertEnter.no" method="post" >
+			<form class="notice-form" action="<%= request.getContextPath() %>/insertEnter.no" method="post" encType="multipart/form-data">
 			<table>
 				<tr>
 					<td class="first">제목</td>
 					<td colspan="2">
-					<input type="text" style="width:890px; height:26px;" name="noticeTitle" id="nTitle">
+					<input type="text" style="width:890px; height:26px;" name="eTitle" id="nTitle">
 					</td>
 				</tr>
 				<tr>
 					<td class="first">내용</td>
-					<td colspan="2"><textarea rows="23" cols="100"name="noticeContent" id="nContent"></textarea></td>
+					<td colspan="2"><textarea rows="23" cols="100" name="eContent" id="nContent"></textarea></td>
 				</tr>
 			<tr>
 					<td rowspan="2">첨부파일</td>

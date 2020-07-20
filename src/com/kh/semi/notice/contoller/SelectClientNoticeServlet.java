@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.kh.semi.admin.model.vo.PageInfo;
-import com.kh.semi.notice.model.service.ClientNoticeService;
+import com.kh.semi.notice.model.service.NoticeService;
 import com.kh.semi.notice.model.vo.NoticeVO;
 
 /** 회원보기용/사이트뷰 공지사항 서블릿 읽는것. 
@@ -47,7 +47,7 @@ public class SelectClientNoticeServlet extends HttpServlet {
 		
 		limit = 10;
 		
-		int listCount = new ClientNoticeService().getListCount();
+		int listCount = new NoticeService().getListCount();
 		
 		maxPage = (int)((double) listCount / limit + 0.9);
 		
@@ -61,7 +61,7 @@ public class SelectClientNoticeServlet extends HttpServlet {
 		
 		PageInfo pi = new PageInfo(currentPage, listCount, limit, maxPage, startPage, endPage);
 		
-		ArrayList<NoticeVO> list = new ClientNoticeService().selectClientNotice(pi);
+		ArrayList<NoticeVO> list = new NoticeService().selectClientNotice(pi);
 		
 		String page = "";
 		

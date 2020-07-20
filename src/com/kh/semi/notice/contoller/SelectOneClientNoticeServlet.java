@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.kh.semi.notice.model.service.ClientNoticeService;
+import com.kh.semi.notice.model.service.NoticeService;
 import com.kh.semi.notice.model.vo.NoticeVO;
 
 /**
@@ -38,7 +38,7 @@ public class SelectOneClientNoticeServlet extends HttpServlet {
 			cnno = Integer.parseInt(num);
 		} 
 		
-		NoticeVO cNotice = new ClientNoticeService().selectOne(cnno);
+		NoticeVO cNotice = new NoticeService().selectOne(cnno);
 		
 		String page = "";
 		if(cNotice != null) {
