@@ -160,12 +160,13 @@ public class BoardService {
 					result2 += new BoardDao().insertAttachment(con, fileList.get(i));
 					
 				}
+				
 				if(result2==fileList.size()) {
 					
 					result3 = new BoardDao().insertHistory(con, boardNo);
 				}
 			}
-			
+			System.out.println("fileListsize : " + fileList.size());
 //			System.out.println("result : " + result);
 //			System.out.println("result1 : " + result1);
 //			System.out.println("result2 : " + result2);
@@ -229,6 +230,8 @@ public class BoardService {
 		public ArrayList<HashMap<String, Object>> selectThumbnailList(String boardNo) {
 			Connection con = getConnection();
 			ArrayList<HashMap<String, Object>> list = new BoardDao().selectThumbnailList(con, boardNo);
+			
+			System.out.println("list2 : " + list);
 			
 			if(list != null) {
 				commit(con);

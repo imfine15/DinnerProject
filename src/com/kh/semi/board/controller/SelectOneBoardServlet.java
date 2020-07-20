@@ -40,10 +40,10 @@ public class SelectOneBoardServlet extends HttpServlet {
 		
 		BoardUpVo board = new BoardService().selectOneBoard(boardNo);
 		ArrayList<HashMap<String, Object>> list = null;
-		if(board != null) {
+		
 			
 			list = new BoardService().selectThumbnailList(boardNo);
-		}
+		
 		
 		System.out.println("boardm : " + board);
 		System.out.println("listm : " + list);

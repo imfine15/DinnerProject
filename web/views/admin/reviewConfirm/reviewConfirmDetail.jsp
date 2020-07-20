@@ -166,8 +166,8 @@ tr {
 			style="width: 400px; display: inline; font-size: 30px; margin-bottom: auto; margin-top: auto; font-family: Roboto;"></input>
 		<div
 			style="display: inline; font-size: 13px; margin-bottom: auto; margin-top: auto; font-family: Roboto;">
-			<label>작성자 : </label><label><%= board.getMemberId() %></label> 
-			<label style="margin-right: -50px;">작성일 : </label><label><%=board.getUploadDate() %></label> <a href=""><img
+			<div style="display: inline-block;"><label>작성자 : </label><label><%= board.getMemberId() %></label></div> 
+			<div style="margin-right: -50px; display: inline-block;"><label>작성일 : </label><label><%=board.getUploadDate() %></label></div> <a href=""><img
 				src="/semiproject/views/reviews/images/good.png"
 				style="margin-bottom: 20px; margin-right: 10px;"></a> <br> <br>
 			<hr style="width: 80%;">
@@ -184,7 +184,7 @@ tr {
 		
 		<div style="width: 80%;">
 			<div style="float: left; display: inline; padding-left: 30px;">
-				<img src="<%=request.getContextPath()%>/thumbnail_uploadFile/<%=hmap.get("changeName")%>" width="200px" height="150px"">
+				<img src="<%=request.getContextPath()%>/thumbnail_uploadFile/<%=hmap.get("changeName")%>" width="170px" height="auto">
 			</div>
 			<div style="padding-left: 20px; padding-top: 20px; width: 700px;">
 				
@@ -262,10 +262,11 @@ tr {
 	</div>
 <script>
 	$(document).ready(function() {
-		var content = <%=board.getBoardContent()%>;
+		var content = "<%=board.getBoardContent()%>";
 		console.log(content);
+		
 		var contentArr = content.split('$$$');
-		for(int i = 0; i < contentArr.length; i++){
+		for(var i = 0; i < contentArr.length; i++){
 			 $('[id="content' + i + '"]').val(contentArr[i]);
 		}
 	});
