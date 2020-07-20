@@ -35,6 +35,14 @@ public class ForCmVO implements java.io.Serializable{
 	private String originName;
 	private String changeName;
 	private String filePath;
+	/*, RF.ORIGIN_NAME
+    , RF.CHANGE_NAME
+    , RF.UPLOAD_DATE*/
+	private String rfOriginName1;
+	private String rfOriginName2;
+	private String rfChangeName1;
+	private String rfChangeName2;
+	private Date rfUploadDate;
 	
 	public ForCmVO() {
 		// TODO Auto-generated constructor stub
@@ -42,8 +50,8 @@ public class ForCmVO implements java.io.Serializable{
 
 	public ForCmVO(String enpNo, String reviewNo, String reviewContent, String reviewType, Date visitDate,
 			Date reviewDate, double averageRating, String replyContent, String memberNo, String memberName,
-			String enpName, String memberNickname, String fileNo, String originName, String changeName,
-			String filePath) {
+			String enpName, String memberNickname, String fileNo, String originName, String changeName, String filePath,
+			String rfOriginName1, String rfOriginName2, String rfChangeName1, String rfChangeName2, Date rfUploadDate) {
 		super();
 		this.enpNo = enpNo;
 		this.reviewNo = reviewNo;
@@ -61,6 +69,11 @@ public class ForCmVO implements java.io.Serializable{
 		this.originName = originName;
 		this.changeName = changeName;
 		this.filePath = filePath;
+		this.rfOriginName1 = rfOriginName1;
+		this.rfOriginName2 = rfOriginName2;
+		this.rfChangeName1 = rfChangeName1;
+		this.rfChangeName2 = rfChangeName2;
+		this.rfUploadDate = rfUploadDate;
 	}
 
 	public String getEnpNo() {
@@ -191,6 +204,46 @@ public class ForCmVO implements java.io.Serializable{
 		this.filePath = filePath;
 	}
 
+	public String getRfOriginName1() {
+		return rfOriginName1;
+	}
+
+	public void setRfOriginName1(String rfOriginName1) {
+		this.rfOriginName1 = rfOriginName1;
+	}
+
+	public String getRfOriginName2() {
+		return rfOriginName2;
+	}
+
+	public void setRfOriginName2(String rfOriginName2) {
+		this.rfOriginName2 = rfOriginName2;
+	}
+
+	public String getRfChangeName1() {
+		return rfChangeName1;
+	}
+
+	public void setRfChangeName1(String rfChangeName1) {
+		this.rfChangeName1 = rfChangeName1;
+	}
+
+	public String getRfChangeName2() {
+		return rfChangeName2;
+	}
+
+	public void setRfChangeName2(String rfChangeName2) {
+		this.rfChangeName2 = rfChangeName2;
+	}
+
+	public Date getRfUploadDate() {
+		return rfUploadDate;
+	}
+
+	public void setRfUploadDate(Date rfUploadDate) {
+		this.rfUploadDate = rfUploadDate;
+	}
+
 	@Override
 	public String toString() {
 		return "ForCmVO [enpNo=" + enpNo + ", reviewNo=" + reviewNo + ", reviewContent=" + reviewContent
@@ -198,7 +251,11 @@ public class ForCmVO implements java.io.Serializable{
 				+ ", averageRating=" + averageRating + ", replyContent=" + replyContent + ", memberNo=" + memberNo
 				+ ", memberName=" + memberName + ", enpName=" + enpName + ", memberNickname=" + memberNickname
 				+ ", fileNo=" + fileNo + ", originName=" + originName + ", changeName=" + changeName + ", filePath="
-				+ filePath + "]";
+				+ filePath + ", rfOriginName1=" + rfOriginName1 + ", rfOriginName2=" + rfOriginName2
+				+ ", rfChangeName1=" + rfChangeName1 + ", rfChangeName2=" + rfChangeName2 + ", rfUploadDate="
+				+ rfUploadDate + "]";
 	}
+
+	
 	
 }

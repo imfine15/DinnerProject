@@ -154,9 +154,6 @@ public class EnpService {
 		
 		close(con);
 		
-		
-		
-		
 		return list;
 	}
 	
