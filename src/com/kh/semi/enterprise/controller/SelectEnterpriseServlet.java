@@ -2,7 +2,6 @@ package com.kh.semi.enterprise.controller;
 
 import java.io.IOException;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -29,7 +28,7 @@ public class SelectEnterpriseServlet extends HttpServlet {
 		request.getSession().setAttribute("selectedEnp", selectedEnp);
 		request.getSession().setAttribute("rating", rating);
 		
-		request.getRequestDispatcher("/semiproject/getEnpReviews.re").forward(request, response);
+		request.getRequestDispatcher("/getEnpReviews.re").forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
