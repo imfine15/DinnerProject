@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
+import com.kh.semi.admin.model.vo.PageInfo;
 import com.kh.semi.board.model.vo.BoardUpVo;
 import com.kh.semi.board.model.vo.BoardVO;
 
@@ -465,6 +466,89 @@ public class BoardDao {
 		
 		
 		return result;
+	}
+
+	public int getListCount(Connection con) {
+		Statement stmt = null;
+		int listCount = 0;
+		ResultSet rset = null;
+		
+		String query = prop.getProperty("listCount");
+		
+		try {
+			stmt = con.createStatement();
+			rset = stmt.executeQuery(query);
+			
+			if(rset.next()) {
+				listCount = rset.getInt(1);
+			}
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(stmt);
+			close(rset);
+		}
+		
+		
+		return listCount;
+	}
+
+	public ArrayList<BoardUpVo> selectList(Connection con, PageInfo pi) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<BoardUpVo> list = null;
+		BoardUpVo bu;
+		
+		String query = prop.getProperty("selectList");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			
+			int startRow = (pi.getCurrentPage() - 1) * pi.getLimit() + 1;
+			int endRow = startRow + pi.getLimit() - 1;
+			
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
+			
+			rset = pstmt.executeQuery();
+			
+			list = new ArrayList<>();
+			
+			while(rset.next()) {
+				bu = new BoardUpVo();
+				bu.setBoardNo(rset.getString("BOARD_NO"));
+				bu.setBoardTitle(rset.getString("BOARD_TITLE"));
+				bu.setMemberId(rset.getString("MEMBER_ID"));
+				bu.setUploadDate(rset.getDate("UPLOAD_DATE"));
+				
+				list.add(bu);
+				
+				
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		return list;
+	}
+
+	public BoardUpVo selectOneBoard(Connection con, String boardNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		BoardUpVo bu = null;
+		
+		String query = prop.getProperty("selectOneBoard");
+		
+		
+		return bu;
 	}
 
 	

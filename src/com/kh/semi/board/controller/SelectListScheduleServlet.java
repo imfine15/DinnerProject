@@ -1,11 +1,18 @@
 package com.kh.semi.board.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import com.kh.semi.admin.model.vo.PageInfo;
+import com.kh.semi.board.model.service.BoardService;
+import com.kh.semi.board.model.vo.BoardUpVo;
 
 /**
  * Servlet implementation class SelectListScheduleServlet
@@ -37,6 +44,43 @@ public class SelectListScheduleServlet extends HttpServlet {
 		if(request.getParameter("currentPage")!= null) {
 			currentPage = Integer.parseInt(request.getParameter("currentPage"));
 		}
+		
+		limit = 10;
+		
+		int listCount = new BoardService().getListCount();
+		
+		System.out.println("listCount : " + listCount);
+		
+		maxPage = (int)((double)listCount / limit + 0.9);
+		startPage = (((int)((double)currentPage / 10 + 0.9)) -1) *10 + 1;
+		endPage = startPage + 10 - 1;
+		
+		if(maxPage < endPage) {
+			endPage = maxPage;
+		}
+		
+		PageInfo pi = new PageInfo(currentPage, listCount, limit, maxPage, startPage, endPage);
+		
+		ArrayList<BoardUpVo> list = new BoardService().selectList(pi);
+		
+		System.out.println("list : " + list);
+		
+		HttpSession session = request.getSession();
+		
+		String page = "";
+		
+		if(list != null) {
+			page ="views/admin/reviewConfirm/reviewConfirm.jsp";
+			request.setAttribute("list", list);	
+			request.setAttribute("pi", pi);
+		} else {
+			page ="views/common/errorPage.jsp";
+			request.setAttribute("msg", "게시판 조회 실패!");
+		}
+		
+		request.getRequestDispatcher(page).forward(request, response);
+		
+		
 	}
 
 	/**

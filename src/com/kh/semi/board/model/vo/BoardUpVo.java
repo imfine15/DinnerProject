@@ -8,6 +8,7 @@ public class BoardUpVo implements java.io.Serializable {
 	private String boardNo;
 	private String boardTitle;
 	private String memberNo;
+	private String memberId;
 	private String managerNo;
 	private String boardKeyword;
 	private String boardContent;
@@ -26,14 +27,15 @@ public class BoardUpVo implements java.io.Serializable {
 	
 	public BoardUpVo() {}
 
-	public BoardUpVo(String boardNo, String boardTitle, String memberNo, String managerNo, String boardKeyword,
-			String boardContent, String boardCategory, String enpNo, int viewCount, String hashTags, String fileNo,
-			String originName, String changeName, String filePath, Date uploadDate, String replyNo, Date replyDate,
-			String replyContent) {
+	public BoardUpVo(String boardNo, String boardTitle, String memberNo, String memberId, String managerNo,
+			String boardKeyword, String boardContent, String boardCategory, String enpNo, int viewCount,
+			String hashTags, String fileNo, String originName, String changeName, String filePath, Date uploadDate,
+			String replyNo, Date replyDate, String replyContent) {
 		super();
 		this.boardNo = boardNo;
 		this.boardTitle = boardTitle;
 		this.memberNo = memberNo;
+		this.memberId = memberId;
 		this.managerNo = managerNo;
 		this.boardKeyword = boardKeyword;
 		this.boardContent = boardContent;
@@ -73,6 +75,14 @@ public class BoardUpVo implements java.io.Serializable {
 
 	public void setMemberNo(String memberNo) {
 		this.memberNo = memberNo;
+	}
+
+	public String getMemberId() {
+		return memberId;
+	}
+
+	public void setMemberId(String memberId) {
+		this.memberId = memberId;
 	}
 
 	public String getManagerNo() {
@@ -197,15 +207,15 @@ public class BoardUpVo implements java.io.Serializable {
 
 	@Override
 	public String toString() {
-		return "BoardUpVo [boardNo=" + boardNo + ", boardTitle=" + boardTitle + ", memberNo=" + memberNo
-				+ ", managerNo=" + managerNo + ", boardKeyword=" + boardKeyword + ", boardContent="
-				+ boardContent + ", boardCategory=" + boardCategory + ", enpNo=" + enpNo
-				+ ", viewCount=" + viewCount + ", hashTags=" + hashTags + ", fileNo=" + fileNo + ", originName="
-				+ originName + ", changeName=" + changeName + ", filePath=" + filePath + ", uploadDate=" + uploadDate
-				+ ", replyNo=" + replyNo + ", replyDate=" + replyDate + ", replyContent=" + replyContent + "]";
+		return "BoardUpVo [boardNo=" + boardNo + ", boardTitle=" + boardTitle + ", memberNo=" + memberNo + ", memberId="
+				+ memberId + ", managerNo=" + managerNo + ", boardKeyword=" + boardKeyword + ", boardContent="
+				+ boardContent + ", boardCategory=" + boardCategory + ", enpNo=" + enpNo + ", viewCount=" + viewCount
+				+ ", hashTags=" + hashTags + ", fileNo=" + fileNo + ", originName=" + originName + ", changeName="
+				+ changeName + ", filePath=" + filePath + ", uploadDate=" + uploadDate + ", replyNo=" + replyNo
+				+ ", replyDate=" + replyDate + ", replyContent=" + replyContent + "]";
 	}
 
-	
+
 	
 	
 	
