@@ -53,10 +53,7 @@ public class SelectOneEnpNoticeServlet extends HttpServlet {
 		}
 		
 		request.getRequestDispatcher(page).forward(request, response);
-		
-		
-		
-		
+			
 	}
 
 	/**

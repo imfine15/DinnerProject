@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="java.util.*, com.kh.semi.notice.model.vo.*"%>
 <% NoticeVO notice = (NoticeVO) request.getAttribute("cNotice"); %>
+
 <!DOCTYPE html>
 <html>
 <head>
