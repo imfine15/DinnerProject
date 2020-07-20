@@ -1,6 +1,9 @@
 package com.kh.semi.board.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -36,8 +39,25 @@ public class SelectOneBoardServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		
 		BoardUpVo board = new BoardService().selectOneBoard(boardNo);
+		ArrayList<HashMap<String, Object>> list = null;
+		if(board != null) {
+			
+			list = new BoardService().selectThumbnailList(boardNo);
+		}
 		
+		System.out.println("boardm : " + board);
+		System.out.println("listm : " + list);
 		
+		String page = "";
+		if(list != null) {
+			page="views/admin/reviewConfirm/reviewConfirmDetail.jsp";
+			session.setAttribute("list", list);
+			session.setAttribute("board", board);
+		} else {
+			page="views/common/errorPage.jsp";
+			request.setAttribute("msg", "게시판 조회 실패!");
+		}
+		request.getRequestDispatcher(page).forward(request, response);
 	}
 
 	/**

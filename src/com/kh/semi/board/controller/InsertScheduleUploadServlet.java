@@ -89,7 +89,7 @@ if(ServletFileUpload.isMultipartContent(request)) {
 				if(i == boardContents.length-1) {
 					boardContent+=boardContents[i];
 				} else {
-					boardContent+=boardContents[i]+"||";
+					boardContent+=boardContents[i]+"$$$";
 				}
 			}
 				board.setBoardContent(boardContent);

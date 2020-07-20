@@ -4,6 +4,7 @@ import static com.kh.semi.common.JDBCTemplate.*;
 
 import java.sql.Connection;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import com.kh.semi.admin.model.vo.PageInfo;
@@ -209,11 +210,34 @@ public class BoardService {
 			Connection con = getConnection();
 			
 			BoardUpVo board = null;
+			int result = 0;
 			
+			result = new BoardDao().updateCount(con, boardNo);
 			board = new BoardDao().selectOneBoard(con, boardNo);
+			
+			if(result > 0 && board != null) {
+				commit(con);
+			} else {
+				rollback(con);
+			}
 			
 			close(con);
 			
 			return board;
+		}
+
+		public ArrayList<HashMap<String, Object>> selectThumbnailList(String boardNo) {
+			Connection con = getConnection();
+			ArrayList<HashMap<String, Object>> list = new BoardDao().selectThumbnailList(con, boardNo);
+			
+			if(list != null) {
+				commit(con);
+			} else {
+				rollback(con);
+			}
+			
+			close(con);
+			
+			return list;
 		}
 }

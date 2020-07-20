@@ -1,5 +1,12 @@
+<%@page import="com.kh.semi.board.model.vo.BoardUpVo"%>
+<%@page import="java.util.HashMap"%>
+<%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%
+	ArrayList<HashMap<String, Object>> list = (ArrayList<HashMap<String, Object>>)session.getAttribute("list");
+	BoardUpVo board = (BoardUpVo)session.getAttribute("board");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,6 +17,7 @@
 <link
 	href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300&display=swap"
 	rel="stylesheet">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <style>
 .hide {
 	background-color: white;
@@ -154,12 +162,12 @@ tr {
 		<div style="display: inline;">
 			<img src="/semiproject/views/reviews/images/recommend.png" style="width: 200px;">
 		</div>
-		<input type="text" value="강남역 친구들과 놀기 좋은곳"		
+		<input type="text" value="<%= board.getBoardTitle() %>"		
 			style="width: 400px; display: inline; font-size: 30px; margin-bottom: auto; margin-top: auto; font-family: Roboto;"></input>
 		<div
 			style="display: inline; font-size: 13px; margin-bottom: auto; margin-top: auto; font-family: Roboto;">
-			<label>작성자 : 정파덕 &nbsp;&nbsp;</label> <label
-				style="margin-right: -50px;">작성일 : 2020-06-18</label> <a href=""><img
+			<label>작성자 : </label><label><%= board.getMemberId() %></label> 
+			<label style="margin-right: -50px;">작성일 : </label><label><%=board.getUploadDate() %></label> <a href=""><img
 				src="/semiproject/views/reviews/images/good.png"
 				style="margin-bottom: 20px; margin-right: 10px;"></a> <br> <br>
 			<hr style="width: 80%;">
@@ -169,20 +177,18 @@ tr {
 	<div
 		style="margin-left: auto; margin-right: auto; padding-left: 30px;"
 		align="center">
+		<% for(int i = 0; i < list.size(); i++){
+			HashMap<String, Object> hmap = list.get(i);
+		
+			%>
+		
 		<div style="width: 80%;">
 			<div style="float: left; display: inline; padding-left: 30px;">
-				<img src="/semiproject/views/reviews/images/picture1.png">
+				<img src="<%=request.getContextPath()%>/thumbnail_uploadFile/<%=hmap.get("changeName")%>" width="200px" height="150px"">
 			</div>
 			<div style="padding-left: 20px; padding-top: 20px; width: 700px;">
-				<input type="text" value="규카츠 하우스" style="font-size: 23px; width: 160px;"></input><br> <br> 
-				<textarea cols="50" rows="8" style="resize: none;">
-친구들이랑점심에 규카츠하우스에 방문했어요~
-얼마전 YUMEET에서 예약자 후기를 보고 너무 맘에
-들어서 바로 예약하고 방문했답니다~ㅎㅎ..
-역시YUMEET은 실패가 없는 사이트인거같아요!!
-어딜가던 평균은 하는...?여기 규동맛집입니다!!
-꼭 가서 규동 드세요!!!!
-				</textarea>
+				
+				<textarea id="content<%=i%>" cols="50" rows="8" style="resize: none;"></textarea>
 					<br> <br> <br> <br> <br> <br> <br>
 			</div>
 			<a href=""><img src="/semiproject/views/reviews/images/boru.png"
@@ -190,47 +196,9 @@ tr {
 		</div>
 			<hr style="width: 80%;">
 			<br> <br>
+	<%} %>
 
-		<div style="width: 80%;">
-			<div style="float: left; display: inline; padding-left: 30px;">
-				<img src="/semiproject/views/reviews/images/picture1.png">
-			</div>
-			<div style="padding-left: 20px; padding-top: 20px; width: 700px;">
-				<input type="text" value="규카츠 하우스" style="font-size: 23px; width: 160px;"></input><br> <br> <textarea cols="50" rows="8" style="resize: none;">
-친구들이랑점심에 규카츠하우스에 방문했어요~
-얼마전 YUMEET에서 예약자 후기를 보고 너무 맘에
-들어서 바로 예약하고 방문했답니다~ㅎㅎ..
-역시YUMEET은 실패가 없는 사이트인거같아요!!
-어딜가던 평균은 하는...?여기 규동맛집입니다!!
-꼭 가서 규동 드세요!!!!
-				</textarea>
-					<br> <br> <br> <br> <br> <br> <br>
-			</div>
-			<a href=""><img src="/semiproject/views/reviews/images/boru.png"
-				style="float: right; margin-top: -40px; margin-right: 120px;"></a>
-		</div>
-			<hr style="width: 80%;">
-			<br> <br>
 
-		<div style="width: 80%;">
-			<div style="float: left; display: inline; padding-left: 30px;">
-				<img src="/semiproject/views/reviews/images/picture1.png">
-			</div>
-			<div style="padding-left: 20px; padding-top: 20px; width: 700px;">
-				<input type="text" value="규카츠 하우스" style="font-size: 23px; width: 160px;"></input><br> <br> <textarea cols="50" rows="8" style="resize: none;">
-친구들이랑점심에 규카츠하우스에 방문했어요~
-얼마전 YUMEET에서 예약자 후기를 보고 너무 맘에
-들어서 바로 예약하고 방문했답니다~ㅎㅎ..
-역시YUMEET은 실패가 없는 사이트인거같아요!!
-어딜가던 평균은 하는...?여기 규동맛집입니다!!
-꼭 가서 규동 드세요!!!!
-				</textarea>
-					<br> <br> <br> <br> <br> <br> <br>
-			</div>
-			<a href=""><img src="/semiproject/views/reviews/images/boru.png"
-				style="float: right; margin-top: -40px; margin-right: 120px;"></a>
-		</div>
-			<hr style="width: 80%;">
 	</div>
 
 	<div
@@ -292,6 +260,15 @@ tr {
 			</div>
 		</div>
 	</div>
-
+<script>
+	$(document).ready(function() {
+		var content = <%=board.getBoardContent()%>;
+		console.log(content);
+		var contentArr = content.split('$$$');
+		for(int i = 0; i < contentArr.length; i++){
+			 $('[id="content' + i + '"]').val(contentArr[i]);
+		}
+	});
+</script>
 </body>
 </html>
