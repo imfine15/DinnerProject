@@ -345,31 +345,7 @@ public class NoticeDao {
 		return list;
 	}
 
-	//조회수올리는용도 
-	public int updateCount(Connection con, int num) {
-	
-		PreparedStatement pstmt = null;
-		int result = 0;
-
-		String query = prop.getProperty("updateCount");
-
-		try {
-			pstmt = con.prepareStatement(query);
-
-			pstmt.setInt(1, bno);
-			pstmt.setInt(2, bno);
-
-			result = pstmt.executeUpdate();
-
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close(pstmt);
-		}
-
-		return result;
-	}
-
+	//업체 공지사항 상세보기 
 	public HashMap<String, Object> selectEnpNotice(Connection con, int num) {
 	
 		PreparedStatement pstmt = null;
@@ -388,16 +364,22 @@ public class NoticeDao {
 			rset = pstmt.executeQuery();
 			
 			list = new ArrayList<NoticeAttachment>();
-			
+				
 			while(rset.next()) {
+								
 				eNotice = new EntNoticeVO();
-				eNotice.setBid(rset.getInt("BID"));
-	
+				eNotice.setNoticeNo(rset.getString("NOTICE_NO"));
+				eNotice.setNoticeContent(rset.getString("NOTICE_CONTENT"));
+				eNotice.setNoticeDate(rset.getDate("NOTICE_DATE"));
+				eNotice.setNoticeTitle(rset.getString("NOTICE_TITLE"));
+		
 				
 				attachment = new NoticeAttachment();
-				attachment.setFid(rset.getInt("FID"));
-
-		
+				attachment.setChangeName(rset.getString("CHANGE_NAME"));
+				attachment.setFileNo(rset.getString("FILE_NO"));
+				attachment.setFilePath(rset.getString("FILE_PATH"));
+				attachment.setOriginName(rset.getString("ORIGIN_NAME"));
+				
 				list.add(attachment);
 			}
 			

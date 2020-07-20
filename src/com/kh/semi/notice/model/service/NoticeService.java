@@ -144,12 +144,10 @@ public class NoticeService {
 		Connection con = getConnection();
 		
 		HashMap<String, Object> hmap = null;
-		int result = 0;
 		
-		result = new NoticeDao().updateCount(con, num);		
 		hmap = new NoticeDao().selectEnpNotice(con, num);
 		
-		if(hmap != null&& result > 0) {
+		if(hmap != null) {
 			commit(con);
 		} else {
 			rollback(con);

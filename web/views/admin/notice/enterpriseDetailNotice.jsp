@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="java.util.*, com.kh.semi.notice.model.vo.*"%>
+<% EntNoticeVO notice = (EntNoticeVO) request.getAttribute("eNotice"); %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -40,11 +42,11 @@
 		<div style="padding-left:50px; background: white; width:95%; padding-top: 30px; height: 800px;">
 			<table>
 				<tr>
-					<td width="800px">공지사항1</td>
-					<td align="center" width="150px">20/06/17 17:33</td>
+					<td width="800px"><%=notice.getNoticeTitle() %></td>
+					<td align="center" width="150px"><%=notice.getNoticeDate() %></td>
 				</tr>
 				<tr>
-					<td colspan="2">공지사항내용운애애앵우우우우웅</td>
+					<td colspan="2"><%=notice.getNoticeContent() %></td>
 				</tr>
 			</table>
 			<div style="margin-right: 150px;">
