@@ -157,13 +157,4 @@ public class EnpService {
 		return list;
 	}
 
-	public String getEnpFile(String enpNo) {
-		Connection con = getConnection();
-		String filePath = new EnpDao().getEnpFile(con, enpNo);
-		
-		close(con);
-		
-		return filePath;
-	}
-	
 }
