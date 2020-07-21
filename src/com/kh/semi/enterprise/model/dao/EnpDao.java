@@ -24,6 +24,7 @@ import com.kh.semi.enterprise.model.vo.ForCmVO;
 import com.kh.semi.enterprise.model.vo.ForEntCrVO;
 import com.kh.semi.enterprise.model.vo.PageInfo;
 import com.kh.semi.payment.model.vo.ReservationVO;
+import com.sun.org.apache.xerces.internal.impl.dtd.models.CMAny;
 
 public class EnpDao {
 Properties prop = new Properties();
@@ -557,42 +558,26 @@ Properties prop = new Properties();
 			     , MF.ORIGIN_NAME
 			     , MF.CHANGE_NAME
 			     , MF.FILE_PATH */
-				vo = new ForCmVO();
-				vo.setEnpNo(rset.getString("ENP_NO"));
-				vo.setReviewNo(rset.getString("REVIEW_NO"));
-				vo.setReviewContent(rset.getString("REVIEW_CONTENT"));
-				vo.setReviewType(rset.getString("REVIEW_TYPE"));
-				vo.setVisitDate(rset.getDate("VISIT_DATE"));
-				vo.setReviewDate(rset.getDate("REVIEW_DATE"));
-				vo.setAverageRating(rset.getDouble("AVERAGE_RATING"));
-				vo.setReplyContent(rset.getString("REPLY_CONTENT"));
-				vo.setMemberNo(rset.getString("MEMBER_NO"));
-				vo.setMemberName(rset.getString("MEMBER_NAME"));
-				vo.setEnpName(rset.getString("ENP_NAME"));
-				vo.setMemberNickname(rset.getString("MEMBER_NICKNAME"));
-				vo.setFileNo(rset.getString("FILE_NO"));
-				vo.setOriginName(rset.getString("ORIGIN_NAME"));
-				vo.setChangeName(rset.getString("CHANGE_NAME"));
-				vo.setFilePath(rset.getString("FILE_PATH"));
-				System.out.println(rset.getString(17));
-				System.out.println(rset.getString(18));
-				String originNames = rset.getString(17);
-				String changeNames = rset.getString(18);
+					
+					vo = new ForCmVO();
+					vo.setEnpNo(rset.getString("ENP_NO"));
+					vo.setReviewNo(rset.getString("REVIEW_NO"));
+					vo.setReviewContent(rset.getString("REVIEW_CONTENT"));
+					vo.setReviewType(rset.getString("REVIEW_TYPE"));
+					vo.setVisitDate(rset.getDate("VISIT_DATE"));
+					vo.setReviewDate(rset.getDate("REVIEW_DATE"));
+					vo.setAverageRating(rset.getDouble("AVERAGE_RATING"));
+					vo.setReplyContent(rset.getString("REPLY_CONTENT"));
+					vo.setMemberNo(rset.getString("MEMBER_NO"));
+					vo.setMemberName(rset.getString("MEMBER_NAME"));
+					vo.setEnpName(rset.getString("ENP_NAME"));
+					vo.setMemberNickname(rset.getString("MEMBER_NICKNAME"));
+					vo.setFileNo(rset.getString("FILE_NO"));
+					vo.setOriginName(rset.getString("ORIGIN_NAME"));
+					vo.setChangeName(rset.getString("CHANGE_NAME"));
+										
+					list.add(vo);
 				
-				String[] originList = originNames.split(", ");
-				String[] changeList = changeNames.split(", ");
-				
-				vo.setRfOriginName1(originList[0]);
-				vo.setRfOriginName2(originList[1]);
-				vo.setRfChangeName1(changeList[0]);
-				vo.setRfChangeName2(changeList[1]);
-				
-				System.out.println("ON1 : " + vo.getRfOriginName1());
-				System.out.println("ON2 : " + vo.getRfOriginName2());
-				System.out.println("CN1 : " + vo.getRfChangeName1());
-				System.out.println("CN2 : " + vo.getRfChangeName2());
-				
-				list.add(vo);
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -655,6 +640,69 @@ Properties prop = new Properties();
 		}
 		
 		return filePath;
+	}
+
+	public ArrayList<ForCmVO> selectCmFilePath(Connection con, ArrayList<ForCmVO> list) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String query = prop.getProperty("selectCmFile");
+		ArrayList<ForCmVO> cmList = null;
+
+		try {
+			pstmt = con.prepareStatement(query);
+			
+			cmList = new ArrayList<>();
+			
+			for(int i = 0; i < list.size(); i++) {
+				String enpNo = list.get(i).getEnpNo();
+				
+				pstmt.setString(1, enpNo);
+				
+				rset = pstmt.executeQuery();
+				int j = 1;
+				while(rset.next()) {
+					if(j % 2 == 1) {
+						list.get(i).setFilePath1(rset.getString("FILE_PATH"));
+						list.get(i).setRfChangeName1(rset.getString("CHANGE_NAME"));
+						
+					}else {
+						list.get(i).setFilePath2(rset.getString("FILE_PATH"));
+						list.get(i).setRfChangeName2(rset.getString("CHANGE_NAME"));
+					}
+					j++;
+				}
+				
+				cmList.add(list.get(i));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return cmList;
+	}
+
+	public int updateReplyStatus(Connection con, String reviewNum) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("updateReplyStatus");
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, reviewNum);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		
+		return result;
 	}
 	
 }

@@ -34,7 +34,8 @@ public class ForCmVO implements java.io.Serializable{
 	private String fileNo;
 	private String originName;
 	private String changeName;
-	private String filePath;
+	private String filePath1;
+	private String filePath2;
 	/*, RF.ORIGIN_NAME
     , RF.CHANGE_NAME
     , RF.UPLOAD_DATE*/
@@ -50,8 +51,9 @@ public class ForCmVO implements java.io.Serializable{
 
 	public ForCmVO(String enpNo, String reviewNo, String reviewContent, String reviewType, Date visitDate,
 			Date reviewDate, double averageRating, String replyContent, String memberNo, String memberName,
-			String enpName, String memberNickname, String fileNo, String originName, String changeName, String filePath,
-			String rfOriginName1, String rfOriginName2, String rfChangeName1, String rfChangeName2, Date rfUploadDate) {
+			String enpName, String memberNickname, String fileNo, String originName, String changeName,
+			String filePath1, String filePath2, String rfOriginName1, String rfOriginName2, String rfChangeName1,
+			String rfChangeName2, Date rfUploadDate) {
 		super();
 		this.enpNo = enpNo;
 		this.reviewNo = reviewNo;
@@ -68,7 +70,8 @@ public class ForCmVO implements java.io.Serializable{
 		this.fileNo = fileNo;
 		this.originName = originName;
 		this.changeName = changeName;
-		this.filePath = filePath;
+		this.filePath1 = filePath1;
+		this.filePath2 = filePath2;
 		this.rfOriginName1 = rfOriginName1;
 		this.rfOriginName2 = rfOriginName2;
 		this.rfChangeName1 = rfChangeName1;
@@ -196,12 +199,20 @@ public class ForCmVO implements java.io.Serializable{
 		this.changeName = changeName;
 	}
 
-	public String getFilePath() {
-		return filePath;
+	public String getFilePath1() {
+		return filePath1;
 	}
 
-	public void setFilePath(String filePath) {
-		this.filePath = filePath;
+	public void setFilePath1(String filePath1) {
+		this.filePath1 = filePath1;
+	}
+
+	public String getFilePath2() {
+		return filePath2;
+	}
+
+	public void setFilePath2(String filePath2) {
+		this.filePath2 = filePath2;
 	}
 
 	public String getRfOriginName1() {
@@ -250,11 +261,13 @@ public class ForCmVO implements java.io.Serializable{
 				+ ", reviewType=" + reviewType + ", visitDate=" + visitDate + ", reviewDate=" + reviewDate
 				+ ", averageRating=" + averageRating + ", replyContent=" + replyContent + ", memberNo=" + memberNo
 				+ ", memberName=" + memberName + ", enpName=" + enpName + ", memberNickname=" + memberNickname
-				+ ", fileNo=" + fileNo + ", originName=" + originName + ", changeName=" + changeName + ", filePath="
-				+ filePath + ", rfOriginName1=" + rfOriginName1 + ", rfOriginName2=" + rfOriginName2
-				+ ", rfChangeName1=" + rfChangeName1 + ", rfChangeName2=" + rfChangeName2 + ", rfUploadDate="
-				+ rfUploadDate + "]";
+				+ ", fileNo=" + fileNo + ", originName=" + originName + ", changeName=" + changeName + ", filePath1="
+				+ filePath1 + ", filePath2=" + filePath2 + ", rfOriginName1=" + rfOriginName1 + ", rfOriginName2="
+				+ rfOriginName2 + ", rfChangeName1=" + rfChangeName1 + ", rfChangeName2=" + rfChangeName2
+				+ ", rfUploadDate=" + rfUploadDate + "]";
 	}
+
+	
 
 	
 	
