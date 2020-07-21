@@ -3,7 +3,9 @@ package com.kh.semi.payment.model.service;
 import java.net.ConnectException;
 import java.sql.Connection;
 import java.util.ArrayList;
+import java.util.HashMap;
 
+import com.kh.semi.enterprise.model.vo.EnpVO;
 import com.kh.semi.payment.model.dao.ReservationDao;
 import com.kh.semi.payment.model.vo.PaymentHistoryVO;
 import com.kh.semi.payment.model.vo.ReservationVO;
@@ -127,6 +129,13 @@ public class ReservationService {
 		}
 		close(con);
 		return result;
+	}
+
+	public EnpVO selectEnpInfo(String eNo) {
+		Connection con = getConnection();
+		EnpVO enpInfo = new ReservationDao().selectEnpInfo(con, eNo);
+		
+		return enpInfo;
 	}
 
 

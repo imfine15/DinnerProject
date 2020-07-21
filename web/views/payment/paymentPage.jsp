@@ -3,7 +3,12 @@
 <%
 	String backPage = request.getContextPath() + "/views/payment/paymentPage.jsp";
 	session.setAttribute("backPage", backPage);
-
+	String enpNo = "";
+	if(request.getParameter("enpNo") == null){
+		enpNo = "ENP1";
+	} else {
+		enpNo = request.getParameter("enpNo");
+	}
 %>
 <!DOCTYPE html>
 <html>
@@ -16,7 +21,6 @@
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
-
 
 <style>
 .subb {
@@ -80,11 +84,9 @@ input[type="number"]::-webkit-inner-spin-button {
 		style="width: 80%; height: 1400px; margin-left: auto; margin-right: auto; padding-top: 100px;">
 		<div class="subb">
 			<div style="width: 100%; margin-right: 0px;">
-				<label style="font-size: 28px;">돼지되지</label><br>
-				<br> <label style="color: gray; font-size: 20px;">서울
-					역삼동 82-11번지 </label>
-				<p style="width: 300px;">어느 곳보다 맛있는 돈까스 맛집! ‘돼지되지’ 입니다 맛있는 돈까스를
-					합리적인 가격에 좋은 추억 만들어 드리겠읍니다...^^ 장미꽃 한 송이 놓고 갑니다..... @}--->-----</p>
+				<label style="font-size: 28px;" id="eName"></label><br>
+				<br> <label style="color: gray; font-size: 20px;" id="eAddress"> </label>
+				<p style="width: 300px;" id="eIntro"></p>
 				<br>
 				<hr style="margin-left: -30px; margin-right: 50px;">
 				<br> <input id="information" type="checkbox" style="width: 17px; height: 17px;">
@@ -111,26 +113,26 @@ input[type="number"]::-webkit-inner-spin-button {
 				<br>
 				<div
 					style="width: 130px; display: inline-block; font-size: 20px; font-weight: 600;">상호</div>
-				<label>돼지되지</label><br>
+				<label id="eName2"></label><br>
 				<br>
 				<div
 					style="width: 130px; display: inline-block; font-size: 20px; font-weight: 600;">대표자명</div>
-				<label>김진호</label><br>
+				<label id="partnerName"></label><br>
 				<br>
 				<div
 					style="width: 130px; display: inline-block; font-size: 20px; font-weight: 600;">소재지</div>
 				<div style="display: inline-block; width: 300px;">
-					<label>서울특별시 강남구 역삼동 59 파덕상가 지하철 2호선 역삼역 3번출구 100m</label>
+					<label id="eAddress2"></label>
 				</div>
 				<br>
 				<br>
 				<div
 					style="width: 130px; display: inline-block; font-size: 20px; font-weight: 600;">사업자번호</div>
-				<label>192-168-30-141</label><br>
+				<label id="eRegi"></label><br>
 				<br>
 				<div
 					style="width: 130px; display: inline-block; font-size: 20px; font-weight: 600;">연락처</div>
-				<label>02)1544-9970</label><br>
+				<label id="ePhone"></label><br>
 				<br>
 
 			</div>
@@ -189,14 +191,15 @@ input[type="number"]::-webkit-inner-spin-button {
 			<hr style="margin-right: -150px; margin-left: 0px;">
 			<label style="margin-right:150px; margin-top:10px; font-size:20px;">요청사항</label>
 			<textarea cols=40 rows=10 style="resize: none;" placeholder="요청사항을 입력해 주세요." name="rcontent"></textarea><br><br>
-			<label>사용하실 포인트 : </label><input name="point" type="number" min="0" max="2000" value="0"><br><br>
+			<label>사용하실 포인트 : </label><input id="point" class="sle2" name="point" type="number" min="0" max="2000" value="0"><br><br>
 			
 			<button type="button" onclick="reservation();" style="width:100%; height:50px; background: #DE6B6A; color:white; 
 			border:0px; font-size: 26px;">예약하기</button><br>
 			<div align="center">
 				<input type="hidden" value="20000" name="deposit">
-				<label style="font-size: 15px;">예약시 보증금 20000원이 결제되며, </label><br>
+				<label style="font-size: 15px;">예약시 보증금 </label><label id="pay"></label><label>원이 결제되며, </label><br>
 				<label style="font-size: 14px;">식사 후 결제될 금액에서 빠지게 됩니다.</label>
+				<input type="hidden" name="deposit" value="" id="deposit">
 			</div>
 		</div>
 	</div>
@@ -205,6 +208,7 @@ input[type="number"]::-webkit-inner-spin-button {
 </form>
 
 <script>
+	
 	var IMP = window.IMP;
 	IMP.init("imp12858574");
 	function reservation(){
@@ -286,6 +290,32 @@ var nowmonth = date.getMonth() + 1;
 var nowdate = date.getDate();
 
 
+var dhigher;
+var dlower;
+
+$.ajax({
+	type: "get",
+	url: "/semiproject/selectEnpInfo.re",
+	data: {
+		enpNo: "<%=enpNo%>"
+	},
+	success: function(data){
+		console.log(data);
+		$("#eName").html(data.enpName);
+		$("#eAddress").html(data.enpAddress);
+		$("#eIntro").html(data.introduce);
+		$("#eName2").html(data.enpName);
+		$("#partnerName").html(data.partnerName);
+		$("#eAddress2").html(data.enpAddress);
+		$("#eRegi").html(data.enpRegisterNo);
+		$("#ePhone").html(data.enpPhone);
+		dhigher = data.depositHigherLimit;
+		dlower = data.depositLowerLimit;
+	},
+	error: function(){
+		console.log("실패");
+	}
+});
 $(".sle").change(function(){
 	hour = $("#hour").val();
 	min = $("#min").val();
@@ -307,9 +337,10 @@ $(".sle").change(function(){
 $(".sle2").change(function(){
 	adult = $("#adult").val();
 	child = $("#child").val();
-	
+	var pay = adult * dhigher + child * dlower - $("#point").val();
+	$("#pay").html(pay);
 	$("#people").html("어른 "+adult + ", 어린이 " + child) 
-	
+	$("#deposit").val(pay);
 
 });
 
