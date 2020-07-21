@@ -211,6 +211,8 @@ public class BoardService {
 			result = new BoardDao().updateCount(con, boardNo);
 			board = new BoardDao().selectOneBoard(con, boardNo);
 			
+			board.setBoardNo(boardNo);
+			
 			if(result > 0 && board != null) {
 				commit(con);
 			} else {
@@ -254,5 +256,21 @@ public class BoardService {
 			close(con);
 			
 			return selectThree;
+		}
+
+		public ArrayList<BoardUpVo> insertReply(BoardUpVo reply) {
+			Connection con = getConnection();
+			
+			int result = new BoardDao().insertReply(con, reply);
+			ArrayList<BoardUpVo> replyList = new BoardDao().selectReplyList(con, reply.getBoardNo());
+			
+			if(result > 0 && replyList != null) {
+				commit(con);
+			} else {
+				rollback(con);
+				replyList = null;
+			}
+			
+			return replyList;
 		}
 }

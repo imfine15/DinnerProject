@@ -2,29 +2,28 @@ package com.kh.semi.board.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
+import com.google.gson.Gson;
 import com.kh.semi.board.model.service.BoardService;
 import com.kh.semi.board.model.vo.BoardUpVo;
 
 /**
- * Servlet implementation class SelectOneBoardServlet
+ * Servlet implementation class InsertBoardReplyServlet
  */
-@WebServlet("/selectOneBoard.up")
-public class SelectOneBoardServlet extends HttpServlet {
+@WebServlet("/insertReply.bo")
+public class InsertBoardReplyServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public SelectOneBoardServlet() {
+    public InsertBoardReplyServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -33,30 +32,25 @@ public class SelectOneBoardServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String boardNo = request.getParameter("boardNo");
+		String memberNo = request.getParameter("memberNo");
+		String content = request.getParameter("content");
 		
-		String boardNo = request.getParameter("no");
+//		System.out.println("boardNo : " + boardNo);
+//		System.out.println("memberNo : " + memberNo);
+//		System.out.println("content : " + content);
 		
-		HttpSession session = request.getSession();
+		BoardUpVo reply = new BoardUpVo();
+		reply.setBoardNo(boardNo);
+		reply.setMemberNo(memberNo);
+		reply.setReplyContent(content);
 		
-		BoardUpVo board = new BoardService().selectOneBoard(boardNo);
-		ArrayList<HashMap<String, Object>> list2 = null;
+		ArrayList<BoardUpVo> replyList = new BoardService().insertReply(reply);
 		
-			
-		list2 = new BoardService().selectThumbnailList(boardNo);
+		response.setContentType("application/json");
+		response.setCharacterEncoding("UTF-8");
+		new Gson().toJson(replyList, response.getWriter());
 		
-
-		
-		String page = "";
-		if(list2 != null) {
-			page="views/admin/reviewConfirm/reviewConfirmDetail.jsp";
-			session.setAttribute("list2", list2);
-			session.setAttribute("board", board);
-			session.setAttribute("boardNo", boardNo);
-		} else {
-			page="views/common/errorPage.jsp";
-			request.setAttribute("msg", "게시판 조회 실패!");
-		}
-		request.getRequestDispatcher(page).forward(request, response);
 	}
 
 	/**
