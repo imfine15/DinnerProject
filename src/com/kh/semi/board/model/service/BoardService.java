@@ -242,7 +242,15 @@ public class BoardService {
 		public List<BoardVO> selectTopThree() {
 			Connection con = getConnection();
 			List<BoardVO> selectThree = new BoardDao().selectTopThree(con);
-			
+			for(int i = 0; i < selectThree.size(); i++) {
+				String boardNo = selectThree.get(i).getBoardNo();
+				
+				String[] filePaths = new String[2];
+					
+				filePaths = new BoardDao().getFilePaths(con, filePaths, boardNo);
+				
+				selectThree.get(i).setFilePaths(filePaths);
+			}
 			close(con);
 			
 			return selectThree;

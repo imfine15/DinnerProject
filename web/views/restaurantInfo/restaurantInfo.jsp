@@ -67,7 +67,7 @@ ArrayList<ReviewVO> normalReviews = (ArrayList<ReviewVO>)session.getAttribute("n
 					<td class="infoContent"><%= selectedEnp.getPriceRange() %></td>
 				</tr>
 				<tr>
-					<td class="infoTitle">메뉴</td>
+					<td class="infoTitle">대표메뉴</td>
 					<td class="infoContent" id="menus"></td>
 				</tr>
 				<tr>
@@ -129,6 +129,7 @@ ArrayList<ReviewVO> normalReviews = (ArrayList<ReviewVO>)session.getAttribute("n
 			});
 		</script>
 	</div>
+	<% if(selectedEnp.getEnpPartnerType().equals("PARTNER")) { %>
 	<div id="reservationDiv">
 		<button>예약하기</button>
 	</div>
@@ -138,6 +139,7 @@ ArrayList<ReviewVO> normalReviews = (ArrayList<ReviewVO>)session.getAttribute("n
 			location.href="<%= request.getContextPath() %>/views/payment/paymentPage.jsp?enpNo=" + enpNo; 
 		});
 	</script>
+	<% } %>
 	<div id="adDiv">
 		<div id="adContent">
 			<div id="adBtn">
@@ -318,20 +320,31 @@ ArrayList<ReviewVO> normalReviews = (ArrayList<ReviewVO>)session.getAttribute("n
 	<hr class="hr">
 	<div id="recommendDiv">
 		<div id="recommendDiv1">
-			<img alt="추천 맛집 첫번째" src="/semiproject/images/연어.jpg">
-			<p>내 뱃살보다 두툼한 연어</p>
+			<img alt="추천 맛집 첫번째" src="">
+			<p></p>
 		</div>
 		<div id="recommendDiv2">.
-			<img alt="추천 맛집 두번째" src="/semiproject/images/장어구이.jpg">
-			<p>하나먹다 셋이죽는 장어 맛집</p>
+			<img alt="추천 맛집 두번째" src="">
+			<p></p>
 		</div>
 		<div id="recommendDiv3">
-			<img alt="추천 맛집 두번째" src="/semiproject/images/죠떡.jpg">
-			<p>죠스떡볶이는 전설이다...</p>
+			<img alt="추천 맛집 두번째" src="">
+			<p></p>
 		</div>
 	</div>
 	<script>
-		
+		$(function() {
+			$.ajax({
+				url: "/semiproject/selectTopThree.bo",
+				type: "post",
+				success: function(data) {
+					for(var i = 0; i < 3; i++) {
+						$("#recommendDiv" + (i + 1)).children("img").attr("src", data[i].filePaths[0]);
+						$("#recommendDiv" + (i + 1)).children("p").html(data[i].boardTitle);
+					}
+				}
+			})
+		});
 	</script>
 	<%@ include file="/views/common/footer.jsp" %>
 </body>
