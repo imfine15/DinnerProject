@@ -138,6 +138,12 @@ public class ReservationService {
 		return enpInfo;
 	}
 
+	public String selectEnpImg(String eNo) {
+		Connection con = getConnection();																																																																												
+		String enpNo = new ReservationDao().selectEnpImg(con, eNo);
+		return enpNo;
+	}
+
 
 
 

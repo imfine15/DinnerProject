@@ -363,6 +363,30 @@ public class ReservationDao {
 		}
 		return evo;
 	}
+
+	public String selectEnpImg(Connection con, String eNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String query = prop.getProperty("selectEnpImg");
+		String eimg = "";
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, eNo);
+			
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				eimg = rset.getString("CHANGE_NAME");
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
+		}
+		return eimg;
+	}
 }
 
 
