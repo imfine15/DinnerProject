@@ -336,7 +336,7 @@ Properties prop = new Properties();
 			rset = pstmt.executeQuery();
 			
 			requestReserve = new ArrayList<>();
-			
+			int count = 0;
 			while(rset.next()) {
 				/*SimpleDateFormat df = new SimpleDateFormat("RRRR/MM/DD");
 				String dfdf = df.format(rset.getTimestamp("RESERVATION_DATE"));
@@ -359,6 +359,8 @@ Properties prop = new Properties();
 				System.out.println("Dao 호출 cNO : " + r.getcNo());
 				
 				requestReserve.add(r);
+				System.out.println("r"+count + " : "  + r);
+				count ++;
 			}
 			
 		} catch (SQLException e) {
@@ -452,7 +454,7 @@ Properties prop = new Properties();
 		return memId;
 	}
 	
-	public ArrayList<Integer> selectCRCount(Connection con, String countId, String enp) {
+	public int selectCRCount(Connection con, String countId, String enp, String mNo) {
 		PreparedStatement pstmt = null;
 		ArrayList<Integer> list = null;
 		ResultSet rset = null;
@@ -462,6 +464,7 @@ Properties prop = new Properties();
 			pstmt = con.prepareStatement(query);
 			pstmt.setString(1, enp);
 			pstmt.setString(2, countId);
+			pstmt.setString(3, mNo);
 			rset = pstmt.executeQuery();
 			
 			list = new ArrayList<Integer>();
@@ -479,7 +482,7 @@ Properties prop = new Properties();
 		}
 		
 		
-		return list;
+		return list.get(0);
 	}
 	
 	public EnpVO selectEnp(Connection con, String enpNo) {
@@ -704,5 +707,32 @@ Properties prop = new Properties();
 		
 		return result;
 	}
+
+	/*public int selectCRRownum(Connection con, String enp) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int rownum = 0;
+		
+		String query = prop.getProperty("selectCRRownum");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, enp);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				rownum = rset.getInt("COUNT(*)");
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		return rownum;
+	}*/
 	
 }

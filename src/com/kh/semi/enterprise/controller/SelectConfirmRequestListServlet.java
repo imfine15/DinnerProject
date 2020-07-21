@@ -91,9 +91,22 @@ public class SelectConfirmRequestListServlet extends HttpServlet {
 		String cancelId = "RSC3";
 		String visitId = "RSC5";
 		
-		ArrayList<Integer> cancelCount = new EnpService().selectCRCount(cancelId,enp);
+		int rownum = new EnpService().selectCRRownum(enp);
 		
-		ArrayList<Integer> visitCount = new EnpService().selectCRCount(visitId,enp);
+		ArrayList<ReservationVO> checkCountList = new ArrayList<ReservationVO>();
+		
+		for(ReservationVO v : list) {
+			int i = 0;
+			v.setmNo(list.get(i).getmNo());
+			
+			checkCountList.add(v);
+			
+			i++;
+		}
+		
+		ArrayList<Integer> cancelCount = new EnpService().selectCRCount(cancelId,enp,checkCountList);
+		
+		ArrayList<Integer> visitCount = new EnpService().selectCRCount(visitId,enp,checkCountList);
 		
 		for(int a : cancelCount) {
 			System.out.println("cancelCount : " + a);

@@ -126,10 +126,18 @@ public class EnpService {
 		return modalId;
 	}
 	
-	public ArrayList<Integer> selectCRCount(String countId, String enp) {
+	public ArrayList<Integer> selectCRCount(String countId, String enp, ArrayList<ReservationVO> checkCountList) {
 		Connection con = getConnection();
+		ArrayList<Integer> count = new ArrayList<Integer>();
+		for(ReservationVO v : checkCountList) {
+			
+			String mNo = v.getmNo();
+			
+			int a = new EnpDao().selectCRCount(con,countId,enp, mNo);
+			
+			count.add(a);
+		}
 		
-		ArrayList<Integer> count = new EnpDao().selectCRCount(con,countId,enp);
 		
 		close(con);
 		
@@ -184,6 +192,14 @@ public class EnpService {
 		close(con);
 		
 		return filePath;
+	}
+
+	public int selectCRRownum(String enp) {
+		Connection con = getConnection();
+		
+		//int rownum = new EnpDao().selectCRRownum(con,enp);
+		
+		return 0;
 	}
 	
 }

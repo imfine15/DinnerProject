@@ -15,6 +15,8 @@ int endPage = pi.getEndPage();
 ArrayList<ForEntCrVO> modalList = (ArrayList<ForEntCrVO>)request.getAttribute("modalList");
 ArrayList<Integer> visitCount = (ArrayList<Integer>)request.getAttribute("visitCount");
 ArrayList<Integer> cancelCount = (ArrayList<Integer>)request.getAttribute("cancelCount");
+System.out.println("listsize : " + list.size());
+System.out.println("modalListsize : " + modalList.size());
 %>
 <!doctype html>
 <html lang="ko">
@@ -152,8 +154,9 @@ ArrayList<Integer> cancelCount = (ArrayList<Integer>)request.getAttribute("cance
                   <td><button class="reservateBtn">확인</button> <button class="cancelBtn" style="background-color: gray;">취소</button></td>
                  
                </tr>
-               <% for(ReservationVO r : list){
-               int i = 0 ;%>
+               <% for(int i = 0; i < list.size(); i++){
+            		System.out.print("LIST SIZE : " + list.size());
+               %>
                		
 					<tr>
 					<%-- <input type="hidden" value="<%=b.getBid() %>">
@@ -164,16 +167,16 @@ ArrayList<Integer> cancelCount = (ArrayList<Integer>)request.getAttribute("cance
 						<td><%= b.getbCount() %></td>
 						<td><%= b.getbDate() %></td> --%>
 						<td><button  style="background:#EB7673; width:17px; height:17px; border:0;"></button></td>
-                  		<td><a href=""><%=r.getrNo() %></a></td>
-		                <td><a href=""><%=r.getmNo() %></a></td>
-		                <td><%=r.getrDate3() %></td>
-		                <td><%=r.getPeople() %></td>
-		                <td><%=r.getrDate2() %></td>
+                  		<td><a href=""><%=list.get(i).getrNo() %></a></td>
+		                <td><a href=""><%=list.get(i).getmNo() %></a></td>
+		                <td><%=list.get(i).getrDate3() %></td>
+		                <td><%=list.get(i).getPeople() %></td>
+		                <td><%=list.get(i).getrDate2() %></td>
 		                <td><button class="moreInfoBtn">확인</button></td>
 		                <td><button class="userInfoBtn" id="userInfoBtn<%=i%>">확인</button></td>
 		                <td><button class="reservateBtn">확인</button> <button class="cancelBtn" style="background-color: gray;">취소</button></td>
 					</tr>
-				<% i++; } %>
+				<% } %>
             </tbody>
             </table>
       <div class="pagingArea" align="center">
@@ -193,8 +196,8 @@ ArrayList<Integer> cancelCount = (ArrayList<Integer>)request.getAttribute("cance
  	<br>	
 	<br>	
 	
-		         		<% for(int i = 0 ; i < modalList.size(); i++){%>
-	<div class="modal fade" id="testModal<%=i %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		         		<% for(int j = 0 ; j < modalList.size(); j++){%>
+	<div class="modal fade" id="testModal<%=j %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 		<div class="modal-dialog" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
@@ -219,19 +222,19 @@ ArrayList<Integer> cancelCount = (ArrayList<Integer>)request.getAttribute("cance
 		         		</thead>
 		         		<tr style="font-size: 10px; text-align: center;">
 		         			<td style="font-weight: bolder; color:black;">
-		         				<%=visitCount.get(i) %>
+		         			 <%=visitCount.get(j) %>
 		         			</td>
 		         			<td>
-		         				<%=cancelCount.get(i) %>
+		         			 <%=cancelCount.get(j) %> 
 							</td>
 							<td style="font-weight: bolder; color:black;">
 		         				0
 		         			</td>
 		         			<td>
-		         				<%=modalList.get(i).getReservationDate() %>
+		         				<%=modalList.get(j).getReservationDate() %>
 		         			</td>
 		         			<td>
-		         				<%=modalList.get(i).getNickName() %>
+		         				<%=modalList.get(j).getNickName() %>
 		         			</td>
 		         			
 		         		</tr>
@@ -245,11 +248,12 @@ ArrayList<Integer> cancelCount = (ArrayList<Integer>)request.getAttribute("cance
 					<!-- <a class="btn" id="modalY" href="#">예</a> -->
 					<button class="btn" type="button" data-dismiss="modal">확인</button>
 				</div>
-		         		<% } %>
+		         		
 				
 			</div>
 		</div>
 	</div>
+	<% } %>
 	<br>
 	<br>
 	<br>
