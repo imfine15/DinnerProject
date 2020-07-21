@@ -233,14 +233,16 @@ public class ReservationDao {
 		return eName;
 	}
 
-	public int deleteReserInfo(Connection con, String rNo, String mNo) {
+	public int deleteReserInfo(Connection con, String rNo, String mNo, int deposit, int point) {
 		PreparedStatement pstmt = null;
 		String query = prop.getProperty("deleteReserInfo");
 		int result = 0;
 		try {
 			pstmt = con.prepareStatement(query);
 			pstmt.setString(1, rNo);
-			pstmt.setString(2, mNo);
+			pstmt.setInt(2, deposit);
+			pstmt.setString(3, mNo);
+			
 			
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
@@ -307,16 +309,19 @@ public class ReservationDao {
 		return paymentHistoryVO;
 	}
 
-	public int deletePayInfo(Connection con, String rNo, String mNo, String pNo) {
+	public int deletePayInfo(Connection con, String rNo, String mNo, String pNo, int deposit, int point) {
 		PreparedStatement pstmt = null;
 		int result = 0;
 		String query = prop.getProperty("deletePayInfo");
 		
 		try {
 			pstmt = con.prepareStatement(query);
-			pstmt.setString(1, mNo);
-			pstmt.setString(2, rNo);
-			pstmt.setString(3, pNo);
+			
+			pstmt.setInt(1, deposit);
+			pstmt.setString(2, mNo);
+			pstmt.setInt(3, point);
+			pstmt.setString(4, rNo);
+			pstmt.setString(5, pNo);
 			
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {

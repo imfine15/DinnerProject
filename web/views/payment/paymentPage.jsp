@@ -21,7 +21,21 @@
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
-
+<script>
+	$.ajax({
+		type: "get",
+		trl: "/semiproject/selectEnpimg.im",
+		data: {
+			enpNo:"<%=enpNo%>"
+		},
+		success: function(){
+			console.log("성공입니다.");
+		},
+		error: function(){
+			console.log("에러입니다.");
+		}
+	});
+</script>
 <style>
 .subb {
 	width: 44%;
@@ -191,12 +205,12 @@ input[type="number"]::-webkit-inner-spin-button {
 			<hr style="margin-right: -150px; margin-left: 0px;">
 			<label style="margin-right:150px; margin-top:10px; font-size:20px;">요청사항</label>
 			<textarea cols=40 rows=10 style="resize: none;" placeholder="요청사항을 입력해 주세요." name="rcontent"></textarea><br><br>
-			<label>사용하실 포인트 : </label><input id="point" class="sle2" name="point" type="number" min="0" max="2000" value="0"><br><br>
+			<label>사용하실 포인트 : </label><input style="background: white; border: 1px solid black; border-radius: 3px;" id="point" 
+			class="sle2" name="point" type="number" min="0" max="2000" value="0"><br><br>
 			
 			<button type="button" onclick="reservation();" style="width:100%; height:50px; background: #DE6B6A; color:white; 
 			border:0px; font-size: 26px;">예약하기</button><br>
 			<div align="center">
-				<input type="hidden" value="20000" name="deposit">
 				<label style="font-size: 15px;">예약시 보증금 </label><label id="pay"></label><label>원이 결제되며, </label><br>
 				<label style="font-size: 14px;">식사 후 결제될 금액에서 빠지게 됩니다.</label>
 				<input type="hidden" name="deposit" value="" id="deposit">
@@ -341,7 +355,16 @@ $(".sle2").change(function(){
 	$("#pay").html(pay);
 	$("#people").html("어른 "+adult + ", 어린이 " + child) 
 	$("#deposit").val(pay);
-
+	if($("#point").val() > 2000){
+		alert("포인트 사용은 2000포인트까지 사용이 가능합니다.");
+		$("#point").val(0);
+		pay = adult * dhigher + child * dlower;
+		$("#deposit").val(pay);
+		$("#pay").html(pay);
+		return false;
+	}
+	console.log($("#deposit").val());
+	console.log($("#point").val());
 });
 
 function dd(){
