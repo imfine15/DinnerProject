@@ -9,8 +9,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Properties;
 
+import com.kh.semi.enterprise.model.vo.EnpVO;
 import com.kh.semi.payment.model.vo.PaymentHistoryVO;
 import com.kh.semi.payment.model.vo.ReservationVO;
 import static com.kh.semi.common.JDBCTemplate.*;
@@ -323,6 +325,38 @@ public class ReservationDao {
 			close(pstmt);
 		}
 		return result;
+	}
+
+	public EnpVO selectEnpInfo(Connection con, String eNo) {
+		PreparedStatement pstmt = null;
+		String query = prop.getProperty("selectEnpInfo");
+		ResultSet rset = null;
+		EnpVO evo = null;
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, eNo);
+			
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				evo = new EnpVO();
+				evo.setEnpName(rset.getString("ENP_NAME"));
+				evo.setEnpAddress(rset.getString("ENP_ADDRESS"));
+				evo.setIntroduce(rset.getString("INTRODUCE"));
+				evo.setEnpPhone(rset.getString("ENP_PHONE"));
+				evo.setPartnerName(rset.getString("PARTNER_NAME"));
+				evo.setEnpRegisterNo(rset.getString("ENP_REGISTER_NO"));
+				evo.setDepositLowerLimit(rset.getInt("DEPOSIT_LOWER_LIMIT"));
+				evo.setDepositHigherLimit(rset.getInt("DEPOSIT_HIGHER_LIMIT"));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
+		}
+		return evo;
 	}
 }
 
