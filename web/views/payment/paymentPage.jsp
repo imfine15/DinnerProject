@@ -18,6 +18,7 @@
 <link rel="shortcut icon" href="/semiproject/images/favicon.ico" type="image/x-icon">
 <link rel="icon" href="/semiproject/images/favicon.ico" type="image/x-icon">
 
+
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
