@@ -139,6 +139,8 @@ ArrayList<ReviewVO> normalReviews = (ArrayList<ReviewVO>)session.getAttribute("n
 			location.href="<%= request.getContextPath() %>/views/payment/paymentPage.jsp?enpNo=" + enpNo; 
 		});
 	</script>
+	<% } else { %>
+		<br><br>
 	<% } %>
 	<div id="adDiv">
 		<div id="adContent">
