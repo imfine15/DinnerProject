@@ -196,11 +196,11 @@ tr {
 				</div>
 							<!-- 페이징처리 -->
 			<div class="pagingArea" align="center" style="background: white;">
-      	<button class="hide" onclick="location.href='<%=request.getContextPath()%>/selectList.up?currentPage=1'"><img style="width:15px; height:18px" src="/semiproject/views/admin/companyManagement/images/arrow.png"><img style="width:15px; height:18px" src="/semiproject/views/admin/companyManagement/images/arrow.png"></button>
+      	<button class="hide" onclick="location.href='<%=request.getContextPath()%>/selectListSchedule.up?currentPage=1'"><img style="width:15px; height:18px" src="/semiproject/views/admin/companyManagement/images/arrow.png"><img style="width:15px; height:18px" src="/semiproject/views/admin/companyManagement/images/arrow.png"></button>
       	<% if(currentPage <= 1) {%>
       	<button class="hide" disabled><img style="width:15px; height:18px" src="/semiproject/views/admin/companyManagement/images/arrow.png"></button>
       	<%} else { %>
-      	<button class="hide" onclick="location.href='<%=request.getContextPath()%>/selectList.up?currentPage='"><img style="width:15px; height:18px" src="/semiproject/views/admin/companyManagement/images/arrow.png"></button>
+      	<button class="hide" onclick="location.href='<%=request.getContextPath()%>/selectListSchedule.up?currentPage=<%=currentPage - 1%>'"><img style="width:15px; height:18px" src="/semiproject/views/admin/companyManagement/images/arrow.png"></button>
 		<%} %>
 		
 		<% for(int p = startPage; p <= endPage; p++) { 
@@ -210,16 +210,16 @@ tr {
 		<button class="hide" disabled><div style="height:18px; width:15px;"><%= p %></div></button>
 		
 		<% } else { %>
-			<button class="hide" onclick="location.href='<%=request.getContextPath()%>/selectList.up?currentPage=<%= p%>'"><div style="height:18px; width:15px;"><%= p %></div></button>
+			<button class="hide" onclick="location.href='<%=request.getContextPath()%>/selectListSchedule.up?currentPage=<%= p%>'"><div style="height:18px; width:15px;"><%= p %></div></button>
 		<% }
 		}%>
 		
 		<% if(currentPage >= maxPage) {%>
 		<button class="hide" disabled><img style="width:15px; height:18px" src="/semiproject/views/admin/companyManagement/images/arrow2.png"></button>
 		<%} else { %>
-      	<button class="hide" onclick="location.href='<%=request.getContextPath()%>/selectList.up?currentPage='"><img style="width:15px; height:18px" src="/semiproject/views/admin/companyManagement/images/arrow2.png"></button>
-		<%} %>		
-      	<button class="hide" onclick="location.href='<%=request.getContextPath()%>/selectList.up?currentPage='"><img style="width:15px; height:18px" src="/semiproject/views/admin/companyManagement/images/arrow2.png"><img style="width:15px; height:18px" src="/semiproject/views/admin/companyManagement/images/arrow2.png"></button>
+      	<button class="hide" onclick="location.href='<%=request.getContextPath()%>/selectListSchedule.up?currentPage=<%=currentPage + 1%>'"><img style="width:15px; height:18px" src="/semiproject/views/admin/companyManagement/images/arrow2.png"></button>
+		<%} %>
+      	<button class="hide" onclick="location.href='<%=request.getContextPath()%>/selectListSchedule.up?currentPage=<%=maxPage%>'"><img style="width:15px; height:18px" src="/semiproject/views/admin/companyManagement/images/arrow2.png"><img style="width:15px; height:18px" src="/semiproject/views/admin/companyManagement/images/arrow2.png"></button>
 		
       </div>
 			</div>
