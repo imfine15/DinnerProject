@@ -216,7 +216,7 @@ html, body {
 		}
 		
 		function goAdminNotice() {
-			location.href="<%=request.getContextPath()%>/";
+			location.href="<%=request.getContextPath()%>/selectAdminList.no";
 		}
 		
 		function goMemberRefundHistory() {
