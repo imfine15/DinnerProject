@@ -273,4 +273,15 @@ public class BoardService {
 			
 			return replyList;
 		}
+
+		public ArrayList<BoardUpVo> selectReplyList(String boardNo) {
+			Connection con = getConnection();
+			//ArrayList<BoardUpVo> replyList = new BoardDao().sele
+			ArrayList<BoardUpVo> replyList = new BoardDao().selectReplyList(con, boardNo);
+			
+			System.out.println("replyList : " + replyList);
+			
+			close(con);
+			return replyList;
+		}
 }

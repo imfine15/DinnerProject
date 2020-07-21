@@ -7,6 +7,7 @@
 	ArrayList<HashMap<String, Object>> list2 = (ArrayList<HashMap<String, Object>>)session.getAttribute("list2");
 	BoardUpVo board = (BoardUpVo)session.getAttribute("board");
 	String boardNo = (String)session.getAttribute("boardNo");
+	ArrayList<BoardUpVo> replyList = (ArrayList<BoardUpVo>) request.getAttribute("replyList");
 %>
 <!DOCTYPE html>
 <html>
@@ -90,9 +91,25 @@
 		<div style="width: 80%;">
 			<div
 				style="margin-left: auto; margin-right: auto; padding-left: 10px; float: left;">
-				<label style="font-size: 30px; float:left; padding-left:96px;">댓글(3)</label><br><br><br>
-				<table id="replySelectTable" style="padding-left:130px; font-size:14px;">
-					<tbody></tbody>
+				<label style="font-size: 30px; float: left; padding-left: 96px;">댓글(3)</label><br>
+				<br>
+				<br>
+				<table id="replySelectTable"
+					style="padding-left: 130px; font-size: 14px;">
+					<tbody>
+						<%
+							for (int i = 0; i < replyList.size(); i++) {
+						%>
+						<tr>
+							<td style="width: 90px;"><%=replyList.get(i).getMemberId()%></td>
+							<td style="width: 500px;"><%=replyList.get(i).getReplyContent()%></td>
+							<td style="width: 70px;"></td>
+							<td style="width: 190px;"><%=replyList.get(i).getReplyDate()%></td>
+						</tr>
+						<%
+							}
+						%>
+					</tbody>
 				</table>
 			</div>
 		</div>
