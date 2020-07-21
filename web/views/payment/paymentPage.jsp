@@ -29,10 +29,10 @@
 			enpNo:"<%=enpNo%>"
 		},
 		success: function(){
-			console.log("성공입니다.");
+			
 		},
 		error: function(){
-			console.log("에러입니다.");
+			
 		}
 	});
 </script>
