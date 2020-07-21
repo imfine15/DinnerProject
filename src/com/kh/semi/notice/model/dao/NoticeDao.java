@@ -442,7 +442,6 @@ public class NoticeDao {
 				int aId= rset.getInt("currval");
 				aNno = "N"+aId;
 			}
-
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -481,9 +480,98 @@ public class NoticeDao {
 		
 	}
 
+	//관리자 공지사항 목록 조회하는 메소드
 	public ArrayList<AdminNoticeVO> selectAdminList(Connection con, PageInfo pi) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<AdminNoticeVO> list = null;
+		
+		String query = prop.getProperty("selectAdminList");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			
+			int startRow = (pi.getCurrentPage() - 1) * pi.getLimit() + 1;
+			int endRow = startRow + pi.getLimit() - 1;
+			
+			pstmt.setInt(1,  startRow);
+			pstmt.setInt(2,  endRow);
+			
+			rset = pstmt.executeQuery();
+			
+			list = new ArrayList<>();
+
+			while(rset.next()) {
+				AdminNoticeVO n = new AdminNoticeVO();
+				
+				n.setNoticeTitle(rset.getString("NOTICE_TITLE"));
+				n.setNoticeDate(rset.getDate("NOTICE_DATE"));
+				n.setNoticeNo(rset.getString("SUBSTR(NOTICE_NO,2,1)"));
+				n.setNoticeContent(rset.getString("NOTICE_CONTENT"));
+
+				list.add(n);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
+		}
+		return list;
+	}
+
+	//관리자 공지사항 글 상세보기 메소드
+	public HashMap<String, Object> selectAdminNotice(Connection con, int num) {
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		HashMap<String, Object> hmap = null;
+		AdminNoticeVO aNotice = null;
+		AdminNoticeAttachment attachment = null;
+		ArrayList<AdminNoticeAttachment> list = null;
+		
+		String query = prop.getProperty("selectAdminNotice");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1,  num);
+			
+			rset = pstmt.executeQuery();
+			
+			list = new ArrayList<AdminNoticeAttachment>();
+				
+			while(rset.next()) {
+								
+				aNotice = new AdminNoticeVO();
+				aNotice.setNoticeNo(rset.getString("NOTICE_NO"));
+				aNotice.setNoticeContent(rset.getString("NOTICE_CONTENT"));
+				aNotice.setNoticeDate(rset.getDate("NOTICE_DATE"));
+				aNotice.setNoticeTitle(rset.getString("NOTICE_TITLE"));
+		
+				
+				attachment = new AdminNoticeAttachment();
+				attachment.setChangeName(rset.getString("CHANGE_NAME"));
+				attachment.setFileNo(rset.getString("FILE_NO"));
+				attachment.setFilePath(rset.getString("FILE_PATH"));
+				attachment.setOriginName(rset.getString("ORIGIN_NAME"));
+				
+				list.add(attachment);
+			}
+			
+			hmap = new HashMap<>();
+			
+			hmap.put("aNotice", aNotice);
+			hmap.put("attachment", list);
+					
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return hmap;
+		
 	}
 
 }

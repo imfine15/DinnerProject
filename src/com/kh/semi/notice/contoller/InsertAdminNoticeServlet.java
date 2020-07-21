@@ -65,8 +65,8 @@ public class InsertAdminNoticeServlet extends HttpServlet {
 				 originFiles.add(multiRequest.getOriginalFileName(name));
 			 }
 
-			 String title = multiRequest.getParameter("nTitle");
-			 String content = multiRequest.getParameter("nContent");
+			 String title = multiRequest.getParameter("aTitle");
+			 String content = multiRequest.getParameter("aTitle");
 			 
 			 
 		//	 int writer = ((Member)(request.getSession().getAttribute("loginUser"))).getUno();

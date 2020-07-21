@@ -182,7 +182,8 @@ public class NoticeService {
 		if(result1 > 0) {
 			
 			String noticeNo = new NoticeDao().selectAdminCurrval(con);
-	
+
+			System.out.println(fileList);
 			for(int i = 0; i < fileList.size(); i++) {
 				
 				fileList.get(i).setNoticeNo(noticeNo);
@@ -213,6 +214,26 @@ public class NoticeService {
 		
 		return list;
 		
+	}
+
+	public HashMap<String, Object> selectOneAdmin(int num) {
+	
+		Connection con = getConnection();
+		
+		HashMap<String, Object> hmap = null;
+		
+		hmap = new NoticeDao().selectAdminNotice(con, num);
+		
+		if(hmap != null) {
+			commit(con);
+		} else {
+			rollback(con);
+			hmap = null;
+		}
+		
+		close(con);
+		
+		return hmap;
 	}
 }
 
