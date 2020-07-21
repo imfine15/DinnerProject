@@ -75,9 +75,9 @@ public class ReservationService {
 		return eName;
 	}
 
-	public int deleteReserInfo(String rNo, String mNo) {
+	public int deleteReserInfo(String rNo, String mNo, int deposit, int point) {
 		Connection con = getConnection();
-		int result = new ReservationDao().deleteReserInfo(con, rNo, mNo);
+		int result = new ReservationDao().deleteReserInfo(con, rNo, mNo, deposit, point);
 		
 		if(result > 0) {
 			commit(con);
@@ -118,9 +118,9 @@ public class ReservationService {
 		return paymentHistoryVO;
 	}
 
-	public int deletePayInfo(String rNo, String mNo, String pNo) {
+	public int deletePayInfo(String rNo, String mNo, String pNo, int deposit, int point) {
 		Connection con = getConnection();
-		int result = new ReservationDao().deletePayInfo(con, rNo, mNo, pNo);
+		int result = new ReservationDao().deletePayInfo(con, rNo, mNo, pNo, deposit, point);
 		
 		if(result > 0) {
 			commit(con);
