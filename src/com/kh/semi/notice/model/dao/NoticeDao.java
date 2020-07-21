@@ -15,6 +15,8 @@ import java.util.Properties;
 import static com.kh.semi.common.JDBCTemplate.*;
 
 import com.kh.semi.admin.model.vo.PageInfo;
+import com.kh.semi.notice.model.vo.AdminNoticeAttachment;
+import com.kh.semi.notice.model.vo.AdminNoticeVO;
 import com.kh.semi.notice.model.vo.EntNoticeVO;
 import com.kh.semi.notice.model.vo.NoticeAttachment;
 import com.kh.semi.notice.model.vo.NoticeVO;
@@ -305,6 +307,7 @@ public class NoticeDao {
 		
 	}	
 
+	//업체공지사항 조회하기 관리자가 
 	public ArrayList<EntNoticeVO> selectEntList(Connection con, PageInfo pi) {
 	
 		PreparedStatement pstmt = null;
@@ -397,8 +400,90 @@ public class NoticeDao {
 		return hmap;
 	}
 
+	//관리자페이지 관리자공지 등록메소드 
+	public int insertAdminNotice(Connection con, AdminNoticeVO aNotice) {
+		
+		PreparedStatement pstmt = null;
+		int result = 0;
+
+		String query = prop.getProperty("insertAdminNotice");
+			
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, aNotice.getNoticeTitle());
+			pstmt.setString(2, aNotice.getNoticeContent());
+			
+			result = pstmt.executeUpdate();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+
+		return result;
+	}
+
+	//파일 넣을때 조회하는 메소드 
+	public String selectAdminCurrval(Connection con) {
+		
+		Statement stmt = null;
+		ResultSet rset = null;
+		String aNno = "";
+
+		String query = prop.getProperty("selectAdminCurrval");
+
+		try {
+			stmt = con.createStatement();
+			rset = stmt.executeQuery(query);
+
+			if(rset.next()) {
+				
+				int aId= rset.getInt("currval");
+				aNno = "N"+aId;
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(stmt);
+			close(rset);
+		}
+
+		return aNno;
+		
+	}
+
+	//파일 넣는 메소드
+	public int insertAdminAttachment(Connection con, AdminNoticeAttachment adminNoticeAttachment) {
+		
+		PreparedStatement pstmt = null;
+		int result = 0;
+
+		String query = prop.getProperty("insertAdminAttachment");
+
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, adminNoticeAttachment.getOriginName());
+			pstmt.setString(2, adminNoticeAttachment.getChangeName());
+			pstmt.setString(3, adminNoticeAttachment.getFilePath());
+			pstmt.setString(4, adminNoticeAttachment.getNoticeNo());
+
+			result = pstmt.executeUpdate();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+
+		return result;
+		
+	}
+
+	public ArrayList<AdminNoticeVO> selectAdminList(Connection con, PageInfo pi) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }
-
-
-
-

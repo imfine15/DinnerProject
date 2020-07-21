@@ -12,6 +12,8 @@ session.setAttribute("backPage", backPage);
 <link rel="shortcut icon" href="/semiproject/images/favicon.ico" type="image/x-icon">
 <link rel="icon" href="/semiproject/images/favicon.ico" type="image/x-icon">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="./js/jquery.js" type="text/javas-ript"></script>
+<script src="./js/jquery.MultiFile.js" type="text/javas-ript"></script>
 <style>
 
 table {
@@ -170,7 +172,7 @@ input {
 	<%@ include file="/views/admin/common/sidebar.jsp"%>
 	<div style="width:80%; height:600px;margin-left: 230px; padding-top:40px; padding-left:30px;">
 		<div style="background: #F9F9F9;width: 100%; margin-bottom: 10px; height:50px; padding-left:10px; padding-right:10px;">
-			<h1><a id="goEntNotice" href="<%=request.getContextPath()%>/" target = "_self">업체 공지사항</a></h1><br>
+			<h1><a id="goEntNotice" href="<%=request.getContextPath()%>//selectElist.no" target = "_self">업체 공지사항</a></h1><br>
 		</div>
 		<div align="center" style="padding-left:10px; padding-right:10px; background: white; width:100%; padding-top: 30px; height: 800px;">
 				<div style="height:20px;"></div>
@@ -191,7 +193,7 @@ input {
 					<td>			<input id="fileName" class="file_input_textbox" placeholder="10MB 이하의 파일만 업로드 가능합니다." readonly/>
 							<div class="file_input_div">
 							<input type="button" value="파일찾기" class="file_input_button" style="cursor:pointer;"/>
-								<input type="file" class="file_input_hidden" style="cursor:pointer;" name="upFile" id="upFile" onchange="dd(this,'name')"> 
+								<input type="file" class="file_input_hidden" style="cursor:pointer;" name="upFile" id="upFile" onchange="fileList(this,'name')"> 
 							</div></td>
 					<td valign="top">
 		
@@ -212,116 +214,100 @@ input {
 		</div>
 		
 	</div>
-	
-		
-		
-		<script>
+
+	<script>
+
 		function noticeCSubmit() {
 			$("#noticeC-submit").submit();
 		}
-			
-			document.getElementById('currentDate').value = new Date().toISOString().substring(0, 10);
-		
-		/*<button type="button"id="dd" onclick="qq();">추가</button>*/
-		function qq(){
-			console.log("123123");
-			var input = document.createElement('input');
-			
-			input.setAttribute("type", "file");
-			console.log(input);
-			$("#uploadFiles").append(input);
-		}
-		
+
+		document.getElementById('currentDate').value = new Date().toISOString()
+				.substring(0, 10);
+
 		function questionSubmit() {
 			$("#question-submit").submit();
 		}
-		
+
 		function questionReset() {
 			$("#question-reset").reset();
 		}
-		</script>
-		<script>
-	 function getCmaFileInfo(obj,stype) {
-	    var fileObj, pathHeader , pathMiddle, pathEnd, allFilename, fileName, extName;
-	    if(obj == "[object HTMLInputElement]") {
-	        fileObj = obj.value
-	    } else {
-	        fileObj = document.getElementById(obj).value;
-	    }
-	    if (fileObj != "") {
-	            pathHeader = fileObj.lastIndexOf("\\");
-	            pathMiddle = fileObj.lastIndexOf(".");
-	            pathEnd = fileObj.length;
-	            fileName = fileObj.substring(pathHeader+1, pathMiddle);
-	            extName = fileObj.substring(pathMiddle+1, pathEnd);
-	            allFilename = fileName+"."+extName;
-	 
-	            if(stype == "all") {
-	                    return allFilename; // 확장자 포함 파일명
-	            } else if(stype == "name") {
-	                    return fileName; // 순수 파일명만(확장자 제외)
-	            } else if(stype == "ext") {
-	                    return extName; // 확장자
-	            } else {
-	                    return fileName; // 순수 파일명만(확장자 제외)
-	            }
-	    } else {
-	            alert("파일을 선택해주세요");
-	            return false;
-	    }
-	    // getCmaFileView(this,'name');
-	    // getCmaFileView('upFile','all');
-	 }
-	 
-	function getCmaFileView(obj,stype) {
-	    var s = getCmaFileInfo(obj,stype);
-	    alert(s);
-	}
-	function dd(obj, stype){
-		var div = document.createElement('div');
-		var inputc = document.createElement('input');
-		var text = document.createElement('text');
-		text.innerHTML = getCmaFileInfo(obj, stype);
-		inputc.setAttribute("type","checkbox");
-		
-		div.append(inputc);
-		div.append(text);
-		$("#uploadFiles").append(div);
-	}
 
-	$("input[type=radio]").each(function(){
-	    var chk = $(this).is(":checked");
-	    var name = $(this).attr('name');
-	    if(chk == true) $("input[name='"+name+"']").data("previous",$(this).val());
-	});
+		function getCmaFileInfo(obj, stype) {
+			
+			var fileObj, pathHeader, pathMiddle, pathEnd, allFilename, fileName, extName;
+			
+			if (obj == "[object HTMLInputElement]") {
+				fileObj = obj.value
+			} else {
+				fileObj = document.getElementById(obj).value;
+			}
+			if (fileObj != "") {
+				pathHeader = fileObj.lastIndexOf("\\");
+				pathMiddle = fileObj.lastIndexOf(".");
+				pathEnd = fileObj.length;
+				fileName = fileObj.substring(pathHeader + 1, pathMiddle);
+				extName = fileObj.substring(pathMiddle + 1, pathEnd);
+				allFilename = fileName + "." + extName;
 
-	$("input[type=radio]").click(function(){
-	    var pre = $(this).data("previous");
-	    var chk = $(this).is(":checked");
-	    var name = $(this).attr('name');
-	    if(chk == true && pre == $(this).val()){
+				if (stype == "all") {
+					return allFilename; // 확장자 포함 파일명
+				} else if (stype == "name") {
+					return fileName; // 순수 파일명만(확장자 제외)
+				} else if (stype == "ext") {
+					return extName; // 확장자
+				} else {
+					return fileName; // 순수 파일명만(확장자 제외)
+				}
+			} else {
+				alert("파일을 선택해주세요");
+				return false;
+			}
+			// getCmaFileView(this,'name');
+			// getCmaFileView('upFile','all');
+		}
 
-	        $(this).prop('checked',false);
+		function getCmaFileView(obj, stype) {
+			var s = getCmaFileInfo(obj, stype);
+			alert(s);
+		}
+		function fileList(obj, stype) {
+			var div = document.createElement('div');
+			var inputc = document.createElement('input');
+			var text = document.createElement('text');
+			text.innerHTML = getCmaFileInfo(obj, stype);
+			inputc.setAttribute("type", "checkbox");
 
-	        $("input[name='"+name+"']").data("previous",'');
-	    }else{
-	        if(chk == true) $("input[name='"+name+"']").data("previous",$(this).val());
-	    }
+			div.append(inputc);
+			div.append(text);
+			$("#uploadFiles").append(div);
+		}
 
-	});
+		$("input[type=radio]").each(
+				function() {
+					var chk = $(this).is(":checked");
+					var name = $(this).attr('name');
+					if (chk == true)
+						$("input[name='" + name + "']").data("previous",
+								$(this).val());
+				});
 
-	$(document).ready(function() {
-	    $('#fileDelete input[type=file]').bind('change focus click', SITE.fileInputs);
-	    
-	    /* here is my problem *************************
-	    how can i remove file completely when i click on "Remove" so that the same file name 
-	    doesn't come up again when i click on the "choose file" button to upload another file?
-	    */ 
-	    $('.file_input_button').live('click', function() {
-	        $(this).closest('div').remove();
-	        return false;
-	    });
-	});
+		$("input[type=radio]").click(
+				function() {
+					var pre = $(this).data("previous");
+					var chk = $(this).is(":checked");
+					var name = $(this).attr('name');
+					if (chk == true && pre == $(this).val()) {
+
+						$(this).prop('checked', false);
+
+						$("input[name='" + name + "']").data("previous", '');
+					} else {
+						if (chk == true)
+							$("input[name='" + name + "']").data("previous",
+									$(this).val());
+					}
+
+				});
 	</script>
 </body>
 </html>

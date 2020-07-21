@@ -6,6 +6,8 @@ import java.util.HashMap;
 
 import com.kh.semi.admin.model.vo.PageInfo;
 import com.kh.semi.notice.model.dao.NoticeDao;
+import com.kh.semi.notice.model.vo.AdminNoticeAttachment;
+import com.kh.semi.notice.model.vo.AdminNoticeVO;
 import com.kh.semi.notice.model.vo.EntNoticeVO;
 import com.kh.semi.notice.model.vo.NoticeAttachment;
 import com.kh.semi.notice.model.vo.NoticeVO;
@@ -160,9 +162,57 @@ public class NoticeService {
 		return hmap;
 	}
 
+	//관리자페이지 업체공지사항 파일 가져오는 메소드
 	public NoticeAttachment selectOneAttachment(int num) {
-		// TODO Auto-generated method stub
+		
 		return null;
+	}
+
+	//관리자 공지사항 등록용 메소드
+	public int insertAdminNotice(AdminNoticeVO aNotice, ArrayList<AdminNoticeAttachment> fileList) {
+	
+		Connection con = getConnection();
+		
+		int result = 0;
+		int result1 = 0;
+		int result2 = 0;
+		
+		result1 = new NoticeDao().insertAdminNotice(con, aNotice);
+
+		if(result1 > 0) {
+			
+			String noticeNo = new NoticeDao().selectAdminCurrval(con);
+	
+			for(int i = 0; i < fileList.size(); i++) {
+				
+				fileList.get(i).setNoticeNo(noticeNo);
+				
+				result2 += new NoticeDao().insertAdminAttachment(con, fileList.get(i));
+			}
+		}
+		if(result1 > 0 && result2 == fileList.size()) {
+			commit(con);
+			result = 1;
+		} else {
+			rollback(con);
+		}
+		
+		close(con);
+		
+		return result;
+	}
+
+	//관리자 공지사항 목록 조회하는 메소드
+	public ArrayList<AdminNoticeVO> selectAdminList(PageInfo pi) {
+		
+		Connection con = getConnection();
+		
+		ArrayList<AdminNoticeVO> list = new NoticeDao().selectAdminList(con, pi);
+		
+		close(con);
+		
+		return list;
+		
 	}
 }
 
