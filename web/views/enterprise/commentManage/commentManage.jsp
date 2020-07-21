@@ -170,53 +170,68 @@
       </div>
       </div>
       </form>
-      <%for(ForCmVO c : cmList) {%>
-      <%if(c.getReplyContent() == null) {%>
+      <%for(int i = 0 ; i < cmList.size(); i++) {%>
+      <%if(i % 2 == 1){ %>
+      
+      <%}else{ %>
       <br><br>
          <form action="<%=request.getContextPath()%>/insertComment.en" style="margin-left: 10%;">
-         	<input type="hidden" name="rn" value="<%=c.getReviewNo()%>">
+         	<input type="hidden" name="rn" value="<%=cmList.get(i).getReviewNo()%>">
          	<input type="hidden" name="enpNo" value="<%=loginEnp.getEnpNo()%>">
-         <div style="border:1px solid black; margin-left: 20%; width:900px; height:500px;">
-        <div class="visitorInfo"  style="border-right:1px solid black; height:398px;">
+         <div style="border:1px solid black; margin-left: 20%; width:900px; height:450px;">
+        <div class="visitorInfo"  style="border-right:1px solid black; height:448px;">
          <table>
             <tr style="padding-bottom: 10%;">
-               <td style="border:0"><img alt="사용자 프로필 사진" src="<%=request.getContextPath()%>/images/<%=c.getChangeName()%>"
+               <td style="border:0"><img alt="사용자 프로필 사진" src="<%=request.getContextPath()%>/images/<%=cmList.get(i).getChangeName()%>"
                 style="width:97px; height:97px; border-radius: 50%;"></td>
             </tr>
             <tr>
-               <td style="border:0"><br><%=c.getMemberNickname() %></td>
+               <td style="border:0"><br><%=cmList.get(i).getMemberNickname() %></td>
             </tr>
             <tr>
-               <td style="border:0">방문일 : <%=c.getVisitDate() %></td>
+               <td style="border:0">방문일 : <%=cmList.get(i).getVisitDate() %></td>
             </tr>
             <tr>
-               <td style="border:0">리뷰번호 : <%=c.getReviewNo() %></td>
+               <td style="border:0">리뷰번호 : <%=cmList.get(i).getReviewNo() %></td>
             </tr>
          </table>
       </div>
       <div class="visitorReviewContent">
          <div class="visitorReviewArticle">
-            <span class="reviewDate"><%=c.getReviewDate() %></span>
+            <span class="reviewDate"><%=cmList.get(i).getReviewDate() %></span>
             <img alt="리뷰 별점" src="/semiproject/images/Star.png" class="reviewRateStar">
-            <span class="reviewRate"><%=c.getAverageRating() %></span>
-            <p><%=c.getReviewContent() %></p>
+            <span class="reviewRate"><%=cmList.get(i).getAverageRating() %></span>
+            <p><%=cmList.get(i).getReviewContent() %></p>
          </div>
          <div class="visitorReviewPic">
-            <img alt="음식 사진" src="<%=request.getContextPath()%>/thumbnail_uploadFile/<%=c.getRfChangeName1()%>">
-            <img alt="음식 사진" src="<%=request.getContextPath()%>/thumbnail_uploadFile/<%=c.getRfChangeName2()%>">
+            <img alt="음식 사진" src="<%=request.getContextPath()%>/thumbnail_uploadFile/<%=cmList.get(i).getRfChangeName1()%>">
+            <img alt="음식 사진" src="<%=request.getContextPath()%>/thumbnail_uploadFile/<%=cmList.get(i).getRfChangeName2()%>">
             <br>
             <br>
             <br>
-            <p style="border:1px solid black; width:600px; background: white;"><%=c.getReplyContent() %></p>
             <br>
-            <textarea rows="4" cols="80" style="resize:none;" name="commentTextArea"></textarea>
+            <textarea rows="4" cols="80" style="resize:none;" name="commentTextArea" id="commentTextArea<%=i%>"></textarea>
          </div>
-         <button class="commentBtn" style="align-content: center; margin-left: 70%;">댓글 작성</button>
+         <button class="commentBtn" id="commentBtn<%=i %>" style="align-content: center; margin-left: 70%;">댓글 작성</button>
       </div>
       </div>
       </form>
-      <%}else{ %>
-      	<h1>asd</h1>
+      <script type="text/javascript">
+      	$(function () {
+			$("#commentBtn<%=i%>").click(function () {
+				$.ajax({
+					url : "/semiproject/insertComment.en",
+					type : "post",
+					data : {rn : "<%=cmList.get(i).getReviewNo()%>", enpNo : "<%=loginEnp.getEnpNo()%>"
+						, commentTextArea : $("#commentTextArea<%=i%>").val()},
+					success : function (data) {
+						alert("asd");
+						location.reload(true);
+					}
+				});
+			});
+		});
+      </script>
       <%} %>
       <%} %>
       
@@ -249,6 +264,15 @@
 		$("button").click(function () {
 			console.log("asd");
 			$('#testModal').modal("show");
+		});
+	});
+	
+	$(function () {
+		$(".commentBtn").click(function () {
+			var str = $(this).attr('id');
+			var no=str.replace(/[^0-9]/g,'');
+			
+			$('#testModal' + no).;
 		});
 	});
 </script>

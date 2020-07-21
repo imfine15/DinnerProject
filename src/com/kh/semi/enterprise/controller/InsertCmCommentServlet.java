@@ -40,6 +40,12 @@ public class InsertCmCommentServlet extends HttpServlet {
 		int result = 0;
 		
 		result = new EnpService().insertComment(reviewNum,comment,enpNo);
+		/*
+		String page = "";
+		if(result ==0) {
+			page="views/common/errorPage.jsp";
+			
+		}*/
 		
 		String page = "";
 		if(result > 0) {
@@ -47,7 +53,6 @@ public class InsertCmCommentServlet extends HttpServlet {
 			page="views/enterprise/commentManage/commentManage.jsp";
 		}else {
 			response.sendRedirect(request.getContextPath() + "/selectCML.en?enpId=" + enpNo);
-			page="views/common/errorPage.jsp";
 		}
 		//response.sendRedirect(page);
 		//request.getRequestDispatcher(page).forward(request, response);

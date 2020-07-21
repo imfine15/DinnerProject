@@ -47,7 +47,7 @@ public class SelectCommentManageListServlet extends HttpServlet {
 			System.out.println(c.getEnpName());
 			System.out.println(c.getEnpNo());
 			System.out.println(c.getFileNo());
-			System.out.println(c.getFilePath());
+			
 			System.out.println(c.getMemberName());
 			System.out.println(c.getMemberNickname());
 			System.out.println(c.getMemberNo());
@@ -65,6 +65,7 @@ public class SelectCommentManageListServlet extends HttpServlet {
 		if(list != null) {
 			page = "views/enterprise/commentManage/commentManage.jsp";
 			request.setAttribute("cmList", list);
+			request.setAttribute("asd", 3);
 			/*request.setAttribute("list", list);
 			request.setAttribute("pi", pi);
 			request.setAttribute("modalList", modalList);

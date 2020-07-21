@@ -149,12 +149,14 @@ public class EnpService {
 		Connection con = getConnection();
 		
 		ArrayList<ForCmVO> list = null;
+		ArrayList<ForCmVO> cmList = null;
 		
 		list = new EnpDao().selectCmMemberVal(con, enp);
+		cmList = new EnpDao().selectCmFilePath(con,list);
 		
 		close(con);
 		
-		return list;
+		return cmList;
 	}
 
 	public int insertComment(String reviewNum,String comment, String enpNo) {
@@ -162,7 +164,9 @@ public class EnpService {
 		
 		int result = new EnpDao().insertComment(con,reviewNum,comment,enpNo);
 		
-		if(result > 0) {
+		int result2 = new EnpDao().updateReplyStatus(con,reviewNum);
+		
+		if(result > 0 && result2 > 0) {
 			commit(con);
 		}else {
 			rollback(con);

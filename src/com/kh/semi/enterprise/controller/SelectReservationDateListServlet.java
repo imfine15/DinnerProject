@@ -116,6 +116,7 @@ public class SelectReservationDateListServlet extends HttpServlet {
 			request.setAttribute("modalList", modalList);
 			request.setAttribute("cancelCount", cancelCount);
 			request.setAttribute("visitCount", visitCount);
+			request.setAttribute("asd", 2);
 		}else {
 			page="views/common/errorPage.jsp";
 			request.setAttribute("msg", "조회 실패");

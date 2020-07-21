@@ -4,10 +4,10 @@
 <%EnpVO loginEnp = (EnpVO)session.getAttribute("loginEnp"); %>
 <% int asd = 1;
 	 
-	 if(request.getParameter("asd") == null){
+	 if(request.getAttribute("asd") == null){
 		 /* response.sendRedirect("/semiproject/views/enterprise/signIn/signIn.jsp"); */
 	 }else{
-	 	asd = Integer.parseInt(request.getParameter("asd")); 
+	 	asd = (int)request.getAttribute("asd"); 
 	 }
 	 
 	
@@ -21,7 +21,8 @@
 	case 6 : pageName = "제재내역"; break;
 	case 7 : pageName = "보고서"; break;
 	default : pageName = "에러 발생"; break;
-	} %>
+	}
+	%>
 <!doctype html>
 <html lang="ko">
 <head>
@@ -45,9 +46,9 @@
 				<img src="/semiproject/images/myicon.png" style="height:66.63px; width: 95px; background:white;">
 			</a>
 				
-			<a href="" style="float: right">
+			<!-- <a href="" style="float: right">
 				<img src="/semiproject/images/location.png" style="height:66.63px; width: 95px; background:white;">
-			</a>
+			</a> -->
 		</div>
 	</div>
 <div class="wrapper d-flex align-items-stretch">
@@ -105,6 +106,7 @@
 			$(this).css("color", "#5EB8B4");
 		});
 	});
+	
 </script>
 <script src="/semiproject/views/enterprise/sidebar/js/jquery.min.js"></script>
 <script src="/semiproject/views/enterprise/sidebar/js/popper.js"></script>
