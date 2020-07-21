@@ -39,17 +39,17 @@ public class SelectOneBoardServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		
 		BoardUpVo board = new BoardService().selectOneBoard(boardNo);
-		ArrayList<HashMap<String, Object>> list = null;
+		ArrayList<HashMap<String, Object>> list2 = null;
 		
 			
-		list = new BoardService().selectThumbnailList(boardNo);
+		list2 = new BoardService().selectThumbnailList(boardNo);
 		
 
 		
 		String page = "";
-		if(list != null) {
+		if(list2 != null) {
 			page="views/admin/reviewConfirm/reviewConfirmDetail.jsp";
-			session.setAttribute("list", list);
+			session.setAttribute("list2", list2);
 			session.setAttribute("board", board);
 		} else {
 			page="views/common/errorPage.jsp";
