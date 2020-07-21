@@ -663,6 +663,30 @@ public class BoardDao {
 			pstmt = con.prepareStatement(query);
 			
 			pstmt.setString(1, "맛집");
+			
+			rset = pstmt.executeQuery();
+			
+			selectThree = new ArrayList<>();
+			
+			for(int i = 0; i < 3; i++) {
+				rset.next();
+				
+				BoardVO b = new BoardVO();
+				
+				b.setBoardNo(rset.getString("BOARD_NO"));
+				b.setBoardTitle(rset.getString("BOARD_TITLE"));
+				b.setMemberNo(rset.getString("MEMBER_NO"));
+				b.setManagerNo(rset.getString("MANAGER_NO"));
+				b.setBoardKeyword(rset.getString("BOARD_KEYWORD"));
+				b.setBoardContent(rset.getString("BOARD_CONTENT"));
+				b.setBoardCategory(rset.getString("BOARD_CATEGORY"));
+				b.setEnpNo(rset.getString("ENP_NO"));
+				b.setViewCount(rset.getInt("VIEW_COUNT"));
+				b.setHashTags(rset.getString("HASH_TAGS"));
+				b.setLikeCount(rset.getInt("LIKE_COUNT"));
+				
+				selectThree.add(b);
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
