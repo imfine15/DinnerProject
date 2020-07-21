@@ -182,17 +182,17 @@
         <div class="visitorInfo"  style="border-right:1px solid black; height:448px;">
          <table>
             <tr style="padding-bottom: 10%;">
-               <td style="border:0"><img alt="사용자 프로필 사진" src="<%=request.getContextPath()%>/images/<%=cmList.get(i).getChangeName()%>"
+               <td style="border:0;"><img alt="사용자 프로필 사진" src="<%=request.getContextPath()%>/images/<%=cmList.get(i).getChangeName()%>"
                 style="width:97px; height:97px; border-radius: 50%;"></td>
             </tr>
             <tr>
-               <td style="border:0"><br><%=cmList.get(i).getMemberNickname() %></td>
+               <td style="border:0;"><br><%=cmList.get(i).getMemberNickname() %></td>
             </tr>
             <tr>
-               <td style="border:0">방문일 : <%=cmList.get(i).getVisitDate() %></td>
+               <td style="border:0;">방문일 : <%=cmList.get(i).getVisitDate() %></td>
             </tr>
             <tr>
-               <td style="border:0">리뷰번호 : <%=cmList.get(i).getReviewNo() %></td>
+               <td style="border:0;">리뷰번호 : <%=cmList.get(i).getReviewNo() %></td>
             </tr>
          </table>
       </div>
