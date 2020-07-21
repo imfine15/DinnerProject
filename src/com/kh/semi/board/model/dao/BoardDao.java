@@ -392,7 +392,7 @@ public class BoardDao {
 		int result = 0;
 		
 		String query = prop.getProperty("insertAttachment");
-		
+		System.out.println("file : " + file);
 		try {
 			pstmt = con.prepareStatement(query);
 			pstmt.setString(1, file.getOriginName());

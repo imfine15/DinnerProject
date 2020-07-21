@@ -28,66 +28,53 @@ import com.oreilly.servlet.MultipartRequest;
 @WebServlet("/insertSchedule.up")
 public class InsertScheduleUploadServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public InsertScheduleUploadServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
+
+	/**
+	 * @see HttpServlet#HttpServlet()
+	 */
+	public InsertScheduleUploadServlet() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+
 		if(ServletFileUpload.isMultipartContent(request)) {
-			
+
 			int maxSize = 1024 * 1024 * 10;
-			
+
 			String root = request.getSession().getServletContext().getRealPath("/");
-			
+
 			String savePath = root + "thumbnail_uploadFile/";
-			
+
 			MultipartRequest multiRequest = new MultipartRequest(request, savePath, maxSize, "UTF-8", new MyFileRenamePolicy());
-			
+
 			ArrayList<String> saveFiles = new ArrayList<>();
-			
+
 			ArrayList<String> originFiles = new ArrayList<>();
-			
+
 			Enumeration<String> file = multiRequest.getFileNames();
-			
-			System.out.println("file : " + file);
-			
+
 			while(file.hasMoreElements()) {
 				String name  = file.nextElement();
-				
-				System.out.println("name : " + name);
-				
+
 				saveFiles.add(multiRequest.getFilesystemName(name));
-	            originFiles.add(multiRequest.getOriginalFileName(name));
-	            
+				originFiles.add(multiRequest.getOriginalFileName(name));
+
 			}
-			System.out.println(saveFiles);
-			System.out.println(originFiles);
-			
+
 			String boardTitle = multiRequest.getParameter("boardTitle");
 			String memberNo = multiRequest.getParameter("memberNo");
-						
 			String[] boardContents = multiRequest.getParameterValues("boardContent");
-			
-			
 			String boardCategory = multiRequest.getParameter("boardCategory");
 			String hashTags = multiRequest.getParameter("hashTags");
+
 			
-//			System.out.println("boardTitle : " + boardTitle);
-//			System.out.println("memberNo : " + memberNo);
-//			System.out.println("boardCategory : " + boardCategory);
-//			System.out.println("hashTags : " + hashTags);
-			
-			
-			BoardUpVo board = new BoardUpVo();
+
+			BoardUpVo board;
 			
 			String boardContent = "";
 			for(int i = 0; i < boardContents.length; i++) {
@@ -96,52 +83,47 @@ public class InsertScheduleUploadServlet extends HttpServlet {
 				} else {
 					boardContent+=boardContents[i]+"$$$";
 				}
-			}
+			}			
+			ArrayList<BoardUpVo> fileList = new ArrayList<>();
+			for(int i = originFiles.size() -1; i>= 0; i--) {
+				board = new BoardUpVo();
+				
+
 				board.setBoardContent(boardContent);
 				board.setBoardTitle(boardTitle);
 				board.setMemberNo(memberNo);
 				board.setBoardCategory(boardCategory);
 				board.setHashTags(hashTags);
+				board.setFilePath(savePath);
+				board.setOriginName(originFiles.get(i));
+				board.setChangeName(saveFiles.get(i));
+
+
 				
-				
-			System.out.println("board : " + board);
+				fileList.add(board);
+
+			}
 			
-			ArrayList<BoardUpVo> fileList = new ArrayList<>();
-	         for(int i = originFiles.size() -1; i>= 0; i--) {
-	            
-	            System.out.println("board title : " + board.getBoardTitle());
-	            board.setFilePath(savePath);
-	            board.setOriginName(originFiles.get(i));
-	            board.setChangeName(saveFiles.get(i));
-	            
-	            
-	            System.out.println("originFile"+i+" : " + originFiles.get(i));
-	            System.out.println("saveFiles"+i+" : " + saveFiles.get(i));
-	            fileList.add(board);
-	            board = new BoardUpVo();
-	         }
-	         System.out.println("fileList : " + fileList);
-	        
-	         int result = new BoardService().insertBoard(board, fileList);
-	         
-	         String page = "";
-	         
-	         if(result > 0) {
-	        	 page = "views/upload/scheduleSuccess.jsp";
-	         } else {
-	        	 for(int i = 0; i < saveFiles.size();i++) {
-	        		 File failedFile = new File(savePath + saveFiles.get(i));
-	        		 
-	        		 failedFile.delete();
-	        	 }
-	        	 page="views/common/errorPage.jsp";
-	        	 request.setAttribute("msg", "사진 게시판 등록 실패");
-	         }
-	         response.sendRedirect(page);
-	         
+			int result = new BoardService().insertBoard(fileList);
+
+			String page = "";
+
+			if(result > 0) {
+				page = "views/upload/scheduleSuccess.jsp";
+			} else {
+				for(int i = 0; i < saveFiles.size();i++) {
+					File failedFile = new File(savePath + saveFiles.get(i));
+
+					failedFile.delete();
+				}
+				page="views/common/errorPage.jsp";
+				request.setAttribute("msg", "사진 게시판 등록 실패");
+			}
+			response.sendRedirect(page);
+
 		}
-		
-		
+
+
 	}
 
 	/**

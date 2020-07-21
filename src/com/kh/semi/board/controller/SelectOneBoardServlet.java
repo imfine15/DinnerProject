@@ -42,11 +42,9 @@ public class SelectOneBoardServlet extends HttpServlet {
 		ArrayList<HashMap<String, Object>> list = null;
 		
 			
-			list = new BoardService().selectThumbnailList(boardNo);
+		list = new BoardService().selectThumbnailList(boardNo);
 		
-		
-		System.out.println("boardm : " + board);
-		System.out.println("listm : " + list);
+
 		
 		String page = "";
 		if(list != null) {

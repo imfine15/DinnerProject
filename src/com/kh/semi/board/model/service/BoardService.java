@@ -141,7 +141,7 @@ public class BoardService {
 			return likeSortEnpBoardList;
 		}
 
-		public int insertBoard(BoardUpVo board, ArrayList<BoardUpVo> fileList) {
+		public int insertBoard(ArrayList<BoardUpVo> fileList) {
 			Connection con = getConnection();
 			int result = 0;
 			
@@ -149,14 +149,13 @@ public class BoardService {
 			int result2 = 0;
 			int result3 = 0;
 				
-				result1 += new BoardDao().insertBoard(con, board);
+				result1 += new BoardDao().insertBoard(con, fileList.get(0));
 				if(result1 > 0) {
 					String boardNo = new BoardDao().selectCurrval(con);
 					
 				for(int i = 0; i < fileList.size(); i++) {
 					fileList.get(i).setBoardNo(boardNo);
-					board.setBoardNo(boardNo);
-								
+
 					result2 += new BoardDao().insertAttachment(con, fileList.get(i));
 					
 				}
@@ -166,11 +165,7 @@ public class BoardService {
 					result3 = new BoardDao().insertHistory(con, boardNo);
 				}
 			}
-			System.out.println("fileListsize : " + fileList.size());
-//			System.out.println("result : " + result);
-//			System.out.println("result1 : " + result1);
-//			System.out.println("result2 : " + result2);
-//			System.out.println("result3 : " + result3);
+			
 			if(result1 > 0 && result2 == fileList.size() && result3>0) {
 				commit(con);
 				result = 1;
@@ -189,7 +184,7 @@ public class BoardService {
 			
 			close(con);
 			
-			System.out.println("listCount : " + listCount);
+			
 			
 			return listCount;
 		}
@@ -201,7 +196,7 @@ public class BoardService {
 			
 			close(con);
 			
-			System.out.println("listservice : " + list);
+			
 			
 			
 			return list;
