@@ -95,7 +95,8 @@ public class NoticeService {
 		if(result1 > 0) {
 			
 			String noticeNo = new NoticeDao().selectCurrval(con);
-			
+			System.out.println(noticeNo);
+			System.out.println(fileList);
 			for(int i = 0; i < fileList.size(); i++) {
 				
 				fileList.get(i).setNoticeNo(noticeNo);
@@ -157,6 +158,11 @@ public class NoticeService {
 		close(con);
 		
 		return hmap;
+	}
+
+	public NoticeAttachment selectOneAttachment(int num) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
 
