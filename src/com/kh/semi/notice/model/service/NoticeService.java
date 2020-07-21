@@ -235,6 +235,19 @@ public class NoticeService {
 		
 		return hmap;
 	}
+
+	//업체페이지 공지사항 조회용 메소드
+	public ArrayList<EntNoticeVO> selectEntNotice(PageInfo pi) {
+		
+		Connection con = getConnection();
+		
+		ArrayList<EntNoticeVO> list = new NoticeDao().selectEntNotice(con, pi);
+		
+		close(con);
+		
+		return list;
+		
+	}
 }
 
 
