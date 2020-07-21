@@ -319,6 +319,7 @@ Properties prop = new Properties();
 		ResultSet rset= null;
 		ReservationVO r = null;
 		
+		
 		String query = prop.getProperty("selectList");
 		System.out.println("query : " + query);
 		
@@ -356,12 +357,10 @@ Properties prop = new Properties();
 				r.setrNo(rset.getString("RESERVATION_NO"));
 				r.setRqMemo(rset.getString("REQUEST_MEMO"));
 				
-				System.out.println("Dao 호출 cNO : " + r.getcNo());
-				
 				requestReserve.add(r);
-				System.out.println("r"+count + " : "  + r);
 				count ++;
 			}
+			
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -370,7 +369,31 @@ Properties prop = new Properties();
 			close(rset);
 		}
 		
-		
+		String quer = prop.getProperty("selectCurrentList");
+		ArrayList<ReservationVO> rlist = new ArrayList<>();
+		for(int i = 0; i < requestReserve.size(); i++) {
+			PreparedStatement pstm = null;
+			ResultSet rse = null;
+			try {
+				pstm = con.prepareStatement(quer);
+				System.out.println("rNo" + requestReserve.get(i).getrNo());
+				pstm.setString(1, requestReserve.get(i).getrNo());
+				rse = pstm.executeQuery();
+				if(rse.next()) {
+					if(rse.getString("STATUS_CODE").equals("RSC1")) {
+						rlist.add(requestReserve.get(i));
+						System.out.println("request" + requestReserve.get(i));
+					}
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} finally {
+				close(pstm);
+				close(rse);
+			}
+		}
+		System.out.println("rlist : " + rlist);
 		return requestReserve;
 	}
 	
