@@ -4,7 +4,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%
-	ArrayList<HashMap<String, Object>> list = (ArrayList<HashMap<String, Object>>)session.getAttribute("list");
+	ArrayList<HashMap<String, Object>> list2 = (ArrayList<HashMap<String, Object>>)session.getAttribute("list2");
 	BoardUpVo board = (BoardUpVo)session.getAttribute("board");
 %>
 <!DOCTYPE html>
@@ -145,6 +145,23 @@ tr {
 		font-size: 18px;
 		margin-bottom: 50px;
 }
+ 	input[type=text]{
+		border-radius: 0;
+		border: 1px solid gray;
+		outline-style: none;
+		
+	}
+	textarea{
+		border-radius: 0;
+		border: 1px solid gray;
+		outline-style: none;
+	}
+	select{
+		border-radius: 0;
+		border: 1px solid gray;
+		outline-style: none;
+		height: 20px;
+	}
 </style>
 </head>
 <body style="background: lightgray;">
@@ -177,8 +194,8 @@ tr {
 	<div
 		style="margin-left: auto; margin-right: auto; padding-left: 30px;"
 		align="center">
-		<% for(int i = 0; i < list.size(); i++){
-			HashMap<String, Object> hmap = list.get(i);
+		<% for(int i = 0; i < list2.size(); i++){
+			HashMap<String, Object> hmap = list2.get(i);
 		
 			%>
 		
@@ -208,9 +225,8 @@ tr {
 			<div align="center"
 				style="margin-left: auto; margin-right: auto; padding-left: 10px;">
 				<label style="font-size: 30px; float: left; margin-left: 80px;">해쉬태그</label><br><br> 
-				<input type="text" value="#규카츠" style="width: 80px;">
-				<input type="text" value="#보드게임" style="width: 80px;">
-				<input type="text" value="#유키노하나" style="width: 80px;">
+				<input type="text" value="<%=board.getHashTags() %>" style="width: 600px;">
+				
 				
 			</div>
 			<br><br>
