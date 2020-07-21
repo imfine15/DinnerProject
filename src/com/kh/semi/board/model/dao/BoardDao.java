@@ -697,6 +697,73 @@ public class BoardDao {
 		return selectThree;
 	}
 
+	public int insertReply(Connection con, BoardUpVo reply) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("insertReply");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, reply.getBoardNo());
+			pstmt.setString(2, reply.getMemberNo());
+			pstmt.setString(3, reply.getReplyContent());
+			
+			result = pstmt.executeUpdate();
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		
+		return result;
+	}
+
+	public ArrayList<BoardUpVo> selectReplyList(Connection con, String boardNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<BoardUpVo> list = null;
+		
+		String query = prop.getProperty("selectReplyList");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, boardNo);
+			
+			rset = pstmt.executeQuery();
+			
+			list = new ArrayList<BoardUpVo>();
+			
+			while(rset.next()) {
+				BoardUpVo bu = new BoardUpVo();
+				bu.setReplyNo(rset.getString("REPLY_NO"));
+				bu.setBoardNo(rset.getString("BOARD_NO"));
+				bu.setMemberNo(rset.getString("MEMBER_NO"));
+				bu.setReplyDate(rset.getDate("REPLY_DATE"));
+				bu.setReplyContent(rset.getString("REPLY_CONTENT"));
+				bu.setMemberId(rset.getString("MEMBER_ID"));
+				
+				list.add(bu);
+				
+				
+			}
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		return list;
+	}
+
 	
 
 }

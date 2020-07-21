@@ -6,6 +6,7 @@
 <%
 	ArrayList<HashMap<String, Object>> list2 = (ArrayList<HashMap<String, Object>>)session.getAttribute("list2");
 	BoardUpVo board = (BoardUpVo)session.getAttribute("board");
+	String boardNo = (String)session.getAttribute("boardNo");
 %>
 <!DOCTYPE html>
 <html>
@@ -90,28 +91,8 @@
 			<div
 				style="margin-left: auto; margin-right: auto; padding-left: 10px; float: left;">
 				<label style="font-size: 30px; float:left; padding-left:96px;">댓글(3)</label><br><br><br>
-				<table style="padding-left:130px; font-size:14px;">
-					<tr>
-						<td style="width:90px;"><label>dduddu123</label></td>
-						<td style="width:500px;;"><label>다음주 주말에 친구들이랑 가봐야겠어요~ 추천 꾹! 누르고 갑니다~!</label></td>
-						<td style="width:70px;">
-						<td style="width:190px;"><label>2020-04-33</label></td>
-						<td><br><br></td>
-					</tr>
-					<tr>
-						<td style="width:90px;"><label>dduddu123</label></td>
-						<td style="width:500px;;"><label>다음주 주말에 친구들이랑 가봐야겠어요~ 추천 꾹! 누르고 갑니다~!</label></td>
-						<td style="width:70px;">
-						<td style="width:190px;"><label>2020-04-33</label></td>
-						<td><br><br></td>
-					</tr>
-					<tr>
-						<td style="width:90px;"><label>dduddu123</label></td>
-						<td style="width:500px;;"><label>다음주 주말에 친구들이랑 가봐야겠어요~ 추천 꾹! 누르고 갑니다~!</label></td>
-						<td style="width:70px;">
-						<td style="width:190px;"><label>2020-04-33</label></td>
-						<td><br><br></td>
-					</tr>
+				<table id="replySelectTable" style="padding-left:130px; font-size:14px;">
+					<tbody></tbody>
 				</table>
 			</div>
 		</div>
@@ -120,7 +101,7 @@
 	</div>
 	<div style="background: lightgray; width:60%; height:200px; margin-left:auto; margin-right:auto; vertical-align: middle;">
 		<div style="padding-top:85px; padding-left:50px;display:inline; float:left ">
-			<label style="padding-right:30px; height:20px;"><!--  <%=loginUser.getmId() %> --></label>
+			<label style="padding-right:30px; height:20px;">아이디이이</label>
 		</div>
 		<div style="display:inline; height:200px;">
 			<textarea id="commentBox" style="width:60%; height:100px; margin-top:50px; resize: none;"></textarea>
@@ -147,7 +128,42 @@
 	/* 댓글달기 */
 	$(function() {
 		$("#commentBtn").click(function() {
-			var 
+			var boardNo = "<%=board.getBoardNo()%>";
+			var memberNo = "<%=board.getMemberNo()%>";
+			var content = $("#commentBox").val();
+			
+			$.ajax({
+				url: "/semiproject/insertReply.bo",
+				data: {boardNo: boardNo, memberNo: memberNo, content: content},
+				type: "post",
+				success: function(data) {
+					var $replySelectTable = $("#replySelectTable tbody");
+					$replySelectTable.html('');
+					
+					for(var key in data){
+						var $tr = $("<tr>");
+						var $idTd = $("<td>").text(data[key].memberId).css("width", "90px");
+						var $contentTd = $("<td>").text(data[key].replyContent).css("width", "500px");
+						var $noTd = $("<td>").css("width", "70px");
+						var $dateTd = $("<td>").text(data[key].replyDate).css("width", "190px");
+						
+						$tr.append($idTd);
+						$tr.append($contentTd);
+						$tr.append($noTd);
+						$tr.append($dateTd);
+						
+						$replySelectTable.append($tr);
+						
+						
+						
+					}
+				},
+				error: function(data) {
+					console.log("실패");
+				}
+			});
+			
+			
 		});
 	});
 </script>
