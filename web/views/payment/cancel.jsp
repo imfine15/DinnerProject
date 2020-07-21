@@ -1,3 +1,4 @@
+<%@page import="com.sun.org.glassfish.external.statistics.annotations.Reset"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="com.kh.semi.payment.model.vo.*, java.util.*"%>
 <%@page import="java.sql.Timestamp"%>
@@ -147,6 +148,8 @@ $.ajax({
 	<input type="hidden" name="rNo" value="<%=rNo%>">
 	<input type="hidden" name="mNo" value="<%=mNo%>">
 	<input id="pNo2" type="hidden" name="pNo2" value="">
+	<input type="hidden" value="<%=reser.getDeposit()%>" name="deposit">
+	<input type="hidden" value="<%=reser.getpAmount()%>" name="point">
 </form>
 <%@ include file="/views/common/footer.jsp" %>
 <script>
