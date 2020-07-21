@@ -49,7 +49,7 @@
 </head>
 <body style="background: lightgray;">
 	<%@ include file="/views/admin/common/sidebar.jsp"%>
-	<div style="width:80%; height:600px;margin-left: 230px; padding-top:40px; padding-left:30px;">
+<div style="width:80%; height:600px;margin-left: 230px; padding-top:40px; padding-left:30px;">
 		<div style="background: #F9F9F9;width: 100%; margin-bottom: 10px; height:50px; padding-left:10px; padding-right:10px;">
 			<h1><a id="goEntNotice" href="<%=request.getContextPath()%>/" target = "_self">업체 공지사항</a></h1><br>
 		</div>

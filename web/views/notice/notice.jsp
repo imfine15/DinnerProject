@@ -23,7 +23,7 @@
 
 .outer {
 	width: 100%;
-	height: auto;
+	height: 90%;
 	margin-left: auto;
 	margin-right: auto;
 	margin-top: 50px;

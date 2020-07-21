@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<% 
+String backPage = request.getContextPath() + "/views/upload/enterpriseUploadNotice.jsp";
+session.setAttribute("backPage", backPage);
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -219,9 +223,6 @@ input {
 			document.getElementById('currentDate').value = new Date().toISOString().substring(0, 10);
 		
 		/*<button type="button"id="dd" onclick="qq();">추가</button>*/
-		$("#dd").change(function(){
-			console.log(123);
-		})
 		function qq(){
 			console.log("123123");
 			var input = document.createElement('input');
