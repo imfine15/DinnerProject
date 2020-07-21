@@ -1,5 +1,12 @@
+<%@page import="com.kh.semi.board.model.vo.BoardUpVo"%>
+<%@page import="java.util.HashMap"%>
+<%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%
+	ArrayList<HashMap<String, Object>> list2 = (ArrayList<HashMap<String, Object>>)session.getAttribute("list2");
+	BoardUpVo board = (BoardUpVo)session.getAttribute("board");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -25,17 +32,14 @@
 	<div
 		style="width: 80%; margin-left: auto; margin-right: auto; height: auto;"
 		align="center">
-		<div style="display: inline;">
-			<img src="images/recommend.png" style="width: 200px;">
+		<div style="display: inline-block; margin-left: auto; margin-right: auto;">
+			<img src="/semiproject/views/reviews/images/recommend.png" style="width: 200px;">
 		</div>
-		<div
-			style="display: inline; font-size: 30px; margin-bottom: auto; margin-top: auto; font-family: Roboto;">강남역
-			친구들과 놀기 좋은곳</div>
-		<div
-			style="display: inline; font-size: 13px; margin-bottom: auto; margin-top: auto; font-family: Roboto;">
-			<label>작성자 : 정파덕 &nbsp;&nbsp;</label> <label
-				style="margin-right: -50px;">작성일 : 2020-06-18</label> <a href=""><img
-				src="images/good.png"
+		<div style="display: inline-block; font-size: 30px; margin-bottom: auto; margin-top: auto; font-family: Roboto; margin-left: auto; margin-right: auto; width: 430px;"><%=board.getBoardTitle() %></div>
+		<div style="display: inline-block; font-size: 13px; margin-bottom: auto; margin-top: auto; font-family: Roboto; margin-left: auto; margin-right: auto;">
+			<label>작성자 : <%=board.getMemberId() %></label> <label style="margin-right: -50px;">작성일 : <%=board.getUploadDate() %></label> 
+			<a href=""><img
+				src="/semiproject/views/reviews/images/good.png"
 				style="margin-bottom: 20px; margin-right: 10px;"></a> <br> <br>
 		</div>
 			<hr style="width: 80%;">
@@ -44,60 +48,24 @@
 	<div
 		style="width: 80%; margin-left: auto; margin-right: auto; padding-left: 30px;"
 		align="center">
+		<% for(int i = 0; i < list2.size(); i++){
+			HashMap<String, Object> hmap = list2.get(i);
+		
+			%>
 		<div style="width: 80%;">
-			<div style="float: left; display: inline; padding-left: 30px;">
-				<img src="images/picture1.png">
+			<div style="float: left; display: inline; padding-left: 30px; margin-bottom: 30px;">
+				<img src="<%=request.getContextPath()%>/thumbnail_uploadFile/<%=hmap.get("changeName")%>" width="170px" height="auto">
 			</div>
-			<div style="padding-left: 20px; padding-top: 20px; width: 700px;">
-				<label style="font-size: 23px">규카츠 하우스</label><br> <br> <label>친구들이랑
-					점심에 규카츠하우스에 방문했어요~ <br>얼마전 YUMEET에서 예약자 후기를 보고 너무 <br>맘에
-					들어서 바로 예약하고 방문했답니다~ㅎㅎ..<br> 역시YUMEET은 실패가 없는 사이트인거같아요!! <br>어딜가던
-					평균은 하는...?여기 규동맛집입니다!! <br>꼭 가서 규동 드세요!!!!<br> <br>
-					<br> <br> <br> <br> <br> <br> <br>
-				</label>
+			<div style="padding-left: 20px; padding-top: 20px; width: 450px; text-align: left;">
+				<p id="content<%=i%>"></p>
 			</div>
-			<a href=""><img src="images/boru.png"
-				style="float: right; margin-top: -40px; margin-right: 120px;"></a>
+			<a href=""><img src="/semiproject/views/reviews/images/boru.png"
+				style="float: right;"></a>
 		</div>
 			<hr style="width: 80%;">
 			<br> <br>
-
-		<div style="width: 80%;">
-			<div style="float: left; display: inline; padding-left: 30px;">
-				<img src="images/picture1.png">
-			</div>
-			<div style="padding-left: 20px; padding-top: 20px; width: 700px;">
-				<label style="font-size: 23px">규카츠 하우스</label><br> <br> <label>친구들이랑
-					점심에 규카츠하우스에 방문했어요~ <br>얼마전 YUMEET에서 예약자 후기를 보고 너무 <br>맘에
-					들어서 바로 예약하고 방문했답니다~ㅎㅎ..<br> 역시YUMEET은 실패가 없는 사이트인거같아요!! <br>어딜가던
-					평균은 하는...?여기 규동맛집입니다!! <br>꼭 가서 규동 드세요!!!!<br> <br>
-					<br> <br> <br> <br> <br> <br> <br>
-				</label>
-			</div>
-			<a href=""><img src="images/boru.png"
-				style="float: right; margin-top: -40px; margin-right: 120px;"></a>
-		</div>
-			<hr style="width: 80%;">
-			<br> <br>
-
-		<div style="width: 80%;">
-			<div style="float: left; display: inline; padding-left: 30px;">
-				<img src="images/picture1.png">
-			</div>
-			<div style="padding-left: 20px; padding-top: 20px; width: 700px;">
-				<label style="font-size: 23px">규카츠 하우스</label><br> <br> <label>친구들이랑
-					점심에 규카츠하우스에 방문했어요~ <br>얼마전 YUMEET에서 예약자 후기를 보고 너무 <br>맘에
-					들어서 바로 예약하고 방문했답니다~ㅎㅎ..<br> 역시YUMEET은 실패가 없는 사이트인거같아요!! <br>어딜가던
-					평균은 하는...?여기 규동맛집입니다!! <br>꼭 가서 규동 드세요!!!!<br> <br>
-					<br> <br> <br> <br> <br>
-				<br>
-				<br>
-				</label>
-			</div>
-			<a href=""><img src="images/boru.png"
-				style="float: right; margin-top: -40px; margin-right: 120px;"></a>
-		</div>
-			<hr style="width: 80%;">
+	<%} %>
+		
 			
 	</div>
 
@@ -106,14 +74,11 @@
 		align="center">
 		<div style="width: 80%;">
 			<div
-				style="margin-left: auto; margin-right: auto; padding-left: 10px; float: left;">
-				<label style="font-size: 30px;">해쉬태그</label><br> <label
-					style="font-size: 14px; padding-left: 100px;">#규카츠&nbsp;</label> <label
-					style="font-size: 14px;">#보드게임&nbsp;</label> <label
-					style="font-size: 14px;">#유키노하나&nbsp;</label>
+				style="margin-left: auto; margin-right: auto; padding-left: 10px; float: left; margin-bottom: 40px;">
+				<label style="font-size: 30px;">해시태그</label><br><br><label
+					style="font-size: 14px; padding-left: 100px;"><%=board.getHashTags()%></label>
 			</div>
-			<br><br>
-			<br> <br>
+			
 		</div>
 			<hr style="width: 80%;">
 	</div>
@@ -155,11 +120,11 @@
 	</div>
 	<div style="background: lightgray; width:60%; height:200px; margin-left:auto; margin-right:auto; vertical-align: middle;">
 		<div style="padding-top:85px; padding-left:50px;display:inline; float:left ">
-			<label style="padding-right:30px; height:20px;">dduddu123님</label>
+			<label style="padding-right:30px; height:20px;"><!--  <%=loginUser.getmId() %> --></label>
 		</div>
 		<div style="display:inline; height:200px;">
-			<textarea style="width:60%; height:100px; margin-top:50px; resize: none;"></textarea>
-			<button id="commentBtn">댓글달기</button>
+			<textarea id="commentBox" style="width:60%; height:100px; margin-top:50px; resize: none;"></textarea>
+			<button type="button" id="commentBtn">댓글달기</button>
 		</div>
 	</div>
 	<br>
@@ -167,6 +132,24 @@
 	<br>
 	<br>
 <%@ include file="/views/common/footer.jsp" %>
-
+<script>
+	$(document).ready(function() {
+		var content = "<%=board.getBoardContent()%>";
+		console.log(content);
+		
+		var contentArr = content.split('$$$');
+		for(var i = 0; i < contentArr.length; i++){
+			 $('[id="content' + i + '"]').text(contentArr[i]);
+		}
+	});
+	
+	
+	/* 댓글달기 */
+	$(function() {
+		$("#commentBtn").click(function() {
+			var 
+		});
+	});
+</script>
 </body>
 </html>
