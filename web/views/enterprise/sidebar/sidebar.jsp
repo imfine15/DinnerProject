@@ -82,6 +82,9 @@
 				<li>
 					<a href="/semiproject/views/enterprise/report/report.jsp?asd=7">보고서</a>
 				</li>
+				<li>
+					<a href="<%=request.getContextPath()%>/selectEnt.no?enpId=<%=loginEnp.getEnpNo()%>">공지사항</a>
+				</li>
 				<%if(loginEnp != null) {%>
 				<li>
 					<a href="<%=request.getContextPath()%>/logout.en"><%=loginEnp.getPartnerName() %>님의 로그아웃</a>
