@@ -437,7 +437,7 @@ public class ReservationDao {
 	public int insertPointUseHistory(Connection con, PointVO pointVO, int seq) {
 		PreparedStatement pstmt = null;
 		int result = 0;
-		String query = prop.getProperty("insertPointUse");
+		String query = prop.getProperty("insertPointUseHistory");
 		
 		try {
 			pstmt = con.prepareStatement(query);
@@ -466,7 +466,9 @@ public class ReservationDao {
 			pstmt = con.prepareStatement(query);
 			rset = pstmt.executeQuery();
 			
-			seq = rset.getInt("COUNT");
+			if(rset.next()) {
+				seq = rset.getInt("COUNT");
+			}
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -512,6 +514,8 @@ public class ReservationDao {
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			close(pstmt);
 		}
 		return result;
 	}
