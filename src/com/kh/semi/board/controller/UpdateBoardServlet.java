@@ -33,6 +33,7 @@ public class UpdateBoardServlet extends HttpServlet {
 		String hashtags = request.getParameter("hashtags");
 		String[] content = request.getParameterValues("content"); 
 		String boardContent = "";
+		
 		for(int i = 0; i <content.length;i++) {
 			if(content.length-1==i) {
 				boardContent+=content[i];
