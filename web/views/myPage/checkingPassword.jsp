@@ -99,13 +99,13 @@ ul li a span:hover{
 			<tr>
 				<td><label class="text" style="margin-left: 50px">YUMEET
 						아이디 : </label> <label class="text"
-					style="margin-left: 50px; font-size: 22px;">Paducks</label> <br>
+					style="margin-left: 50px; font-size: 22px;"><%= loginUser.getmId() %></label><br>
 					<br></td>
 			</tr>
 			<tr>
 				<td style="margin-top: 10px;"><label class="text"
 					style="margin-left: 50px">비밀번호 확인 : &nbsp;</label> <input
-					class="box" type="text" style="margin-left: 50px;" id="password">
+					class="box" type="password" style="margin-left: 50px;" id="password">
 					<button style="background: #C4C4C4; border-radius: 5px;" id="pwdShowHide">보기</button>
 					<br>
 					<label id="check" class="text" style="color:red; font-size:15px; margin-left: 250px;">비밀번호를 확인하세요</label>
@@ -118,32 +118,56 @@ ul li a span:hover{
 			</tr>
 			<tr align="center">
 				<td>
-					<button class="text2" style="background: #E4E4E4;">이전으로</button>
-					<button class="text2" style="background: #97D3D3; color: white">확인</button>
+					<button id="goBack" class="text2" style="background: #E4E4E4;">이전으로</button>
+					<button id="pwdCheck" class="text2" style="background: #97D3D3; color: white">확인</button>
 				</td>
 			</tr>
-
 		</table>
-
 	</div>
 	<%@ include file="/views/common/footer.jsp" %>
 	<script>
-	$("#check").hide();
+		$("#check").hide();
+		
 		$(function(){
 		    $('#pwdShowHide').on('click', function(){
 		        $('.box').toggleClass('active');
 		        
 		        if(!$('input').hasClass('active')) {
-		    		console.log("23123");
-		            $("#password").attr('type',"text");
-		            $("#pwdLabel").html("비밀번호 숨기기");
+		            $("#password").attr('type', "password");
 		        } else {
-		            $("#password").attr('type',"password");
-		            $("#pwdLabel").html("비밀번호 보이기");
+		            $("#password").attr('type', "text");
 		        }
 		    });
 		});
+		
+		$("#goBack").click(function() {
+			history.back();
+		});
+		
+		$("#password").bind("input", function() {
+			$("#check").hide();
+		});
+		
+		$("#password").click(function() {
+			$("#password").val("");
+		});
+		
+		$("#pwdCheck").click(function() {
+			var password = $("#password").val();
+			
+			$.ajax({
+				url: "/semiproject/pwdCheck.me",
+				type: "post",
+				data: {id: "<%= loginUser.getmId() %>", password: password},
+				success: function(data) {
+					if(data === "success") {
+						location.href = "/semiproject/views/myPage/withdrawalFromMembership.jsp";
+					} else if(data === "fail") {
+						$("#check").show();
+					}
+				}
+			});
+		});
 	</script>
-
 </body>
 </html>
