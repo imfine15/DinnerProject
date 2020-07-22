@@ -835,6 +835,20 @@ public class BoardDao {
 		return list;
 	}
 
+	public int updateBoard(Connection con, BoardUpVo board) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("updateBoard");
+		
+		return result;
+	}
+
+	public int updateAttachment(Connection con, BoardUpVo boardUpVo) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
 	
 
 }

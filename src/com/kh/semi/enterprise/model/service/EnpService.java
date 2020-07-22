@@ -232,4 +232,20 @@ public class EnpService {
 		
 		return modalList;
 	}
+
+	public int uploadEnp(EnpUpVo enp) {
+		Connection con = getConnection();
+		int result = 0;
+		result = new EnpDao().uploadEnp(con, enp);
+		
+		System.out.println("result : " + result);
+		
+		if(result > 0) {
+			commit(con);
+		} else {
+			rollback(con);
+		}
+		
+		return result;
+	}
 }

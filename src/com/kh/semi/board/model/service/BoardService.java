@@ -317,4 +317,32 @@ public class BoardService {
 			close(con);
 			return replyList;
 		}
+
+		public int updateBoard(BoardUpVo board, ArrayList<BoardUpVo> fileList) {
+			Connection con = getConnection();
+			int result = 0;
+			int result1 = 0;
+			int result2 = 0;
+			result1 = new BoardDao().updateBoard(con, board);
+			if(result1 > 0) {
+				String boardNo = board.getBoardNo();
+				
+				for(int i = 0; i < fileList.size(); i++) {
+					fileList.get(i).setBoardNo(boardNo);
+					
+					result2 += new BoardDao().updateAttachment(con, fileList.get(i));
+				}
+			}
+			
+			
+			
+			if(result1 > 0 && result2 > 0) {
+				commit(con);
+				result = 1;
+			} else {
+				rollback(con);
+			}
+			
+			return result;
+		}
 }
