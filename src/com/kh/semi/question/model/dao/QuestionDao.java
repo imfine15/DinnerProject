@@ -9,9 +9,12 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.Properties;
 
+import com.kh.semi.admin.model.vo.PageInfo;
 import com.kh.semi.enterprise.model.vo.EnpAttachment;
+import com.kh.semi.notice.model.vo.NoticeVO;
 import com.kh.semi.question.model.vo.QuestionFileVO;
 import com.kh.semi.question.model.vo.QuestionVO;
 
@@ -117,4 +120,96 @@ public class QuestionDao {
 
 		return result;
 	}
+	
+	public int insertQuestionHistory(QuestionVO question, Connection con) {
+		
+		PreparedStatement pstmt = null;
+		int result = 0;
+
+		String query = prop.getProperty("insertQuestionHistory");
+
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, question.getQuestionNo());
+			pstmt.setString(2, question.getMemberNo());
+
+			result = pstmt.executeUpdate();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+
+		return result;
+		
+	}
+
+	public ArrayList<QuestionVO> selectList(Connection con, PageInfo pi) {
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<QuestionVO> list = null;
+		
+		String query = prop.getProperty("selectList");
+		ArrayList<String> qNo = new ArrayList<String>();
+		try {
+			pstmt = con.prepareStatement(query);
+			
+			int startRow = (pi.getCurrentPage() - 1) * pi.getLimit() + 1;
+			int endRow = startRow + pi.getLimit() - 1;
+			
+			pstmt.setInt(1,  startRow);
+			pstmt.setInt(2,  endRow);
+			
+			rset = pstmt.executeQuery();
+			
+			list = new ArrayList<>();
+
+			while(rset.next()) {
+//				QuestionVO q = new QuestionVO();
+//				
+//				q.setQuestionType(rset.getString("컬럼명"));
+//
+//				list.add(q);
+				qNo.add(rset.getString("QUESTION_NO"));
+				System.out.println("qNo : " + qNo);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
+		}
+		System.out.println("qSize : " + qNo.size());
+		String que = prop.getProperty("selectQusList");
+		
+		for(int i = 0; i < qNo.size(); i++) {
+			PreparedStatement ps = null;
+			ResultSet rs = null;
+			try {
+				ps = con.prepareStatement(que);
+				ps.setString(1, qNo.get(i));
+				rs = ps.executeQuery();
+				
+				QuestionVO q = new QuestionVO();
+				if(rs.next()) {
+					q.setMemberName(rs.getString("MEMBER_NAME"));
+					System.out.println("qName : " + q.getMemberName());
+				}
+				list.add(q);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} finally {
+				close(ps);
+				close(rs);
+			}
+		}
+		System.out.println("list : " + list);
+		return list;
+		
+	}
+
+
 }
