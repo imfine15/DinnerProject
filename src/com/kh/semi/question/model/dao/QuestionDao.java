@@ -42,22 +42,23 @@ public class QuestionDao {
 		int result = 0;
 
 		String query = prop.getProperty("insertQusetion");
-			
+		
 		try {
 			pstmt = con.prepareStatement(query);
 			pstmt.setString(1, question.getMemberNo());
-			pstmt.setString(2, question.getMemberName());
-			pstmt.setString(3, question.getQuestionType());
-			pstmt.setString(4,  question.getQuestionTitle());
-			pstmt.setString(5,  question.getQuestionContent());
-			pstmt.setString(6,  question.getQuestionEmail());
-			pstmt.setString(7,  question.getEmailAdmit());
-			pstmt.setString(8,  question.getQuestionPhone());
-			pstmt.setString(9,  question.getPhoneAdmit());
-			pstmt.setString(10, question.getMemberId());
+			pstmt.setString(2, question.getMemberId());
+			pstmt.setString(3, question.getMemberName());
+			pstmt.setString(4, question.getQuestionType());
+			pstmt.setString(5,  question.getQuestionTitle());
+			pstmt.setString(6,  question.getQuestionContent());
+			pstmt.setString(7,  question.getQuestionEmail());
+			pstmt.setString(8,  question.getEmailAdmit());
+			pstmt.setString(9,  question.getQuestionPhone());
+			pstmt.setString(10,  question.getPhoneAdmit());
 			
 			result = pstmt.executeUpdate();
 
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {

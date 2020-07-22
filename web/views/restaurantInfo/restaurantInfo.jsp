@@ -312,10 +312,10 @@ ArrayList<ReviewVO> normalReviews = (ArrayList<ReviewVO>)session.getAttribute("n
 		<button>더보기 ▼</button>
 	</div>
 	<div id="restaurantCloseReport">
-	<% if(selectedEnp.getEnpStatus() == "N") { %>
-		<button>폐업신고</button>
+	<% if(selectedEnp.getEnpStatus().equals("Y")) { %>
+		<input type='button' id='btn1' value='폐업신고' disabled="disabled" style="cursor:default; box-shadow: none;"/>
 	<% } else { %> 
-		
+		<input type='button' id='shutdown' value='폐업신고'/>
 	<% } %>
 	</div>
 	<hr class="hr">
@@ -350,6 +350,10 @@ ArrayList<ReviewVO> normalReviews = (ArrayList<ReviewVO>)session.getAttribute("n
 					}
 				}
 			})
+		});
+		
+		$("#shutdown").click(function() {
+			location.href="<%= request.getContextPath() %>/views/qna/question.jsp?enpNo=" + enpNo; 
 		});
 	</script>
 	<%@ include file="/views/common/footer.jsp" %>

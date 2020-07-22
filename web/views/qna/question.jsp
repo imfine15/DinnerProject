@@ -226,7 +226,7 @@ tr {
 </head>
 <body>
 	<%@ include file="/views/common/header.jsp"%>
-<!-- <% //if(loginUser != null) { %>  -->	
+    <% if(loginUser != null) { %>  
 	<div class="wrapper" align="center">
 		<div>
 			<p id="question-t" style="margin-top: 100px; margin-right: 850px;">문의하기</p>
@@ -247,8 +247,10 @@ tr {
 								<option value="QTC1">예약 문의</option>
 								<option value="QTC2">환불 및 결제 문의</option>
 								<option value="QTC3">신고 및 제재 문의</option>
-								<option value="QTC4">기타 문의</option>
-								<option value="QTC5">회원 문의</option>
+								<option value="QTC4">회원 문의</option>
+								<option value="QTC5">잘못된 정보 신고</option>
+								<option value="QTC6">폐업 신고</option>
+								<option value="QTC7">기타 문의</option>
 							</select>
 						</td>
 					</tr>
@@ -284,7 +286,7 @@ tr {
 						<td class="first" rowspan="2">답변 <br>알림받기</td>
 						<td colspan="3">
 							<p style="line-height: 40px;">※ 답변 등록 시 이메일로 보내드립니다.</p> 
-							<input type="radio" id="mailAdmit" name="mailAgree"> 
+							<input type="radio" id="mailAdmit" value="Y" name="mailAgree"> 
 							<div id="agree-div"><label style="line-height: 40px;" for="mailAdmit">
 							(선택)이메일 수집 및 이용 동의</label></div><div class="phone-div">
 							<button class="btn-agree" id="mail-agree"
@@ -298,7 +300,7 @@ tr {
 					<tr>
 						<td colspan="3">
 						<p style="line-height: 40px;">※ 답변 등록 시 알림문자를 보내드립니다.</p>
-						<input type="radio" id="phoneAdmit" name="pAdmit"> 
+						<input type="radio" id="phoneAdmit" value="Y" name="pAdmit"> 
 						<div id="agree-div2"><label style="line-height: 40px;" for="phoneAdmit">
 						(선택)휴대폰번호 수집 및 이용 동의&nbsp;( -(하이픈) 을 제외하고 입력해주세요.)<br>
 						
@@ -331,14 +333,14 @@ tr {
 			</form>
 		</div>
 	</div>
-	<!--<% // } >else { 
-	//	request.setAttribute("msg", "잘못된 경로로 접근하셨습니다.");
-	//	request.getRequestDispatcher("../common/errorPage.jsp").forward(request, response);
-	//{ %>  -->	
 	<div style="height: 200px;"></div>
-
-	<script>
+		<% } else {  %>
+		request.setAttribute("msg", "잘못된 경로로 접근하셨습니다.");
+		request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
+		<% } %> 
 	
+	<script>
+
 	
 	/*<button type="button"id="dd" onclick="qq();">추가</button>*/
 	$("#dd").change(function(){
@@ -431,30 +433,6 @@ $("input[type=radio]").click(function(){
 
 });
 
-if($("#mailAdmit").is(":checked")==true) {
-	$("#mailAdmit").attr('value','Y');
-} else {
-	$("#mailAdmit").attr('value','N');
-}
-
-if($("#phoneAdmit").is(":checked")==true) {
-	$("#phoneAdmit").attr('value','Y');
-} else {
-	$("#phoneAdmit").attr('value','N');
-}
-
-$(document).ready(function() {
-    $('#fileDelete input[type=file]').bind('change focus click', SITE.fileInputs);
-    
-    /* here is my problem *************************
-    how can i remove file completely when i click on "Remove" so that the same file name 
-    doesn't come up again when i click on the "choose file" button to upload another file?
-    */ 
-    $('.file_input_button').live('click', function() {
-        $(this).closest('div').remove();
-        return false;
-    });
-});
 </script>
 	<%@ include file="/views/common/footer.jsp"%>
 </body>
