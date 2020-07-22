@@ -1,10 +1,8 @@
 var id = $("#id");
 var pwd1= $("#pwd1");
 var pwd2 = $("#pwd2");
-var name = $("#name");
 var nickName = $("#nickName");
 var email = $("#email");
-var gender = $("#gender option:selected");
 var phone = $("#phone");
 var admit = $("#admit").prop("checked");
 
@@ -15,6 +13,7 @@ var nickNameCheck = /[가-힣]{1,10}/;
 var phoneCheck = /\d{10,12}/;
 
 function check() {
+	var gender = $("#gender option:selected");
 	if(id.val() === null || id.val() === "") {
 		$("#idResult").html("아이디는 비어있을 수 없습니다.").css({"backgroundColor" : "red", "color" : "white"});
 		$("#id").focus();
@@ -39,16 +38,6 @@ function check() {
 		return false;
 	}
 	
-	if(name.val() === null || name.val() === "") {
-		$("#nameResult").html("이름은 비어있을 수 없습니다.").css({"backgroundColor" : "red", "color" : "white"});
-		$("#name").focus();
-		return false;
-	} else if(!nameCheck.test(name.val())) {
-		$("#nameResult").html("이름을 한글 2 ~ 5글자로만 입력하세요.").css({"backgroundColor" : "red", "color" : "white"});
-		$("#name").focus();
-		return false;
-	}
-	
 	if(nickName.val() === null || nickName.val() === "") {
 		$("#nickNameResult").html("별명은 비어있을 수 없습니다.").css({"backgroundColor" : "red", "color" : "white"});
 		$("#nickName").focus();
@@ -59,15 +48,25 @@ function check() {
 		return false;
 	}
 	
-	if(email.val() === null || email.val() === "") {
-		$("#emailResult").html("이메일은 비어있을 수 없습니다.").css({"backgroundColor" : "red", "color" : "white"});
-		$("#email").focus();
+	if($("#name").val() === null || $("#name").val() === "") {
+		$("#nameResult").html("이름은 비어있을 수 없습니다.").css({"backgroundColor" : "red", "color" : "white"});
+		$("#name").focus();
+		return false;
+	} else if(!nameCheck.test($("#name").val())) {
+		$("#nameResult").html("이름을 한글 2 ~ 5글자로만 입력하세요.").css({"backgroundColor" : "red", "color" : "white"});
+		$("#name").focus();
 		return false;
 	}
 	
 	if(gender.val() === null || gender.val() === "") {
 		$("#genderResult").html("성별을 선택해주세요.").css({"backgroundColor" : "red", "color" : "white"});
 		$("#gender").focus();
+		return false;
+	}
+	
+	if(email.val() === null || email.val() === "") {
+		$("#emailResult").html("이메일은 비어있을 수 없습니다.").css({"backgroundColor" : "red", "color" : "white"});
+		$("#email").focus();
 		return false;
 	}
 	
@@ -91,6 +90,8 @@ function check() {
 }
 
 $(function() {
+	var gender = $("#gender option:selected");
+	
 	$("#id").bind('input', function() {
 		if(id.val() !== "" || id.val() !== null) {
 			$("#idResult").html("").css({"backgroundColor" : "white"});
