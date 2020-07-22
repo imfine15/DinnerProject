@@ -1,5 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8" import="java.util.*, com.kh.semi.member.model.vo.*"%>
+<% MemberVO loginUsers = (MemberVO) session.getAttribute("loginUser"); %>
+<%
+   String backPage = request.getContextPath() + "/views/qna/question.jsp";
+   session.setAttribute("backPage", backPage);
+%>
 <!DOCTYPE html>
 <html>
 <head>

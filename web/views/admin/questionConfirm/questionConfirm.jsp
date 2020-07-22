@@ -15,9 +15,7 @@
 <head>
 <meta charset="UTF-8">
 <title>YUMEET 관리자페이지</title>
-<link
-	href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300&display=swap"
-	rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300&display=swap" rel="stylesheet">
 <link rel="shortcut icon" href="/semiproject/images/favicon.ico" type="image/x-icon">
 <link rel="icon" href="/semiproject/images/favicon.ico" type="image/x-icon">
 <style>
@@ -116,11 +114,6 @@ tr {
 	border: none;
 }
 
-#title {
-	text-align: left;
-	padding-left:30px;
-	width:40%;
-}
 select{
 border-radius: 0;
 border: 1px solid gray;
@@ -131,6 +124,7 @@ border-radius: 0;
 border: 1px solid gray;
 outline-style: none;
 }
+
 #goQuestionConfirm:link, #goQuestionConfirm:visited, #goQuestionConfirm:active, #goQuestionConfirm:hover {
 	text-decoration:none; color:black;
 	text-decoration:none; color:black;
@@ -195,23 +189,6 @@ outline-style: none;
 				</div>
 			</div>
 		</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 		</div>
 			<div class="pageingArea" align="center">
 			<button

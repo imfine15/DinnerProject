@@ -19,38 +19,62 @@
 <link rel="icon" href="/semiproject/images/favicon.ico" type="image/x-icon">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <style>
-	table{
-		border-collapse: collapse;
-	}
-	tr{
-		border-bottom: 1px solid #E4E4E4;
-		height:50px;
-	}
-	
-	.writebtn{
-		background: #E07370;
- 		color: #FFFFFF;
-		border: 0;
-		outline: 0;
-		width: 90px;
-		height: 30px;
-		font-size: 16px;
-		margin-top: 20px;
-		float: right;
-		margin-right: 45px;
-	}
-#goAdminNotice:link,#goAdminNotice:visited, #goAdminNotice:active, #goAdminNotice:hover {
-	text-decoration:none; color:black;
-	text-decoration:none; color:black;
-	text-decoration:none; color:black;
-	text-decoration:none; color:black;
+#wrapper {
+	width: 80%;
+	height: 600px;
+	margin-left: 230px;
+	padding-top: 40px;
+	padding-left: 30px;
+}
+
+#inner-wrap {
+	background: #F9F9F9;
+	width: 100%;
+	margin-bottom: 10px;
+	height: 50px;
+	padding-left: 10px;
+	padding-right: 10px;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+tr {
+	border-bottom: 1px solid #E4E4E4;
+	height: 50px;
+}
+
+.writebtn {
+	background: #E07370;
+	color: #FFFFFF;
+	border: 0;
+	outline: 0;
+	width: 90px;
+	height: 30px;
+	font-size: 16px;
+	margin-top: 20px;
+	float: right;
+	margin-right: 45px;
+}
+
+#goAdminNotice:link, #goAdminNotice:visited, #goAdminNotice:active,
+	#goAdminNotice:hover {
+	text-decoration: none;
+	color: black;
+	text-decoration: none;
+	color: black;
+	text-decoration: none;
+	color: black;
+	text-decoration: none;
+	color: black;
 }
 </style>
 </head>
 <body style="background: lightgray;">
 	<%@ include file="/views/admin/common/sidebar.jsp"%>
-<div style="width:80%; height:600px;margin-left: 230px; padding-top:40px; padding-left:30px;">
-		<div style="background: #F9F9F9;width: 100%; margin-bottom: 10px; height:50px; padding-left:10px; padding-right:10px;">
+<div id="wrapper">
+		<div id="inner-wrap">
 			<h1><a id="goAdminNotice" href="<%=request.getContextPath()%>/selectAdminList.no" target = "_self">YUMEET 공지사항</a></h1><br>
 		</div>
 		<div align="center" style="padding-left:10px; padding-right:10px; background: white; width:100%; padding-top: 30px; height: 80%;">
@@ -116,6 +140,7 @@
 
 			<button
 				onclick="location.href='<%=request.getContextPath()%>/selectAdminList.no?currentPage=<%=maxPage%>'">>></button>
+	</div>
 	</div>
 		<script>
 		$(function() {

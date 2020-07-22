@@ -136,13 +136,10 @@ public class InsertQuestionServlet extends HttpServlet {
 				 
 				 request.setAttribute("msg", "문의글 등록에 실패하셨습니다.");
 				 request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
+				 
 			 }
-			 
-			request.getRequestDispatcher(page).forward(request, response);	
-
+			 response.sendRedirect(page);
 		}
-		
-		
 	}
 
 	/**
