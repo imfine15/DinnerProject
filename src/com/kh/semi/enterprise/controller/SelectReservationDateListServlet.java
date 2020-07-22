@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.Gson;
 import com.kh.semi.enterprise.model.service.EnpService;
 import com.kh.semi.enterprise.model.vo.ForEntCrVO;
 import com.kh.semi.enterprise.model.vo.PageInfo;
@@ -140,7 +141,13 @@ public class SelectReservationDateListServlet extends HttpServlet {
 			page="views/common/errorPage.jsp";
 			request.setAttribute("msg", "조회 실패");
 		}
+		
 		request.getRequestDispatcher(page).forward(request, response);
+		
+		response.setContentType("application/json");
+		response.setCharacterEncoding("UTF-8");
+		
+		new Gson().toJson(list, response.getWriter());
 	}
 
 	/**
