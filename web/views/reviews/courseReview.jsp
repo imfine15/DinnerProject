@@ -99,7 +99,7 @@
 		<div style="width: 80%;">
 			<div
 				style="margin-left: auto; margin-right: auto; padding-left: 10px; float: left;">
-				<label style="font-size: 30px; float: left; padding-left: 96px;">댓글(3)</label><br>
+				<span id="countBox" style="font-size: 30px; float: left; padding-left: 96px;">댓글(0)</span><br>
 				<br>
 				<br>
 				<table id="replySelectTable"
@@ -154,12 +154,14 @@
 	
 	/* 댓글달기 */
 	$(function() {
+			var count = 0;
 		$("#commentBtn").click(function() {
 			var boardNo = "<%=board.getBoardNo()%>";
 			var memberNo = "<%=board.getMemberNo()%>";
 			var content = $("#commentBox").val();
+			count++;
 			
-
+			
 			$.ajax({
 				url: "/semiproject/insertReply.bo",
 				data: {boardNo: boardNo, memberNo: memberNo, content: content},
@@ -175,13 +177,15 @@
 						var $noTd = $("<td>").css("width", "70px");
 						var $dateTd = $("<td>").text(data[key].replyDate).css("width", "190px");
 						
+						
 						$tr.append($idTd);
 						$tr.append($contentTd);
 						$tr.append($noTd);
 						$tr.append($dateTd);
 						
 						$replySelectTable.append($tr);
-
+						
+						$("#countBox").html("댓글("+count+")");
 						
 					}
 				},
@@ -193,7 +197,7 @@
 			
 		});
 		
-		document.getElementsByTagName('textarea').value='';
+		
 
 	});
 </script>

@@ -9,7 +9,7 @@
 	EnpAttachment ea = (EnpAttachment)session.getAttribute("ea");
 	if(fileList != null){
 		ea = fileList.get(0);
-	System.out.println("fileList null : "+ea);
+	
 	}
 %>
 <!DOCTYPE html>
