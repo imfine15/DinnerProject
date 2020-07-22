@@ -51,8 +51,10 @@ public class SelectReplayListWithPagingServlet extends HttpServlet {
 	    PageInfo pi = new PageInfo(currentPage, listCount, limit, maxPage, startPage, endPage);
 		ArrayList<BoardUpVo> replyList = new BoardService().selectReplyList(bNo, pi);
 		ArrayList<Object> rlist = new ArrayList<>();
+		
 		rlist.add(replyList);
 		rlist.add(pi);
+		
 		System.out.println("replyList : " + rlist);
 		System.out.println("===========");
 		response.setContentType("application/json");
