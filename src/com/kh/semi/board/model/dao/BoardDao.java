@@ -764,6 +764,11 @@ public class BoardDao {
 		return list;
 	}
 
+	public int deleteReply(Connection con, BoardUpVo reply) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
 	
 
 }
