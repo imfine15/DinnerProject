@@ -1,10 +1,11 @@
 var id = $("#id"); // 아이디
 var pwd1= $("#pwd1"); // 비밀번호 입력
 var pwd2 = $("#pwd2"); // 비밀번호 확인 입력
-var name = $("#name"); // 사업자명
+//var name = $("#name"); // 사업자명
 var juminNo = $("#juminNo"); // 주민등록번호
 var enterpriseName = $("#enterpriseName"); // 매장이름
 var bank = $("#bank option:selected"); // 은행
+var accountHolder = $("#accountHolder"); // 예금주
 var bankAccount = $("#bankAccount"); // 계좌번호
 var enterpriseNumber = $("#enterpriseNumber"); // 사업자등록번호
 var address = $("#address"); // 기본 주소
@@ -14,24 +15,21 @@ var email = $("#email"); // 이메일
 var phone = $("#phone"); // 매장전화번호
 var enterpriseLicensee = $("#enterpriseLicensee option:selected"); // 사업자 구분 (개인사업자 : individual / 법인사업자 : corporate)
 var admit = $("#admit").prop("checked"); // 약관동의여부
-var lowerLimit = $("#lowerLimit");
-var higherLimit = $("#higherLimit");
-var introduce = $("#introduce");
-var parking = $("#parking");
-
+var lowerLimit = $("#lowerLimit"); // 예약금 하한선
+var higherLimit = $("#higherLimit"); // 예약금 상한선
+var introduce = $("#introduce"); // 매장소개
+var parking = $("#parking"); // 주차가능여부
 
 var idCheck = /[a-zA-Z0-9]{4,20}/;
 var passwordCheck = /[a-zA-Z0-9]{8,16}/;
 var nameCheck = /[가-힣]{2,5}/;
-var juminNoCheck = /\d{6} \- [1-4]\d{6}/;
+var juminNoCheck = /\d{13}/;
 var enterpriseNameCheck = /[a-zA-Z가-힣]{1,15}/;
 var bankAccountCheck = /\d{12,14}/;
 var enterpriseNumberCheck = /\d{10}/;
 var phoneCheck = /\d{9,12}/;
 
 function check() {
-	
-	
 	if(id.val() === null || id.val() === "") {
 		$("#idResult").html("아이디는 비어있을 수 없습니다.").css({"backgroundColor" : "red", "color" : "white"});
 		$("#id").focus();
@@ -56,16 +54,6 @@ function check() {
 		return false;
 	}
 	
-	if(name.val() === null || name.val() === "") {
-		$("#nameResult").html("이름은 비어있을 수 없습니다.").css({"backgroundColor" : "red", "color" : "white"});
-		$("#name").focus();
-		return false;
-	} else if(!nameCheck.test(name.val())) {
-		$("#nameResult").html("이름을 한글 2 ~ 5글자로만 입력하세요.").css({"backgroundColor" : "red", "color" : "white"});
-		$("#name").focus();
-		return false;
-	}
-	
 	if(juminNo.val() === null || juminNo.val() === "") {
 		$("#juminNoResult").html("주민등록번호는 비어있을 수 없습니다.").css({"backgroundColor" : "red", "color" : "white"});
 		$("#juminNo").focus();
@@ -73,6 +61,16 @@ function check() {
 	} else if(!juminNoCheck.test(juminNo.val())) {
 		$("#juminNoResult").html("주민등록번호를 숫자 13글자로만 입력하세요.").css({"backgroundColor" : "red", "color" : "white"});
 		$("#juminNo").focus();
+		return false;
+	}
+	
+	if($("#name").val() === null || $("#name").val() === "") {
+		$("#nameResult").html("이름은 비어있을 수 없습니다.").css({"backgroundColor" : "red", "color" : "white"});
+		$("#name").focus();
+		return false;
+	} else if(!nameCheck.test($("#name").val())) {
+		$("#nameResult").html("이름을 한글 2 ~ 5글자로만 입력하세요.").css({"backgroundColor" : "red", "color" : "white"});
+		$("#name").focus();
 		return false;
 	}
 	
@@ -85,15 +83,21 @@ function check() {
 		$("#enterpriseName").focus();
 		return false;
 	}
-	if(introduce.val() === null || introduce.val() === "") {
-		$("#introduce").html("소개란은 비어있을 수 없습니다.");
-		$("#introduce").focus();
-		return false;
-	}
 	
+	var bank = $("#bank option:selected");
 	if(bank.val() === null || bank.val() === "") {
 		$("#bankResult").html("은행을 선택해주세요.").css({"backgroundColor" : "red", "color" : "white"});
 		$("#bank").focus();
+		return false;
+	}
+	
+	if(accountHolder.val() === null || accountHolder.val() === "") {
+		$("#accountHolderResult").html("예금주명은 비어있을 수 없습니다.").css({"backgroundColor" : "red", "color" : "white"});
+		$("#accountHolder").focus();
+		return false;
+	} else if(!nameCheck.test(accountHolder.val())) {
+		$("#accountHolderResult").html("예금주명을 한글 2 ~ 5글자로만 입력하세요.").css({"backgroundColor" : "red", "color" : "white"});
+		$("#accountHolder").focus();
 		return false;
 	}
 	
@@ -116,8 +120,8 @@ function check() {
 		$("#enterpriseNumber").focus();
 		return false;
 	}
-	
-	if(address.val() === null || address.val() === "" || addressDetail.val() === null || addressDetail.val() === "") {
+	//address.val() === null || address.val() === "" || 
+	if(addressDetail.val() === null || addressDetail.val() === "") {
 		$("#addressResult").html("주소는 비어있을 수 없습니다.").css({"backgroundColor" : "red", "color" : "white"});
 		$("#address").focus();
 		return false;
@@ -126,12 +130,6 @@ function check() {
 	if(enterpriseType.val() === null || enterpriseType.val() === "") {
 		$("#enterpriseTypeResult").html("업종은 비어있을 수 없습니다.").css({"backgroundColor" : "red", "color" : "white"});
 		$("#enterpriseType").focus();
-		return false;
-	}
-	
-	if(enterpriseLicensee.val() === null || enterpriseLicensee.val() === "") {
-		$("#enterpriseLicenseeResult").html("사업자 구분을 선택해주세요.").css({"backgroundColor" : "red", "color" : "white"});
-		$("#enterpriseLicensee").focus();
 		return false;
 	}
 	
@@ -151,25 +149,54 @@ function check() {
 		return false;
 	}
 	
-	if(admit === false) {
-		$("#admitResult").html("약관에 동의해야 회원가입을 진행하실 수 있습니다.").css({"backgroundColor" : "red", "color" : "white"});
-		$("#admit").focus();
-		return false;
-	}
-	
-	if(parking.val() == null || parking.val() == "") {
-		$("#parkingResult").html("주차 여부를 선택해주세요.").css({"backgroundColor" : "red", "color" : "white"});
-		$("#parking").focus();
+	var enterpriseLicensee = $("#enterpriseLicensee option:selected");
+	if(enterpriseLicensee.val() === null || enterpriseLicensee.val() === "") {
+		$("#enterpriseLicenseeResult").html("사업자 구분을 선택해주세요.").css({"backgroundColor" : "red", "color" : "white"});
+		$("#enterpriseLicensee").focus();
 		return false;
 	}
 	
 	if(lowerLimit.val() === null || lowerLimit.val() === "") {
+		$("#lowerLimit").val("예약금 하한선을 입력해주세요.");
 		$("#lowerLimit").focus();
 		return false;
 	}
 	
 	if(higherLimit.val() === null || higherLimit.val() === "") {
+		$("#higherLimit").val("예약금 상한선을 입력해주세요.");
 		$("#higherLimit").focus();
+		return false;
+	}
+	
+	if(introduce.val() === null || introduce.val() === "") {
+		$("#introduce").html("소개란은 비어있을 수 없습니다.");
+		$("#introduce").focus();
+		return false;
+	}
+	
+	var parking = $("#parking");
+	if(parking.val() === null || parking.val() === "") {
+		$("#parkingResult").html("주차 여부를 선택해주세요.").css({"backgroundColor" : "red", "color" : "white"});
+		$("#parking").focus();
+		return false;
+	}
+	
+	var minTime = $("#minTime");
+	if(minTime.val() === null || minTime.val() === "") {
+		$("#minTime").focus();
+		return false;
+	}
+	
+	var maxTime = $("#maxTime");
+	if(maxTime.val() === null || maxTime.val() === "") {
+		$("#maxTime").focus();
+		return false;
+	}
+	
+	var admit = $("#admit").prop("checked");
+	if(admit === false) {
+		$("#admitResult").html("약관에 동의해야 회원가입을 진행하실 수 있습니다.").css({"backgroundColor" : "red", "color" : "white"});
+		$("#admit").focus();
 		return false;
 	}
 	
@@ -188,6 +215,12 @@ $(function() {
 			$("#pwdResult").html("").css({"backgroundColor" : "white"});
 		}
 	});
+	
+	$("#juminNo").bind("input", function() {
+		if(juminNo.val() !== "" || juminNo.val() !== null) {
+			$("#juminNoResult").html("").css({"backgroundColor" : "white"});
+		}
+	});
 
 	$("#name").bind("input", function() {
 		if($("#name").val() !== "" || $("#name").val() !== null) {
@@ -195,12 +228,6 @@ $(function() {
 		}
 	});
 
-	$("#juminNo").bind("input", function() {
-		if(juminNo.val() !== "" || juminNo.val() !== null) {
-			$("#juminNoResult").html("").css({"backgroundColor" : "white"});
-		}
-	});
-	
 	$("#enterpriseName").bind("input", function() {
 		if(enterpriseName.val() !== "" || enterpriseName.val() !== null) {
 			$("#enterpriseNameResult").html("").css({"backgroundColor" : "white"});
@@ -213,7 +240,13 @@ $(function() {
 		}
 	});
 	
-	$("input:text[name='bankAccount']").on("keyup", function() {
+	$("#accountHolder").bind("input", function() {
+		if(accountHolder.val() !== "" || accountHolder.val() !== null) {
+			$("#accountHolderResult").html("").css({"backgroundColor" : "white"});
+		}
+	});
+	
+	$("#bankAccount").on("keyup", function() {
 	    $(this).val($(this).val().replace(/[^0-9]/g,""));
 	});
 	
@@ -223,15 +256,7 @@ $(function() {
 		}
 	});
 	
-	$("input:text[name='enterpriseNumber']").on("keyup", function() {
-	    $(this).val($(this).val().replace(/[^0-9]/g,""));
-	});
-	
-	$("input:text[name='lowerLimit']").on("keyup", function() {
-	    $(this).val($(this).val().replace(/[^0-9]/g,""));
-	});
-	
-	$("input:text[name='higherLimit']").on("keyup", function() {
+	$("#enterpriseNumber").on("keyup", function() {
 	    $(this).val($(this).val().replace(/[^0-9]/g,""));
 	});
 	
@@ -249,7 +274,7 @@ $(function() {
 	
 	$("#addressDetail").bind("input", function() {
 		if(addressDetail.val() !== "" || addressDetail.val() !== null) {
-			$("#addressDetailResult").html("").css({"backgroundColor" : "white"});
+			$("#addressResult").html("").css({"backgroundColor" : "white"});
 		}
 	});
 	
@@ -265,7 +290,7 @@ $(function() {
 		}
 	});
 	
-	$("input:text[name='phone']").on("keyup", function() {
+	$("#phone").on("keyup", function() {
 	    $(this).val($(this).val().replace(/[^0-9]/g,""));
 	});
 
@@ -280,10 +305,56 @@ $(function() {
 			$("#enterpriseLicenseeResult").html("").css({"backgroundColor" : "white"});
 		}
 	});
-
+	
+	$("#lowerLimit").on("keyup", function() {
+	    $(this).val($(this).val().replace(/[^0-9]/g,""));
+	});
+	
+	$("#higherLimit").on("keyup", function() {
+	    $(this).val($(this).val().replace(/[^0-9]/g,""));
+	});
+	
+	$("#parking").change(function() {
+		if(parking.val() !== "" || parking.val() !== null) {
+			$("#parkingResult").html("").css({"backgroundColor" : "white"});
+		}
+	});
+	
+	$("#minTime").bind("input", function() {
+		if($("#minTime").val() !== null && $("#minTime").val() !== "") {
+			$("#minTime").focus();
+		}
+	});
+	
+	$("#maxTime").bind("input", function() {
+		if($("#maxTime").val() !== null && $("#maxTime").val() !== "") {
+			$("#maxTime").focus();
+		}
+	});
+	
 	$("#admit").change(function() {
-		if(admit === true) {
+		if($("#admit").prop("checked") === true) {
 			$("#admitResult").html("").css({"backgroundColor" : "white"});
+		} else if($("#admit").prop("checked") === false) {
+			$("#admitResult").html("약관에 동의해야 회원가입을 진행하실 수 있습니다.").css({"backgroundColor" : "red", "color" : "white"});
+		}
+	});
+});
+
+$("#idCheck").click(function() {
+	var id = $("#id").val();
+	$.ajax({
+		url: "/semiproject/enpIdDuplicationCheck.en",
+		type: "post",
+		data: {id: id},
+		success: function(data) {
+			$("#idCheckResult").val(data);
+			
+			if(data === "success") {
+				$("#idResult").html("아이디가 중복되지 않습니다.").css({"backgroundColor" : "yellowgreen", "color" : "white"});
+			} else if(data === "fail") {
+				$("#idResult").html("아이디가 중복되었습니다.").css({"backgroundColor" : "red", "color" : "white"});
+			}
 		}
 	});
 });

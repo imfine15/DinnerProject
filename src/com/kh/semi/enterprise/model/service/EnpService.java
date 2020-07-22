@@ -10,6 +10,7 @@ import com.kh.semi.enterprise.model.vo.EnpVO;
 import com.kh.semi.enterprise.model.vo.ForCmVO;
 import com.kh.semi.enterprise.model.vo.ForEntCrVO;
 import com.kh.semi.enterprise.model.vo.PageInfo;
+import com.kh.semi.member.model.dao.MemberDao;
 import com.kh.semi.payment.model.vo.ReservationVO;
 
 import static com.kh.semi.common.JDBCTemplate.*;
@@ -200,6 +201,15 @@ public class EnpService {
 		//int rownum = new EnpDao().selectCRRownum(con,enp);
 		
 		return 0;
+	}
+
+	public String checkId(String id) {
+		Connection con = getConnection();
+		String checkEnp = new EnpDao().checkId(con, id);
+		
+		close(con);
+		
+		return checkEnp;
 	}
 	
 }

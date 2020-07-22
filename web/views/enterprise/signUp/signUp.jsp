@@ -15,7 +15,6 @@
 	<p id="welcome"><span id="logo1">YU</span><span id="logo2">MEET</span>에 오신 것을 환영합니다!</p>
 	<p class="caution">업체 회원가입 페이지입니다. 일반 사용자시라면 <a href="/semiproject/views/signUp/signUp.jsp">여기</a>를 눌러주세요</p>
 	<p class="caution">모든 정보는 필수 입력 사항입니다</p>
-	<!-- 이름에 맞는 서블릿을 생성할 것 -->
 	<form action="<%= request.getContextPath() %>/signUp.en" method="post" onsubmit="return check();">
 		<table>
 			<tr>
@@ -24,6 +23,11 @@
 			<tr>
 				<td colspan="3"><input type="text" name="id" id="id" size="20"></td>
 				<td colspan="1"><p id="idCheck">아이디<br>중복확인</p></td>
+			</tr>
+			<tr style="display:none;">
+				<td>
+					<input type="text" id="idCheckResult" value="checkNotYet">
+				</td>
 			</tr>
 			<tr>
 				<td colspan="3"><label id="idResult"></label></td>
@@ -44,7 +48,7 @@
 				<td colspan="3"><label id="pwdResult"></label></td>
 			</tr>
 			<tr>
-				<td colspan="3">주민번호<br><span class="notice">주민번호는 13자리 숫자와 '-'만 가능합니다.</span></td>
+				<td colspan="3">주민번호<br><span class="notice">주민번호는 13자리 숫자만 가능합니다.</span></td>
 			</tr>
 			<tr>
 				<td colspan="3"><input type="text" name="juminNo" id="juminNo"></td>
@@ -90,6 +94,15 @@
 			</tr>
 			<tr>
 				<td colspan="3"><label id="bankResult"></label></td>
+			</tr>
+			<tr>
+				<td colspan="3">예금주<br><span class="notice">예금주는 2 ~ 5자리 한글만 가능합니다</span></td>
+			</tr>
+			<tr>
+				<td colspan="3"><input type="text" name="accountHolder" id="accountHolder"></td>
+			</tr>
+			<tr>
+				<td colspan="3"><label id="accountHolderResult"></label></td>
 			</tr>
 			<tr>
 				<td colspan="3">계좌번호<br><span class="notice">계좌번호는 12 ~ 14글자 숫자만 가능합니다.</span></td>
@@ -165,13 +178,13 @@
 				<td colspan="3"><label id="enterpriseLicenseeResult"></label></td>
 			</tr>
 			<tr>
-				<td colspan="3">가격대 최소금액<br><span class="notice">숫자만 입력 가능합니다 <br>ex)천 원일 경우 "1000" 입력</span></td>
+				<td colspan="3">예약금 하한선<br><span class="notice">숫자만 입력 가능합니다 <br>ex)천 원일 경우 "1000" 입력</span></td>
 			</tr>
 			<tr>
 				<td colspan="3"><input type="text" name="lowerLimit" id="lowerLimit"></td>
 			</tr>
 			<tr>
-				<td colspan="3">가격대 최대금액<br><span class="notice">숫자만 입력 가능합니다 <br>ex)천 원일 경우 "1000" 입력</span></td>
+				<td colspan="3">예약금 상한선<br><span class="notice">숫자만 입력 가능합니다 <br>ex)천 원일 경우 "1000" 입력</span></td>
 			</tr>
 			<tr>
 				<td colspan="3"><input type="text" name="higherLimit" id="higherLimit"></td>
@@ -237,9 +250,17 @@
 						<input type="checkbox" name="admit" id="admit">
 						<label for="admit"><span id="admit1">이용약관 및 개인정보처리방침 </span><span id="admit2">에 동의합니다.</span></label>
 						<br>
-						<a target="_blank" id="terms" href="https://www.mangoplate.com/en/terms/contract">이용약관 및 개인정보처리방침 보러가기 (새 탭으로 이동)</a>
-						<label id="admitResult"></label>
 					</div>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="3" style="text-align:center;">
+					<label id="admitResult"></label>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="3" style="text-align:center;">
+					<a target="_blank" id="terms" href="https://www.mangoplate.com/en/terms/contract">이용약관 및 개인정보처리방침 보러가기 (새 탭으로 이동)</a>
 				</td>
 			</tr>
 			<tr>

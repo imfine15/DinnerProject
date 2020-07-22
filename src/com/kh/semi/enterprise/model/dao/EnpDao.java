@@ -48,21 +48,18 @@ Properties prop = new Properties();
       
       try {
          pstmt = con.prepareStatement(query);
-//         아래 입력 내용은 쿼리에 따라 달라질 수 있음
-         /*
-         ENP_NO, ENP_NAME, ENP_PHONE, ENP_ADDRESS, ENP_HOUR, ENP_TYPE, 
-         ENP_STATUS, ENP_PARTNER_TYPE,PRICE_RANGE,CLOSED_DAY,WEBSITE,INTRODUCE,PARKING_POSSIBLE
-         */
+         
          pstmt.setString(1, requestEnp.getEnpName());
          pstmt.setString(2, requestEnp.getEnpPhone());
          pstmt.setString(3, requestEnp.getEnpAddress());
          pstmt.setString(4, requestEnp.getEnpHour());
          pstmt.setString(5, requestEnp.getEnpType());
-         pstmt.setString(6, requestEnp.getPriceRange());
-         pstmt.setString(7, requestEnp.getClosedDay());
-         pstmt.setString(8, requestEnp.getWebsite());
-         pstmt.setString(9, requestEnp.getIntroduce());
-         pstmt.setString(10, requestEnp.getParkingPossible());
+         pstmt.setString(6, requestEnp.getHashTags());
+         pstmt.setString(7, requestEnp.getPriceRange());
+         pstmt.setString(8, requestEnp.getClosedDay());
+         pstmt.setString(9, requestEnp.getWebsite());
+         pstmt.setString(10, requestEnp.getIntroduce());
+         pstmt.setString(11, requestEnp.getParkingPossible());
          
          result = pstmt.executeUpdate();
       } catch (SQLException e) {
@@ -104,14 +101,13 @@ Properties prop = new Properties();
 	         pstmt.setString(3, requestEnp.getPartnerPwd());
 	         pstmt.setString(4, requestEnp.getPartnerEmail());
 	         pstmt.setString(5, requestEnp.getPartnerName());
-	         pstmt.setString(6, requestEnp.getPartnerName());
+	         pstmt.setString(6, requestEnp.getAccountHolder());
 	         pstmt.setString(7, requestEnp.getBank());
-	         pstmt.setString(8,requestEnp.getBankAccount());
-	         pstmt.setInt(9, 0);
-	         pstmt.setInt(10, 1000000);
+	         pstmt.setString(8, requestEnp.getBankAccount());
+	         pstmt.setInt(9, requestEnp.getDepositLowerLimit());
+	         pstmt.setInt(10, requestEnp.getDepositHigherLimit());
 	         pstmt.setString(11, requestEnp.getJuminNo());
 	         pstmt.setString(12, requestEnp.getEnpLicense());
-	         
 	         
 	         result = pstmt.executeUpdate();
 	      } catch (SQLException e) {
@@ -729,6 +725,11 @@ Properties prop = new Properties();
 		
 		
 		return result;
+	}
+
+	public String checkId(Connection con, String id) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	/*public int selectCRRownum(Connection con, String enp) {
