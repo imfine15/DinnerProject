@@ -10,10 +10,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Properties;
 
 import com.kh.semi.admin.model.vo.PageInfo;
 import com.kh.semi.enterprise.model.vo.EnpAttachment;
+import com.kh.semi.notice.model.vo.AdminNoticeAttachment;
+import com.kh.semi.notice.model.vo.AdminNoticeVO;
 import com.kh.semi.notice.model.vo.NoticeVO;
 import com.kh.semi.question.model.vo.QuestionFileVO;
 import com.kh.semi.question.model.vo.QuestionVO;
@@ -42,7 +45,7 @@ public class QuestionDao {
 		int result = 0;
 
 		String query = prop.getProperty("insertQusetion");
-		
+		System.out.println(question.getMemberId());
 		try {
 			pstmt = con.prepareStatement(query);
 			pstmt.setString(1, question.getMemberNo());
@@ -194,18 +197,20 @@ public class QuestionDao {
 			try {
 				ps = con.prepareStatement(que);
 				ps.setString(1, qNo.get(i));
+
 				rs = ps.executeQuery();
 				
 				QuestionVO q = new QuestionVO();
 				if(rs.next()) {
-					q.setQuestionDate(rs.getDate("QUESTION_DATE"));
-					q.setQuestionNo(rs.getString("QUESTION_NO"));
+					q.setQuestionNo(rs.getString("SUBSTR(QUESTION_NO,2)"));
+					q.setQuestionType(rs.getString("QUESTION_TYPE"));
 					q.setQuestionTitle(rs.getString("QUESTION_TITLE"));
 					q.setMemberId(rs.getString("MEMBER_ID"));
-					q.setQuestionDisposalStatus(rs.getString("QUESTION_DISPOSAL_STATUS"));
-					q.setQuestionType(rs.getString("QUESTION_TYPE"));
+					q.setQuestionDate(rs.getDate("QUESTION_DATE"));
+					q.setQuestionDisposalStatus(rs.getString("QUESTION_DISPOSAL_CODE"));
+					
+					list.add(q);
 				}
-				list.add(q);
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -216,6 +221,64 @@ public class QuestionDao {
 		}
 		return list;
 		
+	}
+
+	public HashMap<String, Object> selectOne(Connection con, int num) {
+	
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		HashMap<String, Object> hmap = null;
+		QuestionVO question = null;
+		QuestionFileVO attachment = null;
+		ArrayList<QuestionFileVO> list = null;
+		
+		String query = prop.getProperty("selectOne");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1,  num);
+			
+			rset = pstmt.executeQuery();
+
+			list = new ArrayList<QuestionFileVO>();
+				
+			while(rset.next()) {
+				
+				question = new QuestionVO();
+				question.setQuestionNo(rset.getString("SUBSTR(QUESTION_NO,2"));
+				question.setQuestionType(rset.getString("QUESTION_TYPE"));
+				question.setQuestionTitle(rset.getString("QUESTION_TITLE"));
+				question.setQuestionContent(rset.getString("QUESTION_CONTENT"));
+				question.setMemberId(rset.getString("MEMBER_ID"));
+				question.setQuestionDate(rset.getDate("QUESTION_DATE"));
+				question.setQuestionDisposalStatus(rset.getString("QUESTION_DISPOSAL_CODE"));
+				question.setQuestionEmail(rset.getString("QUESTION_EMAIL"));
+				question.setQuestionPhone(rset.getString("QUESTION_PHONE"));
+				
+		
+				
+				attachment = new QuestionFileVO();
+				attachment.setChangeName(rset.getString("CHANGE_NAME"));
+				attachment.setFileNo(rset.getString("FILE_NO"));
+				attachment.setFilePath(rset.getString("FILE_PATH"));
+				attachment.setOriginName(rset.getString("ORIGIN_NAME"));
+				
+				list.add(attachment);
+			}
+			
+			hmap = new HashMap<>();
+			
+			hmap.put("question", question);
+			hmap.put("attachment", list);
+					
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return hmap;
 	}
 
 

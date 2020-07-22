@@ -125,6 +125,7 @@ public class InsertQuestionServlet extends HttpServlet {
 			 
 			 if(result > 0) {
 				 page = "views/qna/question_comp.jsp";
+				 response.sendRedirect(page);
 				 //넘기는값들 넘기기  셋어트리뷰트로 
 			 } else {
 				 
@@ -138,7 +139,6 @@ public class InsertQuestionServlet extends HttpServlet {
 				 request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
 				 
 			 }
-			 response.sendRedirect(page);
 		}
 	}
 
