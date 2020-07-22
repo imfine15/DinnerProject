@@ -34,6 +34,8 @@
 <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" href="/semiproject/views/enterprise/sidebar/css/style.css">
+<link rel="shortcut icon" href="/semiproject/images/favicon.ico" type="image/x-icon">
+<link rel="icon" href="/semiproject/images/favicon.ico" type="image/x-icon">
 </head>
 <body>
 <div style="background: white;">
@@ -89,7 +91,7 @@
 				<li>
 					<a href="<%=request.getContextPath()%>/logout.en"><%=loginEnp.getPartnerName() %>님의 로그아웃</a>
 				</li>
-				<%} else{%>
+				<%} else{ %>
 				<li>
 					<a href="/semiproject/views/enterprise/signIn/signIn.jsp">로그인</a>
 				</li>
@@ -111,7 +113,6 @@
 	});
 	
 </script>
-<script src="/semiproject/views/enterprise/sidebar/js/jquery.min.js"></script>
 <script src="/semiproject/views/enterprise/sidebar/js/popper.js"></script>
 <script src="/semiproject/views/enterprise/sidebar/js/bootstrap.min.js"></script>
 <script src="/semiproject/views/enterprise/sidebar/js/main.js"></script>
