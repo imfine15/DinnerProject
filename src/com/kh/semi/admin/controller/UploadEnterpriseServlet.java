@@ -7,6 +7,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.kh.semi.enterprise.model.service.EnpService;
+import com.kh.semi.enterprise.model.vo.EnpUpVo;
+
 /**
  * Servlet implementation class UploadEnterpriseServlet
  */
@@ -28,7 +31,23 @@ public class UploadEnterpriseServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String enpNo = request.getParameter("no");
 		
-		System.out.println("enpNo : " + enpNo);
+		EnpUpVo enp = new EnpUpVo();
+		enp.setEnpNo(enpNo);
+		
+		int result = new EnpService().uploadEnp(enp);
+		
+		System.out.println("result1 : " +result);
+		
+		String page = "";
+		if(result > 0 ) {
+			
+			response.sendRedirect("/semiproject/selectEntList.up");
+		} else {
+			page="views/common/errorPage.jsp";
+			request.setAttribute("msg", "게시판 조회 실패!");
+			request.getRequestDispatcher(page).forward(request, response);
+		}
+		
 	}
 
 	/**

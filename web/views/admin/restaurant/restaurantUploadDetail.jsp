@@ -202,7 +202,7 @@
 					</td>
 				</tr>
 			</table>
-			<button type="button" class="btn" style="background: #E07370; width: 90px;"onclick="location.href='<%=request.getContextPath()%>/uploadEnp.up?no=?<%=eu.getEnpNo()%>">업로드</button>
+			<button type="button" class="btn" style="background: #E07370; width: 90px;" onclick="upload();">업로드</button>
 			<button type="submit" class="btn" style="background: #E07370; width: 90px;">수정</button>
 		</form>
 		</div>
@@ -214,7 +214,9 @@
 		});
 
 	
-
+		function upload() {
+			location.href="<%=request.getContextPath()%>/uploadEnp.up?no=<%=eu.getEnpNo()%>";
+		}
 
 		</script>
 		<script type="text/javascript">
