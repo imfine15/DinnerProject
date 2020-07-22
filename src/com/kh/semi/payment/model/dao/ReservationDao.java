@@ -14,6 +14,7 @@ import java.util.Properties;
 
 import com.kh.semi.enterprise.model.vo.EnpVO;
 import com.kh.semi.payment.model.vo.PaymentHistoryVO;
+import com.kh.semi.payment.model.vo.PointVO;
 import com.kh.semi.payment.model.vo.ReservationVO;
 import static com.kh.semi.common.JDBCTemplate.*;
 public class ReservationDao {
@@ -411,6 +412,108 @@ public class ReservationDao {
 			close(rset);
 		}
 		return pAmount;
+	}
+
+	public int insertPointUse(Connection con, PointVO pointVO) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String query = prop.getProperty("insertPointUse");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, pointVO.getmNo());
+			pstmt.setString(2, pointVO.getSaveStatue());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+	public int insertPointUseHistory(Connection con, PointVO pointVO, int seq) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String query = prop.getProperty("insertPointUse");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, seq);
+			pstmt.setString(2, pointVO.getmNo());
+			pstmt.setInt(3, pointVO.getpAmount());
+			pstmt.setString(4, pointVO.getSaveStatue());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+
+	public int selectPointSeq(Connection con) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int seq = 0;
+		String query = prop.getProperty("selectPointSeq");
+		try {
+			pstmt = con.prepareStatement(query);
+			rset = pstmt.executeQuery();
+			
+			seq = rset.getInt("COUNT");
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		return seq;
+	}
+
+	public int insertPointGive(Connection con, PointVO pointVO) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String query = prop.getProperty("insertPointGive");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, pointVO.getmNo());
+			pstmt.setString(2, pointVO.getSaveCode());
+			pstmt.setString(3, pointVO.getSaveStatue());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return result;
+	}
+
+	public int insertPointGiveHistory(Connection con, PointVO pointVO, int seq) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String query = prop.getProperty("insertPointGiveHistory");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, seq);
+			pstmt.setString(2, pointVO.getmNo());
+			pstmt.setString(3, pointVO.getSaveStatue());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return result;
 	}
 }
 

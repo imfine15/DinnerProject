@@ -8,6 +8,7 @@ import java.util.HashMap;
 import com.kh.semi.enterprise.model.vo.EnpVO;
 import com.kh.semi.payment.model.dao.ReservationDao;
 import com.kh.semi.payment.model.vo.PaymentHistoryVO;
+import com.kh.semi.payment.model.vo.PointVO;
 import com.kh.semi.payment.model.vo.ReservationVO;
 import static com.kh.semi.common.JDBCTemplate.*;
 public class ReservationService {
@@ -152,6 +153,49 @@ public class ReservationService {
 		
 		close(con);
 		return pAmount;
+	}
+
+	public int insertPointUseHistory(PointVO pointVO) {
+		Connection con = getConnection();
+		int result = new ReservationDao().insertPointUse(con, pointVO);
+		
+		if(result > 0 ) {
+			commit(con);
+		} else {
+			rollback(con);
+		}
+		int seq = new ReservationDao().selectPointSeq(con);
+		
+		int result2 = new ReservationDao().insertPointUseHistory(con, pointVO, seq);
+		if(result2 > 0) {
+			commit(con);
+		} else {
+			rollback(con);
+		}
+		close(con);
+		return result;
+	}
+
+	public int insertPointGiveHistory(PointVO pointVO) {
+		Connection con = getConnection();
+		int result = new ReservationDao().insertPointGive(con, pointVO);
+		
+		if(result > 0) {
+			commit(con);
+		} else {
+			rollback(con);
+		}
+		
+		int seq = new ReservationDao().selectPointSeq(con);
+		int result2 = new ReservationDao().insertPointGiveHistory(con, pointVO, seq);
+		
+		if(result2 > 0) {
+			commit(con);
+		} else {
+			rollback(con);
+		}
+		
+		return 0;
 	}
 
 
