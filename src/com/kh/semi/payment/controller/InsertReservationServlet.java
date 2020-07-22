@@ -18,6 +18,7 @@ import javax.servlet.http.HttpSession;
 import com.kh.semi.member.model.vo.MemberVO;
 import com.kh.semi.payment.model.service.ReservationService;
 import com.kh.semi.payment.model.vo.PaymentHistoryVO;
+import com.kh.semi.payment.model.vo.PointVO;
 import com.kh.semi.payment.model.vo.ReservationVO;
 import com.sun.glass.ui.Pixels.Format;
 
@@ -77,12 +78,27 @@ public class InsertReservationServlet extends HttpServlet {
 		payHistoryVO.setmNo(mNo);
 		payHistoryVO.setpAmount(point);
 		payHistoryVO.setpNo(muid);
+		
+		PointVO pointVO = new PointVO();
+		pointVO.setmNo(mNo);
+		pointVO.setpAmount(point);	
+		
 		String page = "";
+		
 		if(result > 0) {
 			int result2 = new ReservationService().insertReservationHistory(insertReservationVO);
 			int result3 = new ReservationService().insertPaymentHistory(payHistoryVO);
+			int result4 = 0;
+			if(point > 0) {
+				pointVO.setSaveStatue("사용");
+				result4 = new ReservationService().insertPointUseHistory(pointVO);
+			} else {
+				pointVO.setSaveCode("ST2");
+				pointVO.setSaveStatue("적립");
+				result4 = new ReservationService().insertPointGiveHistory(pointVO);
+			}
 			//int result4 = new ReservationService().insertReservationPoint()
-			if(result2 > 0 && result3 > 0) {
+			if(result2 > 0 && result3 > 0 && result4 > 0) {
 				page = "views/payment/paymentSuccess.jsp";
 			}
 		} else {
