@@ -13,6 +13,8 @@
 	} else {
 		replyList = (ArrayList<BoardUpVo>)request.getAttribute("replyList");
 	}
+	
+	int replyCount = (int) request.getAttribute("replyCount");
 %>
 <!DOCTYPE html>
 <html>
@@ -99,7 +101,7 @@
 		<div style="width: 80%;">
 			<div
 				style="margin-left: auto; margin-right: auto; padding-left: 10px; float: left;">
-				<span id="countBox" style="font-size: 30px; float: left; padding-left: 96px;">댓글(0)</span><br>
+				<span id="countBox" style="font-size: 30px; float: left; padding-left: 96px;">댓글(<%=replyCount %>)</span><br>
 				<br>
 				<br>
 				<table id="replySelectTable"
@@ -108,9 +110,12 @@
 
 					</tbody>
 				</table>
-				<button type="button" id="left" value="1"><</button>
-				
-				<button>></button>
+				<button id="left1" class="pclick" type="button"><</button><div id="bus" style="display: inline;">
+				<%for(int i = 0; i < (replyCount / 10) + 1; i ++) {%>
+				<button class="pclick" type="button" value="<%=i + 1%>"><%=i+1 %></button>
+				<%} %>
+				</div>
+				<button id="right1" class="pclick" type="button">></button>
 			</div>
 		</div>
 			<hr style="width: 80%;">
@@ -131,12 +136,13 @@
 	<br>
 <%@ include file="/views/common/footer.jsp" %>
 <script>
+$(document).ready(function(){
 	$.ajax({
 		url: "/semiproject/selectReply.pa",
 		type: "post",
 		data: {
 			no: "<%=board.getBoardNo()%>",
-			curval: $("#left").val()
+			curval: 1
 		},
 		success: function(data){
 			var $replySelectTable = $("#replySelectTable tbody");
@@ -164,6 +170,69 @@
 			console.log("실패입니다.");
 		}
 	});
+	var current = 1;
+		$(".pclick, #commentBtn").click(function(){
+			$.ajax({
+				url: "/semiproject/selectcurrentReply.pa",
+				type: "post",
+				data: {
+					no: "<%=board.getBoardNo()%>"
+				},
+				success: function(data){
+					console.log(data)
+				}
+			});
+			var current = this.value * 1;
+			var max = Math.floor(<%=replyCount%> / 10);
+			if(current < 1) current = 1;
+			if(current > (<%=replyCount%> / 10) + 1) current = max + 1;
+			console.log(current);
+			$.ajax({
+				url: "/semiproject/selectReply.pa",
+				type: "post",
+				data: {
+					no: "<%=board.getBoardNo()%>",
+					curval: current
+				},
+				success: function(data){
+					var $replySelectTable = $("#replySelectTable tbody");
+					$replySelectTable.html('');
+					
+					for(var key in data){
+						var $tr = $("<tr>");
+						var $idTd = $("<td>").text(data[key].memberId).css("width", "90px");
+						var $contentTd = $("<td>").text(data[key].replyContent).css("width", "500px");
+						var $noTd = $("<td>").css("width", "70px");
+						var $dateTd = $("<td>").text(data[key].replyDate).css("width", "190px");
+						
+						
+						$tr.append($idTd);
+						$tr.append($contentTd);
+						$tr.append($noTd);
+						$tr.append($dateTd);
+						
+						$replySelectTable.append($tr);					
+					}
+				},
+				error: function(){
+					console.log("실패입니다.");
+				},
+				complete: function(){
+					
+					$("#left1").val(current - 1);
+					$("#right1").val(current + 1);
+					if($("#left1").click){
+						current = current - 1;
+					} else if($("#right1").click){
+						current = current + 1;
+					}
+				}
+				
+			});
+		});
+});
+
+	
 
 	$(document).ready(function() {
 		var content = "<%=board.getBoardContent()%>";
@@ -189,33 +258,8 @@
 			$.ajax({
 				url: "/semiproject/insertReply.bo",
 				data: {boardNo: boardNo, memberNo: memberNo, content: content},
-				type: "post",
-				success: function(data) {
-					var $replySelectTable = $("#replySelectTable tbody");
-					$replySelectTable.html('');
-					
-					for(var key in data){
-						var $tr = $("<tr>");
-						var $idTd = $("<td>").text(data[key].memberId).css("width", "90px");
-						var $contentTd = $("<td>").text(data[key].replyContent).css("width", "500px");
-						var $noTd = $("<td>").css("width", "70px");
-						var $dateTd = $("<td>").text(data[key].replyDate).css("width", "190px");
-						
-						
-						$tr.append($idTd);
-						$tr.append($contentTd);
-						$tr.append($noTd);
-						$tr.append($dateTd);
-						
-						$replySelectTable.append($tr);
-						
-						$("#countBox").html("댓글("+count+")");
-						
-					}
-				},
-				error: function(data) {
-					console.log("실패");
-				}
+				type: "post"
+				
 			});
 			
 			

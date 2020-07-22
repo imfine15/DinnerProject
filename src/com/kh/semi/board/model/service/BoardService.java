@@ -299,4 +299,22 @@ public class BoardService {
 			
 			return result;
 		}
+
+		public int getReplyListCount(String bNo) {
+			Connection con = getConnection();
+			
+			int count = new BoardDao().getReplyListCount(con, bNo);
+			
+			close(con);
+			return count;
+		}
+
+		public ArrayList<BoardUpVo> selectReplyList(String bNo, PageInfo pi) {
+			Connection con = getConnection();
+			//ArrayList<BoardUpVo> replyList = new BoardDao().sele
+			ArrayList<BoardUpVo> replyList = new BoardDao().selectReplyList(con, bNo, pi);
+			
+			close(con);
+			return replyList;
+		}
 }

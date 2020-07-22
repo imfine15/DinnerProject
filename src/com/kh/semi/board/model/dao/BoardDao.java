@@ -18,6 +18,7 @@ import java.util.Properties;
 import com.kh.semi.admin.model.vo.PageInfo;
 import com.kh.semi.board.model.vo.BoardUpVo;
 import com.kh.semi.board.model.vo.BoardVO;
+import com.sun.corba.se.spi.orbutil.fsm.Guard.Result;
 
 public class BoardDao {
 	Properties prop = new Properties();
@@ -767,6 +768,71 @@ public class BoardDao {
 	public int deleteReply(Connection con, BoardUpVo reply) {
 		// TODO Auto-generated method stub
 		return 0;
+	}
+
+	public int getReplyListCount(Connection con, String bNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String query = prop.getProperty("getReplyCount");
+		int count = 0;
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, bNo);
+			
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				count = rset.getInt("COUNT");
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
+		}
+		return count;
+	}
+
+	public ArrayList<BoardUpVo> selectReplyList(Connection con, String bNo, PageInfo pi) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<BoardUpVo> list = null;
+		
+		String query = prop.getProperty("selectReplyList1");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			int startRow = (pi.getCurrentPage() - 1) * pi.getLimit() + 1;
+	        int endRow = startRow + pi.getLimit() - 1;
+	        System.out.println("StartRow : " + startRow);
+	        System.out.println("endRow : " + endRow);
+			pstmt.setString(1, bNo);
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
+			
+			rset = pstmt.executeQuery();
+			
+			list = new ArrayList<BoardUpVo>();
+			
+			while(rset.next()) {
+				BoardUpVo bu = new BoardUpVo();
+				bu.setReplyNo(rset.getString("REPLY_NO"));
+				bu.setBoardNo(rset.getString("BOARD_NO"));
+				bu.setMemberNo(rset.getString("MEMBER_NO"));
+				bu.setReplyDate(rset.getDate("REPLY_DATE"));
+				bu.setReplyContent(rset.getString("REPLY_CONTENT"));
+				bu.setMemberId(rset.getString("MEMBER_ID"));
+				
+				list.add(bu);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
+		}
+		return list;
 	}
 
 	

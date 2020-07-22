@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
+import com.kh.semi.admin.model.vo.PageInfo;
 import com.kh.semi.board.model.service.BoardService;
 import com.kh.semi.board.model.vo.BoardUpVo;
 
@@ -28,14 +29,29 @@ public class SelectReplayListWithPagingServlet extends HttpServlet {
 		int startPage;		// 시작페이지
 		int endPage;		// 마지막페이지
 		
-		int currval = Integer.parseInt(request.getParameter("curval"));		
+		currentPage = Integer.parseInt(request.getParameter("curval"));		
 		limit = 10;
 		
-		int listCount = new BoardService().getListCount();
-		
 		String bNo = request.getParameter("no");
-		ArrayList<BoardUpVo> replyList = new BoardService().selectReplyList(bNo);
 		
+		int listCount = new BoardService().getReplyListCount(bNo);
+		maxPage = (int)((double)listCount / limit + 0.9);
+	      startPage = ( ( (int)( (double)currentPage / 10 + 0.9) ) -1) *10 + 1;
+	      endPage = startPage + 10 - 1;
+	      
+	      if(maxPage < endPage) {
+	         endPage = maxPage;
+	      }
+	      System.out.println("currentPage : " + currentPage);
+			System.out.println("maxPage : " + maxPage);
+			System.out.println("startPage : " + startPage);
+			System.out.println("endPage : " + endPage);
+			System.out.println("=========================");
+	      
+	    PageInfo pi = new PageInfo(currentPage, listCount, limit, maxPage, startPage, endPage);
+		ArrayList<BoardUpVo> replyList = new BoardService().selectReplyList(bNo, pi);
+		System.out.println("replyList : " + replyList);
+		System.out.println("===========");
 		response.setContentType("application/json");
 		response.setCharacterEncoding("UTF-8");
 		new Gson().toJson(replyList, response.getWriter());
