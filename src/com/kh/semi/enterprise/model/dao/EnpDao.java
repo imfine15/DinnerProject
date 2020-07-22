@@ -732,31 +732,126 @@ Properties prop = new Properties();
 		return null;
 	}
 
-	/*public int selectCRRownum(Connection con, String enp) {
+	public ArrayList<ReservationVO> selectRDList(Connection con, PageInfo pi, String enp, String requestDay) {
+		ArrayList<ReservationVO> requestReserve = null;
 		PreparedStatement pstmt = null;
-		ResultSet rset = null;
-		int rownum = 0;
+		ResultSet rset= null;
+		ReservationVO r = null;
 		
-		String query = prop.getProperty("selectCRRownum");
+		
+		String query = prop.getProperty("selectRDList");
+		System.out.println("query : " + query);
+		
 		
 		try {
 			pstmt = con.prepareStatement(query);
+			
+			int startRow = (pi.getCurrentPage() -1) * pi.getLimit() + 1;
+			int endRow = startRow + pi.getLimit() - 1;
+			
 			pstmt.setString(1, enp);
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
+			pstmt.setString(4, requestDay);
+			
+			System.out.println("enpNo : "+enp);
+			System.out.println("startRow : "+startRow);
+			System.out.println("endRow : " + endRow);
+			System.out.println("requestDay in Dao : " + requestDay);
 			
 			rset = pstmt.executeQuery();
 			
-			if(rset.next()) {
-				rownum = rset.getInt("COUNT(*)");
+			requestReserve = new ArrayList<>();
+			int count = 0;
+			while(rset.next()) {
+				/*SimpleDateFormat df = new SimpleDateFormat("RRRR/MM/DD");
+				String dfdf = df.format(rset.getTimestamp("RESERVATION_DATE"));
+				Date dfdf2 = df.parse(dfdf);
+				Timestamp ts = new Timestamp(dfdf2.getTime());
+				System.out.println(ts);*/
+				
+				r = new ReservationVO();
+				r.setcNo(rset.getString("CALC_NO"));
+				r.seteNo(rset.getString("ENP_NO"));
+				r.setmNo(rset.getString("MEMBER_NO"));
+				r.setpAmount(rset.getInt("POINT_AMMOUNT"));
+				r.setPeople(rset.getInt("PEOPLE"));
+				r.setrDate(rset.getTimestamp("RESERVATION_DATE"));
+				r.setrDate2(rset.getDate("RESERVATION_DATE"));
+				r.setrDate3(rset.getString("TO_CHAR(RESERVATION_DATE,'HH24:MI')"));
+				r.setrNo(rset.getString("RESERVATION_NO"));
+				r.setRqMemo(rset.getString("REQUEST_MEMO"));
+				
+				requestReserve.add(r);
+				count ++;
+			}
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		String quer = prop.getProperty("selectCurrentList");
+		ArrayList<ReservationVO> rlist = new ArrayList<>();
+		for(int i = 0; i < requestReserve.size(); i++) {
+			PreparedStatement pstm = null;
+			ResultSet rse = null;
+			try {
+				pstm = con.prepareStatement(quer);
+				System.out.println("rNo" + requestReserve.get(i).getrNo());
+				pstm.setString(1, requestReserve.get(i).getrNo());
+				rse = pstm.executeQuery();
+				if(rse.next()) {
+					if(rse.getString("STATUS_CODE").equals("RSC2")) {
+						rlist.add(requestReserve.get(i));
+						System.out.println("request" + requestReserve.get(i));
+					}
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} finally {
+				close(pstm);
+				close(rse);
+			}
+		}
+		System.out.println("rlist : " + rlist);
+		return requestReserve;
+	}
+	
+	public ArrayList<ForEntCrVO> selectRDModalList(Connection con, String memId, String requestDay) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<ForEntCrVO> modalList = null;
+		ForEntCrVO f = null;
+		
+		String query = prop.getProperty("selectRDModalList");
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, memId);
+			pstmt.setString(2, requestDay);
+			rset = pstmt.executeQuery();
+			
+			modalList = new ArrayList<ForEntCrVO>();
+			while(rset.next()) {
+				f = new ForEntCrVO();
+				f.setRownum(rset.getInt("ROWNUM"));
+				f.setNickName(rset.getString("MEMBER_NICKNAME"));
+				f.setReservationDate(rset.getDate("RESERVATION_DATE"));
+				f.setPhone(rset.getString("MEMBER_PHONE"));
+				
+				modalList.add(f);
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}finally {
 			close(pstmt);
 			close(rset);
 		}
 		
-		return rownum;
-	}*/
-	
+		return modalList;
+
 }
