@@ -79,23 +79,7 @@ Properties prop = new Properties();
 	      
 	      try {
 	         pstmt = con.prepareStatement(query);
-//	         아래 입력 내용은 쿼리에 따라 달라질 수 있음
-	         /*--ENP_NO	VARCHAR2(20 BYTE)
-	         --ENP_REGISTER_NO	VARCHAR2(10 BYTE)
-	         --PARTNER_CODE	VARCHAR2(20 BYTE)
-	         --PENALTY_COUNT	NUMBER(3,0)
-	         --PARTNER_ID	VARCHAR2(20 BYTE)
-	         --PARTNER_PWD	VARCHAR2(128 BYTE)
-	         --PARTNER_EMAIL	VARCHAR2(30 BYTE)
-	         --PARTNER_NAME	VARCHAR2(15 BYTE)
-	         --ACCOUNT_HOLDER	VARCHAR2(15 BYTE)
-	         --BANK	VARCHAR2(30 BYTE)
-	         --BANK_ACCOUNT	NUMBER(14,0)
-	         --DEPOSIT_LOWER_LIMIT	NUMBER(7,0)
-	         --DEPOSIT_HIGHER_LIMIT	NUMBER(7,0)
-	         --SIGNUP_APPROVAL	VARCHAR2(1 BYTE)
-	         --JUMIN_NO	VARCHAR2(14 BYTE)
-	         --ENP_LICENCE	VARCHAR2(6 BYTE)*/
+	         
 	         pstmt.setString(1, requestEnp.getEnpRegisterNo());
 	         pstmt.setString(2, requestEnp.getPartnerId());
 	         pstmt.setString(3, requestEnp.getPartnerPwd());
@@ -728,8 +712,29 @@ Properties prop = new Properties();
 	}
 
 	public String checkId(Connection con, String id) {
-		// TODO Auto-generated method stub
-		return null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String checkMember = "";
+		String query = prop.getProperty("checkId");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			
+			pstmt.setString(1, id);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				checkMember = rset.getString("PARTNER_ID");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return checkMember;
 	}
 
 	public ArrayList<ReservationVO> selectRDList(Connection con, PageInfo pi, String enp, String requestDay) {
@@ -854,4 +859,5 @@ Properties prop = new Properties();
 		
 		return modalList;
 
+	}
 }
