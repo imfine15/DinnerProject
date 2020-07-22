@@ -50,11 +50,14 @@ public class SelectReplayListWithPagingServlet extends HttpServlet {
 	      
 	    PageInfo pi = new PageInfo(currentPage, listCount, limit, maxPage, startPage, endPage);
 		ArrayList<BoardUpVo> replyList = new BoardService().selectReplyList(bNo, pi);
-		System.out.println("replyList : " + replyList);
+		ArrayList<Object> rlist = new ArrayList<>();
+		rlist.add(replyList);
+		rlist.add(pi);
+		System.out.println("replyList : " + rlist);
 		System.out.println("===========");
 		response.setContentType("application/json");
 		response.setCharacterEncoding("UTF-8");
-		new Gson().toJson(replyList, response.getWriter());
+		new Gson().toJson(rlist, response.getWriter());
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
