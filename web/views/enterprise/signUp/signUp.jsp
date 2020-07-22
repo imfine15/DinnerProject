@@ -4,6 +4,7 @@
 <html>
 <head>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <meta charset="UTF-8">
 <link rel="stylesheet" type="text/css" href="/semiproject/views/enterprise/signUp/css/signUpStyle.css"/>
 <title>업체 회원가입</title>

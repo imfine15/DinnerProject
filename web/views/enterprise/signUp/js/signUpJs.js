@@ -368,3 +368,36 @@ $("#idCheck").click(function() {
 		}
 	});
 });
+
+$("#findAddress").click(function() {
+	new daum.Postcode({
+        oncomplete: function(data) {
+            var roadAddr = data.roadAddress;
+            var extraRoadAddr = '';
+
+            if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
+                extraRoadAddr += data.bname;
+            }
+            
+            if(data.buildingName !== '' && data.apartment === 'Y'){
+               extraRoadAddr += (extraRoadAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+            }
+            if(extraRoadAddr !== ''){
+                extraRoadAddr = ' (' + extraRoadAddr + ')';
+            }
+
+            var address = "";
+            
+            address += roadAddr;
+            
+            if(roadAddr !== ''){
+            	address += " ";
+                address += extraRoadAddr;
+            } else {
+                address += "";
+            }
+            
+            $("#address").val(address);
+        }
+    }).open();
+});
