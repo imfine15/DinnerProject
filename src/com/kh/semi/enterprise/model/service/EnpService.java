@@ -202,6 +202,15 @@ public class EnpService {
 		return 0;
 	}
 
+	public String checkId(String id) {
+		Connection con = getConnection();
+		String checkEnp = new EnpDao().checkId(con, id);
+		
+		close(con);
+		
+		return checkEnp;
+	}
+	
 	public ArrayList<ReservationVO> selectRDList(PageInfo pi, String enp, String requestDay) {
 		Connection con = getConnection();
 		
@@ -211,15 +220,7 @@ public class EnpService {
 		
 		System.out.println("service : "+requestReserve);
 		return requestReserve;
-	}
-	public ArrayList<ForEntCrVO> selectRDModalList(String memId, String requestDay) {
-		Connection con = getConnection();
-		
-		ArrayList<ForEntCrVO> modalList = new EnpDao().selectRDModalList(con,memId,requestDay);
-		
-		close(con);
-		
-		return modalList;
+
 	}
 	
 }
