@@ -90,7 +90,7 @@ public class SelectReservationDateListServlet extends HttpServlet {
 		}
 		today = sdformat.format(cal.getTime());
 		String requestDay = requestDate.format(cal.getTime());
-		System.out.println("today : " + today);
+		System.out.println("today : : " + today);
 		System.out.println("requestDay : " + requestDay);
 		
 		
