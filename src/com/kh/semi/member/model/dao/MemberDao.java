@@ -9,12 +9,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 import java.util.Properties;
 
-import com.kh.semi.enterprise.model.vo.EnpVO;
 import com.kh.semi.member.model.vo.MemberVO;
 
 public class MemberDao {
@@ -39,10 +35,14 @@ public class MemberDao {
 		
 		try {
 			pstmt = con.prepareStatement(query);
-//			아래 입력 내용은 쿼리에 따라 달라질 수 있음
-//			ID, PASSWORD, NAME, EMAIL, PHONE, GENDER, NICKNAME, TERMSADMIT(0, 1)
-//			INSERT INTO MEMBER VALUES(SEQ_MEMBERNO.NEXTVAL, ?, ?, ?, ?, ?, ?, ?, DEFAULT, ?)
 
+			pstmt.setString(1, requestMember.getmId());
+			pstmt.setString(2, requestMember.getmPwd());
+			pstmt.setString(3, requestMember.getmName());
+			pstmt.setString(4, requestMember.getmEmail());
+			pstmt.setString(5, requestMember.getmPhone());
+			pstmt.setString(6, requestMember.getmGender());
+			pstmt.setString(7, requestMember.getmNickname());
 			
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
@@ -61,14 +61,10 @@ public class MemberDao {
 		String query = prop.getProperty("loginMember");
 		
 		try {
-//			SELECT * FROM MEMBER WHERE ID = ? AND PASSWORD = ?
-			
 			pstmt = con.prepareStatement(query);
 			
 			pstmt.setString(1, requestMember.getmId());
 			pstmt.setString(2, requestMember.getmPwd());
-			System.out.println("1 : "+requestMember.getmId());
-			System.out.println("1 : "+requestMember.getmPwd());
 			rset = pstmt.executeQuery();
 			
 			if(rset.next()) {
@@ -82,7 +78,8 @@ public class MemberDao {
 				responseMember.setmGender(rset.getString("MEMBER_GENDER"));
 				responseMember.setmNickname(rset.getString("MEMBER_NICKNAME"));
 				responseMember.setmGrade(rset.getString("MEMBER_GRADE"));
-				
+				responseMember.setStatus(rset.getString("MEMBER_STATUS"));
+				responseMember.setNoshowCount(rset.getInt("NOSHOW_COUNT"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -132,4 +129,30 @@ public class MemberDao {
 		return selectMember;
 	}
 
+	public String checkId(Connection con, String id) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String checkMember = "";
+		String query = prop.getProperty("checkId");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			
+			pstmt.setString(1, id);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				checkMember = rset.getString("MEMBER_ID");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return checkMember;
+	}
+	
 }

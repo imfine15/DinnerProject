@@ -4,7 +4,6 @@ var pwd2 = $("#pwd2");
 var nickName = $("#nickName");
 var email = $("#email");
 var phone = $("#phone");
-var admit = $("#admit").prop("checked");
 
 var idCheck = /[a-zA-Z0-9]{4,20}/;
 var passwordCheck = /[a-zA-Z0-9]{8,16}/;
@@ -13,13 +12,30 @@ var nickNameCheck = /[가-힣]{1,10}/;
 var phoneCheck = /\d{10,12}/;
 
 function check() {
-	var gender = $("#gender option:selected");
 	if(id.val() === null || id.val() === "") {
 		$("#idResult").html("아이디는 비어있을 수 없습니다.").css({"backgroundColor" : "red", "color" : "white"});
 		$("#id").focus();
 		return false;
 	} else if(!idCheck.test(id.val())) {
 		$("#idResult").html("아이디를 4 ~ 20자 영어 대소문자와 숫자로 입력하세요.").css({"backgroundColor" : "red", "color" : "white"});
+		$("#id").focus();
+		return false;
+	} else if(id.val().toUpperCase() === "ADMIN") {
+		$("#idResult").html("이 아이디는 사용할 수 없습니다. (" + id.val() + ")").css({"backgroundColor" : "red", "color" : "white"});
+		$("#id").focus();
+		return false;
+	} else if(id.val().toUpperCase() === "ADMLN") {
+		$("#idResult").html("이 아이디는 사용할 수 없습니다. (" + id.val() + ")").css({"backgroundColor" : "red", "color" : "white"});
+		$("#id").focus();
+		return false;
+	}
+	
+	if($("#idCheckResult").val() === "checkNotYet") {
+		$("#idResult").html("먼저 아이디 중복 체크를 해주세요.").css({"backgroundColor" : "red", "color" : "white"});
+		$("#id").focus();
+		return false;
+	} else if($("#idCheckResult").val() === "fail") {
+		$("#idResult").html("아이디가 중복되었습니다").css({"backgroundColor" : "red", "color" : "white"});
 		$("#id").focus();
 		return false;
 	}
@@ -46,6 +62,10 @@ function check() {
 		$("#nickNameResult").html("별명을 한글 1 ~ 10글자로만 입력하세요.").css({"backgroundColor" : "red", "color" : "white"});
 		$("#nickName").focus();
 		return false;
+	} else if(nickName.val() === "운영자") {
+		$("#nickNameResult").html("그 별명은 사용할 수 없습니다. (" + nickName.val() + ")").css({"backgroundColor" : "red", "color" : "white"});
+		$("#nickName").focus();
+		return false;
 	}
 	
 	if($("#name").val() === null || $("#name").val() === "") {
@@ -56,8 +76,13 @@ function check() {
 		$("#nameResult").html("이름을 한글 2 ~ 5글자로만 입력하세요.").css({"backgroundColor" : "red", "color" : "white"});
 		$("#name").focus();
 		return false;
+	} else if($("#name").val() === "운영자") {
+		$("#nameResult").html("그 이름은 사용할 수 없습니다. (" + $("#name").val() + ")").css({"backgroundColor" : "red", "color" : "white"});
+		$("#name").focus();
+		return false;
 	}
 	
+	var gender = $("#gender option:selected");
 	if(gender.val() === null || gender.val() === "") {
 		$("#genderResult").html("성별을 선택해주세요.").css({"backgroundColor" : "red", "color" : "white"});
 		$("#gender").focus();
@@ -80,11 +105,14 @@ function check() {
 		return false;
 	}
 	
+	var admit = $("#admit").prop("checked");
 	if(admit === false) {
 		$("#admitResult").html("약관에 동의해야 회원가입을 진행하실 수 있습니다.").css({"backgroundColor" : "red", "color" : "white"});
 		$("#admit").focus();
 		return false;
 	}
+	
+	window.alert("회원가입에 성공했습니다. 환영합니다, " + id.val() + " 님!");
 	
 	return true;
 }
@@ -139,8 +167,28 @@ $(function() {
 	});
 
 	$("#admit").change(function() {
-		if(admit === true) {
+		if($("#admit").prop("checked") === true) {
 			$("#admitResult").html("").css({"backgroundColor" : "white"});
+		} else if($("#admit").prop("checked") === false) {
+			$("#admitResult").html("약관에 동의해야 회원가입을 진행하실 수 있습니다.").css({"backgroundColor" : "red", "color" : "white"});
+		}
+	});
+});
+
+$("#idCheck").click(function() {
+	var id = $("#id").val();
+	$.ajax({
+		url: "/semiproject/idDuplicationCheck.me",
+		type: "post",
+		data: {id: id},
+		success: function(data) {
+			$("#idCheckResult").val(data);
+			
+			if(data === "success") {
+				$("#idResult").html("아이디가 중복되지 않습니다.").css({"backgroundColor" : "yellowgreen", "color" : "white"});
+			} else if(data === "fail") {
+				$("#idResult").html("아이디가 중복되었습니다.").css({"backgroundColor" : "red", "color" : "white"});
+			}
 		}
 	});
 });

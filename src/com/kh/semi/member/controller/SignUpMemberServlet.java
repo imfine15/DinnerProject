@@ -45,6 +45,8 @@ public class SignUpMemberServlet extends HttpServlet {
 		} else {
 			System.out.println("회원 정보 입력에 실패했습니다.");
 		}
+		
+		response.sendRedirect(request.getContextPath() + "/views/signIn/signIn.jsp");
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
