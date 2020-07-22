@@ -105,22 +105,12 @@
 				<table id="replySelectTable"
 					style="padding-left: 130px; font-size: 14px;">
 					<tbody>
-						<%
-						if(replyList != null){
-							for (int i = 0; i < replyList.size(); i++) {
-						%>
-						<tr>
-							<td style="width: 90px;"><%=replyList.get(i).getMemberId()%></td>
-							<td style="width: 500px;"><%=replyList.get(i).getReplyContent()%></td>
-							<td style="width: 70px;"></td>
-							<td style="width: 190px;"><%=replyList.get(i).getReplyDate()%></td>
-						</tr>
-						<%
-							}
-						}
-						%>
+
 					</tbody>
 				</table>
+				<button type="button" id="left" value="1"><</button>
+				
+				<button>></button>
 			</div>
 		</div>
 			<hr style="width: 80%;">
@@ -141,6 +131,40 @@
 	<br>
 <%@ include file="/views/common/footer.jsp" %>
 <script>
+	$.ajax({
+		url: "/semiproject/selectReply.pa",
+		type: "post",
+		data: {
+			no: "<%=board.getBoardNo()%>",
+			curval: $("#left").val()
+		},
+		success: function(data){
+			var $replySelectTable = $("#replySelectTable tbody");
+			$replySelectTable.html('');
+			
+			for(var key in data){
+				var $tr = $("<tr>");
+				var $idTd = $("<td>").text(data[key].memberId).css("width", "90px");
+				var $contentTd = $("<td>").text(data[key].replyContent).css("width", "500px");
+				var $noTd = $("<td>").css("width", "70px");
+				var $dateTd = $("<td>").text(data[key].replyDate).css("width", "190px");
+				
+				
+				$tr.append($idTd);
+				$tr.append($contentTd);
+				$tr.append($noTd);
+				$tr.append($dateTd);
+				
+				$replySelectTable.append($tr);
+				
+				
+			}
+		},
+		error: function(){
+			console.log("실패입니다.");
+		}
+	});
+
 	$(document).ready(function() {
 		var content = "<%=board.getBoardContent()%>";
 		console.log(content);
