@@ -24,7 +24,7 @@ public class SignUpMemberServlet extends HttpServlet {
 		String password = request.getParameter("password");
 		String nickName = request.getParameter("nickName");
 		String name = request.getParameter("name").replace(" ", ""); // 모든 공백 제거
-		String gender = request.getParameter("gender"); // male/female
+		String gender = request.getParameter("gender"); // M, F
 		String email = request.getParameter("email");
 		String phone = request.getParameter("phone");
 

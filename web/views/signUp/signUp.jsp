@@ -5,8 +5,10 @@
 <head>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <meta charset="UTF-8">
+<link rel="shortcut icon" href="/semiproject/images/favicon.ico" type="image/x-icon">
+<link rel="icon" href="/semiproject/images/favicon.ico" type="image/x-icon">
 <link rel="stylesheet" type="text/css" href="/semiproject/views/signUp/css/signUpStyle.css"/>
-<title>회원가입</title>
+<title>YUMEET 회원가입</title>
 </head>
 <body>
 	<img alt="여밋 로고" src="/semiproject/images/YUMEET LOGO WITH REST.png" id="logo">
@@ -92,13 +94,21 @@
 			</tr>
 			<tr>
 				<td colspan="3">
-					<div>
+					<div style="line-height:100%;">
 						<input type="checkbox" name="admit" id="admit">
 						<label for="admit"><span id="admit1">이용약관 및 개인정보처리방침 </span><span id="admit2">에 동의합니다.</span></label>
 						<br>
-						<a target="_blank" id="terms" href="https://www.mangoplate.com/en/terms/contract">이용약관 및 개인정보처리방침 보러가기 (새 탭으로 이동)</a>
-						<label id="admitResult"></label>
 					</div>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="3" style="text-align:center;">
+					<label id="admitResult"></label>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="3" style="text-align:center;">
+					<a target="_blank" id="terms" href="https://www.mangoplate.com/en/terms/contract">이용약관 및 개인정보처리방침 보러가기 (새 탭으로 이동)</a>
 				</td>
 			</tr>
 			<tr>

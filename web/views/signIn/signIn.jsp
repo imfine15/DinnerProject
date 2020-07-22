@@ -8,6 +8,8 @@
 <head>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <meta charset="UTF-8">
+<link rel="shortcut icon" href="/semiproject/images/favicon.ico" type="image/x-icon">
+<link rel="icon" href="/semiproject/images/favicon.ico" type="image/x-icon">
 <link rel="stylesheet" type="text/css" href="/semiproject/views/signIn/css/signInStyle.css"/>
 <title>YUMEET 로그인</title>
 </head>
@@ -31,9 +33,9 @@
 	</form>
 	<hr class="hr">
 	<div id="find">
-		<a id="findId" href="http://www.naver.com">아이디 찾기</a>
-		<a id="findPassword">비밀번호 찾기</a>
-		<a id="signUp">회원 가입</a>
+		<a id="findId" href="http://www.naver.com">아이디 찾기</a> |
+		<a id="findPassword">비밀번호 찾기</a> |
+		<a id="signUp" href="/semiproject/views/signUp/signUp.jsp">회원 가입</a>
 	</div>
 	<br><br>
 	<script type="text/javascript" src="/semiproject/views/signIn/js/signInJs.js"></script>
