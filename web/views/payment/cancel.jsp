@@ -18,6 +18,34 @@
 	}
 	SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 	String rDate = format.format(reser.getrDate());
+	long reserDate = reser.getrDate().getTime();
+	long sysDate = new Date().getTime();
+	double time = (double)(reserDate - sysDate)/1000/60/60/24;
+	System.out.println("reserDate : " + reserDate);
+	System.out.println("sysDate : " + sysDate);
+	System.out.println("time : " + time);
+	
+	int realdeposit = 0;
+	if(time > 4.0){
+		realdeposit = reser.getDeposit();
+	} else if (time > 1.0){
+		realdeposit = reser.getDeposit() / 2;
+	} else {
+		realdeposit = 0;
+	}
+	
+	long testdeposit = (long)2000;
+	if(time > 4.0){
+		testdeposit = (long)2000;
+	} else if (time > 1.0){
+		testdeposit = (long)testdeposit / 2;
+	} else {
+		testdeposit = (long)0;
+	}
+	
+	System.out.println("reser.getDeposit() : " + reser.getDeposit());
+	System.out.println("realdeposit : " + realdeposit);
+	System.out.println("testDeposit : " + testdeposit);
 	String mNo = reser.getmNo();
 %>
 <!DOCTYPE html>
@@ -117,7 +145,7 @@ $.ajax({
 				<tr>
 					<td id="eName"></td>
 					<td><%=rDate %></td>
-					<td>카드결제 금액 <br> <%=reser.getDeposit() %></td>
+					<td>카드결제 금액 <br> <%=reser.getDeposit() %><br><br> 환불금액 <br><%=realdeposit %></td>
 					<td>포인트 <br> <%=reser.getpAmount() %></td>
 				</tr>
 			</table>
@@ -149,6 +177,7 @@ $.ajax({
 	<input type="hidden" name="mNo" value="<%=mNo%>">
 	<input id="pNo2" type="hidden" name="pNo2" value="">
 	<input type="hidden" value="<%=reser.getDeposit()%>" name="deposit">
+	<input type="hidden" value="<%=realdeposit%>" name="realDeposit">
 	<input type="hidden" value="<%=reser.getpAmount()%>" name="point">
 </form>
 <%@ include file="/views/common/footer.jsp" %>
@@ -162,15 +191,17 @@ $.ajax({
 			return false;
 		} else {
 			if(confirm("정말 취소하시겠습니까?")==true){
+				<%if(testdeposit != 0){%>
 				      jQuery.ajax({
 				          url: "/semiproject/cancel.na",
 				          type: "POST",
 				          data: {
 				        	merchant_uid: $("#pNo").val(), // 주문번호
-				            cancel_request_amount: 1000, // 환불금액
+				            cancel_request_amount: <%=testdeposit%>, // 환불금액
 				            reason: "테스트 결제 환불" // 환불사유
 				        }
 				      });
+				      <%}%>
 				document.deletereser.submit();
 				console.log(123);
 			}else {
