@@ -19,13 +19,7 @@ ArrayList<ForEntCrVO> modalList = (ArrayList<ForEntCrVO>)request.getAttribute("m
 ArrayList<Integer> visitCount = (ArrayList<Integer>)request.getAttribute("visitCount");
 ArrayList<Integer> cancelCount = (ArrayList<Integer>)request.getAttribute("cancelCount");
 
-String today = null;
-Date date = new Date();
-SimpleDateFormat sdformat = new SimpleDateFormat("yyyy-MM-dd");
-Calendar cal = Calendar.getInstance(); cal.setTime(date);
-today = sdformat.format(cal.getTime());
-
-
+String today = ""+(String)request.getAttribute("today")+"";
 %>
 <!doctype html>
 <html lang="ko">
@@ -104,11 +98,11 @@ tr {
 
 			<tr style="font-size: 30px;">
 				<td
-					style="font-weight: bolder; color: black; padding-right: 50px; border: 0;">
+					style="font-weight: bolder; color: black; padding-right: 50px; border: 0; " id="backward">
 					<</td>
-				<td style="border: 0;"><%=today %></td>
+				<td style="border: 0;" id="today"><%=today %></td>
 				<td
-					style="font-weight: bolder; color: black; padding-left: 50px; border: 0;">
+					style="font-weight: bolder; color: black; padding-left: 50px; border: 0;" id="forward">
 					></td>
 			</tr>
 		</table>
@@ -304,15 +298,16 @@ function dd(){
 	<script>
 	
 	$(function() {
-		$.ajax({
-			url : "/semiproject/selectReservationDateList.en",
-			type : "post",
-			data : {today : "<%= today %>"},
-			success : function(data) {
-				console.log(data);
-			}
+		$("#backward").click(function () {
+			var t = $("#today").html();
+			location.href="/semiproject/selectReservationDateList.en?dayStatus=-1&enpId=<%=loginEnp.getEnpNo()%>&today="+t;
+		});
+		$("#forward").click(function () {
+			var t = $("#today").html();
+			location.href="/semiproject/selectReservationDateList.en?dayStatus=1&enpId=<%=loginEnp.getEnpNo()%>&today="+t;
 		});
 	});
+		
 	
 	$(function () {
 		$("ul li a").click(function () {
