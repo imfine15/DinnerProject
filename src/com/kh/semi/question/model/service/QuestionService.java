@@ -3,6 +3,7 @@ import static com.kh.semi.common.JDBCTemplate.*;
 
 import java.sql.Connection;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import com.kh.semi.admin.model.vo.PageInfo;
 import com.kh.semi.enterprise.model.vo.EnpAttachment;
@@ -58,10 +59,29 @@ public class QuestionService {
 		
 		ArrayList<QuestionVO> list = new QuestionDao().selectList(con, pi);
 		
-		
 		close(con);
 		
 		return list;
+	}
+
+	public HashMap<String, Object> selectOne(int num) {
+		
+		Connection con = getConnection();
+		
+		HashMap<String, Object> hmap = null;
+		
+		hmap = new QuestionDao().selectOne(con, num);
+		
+		if(hmap != null) {
+			commit(con);
+		} else {
+			rollback(con);
+			hmap = null;
+		}
+		
+		close(con);
+		
+		return hmap;
 	}
 
 	

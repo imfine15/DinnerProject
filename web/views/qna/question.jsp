@@ -321,7 +321,7 @@ tr {
 						<br>
 							<input type="hidden" name="memberNo" value="<%= loginUsers.getmNo() %>">
 							<input type="hidden" name="memberName" value="<%= loginUsers.getmName() %>">
-							<input type="hidden" name="memberId" value="<%= loginUsers.getmId() %>>">
+							<input type="hidden" name="memberId" value="<%= loginUsers.getmId() %>">
 						<br>
 						</td>
 					</tr>

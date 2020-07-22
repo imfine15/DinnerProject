@@ -18,6 +18,8 @@
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300&display=swap" rel="stylesheet">
 <link rel="shortcut icon" href="/semiproject/images/favicon.ico" type="image/x-icon">
 <link rel="icon" href="/semiproject/images/favicon.ico" type="image/x-icon">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <style>
 
 .hide {
@@ -144,8 +146,9 @@ outline-style: none;
 			<div id="inner-box">
 				<div style="height: 30px;"></div>
 				<form>
-					<table id="review-tb" style="width: 100%;">
+					<table id="review-tb" style="width: 100%;" >
 						<tr>
+							<th>글번호</th>
 							<th>카테고리</th>
 							<th>제목</th>
 							<th>회원 ID</th>
@@ -161,7 +164,14 @@ outline-style: none;
 						<td><%=q.getQuestionTitle() %></td>
 						<td align="center"><%=q.getMemberId() %></td>
 						<td align="center"><%=q.getQuestionDate() %></td>
-						<td align="center"><%=q.getQuestionDisposalStatus() %></td>
+						<td align="center"><% if(q.getQuestionDisposalStatus().equals("QDSC1")) {%> 
+													미확인
+										   <% } else if(q.getQuestionDisposalStatus().equals("QDSC2")){ %>	
+										   			처리대기	
+										   <% } else { %>		
+													처리완료
+										   <% } %>			
+												</td>
 					</tr>
 					<%
 						}
@@ -192,7 +202,7 @@ outline-style: none;
 		</div>
 			<div class="pageingArea" align="center">
 			<button
-				onclick="location.href='<%=request.getContextPath()%>/selectAdminList.no?currentPage=1'"><<</button>
+				onclick="location.href='<%=request.getContextPath()%>/selectQuestionList.qu?currentPage=1'"><<</button>
 
 			<%
 				if (currentPage <= 1) {
@@ -211,7 +221,7 @@ outline-style: none;
 				} else {
 			%>
 			<button
-				onclick="location.href='<%=request.getContextPath()%>/selectElist.no?currentPage=<%=p%>'"><%=p%></button>
+				onclick="location.href='<%=request.getContextPath()%>/selectQuestionList.qu?currentPage=<%=p%>'"><%=p%></button>
 			<%
 				}
 				}
@@ -225,17 +235,17 @@ outline-style: none;
 				} else {
 			%>
 			<button
-				onclick="location.href='<%=request.getContextPath()%>/selectAdminList.no?currentPage=<%=currentPage + 1%>'">></button>
+				onclick="location.href='<%=request.getContextPath()%>/selectQuestionList.qu?currentPage=<%=currentPage + 1%>'">></button>
 			<%
 				}
 			%>
 
 			<button
-				onclick="location.href='<%=request.getContextPath()%>/selectAdminList.no?currentPage=<%=maxPage%>'">>></button>
+				onclick="location.href='<%=request.getContextPath()%>/selectQuestionList.qu?currentPage=<%=maxPage%>'">>></button>
 	</div>
-		<script>
+	<script>
 		$(function() {
-			$("#listArea td").mouseenter(function() {
+			$("#review-tb td").mouseenter(function() {
 				$(this).parent().css({"background":"#E4E4E4", "cursor":"pointer"});
 			}).mouseout(function() {
 				$(this).parent().css({"background":"white"});
@@ -243,7 +253,7 @@ outline-style: none;
 				
 				var num = $(this).parent().children().eq(0).text();
 				
-				location.href="<%=request.getContextPath()%>/.no?num="+ num;
+				location.href="<%=request.getContextPath()%>/selectOne.qu?num="+ num;
 							});
 		});
 	</script>

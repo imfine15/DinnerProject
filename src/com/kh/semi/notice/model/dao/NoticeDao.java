@@ -115,7 +115,7 @@ public class NoticeDao {
 				
 				n.setNoticeTitle(rset.getString("NOTICE_TITLE"));
 				n.setNoticeDate(rset.getDate("NOTICE_DATE"));
-				n.setNoticeNo(rset.getString("SUBSTR(NOTICE_NO,2,1)"));
+				n.setNoticeNo(rset.getString("SUBSTR(NOTICE_NO,2)"));
 				n.setNoticeContent(rset.getString("NOTICE_CONTENT"));
 
 				list.add(n);
@@ -146,7 +146,7 @@ public class NoticeDao {
 			if(rset.next()) {
 				notice = new NoticeVO();
 				
-				notice.setNoticeNo(rset.getString("SUBSTR(NOTICE_NO,2,1)"));
+				notice.setNoticeNo(rset.getString("SUBSTR(NOTICE_NO,2)"));
 				notice.setNoticeTitle(rset.getString("NOTICE_TITLE"));
 				notice.setNoticeContent(rset.getString("NOTICE_CONTENT"));
 				notice.setNoticeDate(rset.getDate("NOTICE_DATE"));
@@ -190,7 +190,7 @@ public class NoticeDao {
 				
 				n.setNoticeTitle(rset.getString("NOTICE_TITLE"));
 				n.setNoticeDate(rset.getDate("NOTICE_DATE"));
-				n.setNoticeNo(rset.getString("SUBSTR(NOTICE_NO,2,1)"));
+				n.setNoticeNo(rset.getString("SUBSTR(NOTICE_NO,2)"));
 				n.setNoticeContent(rset.getString("NOTICE_CONTENT"));
 
 				list.add(n);
@@ -334,7 +334,7 @@ public class NoticeDao {
 				
 				n.setNoticeTitle(rset.getString("NOTICE_TITLE"));
 				n.setNoticeDate(rset.getDate("NOTICE_DATE"));
-				n.setNoticeNo(rset.getString("SUBSTR(NOTICE_NO,2,1)"));
+				n.setNoticeNo(rset.getString("SUBSTR(NOTICE_NO,2)"));
 				n.setNoticeContent(rset.getString("NOTICE_CONTENT"));
 
 				list.add(n);
@@ -507,7 +507,7 @@ public class NoticeDao {
 				
 				n.setNoticeTitle(rset.getString("NOTICE_TITLE"));
 				n.setNoticeDate(rset.getDate("NOTICE_DATE"));
-				n.setNoticeNo(rset.getString("SUBSTR(NOTICE_NO,2,1)"));
+				n.setNoticeNo(rset.getString("SUBSTR(NOTICE_NO,2)"));
 				n.setNoticeContent(rset.getString("NOTICE_CONTENT"));
 
 				list.add(n);
@@ -601,7 +601,7 @@ public class NoticeDao {
 				
 				n.setNoticeTitle(rset.getString("NOTICE_TITLE"));
 				n.setNoticeDate(rset.getDate("NOTICE_DATE"));
-				n.setNoticeNo(rset.getString("SUBSTR(NOTICE_NO,2,1)"));
+				n.setNoticeNo(rset.getString("SUBSTR(NOTICE_NO,2)"));
 				n.setNoticeContent(rset.getString("NOTICE_CONTENT"));
 
 				list.add(n);
