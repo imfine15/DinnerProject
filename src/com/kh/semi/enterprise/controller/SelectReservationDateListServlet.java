@@ -48,6 +48,7 @@ public class SelectReservationDateListServlet extends HttpServlet {
 		//일자 변경
 		Date date = new Date();
 		SimpleDateFormat sdformat = new SimpleDateFormat("yyyy/MM/dd");
+		SimpleDateFormat requestDate = new SimpleDateFormat("yyyyMMdd");
 		Calendar cal = Calendar.getInstance();
 		cal.setTime(date);
 		
@@ -64,6 +65,7 @@ public class SelectReservationDateListServlet extends HttpServlet {
 			}
 			cal.setTime(date);
 		}
+		
 		
 		if(request.getParameter("dayStatus") == null) {
 			SimpleDateFormat sdformat2 = new SimpleDateFormat("yy");
@@ -88,7 +90,9 @@ public class SelectReservationDateListServlet extends HttpServlet {
 			
 		}
 		today = sdformat.format(cal.getTime());
-		System.out.println("today : " + today);
+		String requestDay = requestDate.format(cal.getTime());
+		System.out.println("today : : " + today);
+		System.out.println("requestDay : " + requestDay);
 		
 		
 		//게시판은 1페이지부터 시작
@@ -126,12 +130,14 @@ public class SelectReservationDateListServlet extends HttpServlet {
 		
 		PageInfo pi = new PageInfo(currentPage, listCount, limit, maxPage, startPage, endPage);
 		
-		ArrayList<ReservationVO> list = new EnpService().selectCRList(pi,enp);
+		ArrayList<ReservationVO> list = new EnpService().selectRDList(pi,enp,requestDay);
+		
+		
 		
 		String memId = new EnpService().selectCRMemId(enp);
 		System.out.println(memId);
 		
-		ArrayList<ForEntCrVO> modalList = new EnpService().selectCRModalList(memId);
+		ArrayList<ForEntCrVO> modalList = new EnpService().selectRDModalList(memId,requestDay);
 		for(ForEntCrVO f : modalList) {
 			System.out.println("modalList's rownum : " + f.getRownum());
 			System.out.println("modalList's nickName : "+f.getNickName());

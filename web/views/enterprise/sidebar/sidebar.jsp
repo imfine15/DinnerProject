@@ -73,7 +73,7 @@
 					<a href="<%=request.getContextPath()%>/selectCML.en?enpId=<%=loginEnp.getEnpNo()%>">댓글 관리</a>
 				</li>
 				<li>
-					<a href="/semiproject/views/enterprise/paymentHistory/paymentHistory.jsp?asd=4">정산 내역</a>
+					<a href="<%=request.getContextPath()%>/selectCalculateList.en?enpId=<%=loginEnp.getEnpNo()%>">정산 내역</a>
 				</li>
 				<li>
 					<a href="/semiproject/views/enterprise/sanctionsDetails/sanctionsDetails.jsp?asd=5">결제 내역</a>

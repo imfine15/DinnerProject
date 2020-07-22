@@ -64,7 +64,7 @@
          <br><br>
          
          <div style="margin-left:15%;">
-         	<table align="center">
+         	<!-- <table align="center">
          		
          		<tr style="font-size: 30px;">
          			<td style="border:0; padding-right:50px;">
@@ -83,7 +83,7 @@
          				>
          			</td>
          		</tr>
-         	</table>
+         	</table> -->
          	<br>
             <table style="text-align: center;" align="center">
             <thead>

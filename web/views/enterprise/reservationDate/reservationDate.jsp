@@ -118,7 +118,7 @@ tr {
 
 			</thead>
 			<tbody align="center">
-				<tr>
+				<!-- <tr>
 					<td><a href="">00000001</a></td>
 					<td><a href="">imfine123</a></td>
 					<td>IMFINE</td>
@@ -126,18 +126,25 @@ tr {
 					<td>일반</td>
 					<td><button class="payBtn" id="userInfoBtn123">확인</button></td>
 
-				</tr>
+				</tr> -->
+				<%if(list != null){ %>
 				<%for(ReservationVO r : list){ int i = 0;%>
 				<tr>
 					<td><a href=""><%=r.getrNo() %></a></td>
 					<td><a href=""><%=r.getmNo() %></a></td>
 					<td><%=r.getrDate3() %></td>
 					<td><%=r.getPeople() %>명</td>
-					<td><%=r.getpAmount() %></td>
+					<td><%=modalList.get(i).getPhone() %></td>
 					<td><button class="payBtn" id="userInfoBtn<%=i%>">확인</button></td>
 
 				</tr>
 				<% i++;} %>
+				<%}else{ %>
+					<tr>
+					<td colspan="6">오늘 예약이 없습니다.</td>
+
+				</tr>
+				<%} %>
 				<%-- <% for(ReservationVO r : list){
                int i = 0 ;%>
                		
@@ -150,7 +157,7 @@ tr {
 		                <td><%=r.getrDate2() %></td>--%>
 			</tbody>
 		</table>
-		<div class="pagingArea" align="center">
+		<%-- <div class="pagingArea" align="center">
 			<button class="hide"
 				onclick="location.href='<%=request.getContextPath()%>/selectList.no?currentPage=1'"><<</button>
 			<button class="hide"
@@ -160,8 +167,37 @@ tr {
 				onclick="location.href='<%=request.getContextPath()%>/selectList.no?currentPage='">></button>
 			<button class="hide"
 				onclick="location.href='<%=request.getContextPath()%>/selectList.no?currentPage='">>></button>
+		</div> --%>
+		<div class="pagingArea" align="center">
+			<button onclick="location.href='<%=request.getContextPath()%>/selectReservationDateList.en?enpId=<%=loginEnp.getEnpNo()%>&currentPage=1&today=<%=today%>'"><<</button>
+			<%System.out.println("currentPage : "+currentPage); %>
+			<%if(currentPage <=1) {%>
+			<button disabled><</button>
+			<%}else{ %>
+			<button onclick="location.href='<%=request.getContextPath()%>/selectReservationDateList.en?enpId=<%=loginEnp.getEnpNo()%>&currentPage=<%=currentPage - 1%>&today=<%=today%>'"><</button>
+			<%} %>
+			
+			<%for(int p = startPage; p <= endPage; p++){ 
+				if(p == currentPage) {
+			%>
+				<button disabled><%=p %></button>
+			<%	}else{ %>
+				<button onclick="location.href='<%=request.getContextPath()%>/selectReservationDateList.en?enpId=<%=loginEnp.getEnpNo()%>&currentPage=<%=p %>&today=<%=today%>'"><%=p %></button>
+			<%	} 
+			  }
+			%>
+			
+			<%if(currentPage >= maxPage){ %>
+			<button disabled>></button>
+			<%}else{ %>
+			<button onclick="location.href='<%=request.getContextPath()%>/selectReservationDateList.en?enpId=<%=loginEnp.getEnpNo()%>&currentPage=<%=currentPage - 1%>&today=<%=today%>'">></button>
+			
+			<%} %>
+			
+			<button onclick="location.href='<%=request.getContextPath()%>/selectReservationDateList.en?enpId=<%=loginEnp.getEnpNo()%>&currentPage=<%=maxPage%>&today=<%=today%>'">>></button>
 		</div>
-	</div>
+   </div>
+	</div> 
 	<br>
 	<br>
 	<br>
@@ -170,7 +206,7 @@ tr {
 	<br>
 	<br>
 	<br>
-
+	<%-- <%if(modalList != null) {%>
 	<% for(int i = 0 ; i < modalList.size(); i++){%>
 	<div class="modal fade" id="testModal<%=i %>" tabindex="-1"
 		role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -218,6 +254,67 @@ tr {
 		</div>
 	</div>
 				<% } %>
+				<%}else{} %> --%>
+	<% for(int j = 0 ; j < modalList.size(); j++){%>
+	<div class="modal fade" id="testModal<%=j %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">상세 정보</h5>
+					<button class="close" type="button" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">X</span>
+					</button>
+				</div>
+				<br>
+				<br>
+				<div class="modal-body" id="">
+					<table align="center">
+					
+		         		<thead>
+			         		<tr style="font-size: 14px; color:black; text-align: center;">
+			         			<th>총 방문횟수</th>
+			         			<th>총 취소횟수</th>
+			         			<th style="color:red;">No Show</th>
+			         			<th>최근 방문일</th>
+			         			<th>예약자 정보</th>
+			         		</tr>
+		         		</thead>
+		         		<tr style="font-size: 10px; text-align: center;">
+		         		<%if(visitCount.get(j) != null && cancelCount.get(j) != null) {%>
+		         			<td style="font-weight: bolder; color:black;">
+		         			 <%=visitCount.get(j) %>
+		         			</td>
+		         			<td>
+		         			 <%=cancelCount.get(j) %> 
+							</td>
+							<%} %>
+							<td style="font-weight: bolder; color:black;">
+		         				0
+		         			</td>
+		         			<td>
+		         				<%=modalList.get(j).getReservationDate() %>
+		         			</td>
+		         			<td>
+		         				<%=modalList.get(j).getNickName() %>
+		         			</td>
+		         			
+		         		</tr>
+	         		</table>			
+				</div>
+				<br>
+				<br>
+				
+				
+				<div class="modal-footer">
+					<!-- <a class="btn" id="modalY" href="#">예</a> -->
+					<button class="btn" type="button" data-dismiss="modal">확인</button>
+				</div>
+		         		
+				
+			</div>
+		</div>
+	</div>
+	<% } %>
 	<!-- Calendar Page Start ^^; -->
 	<!-- <div class="subb"
 			style="width: 300px; position: absolute; margin-top: 300px; right: 340px;">
@@ -306,6 +403,7 @@ function dd(){
 			var t = $("#today").html();
 			location.href="/semiproject/selectReservationDateList.en?dayStatus=1&enpId=<%=loginEnp.getEnpNo()%>&today="+t;
 		});
+		
 	});
 		
 	
@@ -317,12 +415,7 @@ function dd(){
 		});
 	});
 	
-	/* $(function () {
-		$("button").click(function () {
-			console.log("asd");
-			$('#testModal').modal("show");
-		});
-	}); */
+	
 	$(function () {
 		$(".payBtn").click(function () {
 			var str = $(this).attr('id');
