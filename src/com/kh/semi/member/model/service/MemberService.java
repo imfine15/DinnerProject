@@ -42,4 +42,13 @@ public class MemberService {
 		return selectMember;
 	}
 
+	public String checkId(String id) {
+		Connection con = getConnection();
+		String checkMember = new MemberDao().checkId(con, id);
+		
+		close(con);
+		
+		return checkMember;
+	}
+
 }

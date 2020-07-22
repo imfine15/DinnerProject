@@ -7,40 +7,36 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import com.google.gson.Gson;
 import com.kh.semi.member.model.service.MemberService;
 import com.kh.semi.member.model.vo.MemberVO;
 
-@WebServlet("/signIn.me")
-public class SignInMemberServlet extends HttpServlet {
+@WebServlet("/idDuplicationCheck.me")
+public class IdDuplicationCheck extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    public SignInMemberServlet() {
+    public IdDuplicationCheck() {
         super();
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String id = request.getParameter("id");
-		String password = request.getParameter("password");
-		HttpSession session = request.getSession();
-		String backPage = (String) session.getAttribute("backPage");
 		
-		MemberVO requestMember = new MemberVO();
+		String checkMember = new MemberService().checkId(id);
 		
-		requestMember.setmId(id);
-		requestMember.setmPwd(password);
-		MemberVO responseMember = new MemberService().loginMember(requestMember);
+		String result = "fail";
 		
-		if(responseMember != null) {
-			// 로그인 성공
-			session.setAttribute("loginUser", responseMember);
-			response.sendRedirect(backPage);
+		if(checkMember.equals("")) {
+			result = "success";
 		} else {
-			// 로그인 실패
-			request.setAttribute("msg", "로그인에 실패했습니다.<br>아이디,");
+			result = "fail";
 		}
+		
+		response.setContentType("application/json");
+		response.setCharacterEncoding("UTF-8");
+		
+		new Gson().toJson(result, response.getWriter());
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

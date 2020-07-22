@@ -23,6 +23,11 @@
 				<td colspan="3"><input type="text" name="id" id="id" size="20"></td>
 				<td colspan="1"><p id="idCheck">아이디<br>중복확인</p></td>
 			</tr>
+			<tr style="display:none;">
+				<td>
+					<input type="text" id="idCheckResult" value="checkNotYet">
+				</td>
+			</tr>
 			<tr>
 				<td colspan="3"><label id="idResult"></label></td>
 			</tr>
