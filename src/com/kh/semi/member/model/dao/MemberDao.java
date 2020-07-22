@@ -181,5 +181,26 @@ public class MemberDao {
 		
 		return count;
 	}
+
+	public int withdrawlMember(Connection con, MemberVO requestMember) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String query = prop.getProperty("withdrawlMember");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			
+			pstmt.setString(1, requestMember.getmId());
+			pstmt.setString(2, requestMember.getmPwd());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
 	
 }
