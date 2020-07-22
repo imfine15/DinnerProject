@@ -173,6 +173,9 @@ public class ReservationService {
 			rollback(con);
 		}
 		close(con);
+		if(result == 0 && result2 == 0) result = 1;
+		else result = 0;
+		
 		return result;
 	}
 
