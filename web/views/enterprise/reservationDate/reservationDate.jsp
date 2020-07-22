@@ -1,3 +1,6 @@
+<%@page import="java.util.Date"%>
+<%@page import="java.util.Calendar"%>
+<%@page import="java.text.SimpleDateFormat"%>
 <%@page import="com.kh.semi.enterprise.model.vo.ForEntCrVO"%>
 <%@page import="com.kh.semi.enterprise.model.vo.PageInfo"%>
 <%@page import="com.kh.semi.payment.model.vo.ReservationVO"%>
@@ -15,6 +18,14 @@ int endPage = pi.getEndPage();
 ArrayList<ForEntCrVO> modalList = (ArrayList<ForEntCrVO>)request.getAttribute("modalList");
 ArrayList<Integer> visitCount = (ArrayList<Integer>)request.getAttribute("visitCount");
 ArrayList<Integer> cancelCount = (ArrayList<Integer>)request.getAttribute("cancelCount");
+
+String today = null;
+Date date = new Date();
+SimpleDateFormat sdformat = new SimpleDateFormat("yyyy-MM-dd");
+Calendar cal = Calendar.getInstance(); cal.setTime(date);
+today = sdformat.format(cal.getTime());
+
+
 %>
 <!doctype html>
 <html lang="ko">
@@ -25,8 +36,8 @@ ArrayList<Integer> cancelCount = (ArrayList<Integer>)request.getAttribute("cance
 <meta charset="UTF-8">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js" type="text/javascript"></script>
 <link
 	href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900"
 	rel="stylesheet">
@@ -95,7 +106,7 @@ tr {
 				<td
 					style="font-weight: bolder; color: black; padding-right: 50px; border: 0;">
 					<</td>
-				<td style="border: 0;">2020.06.22</td>
+				<td style="border: 0;"><%=today %></td>
 				<td
 					style="font-weight: bolder; color: black; padding-left: 50px; border: 0;">
 					></td>
@@ -209,10 +220,10 @@ tr {
 					<!-- <a class="btn" id="modalY" href="#">예</a> -->
 					<button class="btn" type="button" data-dismiss="modal">확인</button>
 				</div>
-				<% } %>
 			</div>
 		</div>
 	</div>
+				<% } %>
 	<!-- Calendar Page Start ^^; -->
 	<!-- <div class="subb"
 			style="width: 300px; position: absolute; margin-top: 300px; right: 340px;">
@@ -291,6 +302,18 @@ function dd(){
 	<%@include file="../../common/enterpriseFooter.jsp"%>
 	<br>
 	<script>
+	
+	$(function() {
+		$.ajax({
+			url : "/semiproject/selectReservationDateList.en",
+			type : "post",
+			data : {today : "<%= today %>"},
+			success : function(data) {
+				console.log(data);
+			}
+		});
+	});
+	
 	$(function () {
 		$("ul li a").click(function () {
 			$(".logo").html($(this).html());

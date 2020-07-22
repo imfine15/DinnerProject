@@ -62,7 +62,7 @@
 			<h2 id="sidebarTitle"><a href="index.html" class="logo"  style="color:white;"><%= pageName %></a></h2>
 			<ul class="list-unstyled components mb-5">
 				<li>
-					<a href="<%=request.getContextPath()%>/selectConfirmRequestList.en?enpId=<%=loginEnp.getEnpNo()%>">예약 요청 확인</a>
+					<a href="<%=request.getContextPath()%>/selectConfirmRequestList.en?enpId=<%=loginEnp.getEnpNo()%>&currentPage=1">예약 요청 확인</a>
 				</li>
 				<li>
 					<a href="<%=request.getContextPath()%>/selectReservationDateList.en?enpId=<%=loginEnp.getEnpNo()%>">전체 예약 일정</a>

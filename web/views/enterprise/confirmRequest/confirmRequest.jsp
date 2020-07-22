@@ -142,7 +142,7 @@ System.out.println("modalListsize : " + modalList.size());
                 
             </thead>
             <tbody align="center">
-               <tr>
+              <!--  <tr>
                   <td><button  style="background:#EB7673; width:17px; height:17px; border:0;"></button></td>
                   <td><a href="">00000001</a></td>
                   <td><a href="">imfine123</a></td>
@@ -153,7 +153,7 @@ System.out.println("modalListsize : " + modalList.size());
                   <td><button class="userInfoBtn">확인</button></td>
                   <td><button class="reservateBtn">확인</button> <button class="cancelBtn" style="background-color: gray;">취소</button></td>
                  
-               </tr>
+               </tr> -->
                <% for(int i = 0; i < list.size(); i++){
             		System.out.print("LIST SIZE : " + list.size());
                %>
@@ -179,13 +179,42 @@ System.out.println("modalListsize : " + modalList.size());
 				<% } %>
             </tbody>
             </table>
-      <div class="pagingArea" align="center">
+      <%-- <div class="pagingArea" align="center">
          <button class="hide" onclick="location.href='<%=request.getContextPath()%>/selectConfirmRequestList.en?currentPage=1'"><<</button>
          <button class="hide" onclick="location.href='<%=request.getContextPath()%>/selectConfirmRequestList.en?currentPage='"><</button>
 
          <button class="hide" onclick="location.href='<%=request.getContextPath()%>/selectConfirmRequestList.en?currentPage='">></button>
          <button class="hide" onclick="location.href='<%=request.getContextPath()%>/selectConfirmRequestList.en?currentPage='">>></button>
-      </div>
+      </div> --%>
+      <!-- 페이징 처리 버튼 -->
+		<div class="pagingArea" align="center">
+			<button onclick="location.href='<%=request.getContextPath()%>/selectConfirmRequestList.en?enpId=<%=loginEnp.getEnpNo()%>&currentPage=1'"><<</button>
+			<%System.out.println("currentPage : "+currentPage); %>
+			<%if(currentPage <=1) {%>
+			<button disabled><</button>
+			<%}else{ %>
+			<button onclick="location.href='<%=request.getContextPath()%>/selectConfirmRequestList.en?enpId=<%=loginEnp.getEnpNo()%>&currentPage=<%=currentPage - 1%>'"><</button>
+			<%} %>
+			
+			<%for(int p = startPage; p <= endPage; p++){ 
+				if(p == currentPage) {
+			%>
+				<button disabled><%=p %></button>
+			<%	}else{ %>
+				<button onclick="location.href='<%=request.getContextPath()%>/selectConfirmRequestList.en?enpId=<%=loginEnp.getEnpNo()%>&currentPage=<%=p %>'"><%=p %></button>
+			<%	} 
+			  }
+			%>
+			
+			<%if(currentPage >= maxPage){ %>
+			<button disabled>></button>
+			<%}else{ %>
+			<button onclick="location.href='<%=request.getContextPath()%>/selectConfirmRequestList.en?enpId=<%=loginEnp.getEnpNo()%>&currentPage=<%=currentPage - 1%>'">></button>
+			
+			<%} %>
+			
+			<button onclick="location.href='<%=request.getContextPath()%>/selectConfirmRequestList.en?enpId=<%=loginEnp.getEnpNo()%>&currentPage=<%=maxPage%>'">>></button>
+		</div>
    </div>
 	<br>	
 	<br>	
