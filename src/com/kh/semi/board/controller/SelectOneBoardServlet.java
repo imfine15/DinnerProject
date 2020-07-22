@@ -44,7 +44,7 @@ public class SelectOneBoardServlet extends HttpServlet {
 			
 		list2 = new BoardService().selectThumbnailList(boardNo);
 		
-
+		ArrayList<BoardUpVo> replyList = new BoardService().selectReplyList(boardNo);
 		
 		String page = "";
 		if(list2 != null) {
@@ -52,6 +52,7 @@ public class SelectOneBoardServlet extends HttpServlet {
 			session.setAttribute("list2", list2);
 			session.setAttribute("board", board);
 			session.setAttribute("boardNo", boardNo);
+			request.setAttribute("replyList", replyList);
 		} else {
 			page="views/common/errorPage.jsp";
 			request.setAttribute("msg", "게시판 조회 실패!");
