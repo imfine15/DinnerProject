@@ -48,7 +48,7 @@ public class NoticeService {
 
 	//관리자페이지 개인회원 공지사항 리스트 보는 용
 	public ArrayList<NoticeVO> selectList(PageInfo pi) {
-	Connection con = getConnection();
+		Connection con = getConnection();
 		
 		ArrayList<NoticeVO> list = new NoticeDao().selectList(con, pi);
 		

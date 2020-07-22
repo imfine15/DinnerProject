@@ -240,7 +240,7 @@ html, body {
 		}
 		
 		function goMemberQuestionManage() {
-			location.href="<%=request.getContextPath()%>/";
+			location.href="<%=request.getContextPath()%>/selectQuestionList.qu";
 		}
 		
 		function goMemberManage() {
