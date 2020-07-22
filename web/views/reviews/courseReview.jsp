@@ -7,7 +7,12 @@
 	ArrayList<HashMap<String, Object>> list2 = (ArrayList<HashMap<String, Object>>)session.getAttribute("list2");
 	BoardUpVo board = (BoardUpVo)session.getAttribute("board");
 	String boardNo = (String)session.getAttribute("boardNo");
-	ArrayList<BoardUpVo> replyList = (ArrayList<BoardUpVo>) request.getAttribute("replyList");
+	ArrayList<BoardUpVo> replyList;
+	if(request.getAttribute("replyList")==null){
+		replyList=null;
+	} else {
+		replyList = (ArrayList<BoardUpVo>)request.getAttribute("replyList");
+	}
 %>
 <!DOCTYPE html>
 <html>
@@ -25,6 +30,9 @@
 		width: 100px;
 		height: 25px;
 		font-size: 16px;
+		float: right;
+		margin-top: 85px;
+		margin-right: 40px;
 	}
 </style>
 </head>
@@ -98,6 +106,7 @@
 					style="padding-left: 130px; font-size: 14px;">
 					<tbody>
 						<%
+						if(replyList != null){
 							for (int i = 0; i < replyList.size(); i++) {
 						%>
 						<tr>
@@ -108,6 +117,7 @@
 						</tr>
 						<%
 							}
+						}
 						%>
 					</tbody>
 				</table>
@@ -149,6 +159,7 @@
 			var memberNo = "<%=board.getMemberNo()%>";
 			var content = $("#commentBox").val();
 			
+
 			$.ajax({
 				url: "/semiproject/insertReply.bo",
 				data: {boardNo: boardNo, memberNo: memberNo, content: content},
@@ -170,8 +181,7 @@
 						$tr.append($dateTd);
 						
 						$replySelectTable.append($tr);
-						
-						
+
 						
 					}
 				},
@@ -182,6 +192,9 @@
 			
 			
 		});
+		
+		document.getElementsByTagName('textarea').value='';
+
 	});
 </script>
 </body>
