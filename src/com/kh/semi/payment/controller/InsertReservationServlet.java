@@ -81,6 +81,7 @@ public class InsertReservationServlet extends HttpServlet {
 		if(result > 0) {
 			int result2 = new ReservationService().insertReservationHistory(insertReservationVO);
 			int result3 = new ReservationService().insertPaymentHistory(payHistoryVO);
+			//int result4 = new ReservationService().insertReservationPoint()
 			if(result2 > 0 && result3 > 0) {
 				page = "views/payment/paymentSuccess.jsp";
 			}

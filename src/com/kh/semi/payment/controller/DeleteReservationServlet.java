@@ -21,7 +21,7 @@ public class DeleteReservationServlet extends HttpServlet {
 		String rNo = request.getParameter("rNo");
 		String mNo = request.getParameter("mNo");
 		String pNo = request.getParameter("pNo2");
-		int deposit = Integer.parseInt(request.getParameter("deposit"));
+		int deposit = Integer.parseInt(request.getParameter("realDeposit"));
 		int point = Integer.parseInt(request.getParameter("point"));
 		
 		int result = new ReservationService().deleteReserInfo(rNo, mNo, deposit, point);

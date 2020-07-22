@@ -88,7 +88,6 @@ public class ReservationService {
 		return result;
 	}
 
-
 	public int insertPaymentHistory(PaymentHistoryVO payHistoryVO) {
 		Connection con = getConnection();
 		int sequence = new ReservationDao().selectReservationSequence(con);
@@ -135,13 +134,24 @@ public class ReservationService {
 		Connection con = getConnection();
 		EnpVO enpInfo = new ReservationDao().selectEnpInfo(con, eNo);
 		
+		close(con);
 		return enpInfo;
 	}
 
 	public String selectEnpImg(String eNo) {
 		Connection con = getConnection();																																																																												
 		String enpNo = new ReservationDao().selectEnpImg(con, eNo);
+		
+		close(con);
 		return enpNo;
+	}
+
+	public int selectPointAmount(String mNo) {
+		Connection con = getConnection();
+		int pAmount = new ReservationDao().selectPointAmount(con, mNo);
+		
+		close(con);
+		return pAmount;
 	}
 
 

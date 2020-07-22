@@ -387,6 +387,31 @@ public class ReservationDao {
 		}
 		return eimg;
 	}
+
+	public int selectPointAmount(Connection con, String mNo) {
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int pAmount = 0;
+		String query = prop.getProperty("selectPointAmount");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, mNo);
+			
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				pAmount = rset.getInt("PAMOUNT");
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
+		}
+		return pAmount;
+	}
 }
 
 

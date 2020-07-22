@@ -43,8 +43,11 @@ public class CancelReservationServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String uId = request.getParameter("merchant_uid");
-		System.out.println(uId);
-		testCancelPaymentAlreadyCancelledMerchantUid(uId);
+		BigDecimal realDeposit = BigDecimal.valueOf(Long.parseLong(request.getParameter("cancel_request_amount")));
+		
+		System.out.println("BigDecimal : " + realDeposit);
+		System.out.println("valueOf : " + BigDecimal.valueOf(500));
+		testCancelPaymentAlreadyCancelledMerchantUid(uId, realDeposit);
 		
 		System.out.println("삭제 성공");
 	}
@@ -53,9 +56,9 @@ public class CancelReservationServlet extends HttpServlet {
 		doGet(request, response);
 	}
 	
-	public void testCancelPaymentAlreadyCancelledMerchantUid(String uId) {
+	public void testCancelPaymentAlreadyCancelledMerchantUid(String uId, BigDecimal realDeposit) {
 		String test_already_cancelled_merchant_uid = uId;
-		CancelData cancel_data = new CancelData(test_already_cancelled_merchant_uid, false); //merchant_uid를 통한 전액취소
+		CancelData cancel_data = new CancelData(test_already_cancelled_merchant_uid, false, realDeposit); //merchant_uid를 통한 전액취소
 		cancel_data.setEscrowConfirmed(true); //에스크로 구매확정 후 취소인 경우 true설정
 		try {
 			IamportResponse<Payment> payment_response = client.cancelPaymentByImpUid(cancel_data);
