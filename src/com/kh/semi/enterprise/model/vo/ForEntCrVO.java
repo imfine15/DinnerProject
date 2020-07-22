@@ -10,12 +10,13 @@ public class ForEntCrVO {
 	private int cancelCount;
 	private int noShowCount;
 	private int rownum;
+	private String phone;
 	
 	public ForEntCrVO() {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public ForEntCrVO(String nickName, Date reservationDate, int visitCount, int cancelCount, int noShowCount, int rownum) {
+	public ForEntCrVO(String nickName, Date reservationDate, int visitCount, int cancelCount, int noShowCount, int rownum, String phone) {
 		super();
 		this.nickName = nickName;
 		this.reservationDate = reservationDate;
@@ -23,6 +24,15 @@ public class ForEntCrVO {
 		this.cancelCount = cancelCount;
 		this.noShowCount = noShowCount;
 		this.rownum = rownum;
+		this.phone = phone;
+	}
+
+	public String getPhone() {
+		return phone;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
 	}
 
 	public int getRownum() {
