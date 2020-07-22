@@ -40,6 +40,16 @@ function check() {
 		return false;
 	}
 	
+	if($("#idCheckResult").val() === "checkNotYet") {
+		$("#idResult").html("먼저 아이디 중복 체크를 해주세요.").css({"backgroundColor" : "red", "color" : "white"});
+		$("#id").focus();
+		return false;
+	} else if($("#idCheckResult").val() === "fail") {
+		$("#idResult").html("아이디가 중복되었습니다").css({"backgroundColor" : "red", "color" : "white"});
+		$("#id").focus();
+		return false;
+	}
+	
 	if(pwd1.val() !== pwd2.val()) {
 		$("#pwdResult").html("비밀번호가 서로 다르거나 비밀번호 확인란이 비어있습니다.").css({"backgroundColor" : "red", "color" : "white"});
 		$("#pwd2").focus();
@@ -120,8 +130,8 @@ function check() {
 		$("#enterpriseNumber").focus();
 		return false;
 	}
-	//address.val() === null || address.val() === "" || 
-	if(addressDetail.val() === null || addressDetail.val() === "") {
+	
+	if(address.val() === null || address.val() === "" || addressDetail.val() === null || addressDetail.val() === "") {
 		$("#addressResult").html("주소는 비어있을 수 없습니다.").css({"backgroundColor" : "red", "color" : "white"});
 		$("#address").focus();
 		return false;

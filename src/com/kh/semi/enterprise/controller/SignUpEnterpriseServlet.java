@@ -80,6 +80,8 @@ public class SignUpEnterpriseServlet extends HttpServlet {
 		requestEnp.setEnpPhone(phone);
 		requestEnp.setEnpLicense(enterpriseLicense);
 		requestEnp.setPriceRange(priceRange);
+		requestEnp.setDepositLowerLimit(Integer.parseInt(lowerLimit));
+		requestEnp.setDepositHigherLimit(Integer.parseInt(higherLimit));
 		requestEnp.setClosedDay(restDay);
 		requestEnp.setParkingPossible(parking);
 		requestEnp.setWebsite(homepage);

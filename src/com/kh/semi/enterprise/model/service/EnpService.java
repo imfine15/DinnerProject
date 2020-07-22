@@ -20,7 +20,7 @@ public class EnpService {
    public int insertPartnerEnp(EnpVO requestEnp) {
       Connection con = getConnection();
       
-      int result = new EnpDao().insertPartnerEnp1(con,requestEnp);
+      int result = new EnpDao().insertPartnerEnp1(con, requestEnp);
       
       int result2 = new EnpDao().insertPartnerEnp2(con, requestEnp);
       
