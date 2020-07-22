@@ -506,6 +506,7 @@ public class ReservationDao {
 		String query = prop.getProperty("insertPointGiveHistory");
 		
 		try {
+			
 			pstmt = con.prepareStatement(query);
 			pstmt.setInt(1, seq);
 			pstmt.setString(2, pointVO.getmNo());
