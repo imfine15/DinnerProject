@@ -1,5 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8" import="java.util.*, com.kh.semi.question.model.vo.*"%>
+<%@ page import="com.kh.semi.admin.model.vo.PageInfo" %>
+<%
+	ArrayList<QuestionVO> list = (ArrayList<QuestionVO>) request.getAttribute("list");
+	PageInfo pi = (PageInfo) request.getAttribute("pi");
+	int listCount = pi.getListCount();
+	int currentPage = pi.getCurrentPage();
+	int maxPage = pi.getMaxPage();
+	int startPage = pi.getStartPage();
+	int endPage = pi.getEndPage();
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -121,14 +131,19 @@ border-radius: 0;
 border: 1px solid gray;
 outline-style: none;
 }
-
+#goQuestionConfirm:link, #goQuestionConfirm:visited, #goQuestionConfirm:active, #goQuestionConfirm:hover {
+	text-decoration:none; color:black;
+	text-decoration:none; color:black;
+	text-decoration:none; color:black;
+	text-decoration:none; color:black;
+}
 </style>
 </head>
 <body style="background: lightgray;">
 	<%@ include file="/views/admin/common/sidebar.jsp"%>
 	<div id="wrapper">
 		<div id="title-box">
-			<p>문의 관리</p>
+			<p><a id="goQuestionConfirm" href="<%=request.getContextPath()%>/selectQuestionList.qu" target = "_self">문의 관리</a></p>
 			<br>
 		</div>
 		<div id="inner-wrap">
@@ -143,144 +158,20 @@ outline-style: none;
 							<th>등록 날짜</th>
 							<th>처리 상태</th>
 						</tr>
-						<tr>
-							<td>예약문의</td>
-							<td id="title">회원탈퇴 시 적립포인트는 어떻게 처리 되나요?</td>
-							<td>imfine_123</td>
-							<td>20/06/19 17:33</td>
-							<td>
-								<button id="confirm-before-btn">처리 대기</button>
-							</td>
-						</tr>
-						<tr>
-							<td>예약문의</td>
-							<td id="title">회원탈퇴 시 적립포인트는 어떻게 처리 되나요?</td>
-							<td>imfine_123</td>
-							<td>20/06/19 17:33</td>
-							<td>
-								<button id="confirm-after-btn">처리 완료</button>
-							</td>
-							
-						</tr>
-						<tr>
-							<td>예약문의</td>
-							<td id="title">회원탈퇴 시 적립포인트는 어떻게 처리 되나요?</td>
-							<td>imfine_123</td>
-							<td>20/06/19 17:33</td>
-							<td>
-								<button id="confirm-after-btn">처리 완료</button>
-							</td>
-						</tr>
-						<tr>
-							<td>예약문의</td>
-							<td id="title">회원탈퇴 시 적립포인트는 어떻게 처리 되나요?</td>
-							<td>imfine_123</td>
-							<td>20/06/19 17:33</td>
-							<td>
-								<button id="confirm-after-btn">처리 완료</button>
-							</td>
-						</tr>
-						<tr>
-							<td>예약문의</td>
-							<td id="title">회원탈퇴 시 적립포인트는 어떻게 처리 되나요?</td>
-							<td>imfine_123</td>
-							<td>20/06/19 17:33</td>
-							<td>
-								<button id="confirm-after-btn">처리 완료</button>
-							</td>
-
-						</tr>
-						<tr>
-							<td>예약문의</td>
-							<td id="title">회원탈퇴 시 적립포인트는 어떻게 처리 되나요?</td>
-							<td>imfine_123</td>
-							<td>20/06/19 17:33</td>
-							<td>
-								<button id="confirm-after-btn">처리 완료</button>
-							</td>
-
-						</tr>
-						<tr>
-							<td>예약문의</td>
-							<td id="title">회원탈퇴 시 적립포인트는 어떻게 처리 되나요?</td>
-							<td>imfine_123</td>
-							<td>20/06/19 17:33</td>
-							<td>
-								<button id="confirm-after-btn">처리 완료</button>
-							</td>
-
-						</tr>
-						<tr>
-							<td>예약문의</td>
-							<td id="title">회원탈퇴 시 적립포인트는 어떻게 처리 되나요?</td>
-							<td>imfine_123</td>
-							<td>20/06/19 17:33</td>
-							<td>
-								<button id="confirm-after-btn">처리 완료</button>
-							</td>
-							
-						</tr>
-						<tr>
-							<td>예약문의</td>
-							<td id="title">회원탈퇴 시 적립포인트는 어떻게 처리 되나요?</td>
-							<td>imfine_123</td>
-							<td>20/06/19 17:33</td>
-							<td>
-								<button id="confirm-after-btn">처리 완료</button>
-							</td>
-						
-						</tr>
-						<tr>
-						<td>예약문의</td>
-							<td id="title">회원탈퇴 시 적립포인트는 어떻게 처리 되나요?</td>
-							<td>imfine_123</td>
-							<td>20/06/19 17:33</td>
-							<td>
-								<button id="confirm-after-btn">처리 완료</button>
-							</td>
-							
-						</tr>
-						<tr>
-						<td>예약문의</td>
-							<td id="title">회원탈퇴 시 적립포인트는 어떻게 처리 되나요?</td>
-							<td>imfine_123</td>
-							<td>20/06/19 17:33</td>
-							<td>
-								<button id="confirm-after-btn">처리 완료</button>
-							</td>
-							
-						</tr>
-						<tr>
-						<td>예약문의</td>
-							<td id="title">회원탈퇴 시 적립포인트는 어떻게 처리 되나요?</td>
-							<td>imfine_123</td>
-							<td>20/06/19 17:33</td>
-							<td>
-								<button id="confirm-after-btn">처리 완료</button>
-							</td>
-							
-						</tr>
-						<tr>
-						<td>예약문의</td>
-							<td id="title">회원탈퇴 시 적립포인트는 어떻게 처리 되나요?</td>
-							<td>imfine_123</td>
-							<td>20/06/19 17:33</td>
-							<td>
-								<button id="confirm-after-btn">처리 완료</button>
-							</td>
-							
-						</tr>
-						<tr>
-						<td>예약문의</td>
-							<td id="title">회원탈퇴 시 적립포인트는 어떻게 처리 되나요?</td>
-							<td>imfine_123</td>
-							<td>20/06/19 17:33</td>
-							<td>
-								<button id="confirm-after-btn">처리 완료</button>
-							</td>
-							
-						</tr>
-
+					<%
+					for (QuestionVO q : list) {
+					%>
+					<tr>
+						<td align="center"><%=q.getQuestionNo() %></td>
+						<td align="center"><%=q.getQuestionType() %></td>
+						<td><%=q.getQuestionTitle() %></td>
+						<td align="center"><%=q.getMemberId() %></td>
+						<td align="center"><%=q.getQuestionDate() %></td>
+						<td align="center"><%=q.getQuestionDisposalStatus() %></td>
+					</tr>
+					<%
+						}
+					%>
 					</table>
 				</form>
 				<div style="height: 30px;"></div>
@@ -321,22 +212,63 @@ outline-style: none;
 
 
 
-
-		<div class="pagingArea" align="center">
-			<button class="hide"
-				onclick="location.href='<%=request.getContextPath()%>/selectList.no?currentPage=1'"><<</button>
-			<button class="hide"
-				onclick="location.href='<%=request.getContextPath()%>/selectList.no?currentPage='"><</button>
-
-			<button class="hide"
-				onclick="location.href='<%=request.getContextPath()%>/selectList.no?currentPage='">
-				<img style="width: 15px; height: 15px"
-					src="/semiproject/images/arrow.png">
-			</button>
-			<button class="hide"
-				onclick="location.href='<%=request.getContextPath()%>/selectList.no?currentPage='">>></button>
 		</div>
-	</div>
+			<div class="pageingArea" align="center">
+			<button
+				onclick="location.href='<%=request.getContextPath()%>/selectAdminList.no?currentPage=1'"><<</button>
 
+			<%
+				if (currentPage <= 1) {
+			%>
+			<button disabled><</button>
+			<%
+				}
+			%>
+
+			<%
+				for (int p = startPage; p <= endPage; p++) {
+					if (p == currentPage) {
+			%>
+			<button disabled><%=p%></button>
+			<%
+				} else {
+			%>
+			<button
+				onclick="location.href='<%=request.getContextPath()%>/selectElist.no?currentPage=<%=p%>'"><%=p%></button>
+			<%
+				}
+				}
+			%>
+
+			<%
+				if (currentPage >= maxPage) {
+			%>
+			<button disabled>></button>
+			<%
+				} else {
+			%>
+			<button
+				onclick="location.href='<%=request.getContextPath()%>/selectAdminList.no?currentPage=<%=currentPage + 1%>'">></button>
+			<%
+				}
+			%>
+
+			<button
+				onclick="location.href='<%=request.getContextPath()%>/selectAdminList.no?currentPage=<%=maxPage%>'">>></button>
+	</div>
+		<script>
+		$(function() {
+			$("#listArea td").mouseenter(function() {
+				$(this).parent().css({"background":"#E4E4E4", "cursor":"pointer"});
+			}).mouseout(function() {
+				$(this).parent().css({"background":"white"});
+			}).click(function() {
+				
+				var num = $(this).parent().children().eq(0).text();
+				
+				location.href="<%=request.getContextPath()%>/.no?num="+ num;
+							});
+		});
+	</script>
 </body>
 </html>

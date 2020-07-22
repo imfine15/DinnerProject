@@ -33,12 +33,12 @@ public class QuestionService {
 			for(int i = 0; i < fileList.size(); i++) {
 				
 				fileList.get(i).setQuestionNo(questionNo);
-				
+				question.setQuestionNo(questionNo);
 				result2 += new QuestionDao().insertAttachment(con, fileList.get(i));
 			}
 		}
 		if(result1 > 0 && result2 == fileList.size()) {
-			
+			System.out.println(question.getQuestionNo());
 			result3 = new QuestionDao().insertQuestionHistory(question, con);
 			
 			commit(con);

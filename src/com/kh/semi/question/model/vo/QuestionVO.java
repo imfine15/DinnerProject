@@ -17,14 +17,16 @@ public class QuestionVO implements java.io.Serializable{
 	private String phoneAdmit;
 	private Date questionDate;
 	private String historyNo;
-	private String questionDisposalCode;
+	private String questionDisposalStatus;
 	private Date disposalDate; 
+	private String memberId;
 	
 	public QuestionVO() {}
 
 	public QuestionVO(String questionNo, String managerNo, String memberNo, String memberName, String questionType,
 			String questionTitle, String questionContent, String questionEmail, String emailAdmit, String questionPhone,
-			String phoneAdmit, Date questionDate, String historyNo, String questionDisposalCode, Date disposalDate) {
+			String phoneAdmit, Date questionDate, String historyNo, String questionDisposalStatus, Date disposalDate,
+			String memberId) {
 		super();
 		this.questionNo = questionNo;
 		this.managerNo = managerNo;
@@ -39,8 +41,9 @@ public class QuestionVO implements java.io.Serializable{
 		this.phoneAdmit = phoneAdmit;
 		this.questionDate = questionDate;
 		this.historyNo = historyNo;
-		this.questionDisposalCode = questionDisposalCode;
+		this.questionDisposalStatus = questionDisposalStatus;
 		this.disposalDate = disposalDate;
+		this.memberId = memberId;
 	}
 
 	public String getQuestionNo() {
@@ -147,12 +150,12 @@ public class QuestionVO implements java.io.Serializable{
 		this.historyNo = historyNo;
 	}
 
-	public String getQuestionDisposalCode() {
-		return questionDisposalCode;
+	public String getQuestionDisposalStatus() {
+		return questionDisposalStatus;
 	}
 
-	public void setQuestionDisposalCode(String questionDisposalCode) {
-		this.questionDisposalCode = questionDisposalCode;
+	public void setQuestionDisposalStatus(String questionDisposalStatus) {
+		this.questionDisposalStatus = questionDisposalStatus;
 	}
 
 	public Date getDisposalDate() {
@@ -163,14 +166,22 @@ public class QuestionVO implements java.io.Serializable{
 		this.disposalDate = disposalDate;
 	}
 
+	public String getMemberId() {
+		return memberId;
+	}
+
+	public void setMemberId(String memberId) {
+		this.memberId = memberId;
+	}
+
 	@Override
 	public String toString() {
 		return "QuestionVO [questionNo=" + questionNo + ", managerNo=" + managerNo + ", memberNo=" + memberNo
 				+ ", memberName=" + memberName + ", questionType=" + questionType + ", questionTitle=" + questionTitle
 				+ ", questionContent=" + questionContent + ", questionEmail=" + questionEmail + ", emailAdmit="
 				+ emailAdmit + ", questionPhone=" + questionPhone + ", phoneAdmit=" + phoneAdmit + ", questionDate="
-				+ questionDate + ", historyNo=" + historyNo + ", questionDisposalCode=" + questionDisposalCode
-				+ ", disposalDate=" + disposalDate + "]";
+				+ questionDate + ", historyNo=" + historyNo + ", questionDisposalStatus=" + questionDisposalStatus
+				+ ", disposalDate=" + disposalDate + ", memberId=" + memberId + "]";
 	}
-
+	
 }
