@@ -101,7 +101,7 @@
 		<div style="width: 80%;">
 			<div
 				style="margin-left: auto; margin-right: auto; padding-left: 10px; float: left;">
-				<span id="countBox" style="font-size: 30px; float: left; padding-left: 96px;">댓글(<%=replyCount %>)</span><br>
+				<span id="countBox" style="font-size: 30px; float: left; padding-left: 96px;">댓글<label id="cou"></label></span><br>
 				<br>
 				<br>
 				<table id="replySelectTable"
@@ -110,12 +110,11 @@
 
 					</tbody>
 				</table>
-				<button id="left1" class="pclick" type="button"><</button><div id="bus" style="display: inline;">
-				<%for(int i = 0; i < (replyCount / 10) + 1; i ++) {%>
-				<button class="pclick" type="button" value="<%=i + 1%>"><%=i+1 %></button>
-				<%} %>
+				<button id="left1" class="pclick" type="button" value="1"><</button>
+				<div id="bus" style="display: inline;">
+				
 				</div>
-				<button id="right1" class="pclick" type="button">></button>
+				<button id="right1" class="pclick" type="button" value="3">></button>
 			</div>
 		</div>
 			<hr style="width: 80%;">
@@ -147,13 +146,13 @@ $(document).ready(function(){
 		success: function(data){
 			var $replySelectTable = $("#replySelectTable tbody");
 			$replySelectTable.html('');
-			
-			for(var key in data){
+			$("#cou").html(data[1].listCount);
+			for(var key in data[0]){
 				var $tr = $("<tr>");
-				var $idTd = $("<td>").text(data[key].memberId).css("width", "90px");
-				var $contentTd = $("<td>").text(data[key].replyContent).css("width", "500px");
+				var $idTd = $("<td>").text(data[0][key].memberId).css("width", "90px");
+				var $contentTd = $("<td>").text(data[0][key].replyContent).css("width", "500px");
 				var $noTd = $("<td>").css("width", "70px");
-				var $dateTd = $("<td>").text(data[key].replyDate).css("width", "190px");
+				var $dateTd = $("<td>").text(data[0][key].replyDate).css("width", "190px");
 				
 				
 				$tr.append($idTd);
@@ -162,76 +161,77 @@ $(document).ready(function(){
 				$tr.append($dateTd);
 				
 				$replySelectTable.append($tr);
-				
-				
+			}
+			for(var key = 0; key < 10; key ++){
+				var $replydiv = $("#bus");
+                
+                var $numBtn = $("<button>").text(key + 1).attr({
+                                                       class:"pclick",
+                                                       type: "button",
+                                                       value: key + 1
+                                                       });
+                $replydiv.append($numBtn);
 			}
 		},
 		error: function(){
 			console.log("실패입니다.");
 		}
 	});
-	var current = 1;
-		$(".pclick, #commentBtn").click(function(){
-			$.ajax({
-				url: "/semiproject/selectcurrentReply.pa",
-				type: "post",
-				data: {
-					no: "<%=board.getBoardNo()%>"
-				},
-				success: function(data){
-					console.log(data)
-				}
-			});
-			var current = this.value * 1;
-			var max = Math.floor(<%=replyCount%> / 10);
-			if(current < 1) current = 1;
-			if(current > (<%=replyCount%> / 10) + 1) current = max + 1;
-			console.log(current);
-			$.ajax({
-				url: "/semiproject/selectReply.pa",
-				type: "post",
-				data: {
-					no: "<%=board.getBoardNo()%>",
-					curval: current
-				},
-				success: function(data){
-					var $replySelectTable = $("#replySelectTable tbody");
-					$replySelectTable.html('');
-					
-					for(var key in data){
-						var $tr = $("<tr>");
-						var $idTd = $("<td>").text(data[key].memberId).css("width", "90px");
-						var $contentTd = $("<td>").text(data[key].replyContent).css("width", "500px");
-						var $noTd = $("<td>").css("width", "70px");
-						var $dateTd = $("<td>").text(data[key].replyDate).css("width", "190px");
-						
-						
-						$tr.append($idTd);
-						$tr.append($contentTd);
-						$tr.append($noTd);
-						$tr.append($dateTd);
-						
-						$replySelectTable.append($tr);					
-					}
-				},
-				error: function(){
-					console.log("실패입니다.");
-				},
-				complete: function(){
-					
-					$("#left1").val(current - 1);
-					$("#right1").val(current + 1);
-					if($("#left1").click){
-						current = current - 1;
-					} else if($("#right1").click){
-						current = current + 1;
-					}
-				}
-				
-			});
-		});
 });
 
+	
+	var current = 1;
+	$(document).on("click", ".pclick", function(){
+		$.ajax({
+			url: "/semiproject/selectReply.pa",
+			type: "post",
+			data: {
+				no: "<%=board.getBoardNo()%>",
+				curval: this.value*1
+			},
+			success: function(data){
+				current = data[1].currentPage;
+				
+				var $replySelectTable = $("#replySelectTable tbody");
+				$replySelectTable.html('');
+				for(var key in data[0]){
+					var $tr = $("<tr>");
+					var $idTd = $("<td>").text(data[0][key].memberId).css("width", "90px");
+					var $contentTd = $("<td>").text(data[0][key].replyContent).css("width", "500px");
+					var $noTd = $("<td>").css("width", "70px");
+					var $dateTd = $("<td>").text(data[0][key].replyDate).css("width", "190px");
+					
+					$tr.append($idTd);
+					$tr.append($contentTd);
+					$tr.append($noTd);
+					$tr.append($dateTd);
+					
+					$replySelectTable.append($tr);	
+					
+				}
+				$("#bus button").remove();
+					var $replydiv = $("#bus");
+	                
+				for(var key = data[1].startPage; key <= data[1].endPage; key ++){
+					var $numBtn = $("<button>")
+	                  $numBtn.text(key)
+	                  $numBtn.attr({type: "button",
+	                           value: key
+	                           });
+	                  $numBtn.addClass("pclick");
+	                $replydiv.append($numBtn);
+				}
+				$("#left1").val(current - 1);
+				if($("#left1").val() < 1) $("#left1").val(1);
+				
+				$("#right1").val(current + 1);
+				if($("#right1").val() > data[1].maxPage) $("#right1").val(data[1].maxPage);
+			},
+			error: function(){
+				console.log("실패입니다.");
+			}
+		});
+	});
 	
 
 	$(document).ready(function() {
@@ -258,15 +258,63 @@ $(document).ready(function(){
 			$.ajax({
 				url: "/semiproject/insertReply.bo",
 				data: {boardNo: boardNo, memberNo: memberNo, content: content},
-				type: "post"
-				
+				type: "post",
+				success: function(data){
+					console.log("성공");
+				}
 			});
-			
-			
-		});
-		
-		
+			$.ajax({
+				url: "/semiproject/selectReply.pa",
+				type: "post",
+				data: {
+					no: "<%=board.getBoardNo()%>",
+					curval: 1
+				},
+				success: function(data){
+					current = data[1].currentPage;
+					
+					var $replySelectTable = $("#replySelectTable tbody");
+					$replySelectTable.html('');
+					for(var key in data[0]){
+						var $tr = $("<tr>");
+						var $idTd = $("<td>").text(data[0][key].memberId).css("width", "90px");
+						var $contentTd = $("<td>").text(data[0][key].replyContent).css("width", "500px");
+						var $noTd = $("<td>").css("width", "70px");
+						var $dateTd = $("<td>").text(data[0][key].replyDate).css("width", "190px");
+						
+						$tr.append($idTd);
+						$tr.append($contentTd);
+						$tr.append($noTd);
+						$tr.append($dateTd);
+						
+						$replySelectTable.append($tr);	
+						
+					}
+					$("#bus button").remove();
+						var $replydiv = $("#bus");
+		                
+					for(var key = data[1].startPage; key <= data[1].endPage; key ++){
+						var $numBtn = $("<button>")
+		                  $numBtn.text(key)
+		                  $numBtn.attr({type: "button",
+		                           value: key
+		                           });
+		                  $numBtn.addClass("pclick");
+		                $replydiv.append($numBtn);
+					}
+					$("#left1").val(current - 1);
+					if($("#left1").val() < 1) $("#left1").val(1);
+					
+					$("#right1").val(current + 1);
+					if($("#right1").val() > data[1].maxPage) $("#right1").val(data[1].maxPage);
 
+					$("#cou").html(data[1].listCount);
+				},
+				error: function(){
+					console.log("실패입니다.");
+				}
+			});
+		});
 	});
 </script>
 </body>
