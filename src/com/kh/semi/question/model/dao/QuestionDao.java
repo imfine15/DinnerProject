@@ -54,6 +54,7 @@ public class QuestionDao {
 			pstmt.setString(7,  question.getEmailAdmit());
 			pstmt.setString(8,  question.getQuestionPhone());
 			pstmt.setString(9,  question.getPhoneAdmit());
+			pstmt.setString(10, question.getMemberId());
 			
 			result = pstmt.executeUpdate();
 
@@ -121,11 +122,13 @@ public class QuestionDao {
 		return result;
 	}
 	
+	//문의사항 등록할때 같이 등록되는 문의사항 내역 메소드 
 	public int insertQuestionHistory(QuestionVO question, Connection con) {
 		
 		PreparedStatement pstmt = null;
 		int result = 0;
 
+		
 		String query = prop.getProperty("insertQuestionHistory");
 
 		try {
@@ -133,6 +136,7 @@ public class QuestionDao {
 			pstmt.setString(1, question.getQuestionNo());
 			pstmt.setString(2, question.getMemberNo());
 
+			System.out.println(question.getQuestionNo());
 			result = pstmt.executeUpdate();
 
 		} catch (SQLException e) {
@@ -145,6 +149,7 @@ public class QuestionDao {
 		
 	}
 
+	//문의사항 목록 관리자페이지에서 보는 메소드 
 	public ArrayList<QuestionVO> selectList(Connection con, PageInfo pi) {
 		
 		PreparedStatement pstmt = null;
@@ -173,7 +178,6 @@ public class QuestionDao {
 //
 //				list.add(q);
 				qNo.add(rset.getString("QUESTION_NO"));
-				System.out.println("qNo : " + qNo);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -181,7 +185,6 @@ public class QuestionDao {
 			close(pstmt);
 			close(rset);
 		}
-		System.out.println("qSize : " + qNo.size());
 		String que = prop.getProperty("selectQusList");
 		
 		for(int i = 0; i < qNo.size(); i++) {
@@ -194,8 +197,12 @@ public class QuestionDao {
 				
 				QuestionVO q = new QuestionVO();
 				if(rs.next()) {
-					q.setMemberName(rs.getString("MEMBER_NAME"));
-					System.out.println("qName : " + q.getMemberName());
+					q.setQuestionDate(rs.getDate("QUESTION_DATE"));
+					q.setQuestionNo(rs.getString("QUESTION_NO"));
+					q.setQuestionTitle(rs.getString("QUESTION_TITLE"));
+					q.setMemberId(rs.getString("MEMBER_ID"));
+					q.setQuestionDisposalStatus(rs.getString("QUESTION_DISPOSAL_STATUS"));
+					q.setQuestionType(rs.getString("QUESTION_TYPE"));
 				}
 				list.add(q);
 			} catch (SQLException e) {
@@ -206,7 +213,6 @@ public class QuestionDao {
 				close(rs);
 			}
 		}
-		System.out.println("list : " + list);
 		return list;
 		
 	}

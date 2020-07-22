@@ -312,7 +312,11 @@ ArrayList<ReviewVO> normalReviews = (ArrayList<ReviewVO>)session.getAttribute("n
 		<button>더보기 ▼</button>
 	</div>
 	<div id="restaurantCloseReport">
+	<% if(selectedEnp.getEnpStatus() == "N") { %>
 		<button>폐업신고</button>
+	<% } else { %> 
+		
+	<% } %>
 	</div>
 	<hr class="hr">
 	<div id="yumeetRecommend">

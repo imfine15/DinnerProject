@@ -91,6 +91,7 @@ public class InsertQuestionServlet extends HttpServlet {
 			 String phone = multiRequest.getParameter("phone");
 			 String mNo = multiRequest.getParameter("memberNo");
 			 String mName = multiRequest.getParameter("memberName");
+			 String mId = multiRequest.getParameter("memberId");
 			 
 		//	 int writer = ((Member)(request.getSession().getAttribute("loginUser"))).getUno();
 	
@@ -104,10 +105,7 @@ public class InsertQuestionServlet extends HttpServlet {
 			 question.setQuestionEmail(eMail);
 			 question.setMemberNo(mNo);
 			 question.setMemberName(mName);
-			 
-			 
-			 System.out.println(mAdmit);
-			 System.out.println(pAdmit);
+			 question.setMemberId(mId);
 			 
 			 ArrayList<QuestionFileVO> fileList = new ArrayList<>();
 			 
@@ -126,7 +124,7 @@ public class InsertQuestionServlet extends HttpServlet {
 			 String page = "";
 			 
 			 if(result > 0) {
-				 page = "/views/qna/question_comp.jsp";
+				 page = "views/qna/question_comp.jsp";
 				 //넘기는값들 넘기기  셋어트리뷰트로 
 			 } else {
 				 
@@ -139,6 +137,9 @@ public class InsertQuestionServlet extends HttpServlet {
 				 request.setAttribute("msg", "문의글 등록에 실패하셨습니다.");
 				 request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
 			 }
+			 
+			request.getRequestDispatcher(page).forward(request, response);	
+
 		}
 		
 		

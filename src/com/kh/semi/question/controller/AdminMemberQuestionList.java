@@ -68,7 +68,7 @@ public class AdminMemberQuestionList extends HttpServlet {
 		String page = "";
 		
 		if(list != null) {
-			page = "/views/admin/questionConfirm/questionConfirm.jsp";
+			page = "views/admin/questionConfirm/questionConfirm.jsp";
 			request.setAttribute("list", list);
 			request.setAttribute("pi", pi);
 		} else {
