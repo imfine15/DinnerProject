@@ -1,7 +1,11 @@
 package com.kh.semi.enterprise.controller;
 
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -39,6 +43,52 @@ public class SelectReservationDateListServlet extends HttpServlet {
 		int maxPage;	//전체 페이지에서 가장 마지막 페이지
 		int startPage;	//한 번에 표시될 페이지가 시작할 페이지
 		int endPage;	//한 번에 표시될 페이지가 끝나는 페이지
+		
+		
+		//일자 변경
+		Date date = new Date();
+		SimpleDateFormat sdformat = new SimpleDateFormat("yyyy/MM/dd");
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(date);
+		
+		
+//		String today = "";
+		
+		//today 전달파라미터 - 현재 페이지에 보여지고 있는 날짜
+		String today = request.getParameter("today");
+		if(today != null && !"".equals(today) ) {
+			try {
+				date = sdformat.parse(today);
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+			cal.setTime(date);
+		}
+		
+		if(request.getParameter("dayStatus") == null) {
+			SimpleDateFormat sdformat2 = new SimpleDateFormat("yy");
+			SimpleDateFormat sdformat3 = new SimpleDateFormat("MM");
+			SimpleDateFormat sdformat4 = new SimpleDateFormat("dd");
+			String today2 = sdformat2.format(cal.getTime());
+			String today3 = sdformat3.format(cal.getTime());
+			String today4 = sdformat4.format(cal.getTime());
+			
+			System.out.println("yy : " + today2);
+			System.out.println("mm : " + today3);
+			System.out.println("dd : " + today4);
+		}else {
+			
+			int dayStatus = Integer.parseInt(request.getParameter("dayStatus"));
+			System.out.println("dayStatus : " + dayStatus);
+			switch(dayStatus) {
+			case 1 : cal.add(Calendar.DATE, +1);break;
+			case -1 : cal.add(Calendar.DATE, -1);break;
+			default : System.out.println("에러에러");break;
+			}
+			
+		}
+		today = sdformat.format(cal.getTime());
+		System.out.println("today : " + today);
 		
 		
 		//게시판은 1페이지부터 시작
@@ -137,12 +187,17 @@ public class SelectReservationDateListServlet extends HttpServlet {
 			request.setAttribute("cancelCount", cancelCount);
 			request.setAttribute("visitCount", visitCount);
 			request.setAttribute("asd", 2);
+			request.setAttribute("today", today);
 		}else {
 			page="views/common/errorPage.jsp";
 			request.setAttribute("msg", "조회 실패");
 		}
 		
 		request.getRequestDispatcher(page).forward(request, response);
+		
+		
+		
+		
 		
 		response.setContentType("application/json");
 		response.setCharacterEncoding("UTF-8");
