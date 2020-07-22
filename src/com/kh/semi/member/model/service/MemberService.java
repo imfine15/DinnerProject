@@ -51,4 +51,13 @@ public class MemberService {
 		return checkMember;
 	}
 
+	public int checkPassword(MemberVO requestMember) {
+		Connection con = getConnection();
+		int count = new MemberDao().checkPassword(con, requestMember);
+		
+		close(con);
+		
+		return count;
+	}
+
 }

@@ -154,5 +154,32 @@ public class MemberDao {
 		
 		return checkMember;
 	}
+
+	public int checkPassword(Connection con, MemberVO requestMember) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String query = prop.getProperty("checkPassword");
+		int count = 0;
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			
+			pstmt.setString(1, requestMember.getmId());
+			pstmt.setString(2, requestMember.getmPwd());
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				count = rset.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return count;
+	}
 	
 }
