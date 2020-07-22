@@ -44,13 +44,14 @@ public class SelectOneCourseServlet extends HttpServlet {
 		list2 = new BoardService().selectThumbnailList(boardNo);
 		
 		ArrayList<BoardUpVo> replyList = new BoardService().selectReplyList(boardNo);
-		
+		int replyListCount = new BoardService().getReplyListCount(boardNo);
 		String page = "";
 		if(list2 != null) {
 			page="views/reviews/courseReview.jsp";
 			session.setAttribute("list2", list2);
 			session.setAttribute("board", board);
 			request.setAttribute("replyList", replyList);
+			request.setAttribute("replyCount", replyListCount);
 		} else {
 			page="views/common/errorPage.jsp";
 			request.setAttribute("msg", "게시판 조회 실패!");
