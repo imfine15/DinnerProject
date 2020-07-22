@@ -66,6 +66,7 @@ public class SelectReservationDateListServlet extends HttpServlet {
 			cal.setTime(date);
 		}
 		
+		
 		if(request.getParameter("dayStatus") == null) {
 			SimpleDateFormat sdformat2 = new SimpleDateFormat("yy");
 			SimpleDateFormat sdformat3 = new SimpleDateFormat("MM");
