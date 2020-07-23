@@ -11,12 +11,6 @@
 	int maxPage = pi.getMaxPage();
 	int startPage = pi.getStartPage();
 	int endPage = pi.getEndPage();
-	ArrayList<BoardVO> viewSortBoardList = (ArrayList<BoardVO>) request.getAttribute("viewSortBoardList");
-	ArrayList<BoardVO> dateSortBoardList = (ArrayList<BoardVO>) request.getAttribute("dateSortBoardList");
-	ArrayList<BoardVO> likeSortBoardList = (ArrayList<BoardVO>) request.getAttribute("likeSortBoardList");
-	ArrayList<BoardVO> viewSortBoardEnpList = (ArrayList<BoardVO>) request.getAttribute("viewSortBoardEnpList");
-	ArrayList<BoardVO> dateSortBoardEnpList = (ArrayList<BoardVO>) request.getAttribute("dateSortBoardEnpList");
-	ArrayList<BoardVO> likeSortBoardEnpList = (ArrayList<BoardVO>) request.getAttribute("likeSortBoardEnpList");
 %>
 <!DOCTYPE html>
 <html>
@@ -253,12 +247,21 @@
 	<!-- 일정검색창시작 -->
 	<div id="schedule" align="center" style="display: none;">
 		<p id="text2" align="left">베스트 코스리뷰</p><br>
-		<% for(int i = 0; i < 1; i++) { %>
+		<% for(int i = 0; i < 2; i++) { %>
 		<div class="best" align="left">
-			<img src="<%= viewSortBoardList.get(i).getFilePaths()[0] %>" style="width: 450px; height: 200px;">
-			<p class="bestBig"><%= viewSortBoardList.get(i).getBoardTitle() %></p>
-			<p class="bestSmall"><%= viewSortBoardList.get(i).getHashTags() %></p>
+			<img src="" style="width: 450px; height: 200px;" id="bestImg<%= i %>">
+			<p class="bestBig" id="bestBig<%= i %>"></p>
+			<p class="bestSmall" id="bestSmall<%= i %>"></p>
 		</div>
+		<script>
+			$(function() {
+				url: "/semiproject/getBestCourseReview.se",
+				type: "post",
+				success: function(data) {
+					
+				}
+			});
+		</script>
 		<% } %>
 		<!-- 리뷰게시판시작 -->
 		<div class="inner2" align="center">
@@ -276,19 +279,16 @@
 					$("#btnArea1 button").click(function() {
 						var sort = $(this).html();
 						
-						<% ArrayList<BoardVO> courseBoardList = viewSortBoardList; %>
 						switch(sort) {
-							case '조회순' : <% courseBoardList = viewSortBoardList; courseReview(); %> break;
-							case '추천순' : <% courseBoardList = likeSortBoardList; courseReview(); %> break;
-							case '최신순' : <% courseBoardList = dateSortBoardList; courseReview(); %> break;
+							case '조회순' : break;
+							case '추천순' : break;
+							case '최신순' : break;
 						}
 					});
 				});
 			</script>
 			<hr>
 			<div class="textArea">
-			<%! public void courseReview() { %>
-			<% for(int i = 0; i < courseBoardList.size(); i++) { %>
 			<table style="border-bottom: 1px solid black;">
 				<tr>
 					<td rowspan="3" width="100px"><%= courseBoardList.get(i).getBoardNo() %></td>
@@ -326,8 +326,6 @@
 					});
 				});
 			</script>
-			<% } %>
-			<%! } %>
 			</div>
 		</div>
 		<!-- 리뷰게시판끝 -->

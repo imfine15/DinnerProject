@@ -14,12 +14,12 @@ public class BoardVO implements java.io.Serializable {
 	private String enpNo; // 업체번호
 	private int viewCount; // 조회수
 	private String hashTags; // 해시태그
+	private int likeCount; // 추천수
 	private String courseNo; // 코스게시글번호
 	private String[] filePaths; // 파일경로들
 	private String uploadNo; // 업로드내역번호
 	private String statusName; // 업로드상태
 	private Date uploadDate; // 업로드일자
-	private int likeCount; // 추천수
 	
 	public BoardVO() {}
 

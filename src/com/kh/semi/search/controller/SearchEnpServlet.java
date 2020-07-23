@@ -26,13 +26,6 @@ public class SearchEnpServlet extends HttpServlet {
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		List<BoardVO> viewSortBoardList = new BoardService().viewSortBoard();
-		List<BoardVO> dateSortBoardList = new BoardService().dateSortBoard();
-		List<BoardVO> likeSortBoardList = new BoardService().likeSortBoard();
-		List<BoardVO> viewSortBoardEnpList = new BoardService().viewSortEnpBoard();
-		List<BoardVO> dateSortBoardEnpList = new BoardService().dateSortEnpBoard();
-		List<BoardVO> likeSortBoardEnpList = new BoardService().likeSortEnpBoard();
-		
 		String search = request.getParameter("search");
 		
 		int currentPage; // 현재 페이지를 표시할 변수
@@ -81,12 +74,6 @@ public class SearchEnpServlet extends HttpServlet {
     		request.setAttribute("pi", pi);
     		request.setAttribute("enpMenus", enpMenus);
     		request.setAttribute("search", search);
-    		request.setAttribute("viewSortBoardList", viewSortBoardList);
-    		request.setAttribute("dateSortBoardList", dateSortBoardList);
-    		request.setAttribute("likeSortBoardList", likeSortBoardList);
-    		request.setAttribute("viewSortBoardEnpList", viewSortBoardEnpList);
-    		request.setAttribute("dateSortBoardEnpList", dateSortBoardEnpList);
-    		request.setAttribute("likeSortBoardEnpList", likeSortBoardEnpList);
     	} else {
     		page = "views/common/errorPage.jsp";
     		request.setAttribute("msg", "검색 실패");

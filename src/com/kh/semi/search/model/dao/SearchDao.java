@@ -16,6 +16,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
+import com.kh.semi.board.model.vo.BoardVO;
 import com.kh.semi.enterprise.model.vo.EnpVO;
 import com.kh.semi.search.model.vo.PageInfo;
 
@@ -373,6 +374,76 @@ public class SearchDao {
 		}
 		
 		return listCount;
+	}
+
+	public ArrayList<BoardVO> getBestCourse(Connection con) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String query = prop.getProperty("getBestCourse");
+		ArrayList<BoardVO> bestCourse = null;
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			
+			pstmt.setString(1, "코스");
+			
+			rset = pstmt.executeQuery();
+			
+			bestCourse = new ArrayList<>();
+			
+			for(int i = 0; i < 2; i++) {
+				rset.next();
+				
+				BoardVO b = new BoardVO();
+				
+				b.setBoardNo(rset.getString("BOARD_NO"));
+				b.setBoardTitle(rset.getString("BOARD_TITLE"));
+				b.setMemberNo(rset.getString("MEMBER_NO"));
+				b.setManagerNo(rset.getString("MANAGER_NO"));
+				b.setBoardKeyword(rset.getString("BOARD_KEYWORD"));
+				b.setBoardContent(rset.getString("BOARD_CONTENT"));;
+				b.setBoardCategory(rset.getString("BOARD_CATEGORY"));
+				b.setEnpNo(rset.getString("ENP_NO"));
+				b.setViewCount(rset.getInt("VIEW_COUNT"));
+				b.setHashTags(rset.getString("HASH_TAGS"));
+				b.setLikeCount(rset.getInt("LIKE_COUNT"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return bestCourse;
+	}
+
+	public ArrayList<BoardVO> getBestFile(Connection con, ArrayList<BoardVO> bestCourse) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String query = prop.getProperty("getBestFile");
+		ArrayList<BoardVO> bestDetail = null;
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			
+			for(int i = 0; i < 2; i++) {
+				pstmt.setString(1, bestCourse.get(i).getBoardNo());
+				
+				rset = pstmt.executeQuery();
+				
+				if(rset.next()) {
+					
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return bestDetail;
 	}
 
 }
