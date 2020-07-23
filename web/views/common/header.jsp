@@ -43,13 +43,12 @@ body {
 }
 .navbar navbar-inverse navbar-static-top {
 	width:100%;
-	margin:0 0 0 0 auto;
-	padding:0;
 }
 </style>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 <body>
+	<header>
 	<div class="navbar navbar-inverse navbar-static-top" 
 		style="background: white; border-color: pink;">
 		<div class="container2" style="background: white;">
@@ -69,6 +68,7 @@ body {
 			<input type="hidden" value="" name="url" id="url"> 
 		</div>
 	</div>
+	</header>
 	<script>
 		var pag = "<%= session.getAttribute("backPage")%>";
 		$("#dd").click(function(){
