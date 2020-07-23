@@ -1,16 +1,22 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="java.util.*, java.util.Map.*, com.kh.semi.enterprise.model.vo.*, com.kh.semi.board.model.vo.*" %>
+<%@ page import="com.kh.semi.search.model.vo.PageInfo, java.util.*, java.util.Map.*, com.kh.semi.enterprise.model.vo.*, com.kh.semi.board.model.vo.*" %>
 <%
-	ArrayList<EnpVO> enpList = (ArrayList<EnpVO>) session.getAttribute("enpList");
-	String search = (String) session.getAttribute("search");
-	List<HashMap<String, Integer>> enpMenus = (List<HashMap<String, Integer>>) session.getAttribute("enpMenus");
-	ArrayList<BoardVO> viewSortBoardList = (ArrayList<BoardVO>) session.getAttribute("viewSortBoardList");
-	ArrayList<BoardVO> dateSortBoardList = (ArrayList<BoardVO>) session.getAttribute("dateSortBoardList");
-	ArrayList<BoardVO> likeSortBoardList = (ArrayList<BoardVO>) session.getAttribute("likeSortBoardList");
-	ArrayList<BoardVO> viewSortBoardEnpList = (ArrayList<BoardVO>) session.getAttribute("viewSortBoardEnpList");
-	ArrayList<BoardVO> dateSortBoardEnpList = (ArrayList<BoardVO>) session.getAttribute("dateSortBoardEnpList");
-	ArrayList<BoardVO> likeSortBoardEnpList = (ArrayList<BoardVO>) session.getAttribute("likeSortBoardEnpList");
+	ArrayList<EnpVO> enpList = (ArrayList<EnpVO>) request.getAttribute("enpList");
+	String search = (String) request.getAttribute("search");
+	List<HashMap<String, Integer>> enpMenus = (List<HashMap<String, Integer>>) request.getAttribute("enpMenus");
+	PageInfo pi = (PageInfo)request.getAttribute("pi");
+	int listCount = pi.getListCount();
+	int currentPage = pi.getCurrentPage();
+	int maxPage = pi.getMaxPage();
+	int startPage = pi.getStartPage();
+	int endPage = pi.getEndPage();
+	ArrayList<BoardVO> viewSortBoardList = (ArrayList<BoardVO>) request.getAttribute("viewSortBoardList");
+	ArrayList<BoardVO> dateSortBoardList = (ArrayList<BoardVO>) request.getAttribute("dateSortBoardList");
+	ArrayList<BoardVO> likeSortBoardList = (ArrayList<BoardVO>) request.getAttribute("likeSortBoardList");
+	ArrayList<BoardVO> viewSortBoardEnpList = (ArrayList<BoardVO>) request.getAttribute("viewSortBoardEnpList");
+	ArrayList<BoardVO> dateSortBoardEnpList = (ArrayList<BoardVO>) request.getAttribute("dateSortBoardEnpList");
+	ArrayList<BoardVO> likeSortBoardEnpList = (ArrayList<BoardVO>) request.getAttribute("likeSortBoardEnpList");
 %>
 <!DOCTYPE html>
 <html>
@@ -38,21 +44,23 @@
             </button>
             <input onkeyup="if(event.keyCode === 13) { searchEnp(); }" id="search" name="search" type="search" style="height: 100%; width: 70%; border:0; background: white; font-size: 22px; margin-left: 10px; float:left;">
             <script>
-            var windowWidth = $( window ).width();
-			$("#mainWidth").width(windowWidth);
-		var windowHeight = $( window ).height();
-		$( window ).resize(function() {
-			windowWidth = $( window ).width();
-			if(windowWidth > 1420){
+	            var windowWidth = $( window ).width();
 				$("#mainWidth").width(windowWidth);
-			}else {
-				$("#mainWidth").width(1420);
-			}
-		});
+				
+				var windowHeight = $( window ).height();
+				$( window ).resize(function() {
+					windowWidth = $( window ).width();
+					if(windowWidth > 1420) {
+						$("#mainWidth").width(windowWidth);
+					} else {
+						$("#mainWidth").width(1420);
+					}
+				});
+				
             	function searchEnp() {
             		var search = $("#search").val();
             		
-            		location.href="<%= request.getContextPath() %>/searchEnp.se?search=" + search;
+            		location.href="<%= request.getContextPath() %>/searchEnp.se?search=" + search + "&currentPage=1";
             	}
             </script>
          </div>
@@ -211,6 +219,34 @@
 			    <hr width="250px">
 				</div>
 			</div>
+			<!-- 페이징처리버튼 -->
+			<div class="pagingArea" align="center">
+				<button onclick="location.href='<%= request.getContextPath() %>/searchEnp.se?search=<%= search %>&currentPage=1'"><<</button>
+				<% if(currentPage <= 1) { %>
+					<button disabled><</button>
+				<% } else { %>
+					<button onclick="location.href='<%= request.getContextPath() %>/searchEnp.se?search=<%= search %>&currentPage=<%= currentPage - 1%>'"><</button>
+				<% } %>
+				
+				<% for(int p = startPage; p <= endPage; p++) { 
+						if(p == currentPage) {
+				%>
+							<button disabled><%= p %></button>
+				<% 		} else { %>
+							<button onclick="location.href='<%= request.getContextPath() %>/searchEnp.se?search=<%= search %>&currentPage=<%= p %>'"><%= p %></button>
+				<%
+						}
+					}
+				%>
+				
+				<% if(currentPage >= maxPage) { %>
+					<button disabled>></button>
+				<% } else { %>
+					<button onclick="location.href='<%= request.getContextPath() %>/searchEnp.se?search=<%= search %>&currentPage=<%= currentPage + 1 %>'">></button>
+				<% } %>
+				<button onclick="location.href='<%= request.getContextPath() %>/searchEnp.se?search=<%= search %>&currentPage=<%= maxPage %>'">>></button>
+			</div>
+			<!-- 페이징 처리버튼 끝 -->
 		</aside>
 		</div>
 		<!-- 맛집끝 -->
@@ -367,8 +403,8 @@
 			</div>
 		</div>
 		<!-- 페이징처리해야할부분 -->
-	</div><!-- 일정끝 -->
-		
+	</div>
+	<!-- 일정끝 -->
 	</div>
 	<%@include file="/views/common/footer.jsp" %>
 		<script>

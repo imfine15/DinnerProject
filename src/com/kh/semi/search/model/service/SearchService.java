@@ -11,18 +11,19 @@ import java.util.Map;
 
 import com.kh.semi.enterprise.model.vo.EnpVO;
 import com.kh.semi.search.model.dao.SearchDao;
+import com.kh.semi.search.model.vo.PageInfo;
 
 public class SearchService {
-	public ArrayList<EnpVO> searchEnp(String search) {
-		Connection con = getConnection();
-		ArrayList<EnpVO> enpList = new SearchDao().searchEnp(con, search);
-		
-		ArrayList<EnpVO> enpListWithRating = new SearchDao().getRating(con, enpList);
-		
-		close(con);
-		
-		return enpListWithRating;
-	}
+//	public ArrayList<EnpVO> searchEnp(String search) {
+//		Connection con = getConnection();
+//		ArrayList<EnpVO> enpList = new SearchDao().searchEnp(con, search);
+//		
+//		ArrayList<EnpVO> enpListWithRating = new SearchDao().getRating(con, enpList);
+//		
+//		close(con);
+//		
+//		return enpListWithRating;
+//	}
 
 	public List<HashMap<String, Integer>> getMenus(List<EnpVO> enpList) {
 		Connection con = getConnection();
@@ -49,6 +50,26 @@ public class SearchService {
 		close(con);
 		
 		return menus;
+	}
+
+	public ArrayList<EnpVO> searchEnp(PageInfo pi, String search) {
+		Connection con = getConnection();
+		
+		ArrayList<EnpVO> enpList = new SearchDao().searchEnp(con, pi, search);
+		ArrayList<EnpVO> enpListWithRating = new SearchDao().getRating(con, enpList);
+		
+		close(con);
+		
+		return enpListWithRating;
+	}
+
+	public int getEnpCount(String search) {
+		Connection con = getConnection();
+		int listCount = new SearchDao().getEnpCount(con, search);
+		
+		close(con);
+		
+		return listCount;
 	}
 
 }

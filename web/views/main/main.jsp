@@ -26,7 +26,7 @@
 </head>
 
    <%@include file="/views/common/header.jsp"%>
-<body id="mainWidth" style="width: 1420px; margin-left: auto; margin-right: auto;">
+<body id="mainWidth" style="width: 1400px; margin-left: auto; margin-right: auto;">
    <div>
       <!-- banner -->
       <div class="banner" style="padding-top: -1px; margin-top: -300px; height: 500px; position: relative;">
@@ -42,22 +42,22 @@
                 <img src="/semiproject/images/searchicon.png">
             </button>
             <script>
-
-    		var windowWidth = $( window ).width();
-    			$("#mainWidth").width(windowWidth);
-    		var windowHeight = $( window ).height();
-    		$( window ).resize(function() {
-    			windowWidth = $( window ).width();
-    			if(windowWidth > 1420){
-    				$("#mainWidth").width(windowWidth);
-    			}else {
-    				$("#mainWidth").width(1420);
-    			}
-    		});
+	    		var windowWidth = $( window ).width();
+	    			$("#mainWidth").width(windowWidth);
+	    		var windowHeight = $( window ).height();
+	    		$( window ).resize(function() {
+	    			windowWidth = $( window ).width();
+	    			if(windowWidth > 1400) {
+	    				$("#mainWidth").width(windowWidth);
+	    			} else {
+	    				$("#mainWidth").width(1400);
+	    			}
+	    		});
+	    		
             	function searchEnp() {
             		var search = $("#search").val();
             		
-            		location.href="<%= request.getContextPath() %>/searchEnp.se?search=" + search;
+            		location.href="<%= request.getContextPath() %>/searchEnp.se?search=" + search + "&currentPage=1";
             	}
             </script>
          </div>
@@ -361,9 +361,11 @@
 	  for (i = 0; i < slides.length; i++) {
 	      slides[i].style.display = "none";  
 	  }
+	  
 	  for (i = 0; i < dots.length; i++) {
 	      dots[i].className = dots[i].className.replace("active", "");
 	  }
+	  
 	  slides[slideIndex-1].style.display = "block";  
 	  dots[slideIndex-1].className += " active";
 	}
