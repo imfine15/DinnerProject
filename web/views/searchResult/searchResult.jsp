@@ -66,9 +66,9 @@
          </div>
 		<div class="toptext">
 		<% if(!search.equals("")) { %>
-		<p id="text1"><%= search %> 검색 결과</p>
+		<p id="text1"><%= search %> 검색 결과 - <%= currentPage %>페이지</p>
 		<% } else { %>
-		<p id="text1">모든 검색 결과</p>
+		<p id="text1">모든 검색 결과 - <%= currentPage %>페이지</p>
 		<% } %>
 		</div>
 		<div class="topbtn" align="right">
@@ -155,7 +155,7 @@
 					$("#keywordArea button").click(function() {
 						var searchWord = "<%= search %>";
 						var keyword = $(this).html();
-						location.href="<%= request.getContextPath() %>/searchKeyWord.se?search=" + searchWord + "&keyword=" + keyword;
+						location.href="<%= request.getContextPath() %>/searchKeyWord.se?search=" + searchWord + "&keyword=" + keyword + "&currentPage=1";
 					});
 				</script>
 				<!-- 배너광고 -->
