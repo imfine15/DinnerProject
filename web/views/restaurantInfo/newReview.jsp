@@ -12,6 +12,7 @@
 		width:35px;
 		height:35px;
 	}
+	
 	.starBox{
 		vertical-align: bottom;
 	}
