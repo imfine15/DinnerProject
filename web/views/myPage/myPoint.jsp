@@ -150,11 +150,18 @@ ul li a span:hover{
 						<label style="margin-left: 80px;"class="text">용도</label>
 						<label style="margin-left: 100px;"class="text">내용</label>
 					</div>
-					<table style="border-bottom: 1px solid pink" id="listArea" style="width: 500px;">
-						<tbody style="width: 600px;">
+					
+					<table style="border-bottom: 1px solid pink; border-spacing: 0 10px;" id="listArea">
+						<tbody>
 						
 						</tbody>
-					</table>
+					</table><div align="center">
+						<button id="left1" class="pclick" type="button" value="1"><</button>
+							<div id="bus" style="display: inline;">
+				
+							</div>
+						<button id="right1" class="pclick" type="button" value="3">></button>
+						</div>
 				</div>
 
 				<!--// mArticle -->
@@ -203,7 +210,17 @@ ul li a span:hover{
 
 		<div id="wrapMinidaum"></div>
 	</div>
+	<script src="moment.js"></script>
 	<script>
+	function getFormatDate(date){
+	    var year = date.getFullYear();              //yyyy
+	    var month = (1 + date.getMonth());          //M
+	    month = month >= 10 ? month : '0' + month;  //month 두자리로 저장
+	    var day = date.getDate();                   //d
+	    day = day >= 10 ? day : '0' + day;          //day 두자리로 저장
+	    return  year + '-' + month + '-' + day;       //'-' 추가하여 yyyy-mm-dd 형태 생성 가능
+	}
+	
 		$.ajax({
 			url: "/semiproject/selectPointList.py",
 			type: "post",
@@ -213,35 +230,200 @@ ul li a span:hover{
 			},
 			success: function(data){
 				
-				console.log(data);
-				console.log(data[0]);
-				console.log(data[1]);
-				console.log(Math.abs(data[0][0].pAmount));
-				var listArea = $("#listArea > tbody");
+				var listArea = $("#listArea");
 				
 				
-				for(var key = 1; key < data[0].length; key ++){
+				for(var key = 1; key <= data[0].length; key ++){
 				var tr = $("<tr>");
 				var div = $("<div>").css({"width":"72px", "margin-left":"40px"});
-				var ctd = $("<td>").text(key).attr({
+				var ctd = $("<td>").attr({
 							"class":"text2"
 						});
+				var label = $("<label>").text(key);
+				
+				div.append(label);
+				ctd.append(div);
+				
 				var div2 = $("<div>").css({"width":"72px", "margin-left":"40px"});
-				var ctd2 = $("<td>").text(Math.abs(data[0][key].pAmount)).attr({
-					"class":"text2"
-				});
+				var ctd2 = $("<td>").attr({
+							"class":"text2"
+						});
+				var label2 = $("<label>").text(Math.abs(data[0][key-1].pAmount));
 				
-				div.append(ctd);
-				div2.append(ctd2);
+				div2.append(label2);
+				ctd2.append(div2);
 				
+				var div3 = $("<div>").css({"width":"80px", "margin-left":"40px"});
+				var ctd3 = $("<td>").attr({
+							"class":"text2"
+						});
+				var d = new Date(data[0][key - 1].pointDate);
+				var label3 = $("<label>").text(getFormatDate(d));
 				
-				tr.append(div);
-				tr.append(div2);
-				listArea.append(tr);
+				div3.append(label3);
+				ctd3.append(div3);
+				
+				var div4 = $("<div>").css({"width":"72px", "margin-left":"40px"});
+				var ctd4 = $("<td>").attr({
+							"class":"text2"
+						});
+				var label4 = $("<label>").text(data[0][key-1].saveStatue);
+				
+				div4.append(label4);
+				ctd4.append(div4);
+				
+				var div5 = $("<div>").css({"width":"190px", "margin-left":"40px"});
+				var ctd5 = $("<td>").attr({
+							"class":"text2"
+						});
+				var label5 = "3";
+				if(data[0][key-1].saveStatue == '사용'){
+					label5 = $("<label>").text("예약 서비스에 대한 "+data[0][key-1].saveStatue);
+				} else {
+					if(data[0][key-1].saveCode == 'ST1'){
+						label5 = $("<label>").text("리뷰 서비스에 대한 적립"); //리뷰
+					} else if(data[0][key-1].saveCode == 'ST2'){
+						label5 = $("<label>").text("예약 서비스에 대한 적립"); //예약
+					} else {
+						label5 = $("<label>").text("게시글서비스에 대한 적립"); //게시글
+					}
 				}
 				
+				div5.append(label5);
+				ctd5.append(div5);
+				
+				var br = $("<br>");
+				tr.append(ctd);
+				tr.append(ctd2);
+				tr.append(ctd3);
+				tr.append(ctd4);
+				tr.append(ctd5);
+				listArea.append(tr);
+				listArea.append(br);
+				}
+				for(var key = 0; key < data[1].endPage; key ++){
+					var $replydiv = $("#bus");
+	                
+	                var $numBtn = $("<button>").text(key + 1).attr({
+	                                                       class:"pclick",
+	                                                       type: "button",
+	                                                       value: key + 1
+	                                                       });
+	                $replydiv.append($numBtn);
+				}
 			}
 			
 		});
+		var current = 1;
+		
+		$(document).on("click", ".pclick", function(){
+			
+			$.ajax({
+				url: "/semiproject/selectPointList.py",
+				type: "post",
+				data: {
+					mNo: "<%=loginUser.getmNo()%>",
+					curval: this.value*1
+				},
+				success: function(data){
+					
+					console.log(data[0][0].saveStatus);
+					console.log(data[0][0].pointDate);
+					console.log(data);
+					console.log(data[0]);
+					console.log(data[1]);
+					console.log(Math.abs(data[0][0].pAmount));
+					var listArea = $("#listArea tbody");
+					listArea.html('');
+					
+					for(var key = 1; key <= data[0].length; key ++){
+					var tr = $("<tr>");
+					var div = $("<div>").css({"width":"72px", "margin-left":"40px"});
+					var ctd = $("<td>").attr({
+								"class":"text2"
+							});
+					var label = $("<label>").text(key);
+					
+					div.append(label);
+					ctd.append(div);
+					
+					var div2 = $("<div>").css({"width":"72px", "margin-left":"40px"});
+					var ctd2 = $("<td>").attr({
+								"class":"text2"
+							});
+					var label2 = $("<label>").text(Math.abs(data[0][key-1].pAmount));
+					
+					div2.append(label2);
+					ctd2.append(div2);
+					
+					var div3 = $("<div>").css({"width":"80px", "margin-left":"40px"});
+					var ctd3 = $("<td>").attr({
+								"class":"text2"
+							});
+					var d = new Date(data[0][key - 1].pointDate);
+					var label3 = $("<label>").text(getFormatDate(d));
+					
+					div3.append(label3);
+					ctd3.append(div3);
+					
+					var div4 = $("<div>").css({"width":"72px", "margin-left":"40px"});
+					var ctd4 = $("<td>").attr({
+								"class":"text2"
+							});
+					var label4 = $("<label>").text(data[0][key-1].saveStatue);
+					
+					div4.append(label4);
+					ctd4.append(div4);
+					
+					var div5 = $("<div>").css({"width":"190px", "margin-left":"40px"});
+					var ctd5 = $("<td>").attr({
+								"class":"text2"
+							});
+					var label5 = "3";
+					if(data[0][key-1].saveStatue == '사용'){
+						label5 = $("<label>").text("예약 서비스에 대한 "+data[0][key-1].saveStatue);
+					} else {
+						if(data[0][key-1].saveCode == 'ST1'){
+							label5 = $("<label>").text("리뷰 서비스에 대한 적립"); //리뷰
+						} else if(data[0][key-1].saveCode == 'ST2'){
+							label5 = $("<label>").text("예약 서비스에 대한 적립"); //예약
+						} else {
+							label5 = $("<label>").text("게시글서비스에 대한 적립"); //게시글
+						}
+					}
+					
+					div5.append(label5);
+					ctd5.append(div5);
+					
+					var br = $("<br>");
+					tr.append(ctd);
+					tr.append(ctd2);
+					tr.append(ctd3);
+					tr.append(ctd4);
+					tr.append(ctd5);
+					listArea.append(tr);
+					}
+					$("#bus button").remove();
+					var $replydiv = $("#bus");
+	                
+				for(var key = data[1].startPage; key <= data[1].endPage; key ++){
+					var $numBtn = $("<button>")
+	                  $numBtn.text(key)
+	                  $numBtn.attr({type: "button",
+	                           value: key
+	                           });
+	                  $numBtn.addClass("pclick");
+	                $replydiv.append($numBtn);
+				}
+				$("#left1").val(current - 1);
+				if($("#left1").val() < 1) $("#left1").val(1);
+				
+				$("#right1").val(current + 1);
+				if($("#right1").val() > data[1].maxPage) $("#right1").val(data[1].maxPage);
+				}
+				
+			});
+			
+		})
 	</script>
 </body>
