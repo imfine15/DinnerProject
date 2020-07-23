@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8" import="java.util.*, com.kh.semi.payment.model.vo.*"%>
+	
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -148,37 +150,12 @@ ul li a span:hover{
 						<label style="margin-left: 80px;"class="text">용도</label>
 						<label style="margin-left: 100px;"class="text">내용</label>
 					</div>
-					<table style="border-bottom: 1px solid pink" id="listArea">
-						<tr>
-							<td><div style="width:72px; margin-left:40px;"><label class="text2">3</label></div></td>
-							<td><div style="width:60px; margin-left:40px;"><label class="text2">300</label></div></td>
-							<td><div style="width:100px; margin-left:40px;"><label class="text2">2020-05-11</label></div></td>
-							<td><div style="width:40px; margin-left:35px;"><label class="text2">지급</label></div></td>
-							<td><div style="width:230px; margin-left:30px;"><label class="text2">예약서비스 이용에 대한 지급</label></div></td>
-						</tr>
-						<tr>
-							<td><div style="width:72px; margin-left:40px;"><label class="text2">2</label></div></td>
-							<td><div style="width:60px; margin-left:40px;"><label class="text2">200</label></div></td>
-							<td><div style="width:100px; margin-left:40px;"><label class="text2">2020-05-11</label></div></td>
-							<td><div style="width:40px; margin-left:35px;"><label class="text2">사용</label></div></td>
-							<td><div style="width:230px; margin-left:30px;"><label class="text2">예약서비스 이용에 대한 사용</label></div></td>
-						</tr>
-						<tr>
-							<td><div style="width:72px; margin-left:40px;"><label class="text2">1</label></div></td>
-							<td><div style="width:60px; margin-left:40px;"><label class="text2">300</label></div></td>
-							<td><div style="width:100px; margin-left:40px;"><label class="text2">2020-05-11</label></div></td>
-							<td><div style="width:40px; margin-left:35px;"><label class="text2">지급</label></div></td>
-							<td><div style="width:230px; margin-left:30px;"><label class="text2">예약서비스 이용에 대한 지급</label></div></td>
-						</tr>
+					<table style="border-bottom: 1px solid pink" id="listArea" style="width: 500px;">
+						<tbody style="width: 600px;">
+						
+						</tbody>
 					</table>
-
 				</div>
-
-
-
-
-
-
 
 				<!--// mArticle -->
 				<div id="mAside">
@@ -226,5 +203,45 @@ ul li a span:hover{
 
 		<div id="wrapMinidaum"></div>
 	</div>
-
+	<script>
+		$.ajax({
+			url: "/semiproject/selectPointList.py",
+			type: "post",
+			data: {
+				mNo: "<%=loginUser.getmNo()%>",
+				curval: 1
+			},
+			success: function(data){
+				
+				console.log(data);
+				console.log(data[0]);
+				console.log(data[1]);
+				console.log(Math.abs(data[0][0].pAmount));
+				var listArea = $("#listArea > tbody");
+				
+				
+				for(var key = 1; key < data[0].length; key ++){
+				var tr = $("<tr>");
+				var div = $("<div>").css({"width":"72px", "margin-left":"40px"});
+				var ctd = $("<td>").text(key).attr({
+							"class":"text2"
+						});
+				var div2 = $("<div>").css({"width":"72px", "margin-left":"40px"});
+				var ctd2 = $("<td>").text(Math.abs(data[0][key].pAmount)).attr({
+					"class":"text2"
+				});
+				
+				div.append(ctd);
+				div2.append(ctd2);
+				
+				
+				tr.append(div);
+				tr.append(div2);
+				listArea.append(tr);
+				}
+				
+			}
+			
+		});
+	</script>
 </body>
