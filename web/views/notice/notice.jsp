@@ -22,11 +22,11 @@
 }
 
 .outer {
-	width: 100%;
+	width: 1100px;
 	height: 90%;
-	margin-left: auto;
-	margin-right: auto;
-	margin-top: 50px;
+	margin:150px;
+	
+	overflow:hidden;
 }
 
 .toggle {
@@ -63,6 +63,8 @@ a {
 #name {
 	color: #DE7270;
 	font-size: 36px;
+	text-align:left;
+	margin-left:
 }
 
 input {
@@ -100,9 +102,7 @@ button {
 }
 
 #date {
-	float: left;
-	margin-top: 10px;
-	margin-left: 50px;
+
 }
 </style>
 <title>YUMEET</title>
@@ -112,33 +112,21 @@ button {
 <body>
 	<%@ include file="/views/common/header.jsp" %>
 
-	<div class="outer" align="center">
+	<div class="outer">
 	<p id="name">공지사항</p>
 		
 	<br><br><br>
-	<div id="noticeList">
+	<div id="noticeList" style="width:100%;">
 		<dl>
 		<% 
 		for (NoticeVO n : list) {
 		%>
-		    <dt><%=n.getNoticeTitle() %><div><img src="/semiproject/images/toggle.png" class="toggle">
-		    	<br><a id="date"><%=n.getNoticeDate() %></a></div></dt>
+		    <dt><%=n.getNoticeTitle() %><span><img src="/semiproject/images/toggle.png" class="toggle">
+		    	<br><a id="date"><%=n.getNoticeDate() %></a></span></dt>
 		    <dd><%=n.getNoticeContent() %></dd>
 		<% } %>
 		</dl>
 		</div>
-		<!-- search area start -->
-		<div style="height:30px;"></div>
-		<div class="searchArea" align="center">
-			<select id="searchCondition" name="searchCondition">
-				<option value="writer">작성자</option>
-				<option value="title">제목</option>
-				<option value="content">내용</option>
-			</select>
-			<input type="search">
-			<button type="submit">검색하기</button>
-		</div>
-		<!-- search area end -->
 		<div style="height:100px;"></div>
 	</div>
 	
