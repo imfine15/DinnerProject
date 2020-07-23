@@ -25,13 +25,13 @@
 <title>YUMEET</title>
 </head>
 
-   <%@include file="/views/common/header.jsp"%>
 <body id="mainWidth" onload="showImage()" style="width:1380px; margin:0; padding:0; oveflow-x:hidden !important;">
+   <%@include file="/views/common/header.jsp"%>
    <div>
       <!-- banner -->
       <div class="banner" style="padding-top: -1px; margin-top: -300px; height: 500px; position: relative; oveflow-x:hidden;">
          <div>
-            <img id="introImg" style="width:100%;  oveflow-x:hidden; height: 600px;">
+            <img id="introImg" style="width:100%; oveflow:hidden; height: 600px;">
          </div>
          <div class="container" style="background: white; height: 60px; width: 600px; padding: 1px; margin-bottom: -100px; position: absolute; top: 120%; left: 38%; border-radius: 10px; font-size: 22px; margin-left: -50px;">
             <button style="height: 100%; background: white; float: left; margin-left: 5px; border: 0px white;">
@@ -397,6 +397,7 @@
         imgArray[7]="/semiproject/images/mainImages/main8.png";    
         imgArray[8]="/semiproject/images/mainImages/main9.png";    
         imgArray[9]="/semiproject/images/mainImages/main10.png";    
+        imgArray[10]="/semiproject/images/main10.png";    
                
         function showImage()
         {
