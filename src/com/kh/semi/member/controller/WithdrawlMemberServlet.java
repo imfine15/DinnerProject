@@ -26,10 +26,12 @@ public class WithdrawlMemberServlet extends HttpServlet {
 		requestMember.setmId(id);
 		requestMember.setmPwd(pwd);
 		
-		int result = new MemberService().withdrawlMember(requestMember);
+		int result1 = new MemberService().withdrawalMember(requestMember); // 회원 테이블 
+		int result2 = new MemberService().withdrawalHistory(requestMember); // 탈퇴내역 테이블
+		int result = result1 + result2;
 		
 		String page = "";
-		if(result > 0) {
+		if(result > 1) {
 			page = "views/main/main.jsp";
 			request.getSession().setAttribute("loginUser", null);
 			response.sendRedirect(page);
