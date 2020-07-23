@@ -348,4 +348,31 @@ public class SearchDao {
 		return listCount;
 	}
 
+	public int getEnpCount(Connection con, String[] words) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int listCount = 0;
+		String query = prop.getProperty("getEnpKeywordCount");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			
+			pstmt.setString(1, words[0]);
+			pstmt.setString(2, words[1]);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				listCount = rset.getInt(1);
+			}
+		} catch (SQLException e) {
+ 			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return listCount;
+	}
+
 }

@@ -72,4 +72,13 @@ public class SearchService {
 		return listCount;
 	}
 
+	public int getEnpCount(String[] words) {
+		Connection con = getConnection();
+		int listCount = new SearchDao().getEnpCount(con, words);
+		
+		close(con);
+		
+		return listCount;
+	}
+
 }
