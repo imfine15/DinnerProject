@@ -26,8 +26,6 @@
 	</form>
 	<hr class="hr">
 	<div id="find">
-		<a id="findId" href="http://www.naver.com">아이디 찾기</a> | 
-		<a id="findPassword">비밀번호 찾기</a> | 
 		<a id="signUp" href="/semiproject/views/enterprise/signUp/signUp.jsp">회원 가입</a>
 	</div>
 	<br><br>
