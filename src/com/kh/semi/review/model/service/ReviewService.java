@@ -4,9 +4,11 @@ import static com.kh.semi.common.JDBCTemplate.close;
 import static com.kh.semi.common.JDBCTemplate.getConnection;
 
 import java.sql.Connection;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.kh.semi.review.model.dao.ReviewDao;
+import com.kh.semi.review.model.vo.ReviewAttachment;
 import com.kh.semi.review.model.vo.ReviewVO;
 
 public class ReviewService {
@@ -46,5 +48,18 @@ public class ReviewService {
 		close(con);
 		
 		return normalReviewsWithFiles;
+	}
+
+	public int insertReview(ReviewVO review, ArrayList<ReviewAttachment> fileList) {
+		Connection con = getConnection();
+		int result = 0;
+		int result1 = 0;
+		int result2 = 0;
+		
+		//result1 = new ReviewDao().insertReview(con, review);
+		
+		
+		
+		return result;
 	}
 }
