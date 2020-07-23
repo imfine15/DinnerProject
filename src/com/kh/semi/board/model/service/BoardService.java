@@ -324,17 +324,19 @@ public class BoardService {
 			int result1 = 0;
 			int result2 = 0;
 			result1 = new BoardDao().updateBoard(con, board);
+			System.out.println("boardNo : " +board.getBoardNo());
 			if(result1 > 0) {
-				String boardNo = board.getBoardNo();
+				String[] fileNo= new String[fileList.size()];
+				fileNo = new BoardDao().selectFileCurrval(con, fileNo, board);
 				
 				for(int i = 0; i < fileList.size(); i++) {
-					fileList.get(i).setBoardNo(boardNo);
-					
+					fileList.get(i).setFileNo(fileNo[i]);
+					System.out.println("fileNo : " + fileNo[i]);
 					result2 += new BoardDao().updateAttachment(con, fileList.get(i));
 				}
 			}
 			
-			
+			System.out.println("result1 : " + result1 + "result2 : " +result2);
 			
 			if(result1 > 0 && result2 > 0) {
 				commit(con);

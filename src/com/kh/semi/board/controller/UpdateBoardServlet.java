@@ -1,5 +1,6 @@
 package com.kh.semi.board.controller;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Enumeration;
@@ -83,6 +84,7 @@ public class UpdateBoardServlet extends HttpServlet {
 		
 		for(int i = 0; i <count;i++) {
 			System.out.println("originName : " + originNameArr[i]);
+			System.out.println("changeNameArr : " + changeNameArr[i]);
 			if(count-1 == i) {
 				boardContent += content[i];
 			} else {
@@ -99,12 +101,14 @@ public class UpdateBoardServlet extends HttpServlet {
 		board.setBoardContent(boardContent);
 		
 		
-		
+		System.out.println("boardNo : "+boardNo);
 		
 		ArrayList<BoardUpVo> fileList = new ArrayList<>();
-		BoardUpVo bf = new BoardUpVo();
-		 for(int i = 0; i <count;i++) {
-	            
+		BoardUpVo bf = null ;
+		for(int i = 0; i <count;i++) {
+			 bf = new BoardUpVo();
+	            System.out.println("originName : " + originNameArr[i]);
+	            System.out.println("changeNameArr : " + changeNameArr[i]);
         	 bf.setFilePath(filePath);
         	 bf.setOriginName(originNameArr[i]);
         	 bf.setChangeName(changeNameArr[i]);
@@ -119,7 +123,7 @@ public class UpdateBoardServlet extends HttpServlet {
          fileList = new ArrayList<>();
         
          for(int i = 0; i <count;i++) {
-	            
+        	 bf = new BoardUpVo();   
         	 bf.setFilePath(filePath);
         	 bf.setOriginName(originNameArr[i]);
         	 bf.setChangeName(changeNameArr[i]);
@@ -127,6 +131,17 @@ public class UpdateBoardServlet extends HttpServlet {
             fileList.add(bf);
          }
          
+         String page = "";
+         if(result > 0) {
+        	 if(fileList != null) {
+        		 page="/semiproject/selectOneBoard.up?no="+boardNo+"";
+        	 }
+         } else {
+        	 
+              page = "views/common/errorPage.jsp";
+              request.setAttribute("msg", "사진 게시판 등록 실패");
+         }
+         response.sendRedirect(page);
 		
 		
 		
