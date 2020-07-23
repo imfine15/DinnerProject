@@ -22,7 +22,7 @@ public class FoundAllBoardServlet extends HttpServlet {
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		List<BoardVO> boardList = new BoardService().viewSortBoard();
+		List<BoardVO> boardList = new BoardService().getAllBoard();
 		
 		response.setContentType("application/json");
 		response.setCharacterEncoding("UTF-8");

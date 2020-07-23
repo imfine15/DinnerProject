@@ -342,3 +342,10 @@
 		color:white;
 		font-size:25px;
 	}
+	
+	#pagingGo, #pagingGoEnp {
+		color:white;
+		border:0;
+		background-color:#EB7673;
+		margin:1px;
+	}
