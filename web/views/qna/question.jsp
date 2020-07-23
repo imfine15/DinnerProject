@@ -334,11 +334,6 @@ tr {
 		</div>
 	</div>
 	<div style="height: 200px;"></div>
-		<% } else {  %>
-		request.setAttribute("msg", "잘못된 경로로 접근하셨습니다.");
-		request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
-		<% } %> 
-	
 	<script>
 
 	
@@ -432,8 +427,14 @@ $("input[type=radio]").click(function(){
     }
 
 });
-
 </script>
+	<%} else { %>
+	<script>
+		alert("로그인 후 이용하시길 바랍니다.");
+		document.location.href="/semiproject/views/signIn/signIn.jsp";
+	</script>
+	
+	<% } %>
 	<%@ include file="/views/common/footer.jsp"%>
 </body>
 </html>
