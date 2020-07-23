@@ -9,7 +9,6 @@
 		System.out.println(blist);
 		System.out.println(request.getContextPath() + "/ma");
 		response.sendRedirect(request.getContextPath() + "/ma");
-		
 	}
 %>
 
@@ -17,9 +16,9 @@
 <html>
 <head>
 <script>
-			var b = <%=blist%>;
+			var b = <%= blist %>;
 			console.log(b);
-			if(b==null){
+			if(b == null){
 				location.href="/semiproject/ma";
 			}
 </script>
@@ -41,7 +40,7 @@
 <title>YUMEET</title>
 </head>
 
-<body id="mainWidth" onload="showImage()" style="width:1380px; margin:0; padding:0; oveflow-x:hidden !important;">
+<body id="mainWidth" onload="showImage();" style="width:1380px; margin:0; padding:0; oveflow-x:hidden !important;">
    <%@include file="/views/common/header.jsp"%>
    <div>
       <!-- banner -->
@@ -85,12 +84,12 @@
          <div class="container" style="border: 0px white; width: 100%; box-shadow: 0px;">
             <h2 style="color: #D5706D; margin-left: 50px">오늘의 메뉴</h2>
             <div class="row" style="margin-top: 0px;">
-               <%for(int i = 4; i < 8; i ++) {%>
+               <%for(int i = 4; i < 7; i ++) {%>
                <div class="col-md-3">
                   <!-- work item -->
                   <div class="work-item">
                      <!-- work details image -->
-                     <img class="img-responsive" src="<%=request.getContextPath()%>/thumbnail_uploadFile/<%=blist.get(i).getChangeName() %>" style="width: 100%; height: 171px;" />
+                     <img class="img-responsive" src="<%=request.getContextPath()%>/thumbnail_uploadFile/<%= blist.get(i).getChangeName() %>" style="width: 100%; height: 171px;" />
                      <!-- heading -->
                      <h3>
                         <a href="location.href='<%= request.getContextPath() %>/selectEnp.en?enpNo=' + ENP1" style="color: black; font-weight: 600;"><%=blist.get(i).getBoardTitle() %></a>
