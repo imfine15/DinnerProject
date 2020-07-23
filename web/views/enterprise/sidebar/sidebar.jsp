@@ -78,9 +78,7 @@
 				<li>
 					<a href="<%=request.getContextPath()%>/selectSDList.en?enpId=<%=loginEnp.getEnpNo()%>">결제 내역</a>
 				</li>
-				<li>
-					<a href="/semiproject/views/enterprise/settlementDetails/settlementDetails.jsp?asd=6">제재내역</a>
-				</li>
+				
 				<li>
 					<a href="/semiproject/views/enterprise/report/report.jsp?asd=7">보고서</a>
 				</li>

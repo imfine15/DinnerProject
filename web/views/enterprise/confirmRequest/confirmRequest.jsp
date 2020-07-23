@@ -154,6 +154,7 @@ System.out.println("modalListsize : " + modalList.size());
                   <td><button class="reservateBtn">확인</button> <button class="cancelBtn" style="background-color: gray;">취소</button></td>
                  
                </tr> -->
+               
                <% for(int i = 0; i < list.size(); i++){
             		System.out.print("LIST SIZE : " + list.size());
                %>
@@ -167,14 +168,14 @@ System.out.println("modalListsize : " + modalList.size());
 						<td><%= b.getbCount() %></td>
 						<td><%= b.getbDate() %></td> --%>
 						<td><button  style="background:#EB7673; width:17px; height:17px; border:0;"></button></td>
-                  		<td><a href=""><%=list.get(i).getrNo() %></a></td>
+                  		<td><a href="" id="rNo<%=i%>"><%=list.get(i).getrNo() %></a></td>
 		                <td><a href=""><%=list.get(i).getmNo() %></a></td>
 		                <td><%=list.get(i).getrDate3() %></td>
 		                <td><%=list.get(i).getPeople() %></td>
 		                <td><%=list.get(i).getrDate2() %></td>
 		                <td><button class="moreInfoBtn">확인</button></td>
 		                <td><button class="userInfoBtn" id="userInfoBtn<%=i%>">확인</button></td>
-		                <td><button class="reservateBtn">확인</button> <button class="cancelBtn" style="background-color: gray;">취소</button></td>
+		                <td><button class="reservateBtn" id="reservateBtn<%=i%>">확인</button> <button class="cancelBtn" id="cancelBtn<%=i %>" style="background-color: gray;">취소</button></td>
 					</tr>
 				<% } %>
             </tbody>
@@ -225,7 +226,8 @@ System.out.println("modalListsize : " + modalList.size());
  	<br>	
 	<br>	
 	
-		         		<% for(int j = 0 ; j < modalList.size(); j++){%>
+		<%if(modalList != null){%>
+		         		 <% for(int j = 0 ; j < list.size(); j++){%>
 	<div class="modal fade" id="testModal<%=j %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 		<div class="modal-dialog" role="document">
 			<div class="modal-content">
@@ -282,11 +284,14 @@ System.out.println("modalListsize : " + modalList.size());
 			</div>
 		</div>
 	</div>
-	<% } %>
+	<% } %> 
+	<% } %> 
 	<br>
 	<br>
 	<br>
 	<br>
+				<br>
+				<br>
 				<br>
 				<br>
 				<br>
@@ -321,7 +326,19 @@ System.out.println("modalListsize : " + modalList.size());
 			
 			$(this).parent().parent().children().empty();
 		});
-	})
+	});
+	$(function () {
+		$(".reservateBtn").click(function () {
+			var str = $(this).attr('id');
+			var no=str.replace(/[^0-9]/g,'');
+			
+			var rno = $("#rNo"+no).html();
+			
+			location.href="/semiproject/updateRequest.en?enpId=<%=loginEnp.getEnpNo()%>&rno=" + rno;
+			
+			$(rno)
+		});
+	});
 </script>
 <!-- <script src="/semiproject/views/enterprise/sidebar/js/jquery.min.js"></script>
 <script src="/semiproject/views/enterprise/sidebar/js/popper.js"></script>
