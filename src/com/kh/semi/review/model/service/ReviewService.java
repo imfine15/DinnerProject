@@ -62,4 +62,13 @@ public class ReviewService {
 		
 		return result;
 	}
+
+	public String[] checkVisit(String mNo, String enpNo) {
+		Connection con = getConnection();
+		String[] datas = new ReviewDao().checkVisit(con, mNo, enpNo);
+		
+		close(con);
+		
+		return datas;
+	}
 }

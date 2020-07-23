@@ -254,13 +254,13 @@
 			<p class="bestSmall" id="bestSmall<%= i %>"></p>
 		</div>
 		<script>
-			$(function() {
+			/* $(function() {
 				url: "/semiproject/getBestCourseReview.se",
 				type: "post",
 				success: function(data) {
 					
 				}
-			});
+			}); */
 		</script>
 		<% } %>
 		<!-- 리뷰게시판시작 -->
@@ -288,7 +288,7 @@
 				});
 			</script>
 			<hr>
-			<div class="textArea">
+			<%-- <div class="textArea">
 			<table style="border-bottom: 1px solid black;">
 				<tr>
 					<td rowspan="3" width="100px"><%= courseBoardList.get(i).getBoardNo() %></td>
@@ -399,7 +399,7 @@
 			<% } %>
 			<%! } %>
 			</div>
-		</div>
+		</div> --%>
 		<!-- 페이징처리해야할부분 -->
 	</div>
 	<!-- 일정끝 -->
