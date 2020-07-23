@@ -76,7 +76,7 @@
 					<a href="<%=request.getContextPath()%>/selectCalculateList.en?enpId=<%=loginEnp.getEnpNo()%>">정산 내역</a>
 				</li>
 				<li>
-					<a href="/semiproject/views/enterprise/sanctionsDetails/sanctionsDetails.jsp?asd=5">결제 내역</a>
+					<a href="<%=request.getContextPath()%>/selectSDList.en?enpId=<%=loginEnp.getEnpNo()%>">결제 내역</a>
 				</li>
 				<li>
 					<a href="/semiproject/views/enterprise/settlementDetails/settlementDetails.jsp?asd=6">제재내역</a>

@@ -1,5 +1,17 @@
+<%@page import="com.kh.semi.enterprise.model.vo.PageInfo"%>
+<%@page import="com.kh.semi.enterprise.model.vo.ForSdVO"%>
+<%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%
+ArrayList<ForSdVO> list = (ArrayList<ForSdVO>)request.getAttribute("list"); 
+PageInfo pi = (PageInfo) request.getAttribute("pi");
+int listCount = pi.getListCount();
+int currentPage = pi.getCurrentPage();
+int maxPage = pi.getMaxPage();
+int startPage = pi.getStartPage();
+int endPage = pi.getEndPage();
+%>
 <!doctype html>
 <html lang="ko">
 <head>
@@ -58,104 +70,62 @@
          <button style="height:30px;">검색</button> -->
          
          <br><br>
+         <br><br>
          
          <div style="margin-left:15%;">
-         	<table align="center">
-         		
-         		<tr style="font-size: 30px;">
-         		<td style="border:0; padding-right:30px;">
-         				<
-         			</td>
-         			<td style="border:0;">
-         				2020.06.01
-         			</td>
-         			<td style="border:0;">
-         				~
-					</td>
-					<td style="border:0;">
-						2020.06.30
-					</td>
-					<td style="border:0; padding-left:30px;">
-         				>
-         			</td>
-         		</tr>
-         	</table>
+         	
          	<br>
             <table style="text-align: center;" align="center">
             <thead>
-               <th style="width:150px;">일자</th>
-               <th style="width:150px;">예약번호</th>
-               <th style="width:150px;">결제금액</th>
-               <th style="width:150px;">총 금액</th>
-               <th style="width:150px;">제제 수수료<br>지불 여부</th>
+               <th style="width:150px;">번호</th>
+               <th style="width:150px;">상품 이름</th>
+               <th style="width:150px;">결제 금액</th>
+               <th style="width:150px;">시작 일자</th>
+               <th style="width:150px;">종료 일자</th>
                
             </thead>
             <tbody align="center">
-               <tr>
-                  <td><a href="">00000001</a></td>
-                  <td><a href="">imfine123</a></td>
-                  <td>IMFINE</td>
-                  <td>imfine_123@kh.or.kr</td>
-                  <td>일반</td>
-                 
+               <%for(int i = 0 ; i < list.size(); i++) {%>
+               	<tr>
+                  <td><%=i+1 %></td>
+                  <td><%=list.get(i).getProductName() %></td>
+                  <td><%=list.get(i).getPartnerPrice() %></td>
+                  <td><%=list.get(i).getStartDate() %></td>
+                  <td><%=list.get(i).getEndDate() %></td>
                </tr>
-               <tr>
-                  <td><a href="">00000002</a></td>
-                  <td><a href="">imfine123</a></td>
-                  <td>IMFINE</td>
-                  <td>imfine_123@kh.or.kr</td>
-                  <td>일반</td>
-                  
-               </tr>
-               <tr>
-                  <td><a href="">00000003</a></td>
-                  <td><a href="">imfine123</a></td>
-                  <td>IMFINE</td>
-                  <td>imfine_123@kh.or.kr</td>
-                  <td>일반</td>
-                  
-               </tr>
-               <tr>
-                  <td><a href="">00000004</a></td>
-                  <td><a href="">imfine123</a></td>
-                  <td>IMFINE</td>
-                  <td>imfine_123@kh.or.kr</td>
-                  <td>일반</td>
-                 
-               </tr>
-               <tr>
-                  <td><a href="">00000005</a></td>
-                  <td><a href="">imfine123</a></td>
-                  <td>IMFINE</td>
-                  <td>imfine_123@kh.or.kr</td>
-                  <td>일반</td>
-                  
-               </tr>
-               <tr>
-                  <td><a href="">00000006</a></td>
-                  <td><a href="">imfine123</a></td>
-                  <td>IMFINE</td>
-                  <td>imfine_123@kh.or.kr</td>
-                  <td>일반</td>
-                  
-               </tr>
-               <tr>
-                  <td><a href="">00000007</a></td>
-                  <td><a href="">imfine123</a></td>
-                  <td>IMFINE</td>
-                  <td>imfine_123@kh.or.kr</td>
-                  <td>일반</td>
-                  
-               </tr>
+               <%} %>
             </tbody>
             </table>
-      <div class="pagingArea" align="center">
-         <button class="hide" onclick="location.href='<%=request.getContextPath()%>/selectList.no?currentPage=1'"><<</button>
-         <button class="hide" onclick="location.href='<%=request.getContextPath()%>/selectList.no?currentPage='"><</button>
-
-         <button class="hide" onclick="location.href='<%=request.getContextPath()%>/selectList.no?currentPage='">></button>
-         <button class="hide" onclick="location.href='<%=request.getContextPath()%>/selectList.no?currentPage='">>></button>
-      </div>
+      <!-- 페이징 처리 버튼 -->
+		<div class="pagingArea" align="center">
+			<button onclick="location.href='<%=request.getContextPath()%>/selectSDList.en?enpId=<%=loginEnp.getEnpNo()%>&currentPage=1'"><<</button>
+			<%System.out.println("currentPage : "+currentPage); %>
+			<%if(currentPage <=1) {%>
+			<button disabled><</button>
+			<%}else{ %>
+			<button onclick="location.href='<%=request.getContextPath()%>/selectSDList.en?enpId=<%=loginEnp.getEnpNo()%>&currentPage=<%=currentPage - 1%>'"><</button>
+			<%} %>
+			
+			<%for(int p = startPage; p <= endPage; p++){ 
+				if(p == currentPage) {
+			%>
+				<button disabled><%=p %></button>
+			<%	}else{ %>
+				<button onclick="location.href='<%=request.getContextPath()%>/selectSDList.en?enpId=<%=loginEnp.getEnpNo()%>&currentPage=<%=p %>'"><%=p %></button>
+			<%	} 
+			  }
+			%>
+			
+			<%if(currentPage >= maxPage){ %>
+			<button disabled>></button>
+			<%}else{ %>
+			<button onclick="location.href='<%=request.getContextPath()%>/selectSDList.en?enpId=<%=loginEnp.getEnpNo()%>&currentPage=<%=currentPage - 1%>'">></button>
+			
+			<%} %>
+			
+			<button onclick="location.href='<%=request.getContextPath()%>/selectSDList.en?enpId=<%=loginEnp.getEnpNo()%>&currentPage=<%=maxPage%>'">>></button>
+		</div>
+   </div>
    </div>
 	<br>	
 	<br>	
@@ -163,7 +133,15 @@
 	<br>	
 	<br>	
 	<br>	
- 	<br>	
+	<br>	
+	<br>	
+	<br>	
+	<br>	
+	<br>	
+	<br>	
+	<br>	
+	<br>	
+	<br>	
 	<br>	
 	
 	<%@include file="../../common/enterpriseFooter.jsp" %>

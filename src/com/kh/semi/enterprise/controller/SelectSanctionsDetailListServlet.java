@@ -11,20 +11,21 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.kh.semi.enterprise.model.service.EnpService;
 import com.kh.semi.enterprise.model.vo.ForEntCrVO;
+import com.kh.semi.enterprise.model.vo.ForSdVO;
 import com.kh.semi.enterprise.model.vo.PageInfo;
 import com.kh.semi.payment.model.vo.ReservationVO;
 
 /**
- * Servlet implementation class SelectPaymentHistoryListServlet
+ * Servlet implementation class SelectSanctionsDetailListServlet
  */
-@WebServlet("/selectCalculateList.en")
-public class SelectPaymentHistoryListServlet extends HttpServlet {
+@WebServlet("/selectSDList.en")
+public class SelectSanctionsDetailListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public SelectPaymentHistoryListServlet() {
+    public SelectSanctionsDetailListServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -53,7 +54,7 @@ public class SelectPaymentHistoryListServlet extends HttpServlet {
 		limit = 5;
 		
 		//전체 목록 갯수 조회
-		int listCount = new EnpService().getListCount();
+		int listCount = new EnpService().getSDListCount(enp);
 		System.out.println(listCount);
 		
 		//총 페이지 수 계산
@@ -75,61 +76,58 @@ public class SelectPaymentHistoryListServlet extends HttpServlet {
 		
 		PageInfo pi = new PageInfo(currentPage, listCount, limit, maxPage, startPage, endPage);
 		
-		ArrayList<ReservationVO> list = new EnpService().selectCRList(pi,enp);
+		//ArrayList<ReservationVO> list = new EnpService().selectCRList(pi,enp);
+		ArrayList<ForSdVO> list = new EnpService().selectSDList(pi,enp);
+		//String memId = new EnpService().selectCRMemId(enp);
+		//System.out.println(memId);
 		
-		String memId = new EnpService().selectCRMemId(enp);
-		System.out.println(memId);
-		
-		ArrayList<ForEntCrVO> modalList = new EnpService().selectCRModalList(memId);
-		for(ForEntCrVO f : modalList) {
+		//ArrayList<ForEntCrVO> modalList = new EnpService().selectCRModalList(memId);
+		/*for(ForEntCrVO f : modalList) {
 			System.out.println("modalList's rownum : " + f.getRownum());
 			System.out.println("modalList's nickName : "+f.getNickName());
 			System.out.println("modalList's resDate : "+f.getReservationDate());
-		}
-		String cancelId = "RSC3";
-		String visitId = "RSC5";
+		}*/
+		/*String cancelId = "RSC3";
+		String visitId = "RSC5";*/
 		
-		int rownum = new EnpService().selectCRRownum(enp);
+		//int rownum = new EnpService().selectCRRownum(enp);
 		
-		ArrayList<ReservationVO> checkCountList = new ArrayList<ReservationVO>();
+		//ArrayList<ReservationVO> checkCountList = new ArrayList<ReservationVO>();
 		
-		for(ReservationVO v : list) {
+		/*for(ReservationVO v : list) {
 			int i = 0;
 			v.setmNo(list.get(i).getmNo());
 			
 			checkCountList.add(v);
 			
 			i++;
-		}
+		}*/
 		
-		ArrayList<Integer> cancelCount = new EnpService().selectCRCount(cancelId,enp,checkCountList);
+		/*ArrayList<Integer> cancelCount = new EnpService().selectCRCount(cancelId,enp,checkCountList);
 		
-		ArrayList<Integer> visitCount = new EnpService().selectCRCount(visitId,enp,checkCountList);
+		ArrayList<Integer> visitCount = new EnpService().selectCRCount(visitId,enp,checkCountList);*/
 		
-		for(int a : cancelCount) {
+		/*for(int a : cancelCount) {
 			System.out.println("cancelCount : " + a);
 		}
 		for(int a : visitCount) {
 			System.out.println("visitCount : " + a);
-		}
+		}*/
 		
 		
 		String page = "";
 		
 		System.out.println(list);
 		
-		for(ReservationVO r : list) {
-			System.out.println(r.getcNo());
+		for(ForSdVO r : list) {
+			System.out.println(r.getEndDate());
 		}
 		
-		if(list != null && modalList != null) {
-			page = "views/enterprise/confirmRequest/confirmRequest.jsp";
+		if(list != null) {
+			page = "views/enterprise/sanctionsDetails/sanctionsDetails.jsp";
 			request.setAttribute("list", list);
 			request.setAttribute("pi", pi);
-			request.setAttribute("modalList", modalList);
-			request.setAttribute("cancelCount", cancelCount);
-			request.setAttribute("visitCount", visitCount);
-			request.setAttribute("asd", 4);
+			request.setAttribute("asd", 5);
 		}else {
 			page="views/common/errorPage.jsp";
 			request.setAttribute("msg", "조회 실패");
