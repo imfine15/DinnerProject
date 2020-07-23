@@ -48,16 +48,9 @@ public class SelectPointListServlet extends HttpServlet {
 	      if(maxPage < endPage) {
 	         endPage = maxPage;
 	      }
-	      System.out.println("currentPage : " + currentPage);
-			System.out.println("maxPage : " + maxPage);
-			System.out.println("startPage : " + startPage);
-			System.out.println("endPage : " + endPage);
-			System.out.println("=========================");
-	      
 	    PageInfo pi = new PageInfo(currentPage, listCount, limit, maxPage, startPage, endPage);
 		ArrayList<PointVO> pointVO = new MemberService().selectPointHisList(mNo, pi);
-		System.out.println("pointVO : " + pointVO);
-		System.out.println("pi : " + pi);
+
 		ArrayList<Object> plist = new ArrayList<>();
 		plist.add(pointVO);
 		plist.add(pi);

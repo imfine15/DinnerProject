@@ -112,10 +112,11 @@ ul li a span:hover{
 	color: pink;
 }
 .butt{
-	width:45px; 
+	width:40px; 
 	border:1px solid #97D3D3; 
 	background: #97D3D3;
 	border-radius: 5px;
+	margin-left: 5px;
 }
 .butt button{
 	color: white;
@@ -193,7 +194,7 @@ ul li a span:hover{
 						<label style="margin-left: 80px;"class="text">상태</label>
 						<label style="margin-left: 100px;"class="text">결제일자</label>
 					</div>
-					<table style="border-bottom: 1px solid pink; table-layout: fixed;" id="listArea" >
+					<table style="border-bottom: 1px solid pink; border-spacing: 0 10px; table-layout: fixed;" id="listArea" >
 					<%
 					int psuc = 0;
 					int pclo = 0;
@@ -232,7 +233,7 @@ ul li a span:hover{
 						<label style="margin-left: 80px;"class="text">상태</label>
 						<label style="margin-left: 100px;"class="text">결제일자</label>
 					</div>
-					<table style="border-bottom: 1px solid pink; table-layout: fixed;" id="listArea" >
+					<table style="border-bottom: 1px solid pink;border-spacing: 0 10px; table-layout: fixed;" id="listArea" >
 					<%
 					int psucCount = psuc;
 					for(int i = list.size() - 1; i >= 0; i --) {
@@ -270,7 +271,7 @@ ul li a span:hover{
 						<label style="margin-left: 80px;"class="text">상태</label>
 						<label style="margin-left: 100px;"class="text">결제일자</label>
 					</div>
-					<table style="border-bottom: 1px solid pink; table-layout: fixed;" id="listArea" >
+					<table style="border-bottom: 1px solid pink;border-spacing: 0 10px; table-layout: fixed;" id="listArea" >
 					<%
 					int pCloCount = pclo;
 					for(int i = list.size() - 1; i >= 0; i --) {
@@ -307,7 +308,7 @@ ul li a span:hover{
 						<label style="margin-left: 80px;"class="text">상태</label>
 						<label style="margin-left: 60px;"class="text">예약신청일자</label>
 					</div>
-					<table style="border-bottom: 1px solid pink; table-layout: fixed;" id="listArea" >
+					<table style="border-bottom: 1px solid pink; border-spacing: 0 10px; table-layout: fixed;" id="listArea" >
 					<%
 					int suc = 0;
 					int yet = 0;
@@ -362,7 +363,7 @@ ul li a span:hover{
 						<label style="margin-left: 80px;"class="text">상태</label>
 						<label style="margin-left: 60px;"class="text">예약신청일자</label>
 					</div>
-					<table style="border-bottom: 1px solid pink; table-layout: fixed;" id="listArea" >
+					<table style="border-bottom: 1px solid pink; border-spacing: 0 10px; table-layout: fixed;" id="listArea" >
 					<%
 					
 					int sucCount = suc;
@@ -422,7 +423,7 @@ ul li a span:hover{
 						<label style="margin-left: 80px;"class="text">상태</label>
 						<label style="margin-left: 60px;"class="text">예약신청일자</label>
 					</div>
-					<table style="border-bottom: 1px solid pink; table-layout: fixed;" id="listArea" >
+					<table style="border-bottom: 1px solid pink; border-spacing: 0 10px; table-layout: fixed;" id="listArea" >
 					<%
 					int yetCount = yet;
 					for(int i = list.size() - 1; i > -1; i --) {
@@ -482,7 +483,7 @@ ul li a span:hover{
 						<label style="margin-left: 80px;"class="text">상태</label>
 						<label style="margin-left: 60px;"class="text">예약신청일자</label>
 					</div>
-					<table style="border-bottom: 1px solid pink; table-layout: fixed;" id="listArea" >
+					<table style="border-bottom: 1px solid pink; border-spacing: 0 10px; table-layout: fixed;" id="listArea" >
 					<%
 					int cloCount = clo;
 					for(int i = list.size() - 1; i > -1; i --) {
