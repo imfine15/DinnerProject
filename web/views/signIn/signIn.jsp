@@ -26,15 +26,11 @@
 		<label id="pwdLabel" for="pwdShowHide">비밀번호 보이기</label>
 		<br>
 		<input type="submit" value="로그인" id="submitBtn">
-		<div id="idRemember">
-			<input type="checkbox" name="rememberBtn" id="rememberBtn">&nbsp;&nbsp;
-			<label for="rememberBtn">아이디 저장</label>
-		</div>
 	</form>
 	<hr class="hr">
 	<div id="find">
-		<a id="findId" href="http://www.naver.com">아이디 찾기</a> |
-		<a id="findPassword">비밀번호 찾기</a> |
+		<a id="findId" href="http://www.naver.com">아이디 찾기</a> | 
+		<a id="findPassword">비밀번호 찾기</a> | 
 		<a id="signUp" href="/semiproject/views/signUp/signUp.jsp">회원 가입</a>
 	</div>
 	<br><br>

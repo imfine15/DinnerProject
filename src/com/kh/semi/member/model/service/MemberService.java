@@ -60,9 +60,22 @@ public class MemberService {
 		return count;
 	}
 
-	public int withdrawlMember(MemberVO requestMember) {
+	public int withdrawalMember(MemberVO requestMember) {
 		Connection con = getConnection();
-		int result = new MemberDao().withdrawlMember(con, requestMember);
+		int result = new MemberDao().withdrawalMember(con, requestMember);
+		
+		if(result > 0) {
+			commit(con);
+		} else {
+			rollback(con);
+		}
+		
+		return result;
+	}
+
+	public int withdrawalHistory(MemberVO requestMember) {
+		Connection con = getConnection();
+		int result = new MemberDao().withdrawalHistory(con, requestMember);
 		
 		if(result > 0) {
 			commit(con);
