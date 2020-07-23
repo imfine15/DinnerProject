@@ -232,6 +232,10 @@ public class QuestionDao {
 		QuestionVO question = null;
 		QuestionFileVO attachment = null;
 		ArrayList<QuestionFileVO> list = null;
+		String qNo = "";
+		
+		int qId= rset.getInt("currval");
+		qno = "Q"+qId;
 		
 		String query = prop.getProperty("selectOne");
 		
@@ -246,7 +250,7 @@ public class QuestionDao {
 			while(rset.next()) {
 				
 				question = new QuestionVO();
-				question.setQuestionNo(rset.getString("SUBSTR(QUESTION_NO,2"));
+				question.setQuestionNo(rset.getString("QUESTION_NO"));
 				question.setQuestionType(rset.getString("QUESTION_TYPE"));
 				question.setQuestionTitle(rset.getString("QUESTION_TITLE"));
 				question.setQuestionContent(rset.getString("QUESTION_CONTENT"));
