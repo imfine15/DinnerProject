@@ -24,13 +24,14 @@ public class BoardUpVo implements java.io.Serializable {
 	private String replyNo;
 	private Date replyDate;
 	private String replyContent;
+	private String address;
 	
 	public BoardUpVo() {}
 
 	public BoardUpVo(String boardNo, String boardTitle, String memberNo, String memberId, String managerNo,
 			String boardKeyword, String boardContent, String boardCategory, String enpNo, int viewCount,
 			String hashTags, String fileNo, String originName, String changeName, String filePath, Date uploadDate,
-			String replyNo, Date replyDate, String replyContent) {
+			String replyNo, Date replyDate, String replyContent, String address) {
 		super();
 		this.boardNo = boardNo;
 		this.boardTitle = boardTitle;
@@ -51,6 +52,7 @@ public class BoardUpVo implements java.io.Serializable {
 		this.replyNo = replyNo;
 		this.replyDate = replyDate;
 		this.replyContent = replyContent;
+		this.address = address;
 	}
 
 	public String getBoardNo() {
@@ -205,6 +207,14 @@ public class BoardUpVo implements java.io.Serializable {
 		this.replyContent = replyContent;
 	}
 
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
 	@Override
 	public String toString() {
 		return "BoardUpVo [boardNo=" + boardNo + ", boardTitle=" + boardTitle + ", memberNo=" + memberNo + ", memberId="
@@ -212,10 +222,8 @@ public class BoardUpVo implements java.io.Serializable {
 				+ boardContent + ", boardCategory=" + boardCategory + ", enpNo=" + enpNo + ", viewCount=" + viewCount
 				+ ", hashTags=" + hashTags + ", fileNo=" + fileNo + ", originName=" + originName + ", changeName="
 				+ changeName + ", filePath=" + filePath + ", uploadDate=" + uploadDate + ", replyNo=" + replyNo
-				+ ", replyDate=" + replyDate + ", replyContent=" + replyContent + "]";
+				+ ", replyDate=" + replyDate + ", replyContent=" + replyContent + ", address=" + address + "]";
 	}
-
-
 	
 	
 	
