@@ -419,6 +419,7 @@ $("input[type=radio]").click(function(){
     var name = $(this).attr('name');
     if(chk == true && pre == $(this).val()){
 
+    	
         $(this).prop('checked',false);
 
         $("input[name='"+name+"']").data("previous",'');
