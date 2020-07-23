@@ -929,6 +929,27 @@ public class BoardDao {
 		return fileNos;
 	}
 
+	public int uploadBoard(Connection con, BoardUpVo board) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String query = prop.getProperty("uploadBoard");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, board.getBoardNo());
+			
+			result = pstmt.executeUpdate();
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		return result;
+	}
+
 	
 
 }
