@@ -279,77 +279,111 @@
 				<button id="write">글쓰기</button>
 			</div>
 			<script>
+				sort = "조회순";
+				currentPage = 1;
+				
 				$(function() {
-					$("#btnArea1 button").click(function() {
-						var sort = $(this).html();
-						
-						switch(sort) {
-							case '조회순' : viewSortCourse(); break;
-							case '추천순' : likeSortCourse(); break;
-							case '최신순' : dateSortCourse(); break;
+					ajaxSort();
+				});
+				
+				$("#btnArea1 button").click(function() {
+					sort = $(this).html();
+					currentPage = 1;
+					
+					$.ajax({
+						url: "/semiproject/getCourse.bo",
+						type: "post",
+						data: {sort: sort, currentPage: currentPage},
+						success: function(data) {
+							ajaxSort();
 						}
 					});
 				});
 				
-				var sortCourse;
-				
-				function viewSortCourse() {
-					
+				function ajaxSort() {
+					$.ajax({
+						url: "/semiproject/getCourse.bo",
+						type: "post",
+						data: {sort: sort, currentPage: currentPage},
+						success: function(data) {
+								if(currentPage > data[1].maxPage) {
+									$("#courseTableDiv").html("잘못된 페이지 번호입니다.");
+								} else {
+									for(var i = 0; i < data[0].length; i++) {
+										$("#courseTableDiv").html(
+												'<table style="border-bottom: 1px solid black;"><tr><td rowspan="3" width="100px">' + data[0][i].boardNo + '</td><td rowspan="3">'
+												+ '<img src="' + data[0][i].filePaths[0] + '" width="200px" height="150px"></td>'
+												+ '<td align="left" valign="bottom"><label class="textreview">' + data[0][i].boardTitle + '</label></td>'
+												+ '<td rowspan="3" valign="top" width="40px"><img class="heart" src="/semiproject/images/heartblack.png"></td><td align="right" valign="bottom">' + data[0][i].uploadDate + '</td>'
+												+ '<td rowspan="2" width="180px" align="center"><div class="profileBox" align="center"><img id="cprofilePic' + i + '" class="profile" src="">'
+												+ '</div></td></tr><tr><td width="400px" align="left" valign="top" rowspan="2"><label>' + data[0][i].hashTags + '</label></td>'
+												+ '<td align="right" valign="top" width="100px">조회수 : ' + data[0][i].viewCount + '</td></tr>'
+												+ '<tr><td align="right"><button class="report">신고</button></td><td id="cprofileNickName' + i + '" align="center">'
+												+ '</td></tr></table>'
+												+ '<input id="mNo' + i + '" type="hidden" value="' + data[0][i].memberNo + '">'
+										);
+									
+										getUserInfo();
+								}
+							}
+						}
+					});
 				}
 				
-				function likeSortCourse() {
+				function getUserInfo() {
+					var mNo = $("#mNo" + 0).val();
+						
+					$.ajax({
+						url: "/semiproject/selectMember.me",
+						type: "post",
+						data: {mNo: mNo},
+						success: function(data) {
+							$("#cprofilePic" + 0).attr("src", data.filePath);
+							$("#cprofileNickName" + 0).html(data.mNickname);
+						}
+					});
 					
-				}
-				
-				function dateSortCourse() {
-					
-				}
-			</script>
-			<hr>
-			<div class="textArea">
-			<table style="border-bottom: 1px solid black;" id="courseTable">
-				<tr>
-					<td rowspan="3" width="100px">getBoardNo()</td>
-					<td rowspan="3"><img src="" width="200px" height="150px"></td>
-					<td align="left" valign="bottom"><label class="textreview">getBoardTitle()</label></td>
-					<td rowspan="3" valign="top" width="40px"><img class="heart" src="/semiproject/images/heartblack.png"></td>
-					<td align="right" valign="bottom">getUploadDate()</td>
-					<td rowspan="2" width="180px" align="center">
-						<div class="profileBox" align="center">
-							<img id="cprofilePic0" class="profile" src="">
-						</div>
-					</td>
-				</tr>
-				<tr>
-					<td width="400px" align="left" valign="top" rowspan="2"><label>getHashTags()</label></td>
-					<td align="right" valign="top" width="100px">조회수 : getViewCount()</td>
-				</tr>
-				<tr>
-					<td align="right"><button class="report">신고</button></td>
-					<td id="cprofileNickName0" align="center"></td>
-				</tr>
-			</table>
-			<script>
-				$(function() {
-					var mNo = "ajax에서 받아서 값을 넣어주세요";
+					var mNo = $("#mNo" + 1).val();
 					
 					$.ajax({
 						url: "/semiproject/selectMember.me",
 						type: "post",
 						data: {mNo: mNo},
 						success: function(data) {
-							$("#cprofilePic0").attr("src", data.filePath);
-							$("#cprofileNickName0").html(data.mNickname);
+							$("#cprofilePic" + 1).attr("src", data.filePath);
+							$("#cprofileNickName" + 1).html(data.mNickname);
 						}
 					});
-				});
+					
+					var mNo = $("#mNo" + 2).val();
+					
+					$.ajax({
+						url: "/semiproject/selectMember.me",
+						type: "post",
+						data: {mNo: mNo},
+						success: function(data) {
+							$("#cprofilePic" + 2).attr("src", data.filePath);
+							$("#cprofileNickName" + 2).html(data.mNickname);
+						}
+					});
+				};
 			</script>
-			</div>
+			<hr>
+			<div class="textArea" id="courseTableDiv"></div>
+			<input type="number" id="pagingNo" style="width:45px;">
+			<button id="pagingGo" onclick="pagingGo();">페이지로 이동</button>
+			<script>
+				function pagingGo() {
+					var requestNo = $("#pagingNo").val();
+					currentPage = requestNo;
+					ajaxSort();
+				}
+			</script>
 		</div>
 		<!-- 리뷰게시판끝 -->
 		<!-- 페이징처리해야하는부분 -->
 		<!-- 맛집리뷰시작 -->
-		<%-- <div class="inner2" align="center">
+		<div class="inner2" align="center">
 			<div align="left">
 				<label id="text3">맛집 리뷰</label>
 			</div>
@@ -360,60 +394,107 @@
 				<button id="write">글쓰기</button>
 			</div>
 			<script>
+				sortEnp = "조회순";
+				currentPageEnp = 1;
+				
 				$(function() {
-					$("#btnArea2 button").click(function() {
-						var sort = $(this).html();
-						
-						<% ArrayList<BoardVO> enpBoardList = viewSortBoardEnpList; %>
-						switch(sort) {
-							case '조회순' : <% enpBoardList = viewSortBoardEnpList; enpReview(); %> break;
-							case '추천순' : <% enpBoardList = likeSortBoardEnpList; enpReview(); %> break;
-							case '최신순' : <% enpBoardList = dateSortBoardEnpList; enpReview(); %> break;
+					ajaxSortEnp();
+				});
+				
+				$("#btnArea2 button").click(function() {
+					sortEnp = $(this).html();
+					currentPageEnp = 1;
+					
+					$.ajax({
+						url: "/semiproject/getEnpBoard.bo",
+						type: "post",
+						data: {sort: sortEnp, currentPage: currentPageEnp},
+						success: function(data) {
+							ajaxSortEnp();
 						}
 					});
 				});
-			</script>
-			<hr>
-			<div class="textArea">
-			<table style="border-bottom: 1px solid black;">
-				<tr>
-					<td rowspan="3" width="100px"><%= enpBoardList.get(i).getBoardNo() %></td>
-					<td rowspan="3"><img src="<%= enpBoardList.get(i).getFilePaths()[0] %>" width="200px" height="150px"></td>
-					<td align="left" valign="bottom"><label class="textreview"><%= enpBoardList.get(i).getBoardTitle() %></label></td>
-					<td rowspan="3" valign="top" width="40px"><img class="heart" src="/semiproject/images/heartblack.png"></td>
-					<td align="right" valign="bottom"><%= enpBoardList.get(i).getUploadDate() %></td>
-					<td rowspan="2" width="180px" align="center">
-						<div class="profileBox" align="center">
-							<img id="eprofilePic<%= i %>" class="profile" src="">
-						</div>
-					</td>
-				</tr>
-				<tr>
-					<td width="400px" align="left" valign="top" rowspan="2"><label><%= enpBoardList.get(i).getHashTags() %></label></td>
-					<td align="right" valign="top" width="100px">조회수 : <%= enpBoardList.get(i).getViewCount() %></td>
-				</tr>
-				<tr>
-					<td align="right"><button class="report">신고</button></td>
-					<td id="eprofileNickName<%= i %>" align="center"></td>
-				</tr>
-			</table>
-			<script>
-				$(function() {
-					var mNo = "<%= enpBoardList.get(i).getMemberNo() %>";
+				
+				function ajaxSortEnp() {
+					$.ajax({
+						url: "/semiproject/getEnpBoard.bo",
+						type: "post",
+						data: {sort: sortEnp, currentPage: currentPageEnp},
+						success: function(data) {
+								if(currentPageEnp > data[1].maxPage) {
+									$("#enpTableDiv").html("잘못된 페이지 번호입니다.");
+								} else {
+									for(var i = 0; i < data[0].length; i++) {
+										$("#enpTableDiv").html(
+												'<table style="border-bottom: 1px solid black;"><tr><td rowspan="3" width="100px">' + data[0][i].boardNo + '</td><td rowspan="3">'
+												+ '<img src="' + data[0][i].filePaths[0] + '" width="200px" height="150px"></td>'
+												+ '<td align="left" valign="bottom"><label class="textreview">' + data[0][i].boardTitle + '</label></td>'
+												+ '<td rowspan="3" valign="top" width="40px"><img class="heart" src="/semiproject/images/heartblack.png"></td><td align="right" valign="bottom">' + data[0][i].uploadDate + '</td>'
+												+ '<td rowspan="2" width="180px" align="center"><div class="profileBox" align="center"><img id="eprofilePic' + i + '" class="profile" src="">'
+												+ '</div></td></tr><tr><td width="400px" align="left" valign="top" rowspan="2"><label>' + data[0][i].hashTags + '</label></td>'
+												+ '<td align="right" valign="top" width="100px">조회수 : ' + data[0][i].viewCount + '</td></tr>'
+												+ '<tr><td align="right"><button class="report">신고</button></td><td id="eprofileNickName' + i + '" align="center">'
+												+ '</td></tr></table>'
+												+ '<input id="mNoEnp' + i + '" type="hidden" value="' + data[0][i].memberNo + '">'
+										);
+									
+										getUserInfoEnp();
+								}
+							}
+						}
+					});
+				}
+				
+				function getUserInfoEnp() {
+					var mNoEnp = $("#mNoEnp" + 0).val();
+						
+					$.ajax({
+						url: "/semiproject/selectMember.me",
+						type: "post",
+						data: {mNo: mNoEnp},
+						success: function(data) {
+							$("#eprofilePic" + 0).attr("src", data.filePath);
+							$("#eprofileNickName" + 0).html(data.mNickname);
+						}
+					});
+					
+					var mNoEnp = $("#mNoEnp" + 1).val();
 					
 					$.ajax({
 						url: "/semiproject/selectMember.me",
 						type: "post",
-						data: {mNo: mNo},
+						data: {mNo: mNoEnp},
 						success: function(data) {
-							$("#eprofilePic<%= i %>").attr("src", data.filePath);
-							$("#eprofileNickName<%= i %>").html(data.mNickname);
+							$("#eprofilePic" + 1).attr("src", data.filePath);
+							$("#eprofileNickName" + 1).html(data.mNickname);
 						}
 					});
-				});
+					
+					var mNoEnp = $("#mNoEnp" + 2).val();
+					
+					$.ajax({
+						url: "/semiproject/selectMember.me",
+						type: "post",
+						data: {mNo: mNoEnp},
+						success: function(data) {
+							$("#eprofilePic" + 2).attr("src", data.filePath);
+							$("#eprofileNickName" + 2).html(data.mNickname);
+						}
+					});
+				};
 			</script>
-			</div>
-		</div> --%>
+			<hr>
+			<div class="textArea" id="enpTableDiv"></div>
+			<input type="number" id="pagingNoEnp" style="width:45px;">
+			<button id="pagingGoEnp" onclick="pagingGoEnp();">페이지로 이동</button>
+			<script>
+				function pagingGoEnp() {
+					var requestNoEnp = $("#pagingNoEnp").val();
+					currentPageEnp = requestNoEnp;
+					ajaxSortEnp();
+				}
+			</script>
+		</div>
 		<!-- 페이징처리해야할부분 -->
 	</div>
 	<!-- 일정끝 -->

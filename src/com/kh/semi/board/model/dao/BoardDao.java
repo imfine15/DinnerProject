@@ -19,7 +19,6 @@ import com.kh.semi.admin.model.vo.PageInfo;
 import com.kh.semi.board.model.vo.BoardUpVo;
 import com.kh.semi.board.model.vo.BoardVO;
 import com.kh.semi.board.model.vo.History;
-import com.sun.corba.se.spi.orbutil.fsm.Guard.Result;
 
 public class BoardDao {
 	Properties prop = new Properties();
@@ -36,18 +35,20 @@ public class BoardDao {
 		}
 	}
 
-	public List<BoardVO> viewSortBoard(Connection con) {
-		Statement stmt = null;
+	public List<BoardVO> getAllBoard(Connection con) {
+		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		String query = prop.getProperty("viewSortBoard");
+		String query = prop.getProperty("getAllBoard");
 		List<BoardVO> viewSortBoardList = null;
 		
 		try {
 			viewSortBoardList = new ArrayList<>();
 			
-			stmt = con.createStatement();
+			pstmt = con.prepareStatement(query);
 			
-			rset = stmt.executeQuery(query);
+			pstmt.setString(1, "코스");
+			
+			rset = pstmt.executeQuery();
 			
 			while(rset.next()) {
 				BoardVO b = new BoardVO();
@@ -74,234 +75,56 @@ public class BoardDao {
 			e.printStackTrace();
 		} finally {
 			close(rset);
-			close(stmt);
+			close(pstmt);
 		}
 		
 		return viewSortBoardList;
 	}
 
-	public List<BoardVO> dateSortBoard(Connection con) {
-		Statement stmt = null;
-		ResultSet rset = null;
-		String query = prop.getProperty("dateSortBoard");
-		List<BoardVO> dateSortBoardList = null;
-		
-		try {
-			dateSortBoardList = new ArrayList<>();
-			
-			stmt = con.createStatement();
-			
-			rset = stmt.executeQuery(query);
-			
-			while(rset.next()) {
-				BoardVO b = new BoardVO();
-				
-				b.setBoardNo(rset.getString("BOARD_NO"));
-				b.setBoardTitle(rset.getString("BOARD_TITLE"));
-				b.setMemberNo(rset.getString("MEMBER_NO"));
-				b.setManagerNo(rset.getString("MANAGER_NO"));
-				b.setBoardKeyword(rset.getString("BOARD_KEYWORD"));
-				b.setBoardContent(rset.getString("BOARD_CONTENT"));
-				b.setBoardCategory(rset.getString("BOARD_CATEGORY"));
-				b.setEnpNo(rset.getString("ENP_NO"));
-				b.setViewCount(rset.getInt("VIEW_COUNT"));
-				b.setHashTags(rset.getString("HASH_TAGS"));
-				b.setCourseNo(rset.getString("COURSE_NO"));
-				b.setUploadNo(rset.getString("UPLOAD_NO"));
-				b.setStatusName(rset.getString("STATUS_NAME"));
-				b.setUploadDate(rset.getDate("UPLOAD_DATE"));
-				b.setLikeCount(rset.getInt("LIKE_COUNT"));
-				
-				dateSortBoardList.add(b);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close(rset);
-			close(stmt);
-		}
-		
-		return dateSortBoardList;
-	}
-	
-	public List<BoardVO> likeSortBoard(Connection con) {
-		Statement stmt = null;
-		ResultSet rset = null;
-		String query = prop.getProperty("likeSortBoard");
-		List<BoardVO> likeSortBoardList = null;
-		
-		try {
-			likeSortBoardList = new ArrayList<>();
-			
-			stmt = con.createStatement();
-			
-			rset = stmt.executeQuery(query);
-			
-			while(rset.next()) {
-				BoardVO b = new BoardVO();
-				
-				b.setBoardNo(rset.getString("BOARD_NO"));
-				b.setBoardTitle(rset.getString("BOARD_TITLE"));
-				b.setMemberNo(rset.getString("MEMBER_NO"));
-				b.setManagerNo(rset.getString("MANAGER_NO"));
-				b.setBoardKeyword(rset.getString("BOARD_KEYWORD"));
-				b.setBoardContent(rset.getString("BOARD_CONTENT"));
-				b.setBoardCategory(rset.getString("BOARD_CATEGORY"));
-				b.setEnpNo(rset.getString("ENP_NO"));
-				b.setViewCount(rset.getInt("VIEW_COUNT"));
-				b.setHashTags(rset.getString("HASH_TAGS"));
-				b.setCourseNo(rset.getString("COURSE_NO"));
-				b.setUploadNo(rset.getString("UPLOAD_NO"));
-				b.setStatusName(rset.getString("STATUS_NAME"));
-				b.setUploadDate(rset.getDate("UPLOAD_DATE"));
-				b.setLikeCount(rset.getInt("LIKE_COUNT"));
-				
-				likeSortBoardList.add(b);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close(rset);
-			close(stmt);
-		}
-		
-		return likeSortBoardList;
-	}
-	
-	public List<BoardVO> viewSortEnpBoard(Connection con) {
-		PreparedStatement pstmt = null;
-		ResultSet rset = null;
-		String query = prop.getProperty("viewSortEnpBoard");
-		List<BoardVO> viewSortEnpBoardList = null;
-		
-		try {
-			viewSortEnpBoardList = new ArrayList<>();
-			
-			pstmt = con.prepareStatement(query);
-			
-			pstmt.setString(1, "맛집");
-			
-			rset = pstmt.executeQuery();
-			
-			while(rset.next()) {
-				BoardVO b = new BoardVO();
-				
-				b.setBoardNo(rset.getString("BOARD_NO"));
-				b.setBoardTitle(rset.getString("BOARD_TITLE"));
-				b.setMemberNo(rset.getString("MEMBER_NO"));
-				b.setManagerNo(rset.getString("MANAGER_NO"));
-				b.setBoardKeyword(rset.getString("BOARD_KEYWORD"));
-				b.setBoardContent(rset.getString("BOARD_CONTENT"));
-				b.setBoardCategory(rset.getString("BOARD_CATEGORY"));
-				b.setEnpNo(rset.getString("ENP_NO"));
-				b.setViewCount(rset.getInt("VIEW_COUNT"));
-				b.setHashTags(rset.getString("HASH_TAGS"));
-				b.setUploadNo(rset.getString("UPLOAD_NO"));
-				b.setStatusName(rset.getString("STATUS_NAME"));
-				b.setUploadDate(rset.getDate("UPLOAD_DATE"));
-				b.setLikeCount(rset.getInt("LIKE_COUNT"));
-				
-				viewSortEnpBoardList.add(b);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close(rset);
-			close(pstmt);
-		}
-		
-		return viewSortEnpBoardList;
-	}
-	
-	public List<BoardVO> dateSortEnpBoard(Connection con) {
-		PreparedStatement pstmt = null;
-		ResultSet rset = null;
-		String query = prop.getProperty("dateSortEnpBoard");
-		List<BoardVO> dateSortEnpBoardList = null;
-		
-		try {
-			dateSortEnpBoardList = new ArrayList<>();
-			
-			pstmt = con.prepareStatement(query);
-			
-			pstmt.setString(1, "맛집");
-			
-			rset = pstmt.executeQuery();
-			
-			while(rset.next()) {
-				BoardVO b = new BoardVO();
-				
-				b.setBoardNo(rset.getString("BOARD_NO"));
-				b.setBoardTitle(rset.getString("BOARD_TITLE"));
-				b.setMemberNo(rset.getString("MEMBER_NO"));
-				b.setManagerNo(rset.getString("MANAGER_NO"));
-				b.setBoardKeyword(rset.getString("BOARD_KEYWORD"));
-				b.setBoardContent(rset.getString("BOARD_CONTENT"));
-				b.setBoardCategory(rset.getString("BOARD_CATEGORY"));
-				b.setEnpNo(rset.getString("ENP_NO"));
-				b.setViewCount(rset.getInt("VIEW_COUNT"));
-				b.setHashTags(rset.getString("HASH_TAGS"));
-				b.setUploadNo(rset.getString("UPLOAD_NO"));
-				b.setStatusName(rset.getString("STATUS_NAME"));
-				b.setUploadDate(rset.getDate("UPLOAD_DATE"));
-				b.setLikeCount(rset.getInt("LIKE_COUNT"));
-				
-				dateSortEnpBoardList.add(b);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close(rset);
-			close(pstmt);
-		}
-		
-		return dateSortEnpBoardList;
-	}
-	
-	public List<BoardVO> likeSortEnpBoard(Connection con) {
-		PreparedStatement pstmt = null;
-		ResultSet rset = null;
-		String query = prop.getProperty("likeSortEnpBoard");
-		List<BoardVO> likeSortEnpBoardList = null;
-		
-		try {
-			likeSortEnpBoardList = new ArrayList<>();
-			
-			pstmt = con.prepareStatement(query);
-			
-			pstmt.setString(1, "맛집");
-			
-			rset = pstmt.executeQuery();
-			
-			while(rset.next()) {
-				BoardVO b = new BoardVO();
-				
-				b.setBoardNo(rset.getString("BOARD_NO"));
-				b.setBoardTitle(rset.getString("BOARD_TITLE"));
-				b.setMemberNo(rset.getString("MEMBER_NO"));
-				b.setManagerNo(rset.getString("MANAGER_NO"));
-				b.setBoardKeyword(rset.getString("BOARD_KEYWORD"));
-				b.setBoardContent(rset.getString("BOARD_CONTENT"));
-				b.setBoardCategory(rset.getString("BOARD_CATEGORY"));
-				b.setEnpNo(rset.getString("ENP_NO"));
-				b.setViewCount(rset.getInt("VIEW_COUNT"));
-				b.setHashTags(rset.getString("HASH_TAGS"));
-				b.setUploadNo(rset.getString("UPLOAD_NO"));
-				b.setStatusName(rset.getString("STATUS_NAME"));
-				b.setUploadDate(rset.getDate("UPLOAD_DATE"));
-				b.setLikeCount(rset.getInt("LIKE_COUNT"));
-				
-				likeSortEnpBoardList.add(b);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close(rset);
-			close(pstmt);
-		}
-		
-		return likeSortEnpBoardList;
-	}
+//	public List<BoardVO> viewSortEnpBoard(Connection con) {
+//		PreparedStatement pstmt = null;
+//		ResultSet rset = null;
+//		String query = prop.getProperty("viewSortEnpBoard");
+//		List<BoardVO> viewSortEnpBoardList = null;
+//		
+//		try {
+//			viewSortEnpBoardList = new ArrayList<>();
+//			
+//			pstmt = con.prepareStatement(query);
+//			
+//			pstmt.setString(1, "맛집");
+//			
+//			rset = pstmt.executeQuery();
+//			
+//			while(rset.next()) {
+//				BoardVO b = new BoardVO();
+//				
+//				b.setBoardNo(rset.getString("BOARD_NO"));
+//				b.setBoardTitle(rset.getString("BOARD_TITLE"));
+//				b.setMemberNo(rset.getString("MEMBER_NO"));
+//				b.setManagerNo(rset.getString("MANAGER_NO"));
+//				b.setBoardKeyword(rset.getString("BOARD_KEYWORD"));
+//				b.setBoardContent(rset.getString("BOARD_CONTENT"));
+//				b.setBoardCategory(rset.getString("BOARD_CATEGORY"));
+//				b.setEnpNo(rset.getString("ENP_NO"));
+//				b.setViewCount(rset.getInt("VIEW_COUNT"));
+//				b.setHashTags(rset.getString("HASH_TAGS"));
+//				b.setUploadNo(rset.getString("UPLOAD_NO"));
+//				b.setStatusName(rset.getString("STATUS_NAME"));
+//				b.setUploadDate(rset.getDate("UPLOAD_DATE"));
+//				b.setLikeCount(rset.getInt("LIKE_COUNT"));
+//				
+//				viewSortEnpBoardList.add(b);
+//			}
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//		} finally {
+//			close(rset);
+//			close(pstmt);
+//		}
+//		
+//		return viewSortEnpBoardList;
+//	}
 	
 	public int getFileCount(Connection con, String boardNo) {
 		PreparedStatement pstmt = null;
@@ -376,11 +199,8 @@ public class BoardDao {
 			pstmt.setString(4, board.getBoardCategory());
 			pstmt.setString(5, board.getHashTags());
 			
-			
 			result = pstmt.executeUpdate();
-			
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
 			close(pstmt);
@@ -394,7 +214,7 @@ public class BoardDao {
 		int result = 0;
 		
 		String query = prop.getProperty("insertAttachment");
-		System.out.println("file : " + file);
+		
 		try {
 			pstmt = con.prepareStatement(query);
 			pstmt.setString(1, file.getOriginName());
@@ -403,15 +223,11 @@ public class BoardDao {
 			pstmt.setString(4, file.getBoardNo());
 			
 			result = pstmt.executeUpdate();
-			
-			
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
 			close(pstmt);
 		}
-		
 		
 		return result;
 	}
@@ -431,18 +247,14 @@ public class BoardDao {
 			if(rset.next()) {
 				int id = rset.getInt("currval");
 				
-				boardNo = "B"+id;
+				boardNo = "B" + id;
 			}
-			
-			
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
 			close(stmt);
 			close(rset);
 		}
-		
 		
 		return boardNo;
 	}
@@ -458,15 +270,11 @@ public class BoardDao {
 			pstmt.setString(1, boardNo);
 			
 			result = pstmt.executeUpdate();
-			
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
 			close(pstmt);
 		}
-		
-		
 		
 		return result;
 	}
@@ -485,16 +293,12 @@ public class BoardDao {
 			if(rset.next()) {
 				listCount = rset.getInt(1);
 			}
-			
-			
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
 			close(stmt);
 			close(rset);
 		}
-		
 		
 		return listCount;
 	}
@@ -528,12 +332,8 @@ public class BoardDao {
 				bu.setUploadDate(rset.getDate("UPLOAD_DATE"));
 				
 				list.add(bu);
-				
-				
 			}
-			
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
 			close(pstmt);
@@ -570,13 +370,8 @@ public class BoardDao {
 				bu.setHashTags(rset.getString("HASH_TAGS"));
 				bu.setMemberId(rset.getString("MEMBER_ID"));
 				bu.setUploadDate(rset.getDate("UPLOAD_DATE"));
-				
-				
-				
 			}
-			
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
 			close(pstmt);
@@ -597,14 +392,11 @@ public class BoardDao {
 			pstmt.setString(2, boardNo);
 			
 			result = pstmt.executeUpdate();
-			
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
 			close(pstmt);
 		}
-		
 		
 		return result;
 	}
@@ -635,22 +427,14 @@ public class BoardDao {
 				hmap.put("uploadDate", rset.getDate("UPLOAD_DATE"));
 				hmap.put("boardNo", rset.getString("BOARD_NO"));
 				
-				
 				list.add(hmap);
-				
-
 			}
-			
-
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
 			close(pstmt);
 			close(rset);
 		}
-		
-		
 		
 		return list;
 	}
@@ -712,15 +496,11 @@ public class BoardDao {
 			pstmt.setString(3, reply.getReplyContent());
 			
 			result = pstmt.executeUpdate();
-			
-			
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
 			close(pstmt);
 		}
-		
 		
 		return result;
 	}
@@ -750,13 +530,8 @@ public class BoardDao {
 				bu.setMemberId(rset.getString("MEMBER_ID"));
 				
 				list.add(bu);
-				
-				
 			}
-			
-			
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
 			close(pstmt);
@@ -785,7 +560,6 @@ public class BoardDao {
 				count = rset.getInt("COUNT");
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
 			close(pstmt);
@@ -805,8 +579,6 @@ public class BoardDao {
 			pstmt = con.prepareStatement(query);
 			int startRow = (pi.getCurrentPage() - 1) * pi.getLimit() + 1;
 	        int endRow = startRow + pi.getLimit() - 1;
-	        System.out.println("StartRow : " + startRow);
-	        System.out.println("endRow : " + endRow);
 			pstmt.setString(1, bNo);
 			pstmt.setInt(2, startRow);
 			pstmt.setInt(3, endRow);
@@ -827,7 +599,6 @@ public class BoardDao {
 				list.add(bu);
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
 			close(pstmt);
@@ -850,10 +621,7 @@ public class BoardDao {
 			pstmt.setString(4, board.getBoardNo());
 			
 			result = pstmt.executeUpdate();
-			
-			
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}finally {
 			close(pstmt);
@@ -875,12 +643,8 @@ public class BoardDao {
 			pstmt.setString(3, boardUpVo.getFilePath());
 			pstmt.setString(4, boardUpVo.getFileNo());
 			
-			
 			result = pstmt.executeUpdate();
-			
-			
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
 			close(pstmt);
@@ -893,15 +657,13 @@ public class BoardDao {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		
-		String fileNo="";
+		String fileNo = "";
 		
 		String query = prop.getProperty("selectFileCurrval");
-		System.out.println("boardNo : " +board.getBoardNo());
 		
 		try {
 			pstmt = con.prepareStatement(query);
 			pstmt.setString(1, board.getBoardNo());
-			
 			
 			rset = pstmt.executeQuery();
 			
@@ -916,16 +678,12 @@ public class BoardDao {
 				
 				i++;
 			}
-			
-			
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
 			close(pstmt);
 			close(rset);
 		}
-		
 		
 		return fileNos;
 	}
@@ -940,13 +698,9 @@ public class BoardDao {
 			pstmt.setString(1, board.getBoardNo());
 			
 			result = pstmt.executeUpdate();
-			
-			
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
 		
 		return result;
 	}
@@ -970,17 +724,209 @@ public class BoardDao {
 				history.setStatusCode(rset.getString("STATUS_CODE"));
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
 			close(pstmt);
 			close(rset);
 		}
 		
-		
 		return history;
 	}
 
-	
+	public ArrayList<BoardVO> selectCourse(Connection con, String sort, com.kh.semi.board.model.vo.PageInfo pi) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<BoardVO> courseList = null;
+		String query = "";
+		switch(sort) {
+			case "조회순" : query = prop.getProperty("viewSortBoard"); break;
+			case "추천순" : query = prop.getProperty("likeSortBoard"); break;
+			case "최신순" : query = prop.getProperty("dateSortBoard"); break;
+		}
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			
+			courseList = new ArrayList<>();
+			
+			int startRow = (pi.getCurrentPage() - 1) * pi.getLimit() + 1;
+			int endRow = startRow + pi.getLimit() - 1;
+			
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				BoardVO b = new BoardVO();
+				
+				b.setBoardNo(rset.getString("BOARD_NO"));
+				b.setBoardTitle(rset.getString("BOARD_TITLE"));
+				b.setMemberNo(rset.getString("MEMBER_NO"));
+				b.setManagerNo(rset.getString("MANAGER_NO"));
+				b.setBoardKeyword(rset.getString("BOARD_KEYWORD"));
+				b.setBoardContent(rset.getString("BOARD_CONTENT"));;
+				b.setBoardCategory(rset.getString("BOARD_CATEGORY"));
+				b.setEnpNo(rset.getString("ENP_NO"));
+				b.setViewCount(rset.getInt("VIEW_COUNT"));
+				b.setHashTags(rset.getString("HASH_TAGS"));
+				b.setLikeCount(rset.getInt("LIKE_COUNT"));
+				
+				b.setCourseNo(rset.getString("COURSE_NO"));
+				
+				b.setUploadNo(rset.getString("UPLOAD_NO"));
+				b.setStatusName(rset.getString("STATUS_NAME"));
+				b.setUploadDate(rset.getDate("UPLOAD_DATE"));
+				
+				courseList.add(b);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return courseList;
+	}
 
+	public int getCourseCount(Connection con) {
+		Statement stmt = null;
+		ResultSet rset = null;
+		String query = prop.getProperty("getCourseCount");
+		int count = 0;
+		
+		try {
+			stmt = con.createStatement();
+			
+			rset = stmt.executeQuery(query);
+			
+			if(rset.next()) {
+				count = rset.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(stmt);
+		}
+		
+		return count;
+	}
+
+	public ArrayList<BoardVO> getFilePaths(Connection con, ArrayList<BoardVO> courseList) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String query = prop.getProperty("pagingFile");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			
+			for(int i = 0; i < courseList.size(); i++) {
+				pstmt.setString(1, courseList.get(i).getBoardNo());
+				
+				rset = pstmt.executeQuery();
+				
+				String[] filePaths = new String[2];
+				
+				int j = 0;
+				while(rset.next()) {
+					filePaths[j] = rset.getString("FILE_PATH");
+					j++;
+				}
+				
+				courseList.get(i).setFilePaths(filePaths);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		return courseList;
+	}
+
+	public int getEnpBoardCount(Connection con) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String query = prop.getProperty("getEnpBoardCount");
+		int count = 0;
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			
+			pstmt.setString(1, "맛집");
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				count = rset.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return count;
+	}
+
+	public ArrayList<BoardVO> selectEnpBoard(Connection con, String sort, com.kh.semi.board.model.vo.PageInfo pi) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<BoardVO> enpBoardList = null;
+		String query = "";
+		switch(sort) {
+			case "조회순" : query = prop.getProperty("viewSortEnpBoard"); break;
+			case "추천순" : query = prop.getProperty("likeSortEnpBoard"); break;
+			case "최신순" : query = prop.getProperty("dateSortEnpBoard"); break;
+		}
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			
+			enpBoardList = new ArrayList<>();
+			
+			int startRow = (pi.getCurrentPage() - 1) * pi.getLimit() + 1;
+			int endRow = startRow + pi.getLimit() - 1;
+			
+			pstmt.setString(1, "맛집");
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				BoardVO b = new BoardVO();
+				
+				b.setBoardNo(rset.getString("BOARD_NO"));
+				b.setBoardTitle(rset.getString("BOARD_TITLE"));
+				b.setMemberNo(rset.getString("MEMBER_NO"));
+				b.setManagerNo(rset.getString("MANAGER_NO"));
+				b.setBoardKeyword(rset.getString("BOARD_KEYWORD"));
+				b.setBoardContent(rset.getString("BOARD_CONTENT"));;
+				b.setBoardCategory(rset.getString("BOARD_CATEGORY"));
+				b.setEnpNo(rset.getString("ENP_NO"));
+				b.setViewCount(rset.getInt("VIEW_COUNT"));
+				b.setHashTags(rset.getString("HASH_TAGS"));
+				b.setLikeCount(rset.getInt("LIKE_COUNT"));
+				
+				b.setUploadNo(rset.getString("UPLOAD_NO"));
+				b.setStatusName(rset.getString("STATUS_NAME"));
+				b.setUploadDate(rset.getDate("UPLOAD_DATE"));
+				
+				enpBoardList.add(b);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return enpBoardList;
+	}
+	
 }
