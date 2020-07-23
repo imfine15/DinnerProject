@@ -1,6 +1,6 @@
 package com.kh.semi.review.model.service;
 
-import static com.kh.semi.common.JDBCTemplate.close;
+import static com.kh.semi.common.JDBCTemplate.*;
 import static com.kh.semi.common.JDBCTemplate.getConnection;
 
 import java.sql.Connection;
@@ -56,8 +56,28 @@ public class ReviewService {
 		int result1 = 0;
 		int result2 = 0;
 		
-		//result1 = new ReviewDao().insertReview(con, review);
 		
+		result1 = new ReviewDao().insertReview(con, review);
+		
+		if(result1 > 0) {
+			
+			String reviewNo = new ReviewDao().selectCurrval(con);
+			
+			for(int i = 0; i < fileList.size(); i++) {
+				fileList.get(i).setReviewNo(reviewNo);
+				review.setReviewNo(reviewNo);
+				
+				result2 += new ReviewDao().insertAttachment(con, fileList.get(i));
+				
+			}
+		}
+		
+		if(result1 > 0 && result2 == fileList.size()) {
+			commit(con);
+			result = 1;
+		} else {
+			rollback(con);
+		}
 		
 		
 		return result;

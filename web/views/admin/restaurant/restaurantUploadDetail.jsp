@@ -116,7 +116,7 @@
 			<input id="aaa" type="hidden" value="<%=eu.getEnpNo()%>" name="enpNo">
 			<input type="hidden" value="<%=ea.getOriginName()%>" name="originName">
 			<input type="hidden" value="<%=ea.getFilePath()%>" name="filePath">
-			<input type="hidden" value="<%=ea.getChangeName()%>" name="changName">
+			
 			<h3>입점 가게 상세 정보</h3>
 			
 			<table>
@@ -199,6 +199,7 @@
 					<td colspan="3">
 					<img id="titleImg" src="<%=request.getContextPath()%>/thumbnail_uploadFile/<%=ea.getChangeName()%>">
 					<input type="file" name="updateFile" onchange="loadImg(this,1);">
+					<input type="hidden" value="<%=ea.getChangeName()%>" name="changName">
 					</td>
 				</tr>
 			</table>
