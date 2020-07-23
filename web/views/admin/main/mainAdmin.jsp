@@ -89,8 +89,8 @@ td {
 					<table>
 						<tr>
 							<td>
-								<img src="/semiproject/images/mintCircle.png" alt="mainMenu" id="mainMenu">
-								<p>공지사항</p>
+								<div><img src="/semiproject/images/mintCircle.png" alt="mainMenu" id="mainMenu"></div>
+								<div><p>공지사항</p></div>
 							</td>
 							<td>
 								<img src="/semiproject/images/mintCircle.png" alt="mainMenu" id="mainMenu">

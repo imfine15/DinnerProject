@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8" import="java.util.*, com.kh.semi.member.model.vo.*"%>
+	pageEncoding="UTF-8" import="java.util.*, com.kh.semi.member.model.vo.*, com.kh.semi.common.*"%>
 <% MemberVO loginUsers = (MemberVO) session.getAttribute("loginUser"); %>
+<% SendMail mailing = new SendMail(); %>
 <%
    String backPage = request.getContextPath() + "/views/qna/question.jsp";
    session.setAttribute("backPage", backPage);
@@ -322,6 +323,7 @@ tr {
 							<input type="hidden" name="memberNo" value="<%= loginUsers.getmNo() %>">
 							<input type="hidden" name="memberName" value="<%= loginUsers.getmName() %>">
 							<input type="hidden" name="memberId" value="<%= loginUsers.getmId() %>">
+							<% mailing.naverMailSend(); %>
 						<br>
 						</td>
 					</tr>

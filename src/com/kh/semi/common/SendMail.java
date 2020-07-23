@@ -1,65 +1,62 @@
 package com.kh.semi.common;
+
 import java.util.Properties;
 
 import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.PasswordAuthentication;
 import javax.mail.Session;
 import javax.mail.Transport;
+import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
 public class SendMail {
 
-	public static void main(String[] args) {
+	public static void naverMailSend() {
+       
+		String host = "smtp.naver.com"; // 네이버일 경우 네이버 계정, gmail경우 gmail 계정
+		final String user = "yumeet505"; //발신자의 이메일 아이디를 입력
+		final String password = "whatdinner!";         //발신자 이메일의 패스워드를 입력
+		int port = 465;
 
-		/*PORT = 25:non-ssl, 465:ssl, 587:tls */
-		Properties props = System.getProperties();
-		props.put("mail.smtp.host", "smtp.naver.com");
-		props.put("mail.smtp.port", "25");
-		props.put("defaultEncoding", "utf-8");
-		props.put("mail.smtp.auth", "true");
-		System.out.println(System.getProperties());
+        // SMTP 서버 정보를 설정한다.
+		Properties prop = new Properties();
+		prop.put("mail.smtp.host", "smtp.naver.com"); 
+		prop.put("mail.smtp.port", 587); 
+		prop.put("mail.smtp.auth", "true"); 
+//		prop.put("mail.smtp.ssl.enable", "true"); 
+//		prop.put("mail.smtp.ssl.trust", "smtp.naver.com");
+        
+		Session session = Session.getDefaultInstance(prop, new javax.mail.Authenticator() {
+            protected PasswordAuthentication getPasswordAuthentication() {
+                return new PasswordAuthentication(user, password);
+            }
+        });
 
-		final String userId = "dydxkr113";
-		final String userPw = "wjddydxkr";
+		 try {
+	            MimeMessage message = new MimeMessage(session);
+	            message.setFrom(new InternetAddress(user));
 
-		try {
-			String sender = "dydxkr113@naver.com"; //보내는사람 메일주소. ex) mailSender@naver.com
-			String subject = "메일 테스트"; //메일 제목
-			String body = "ㅁ ㅏ 메일 받아라 !!"; //메일 본문
+	            //수신자메일주소
+	            message.addRecipient(Message.RecipientType.TO, new InternetAddress("hjin_94@naver.com")); 
 
-			Session session = Session.getDefaultInstance(props, new javax.mail.Authenticator() {
-				String un=userId;
-				String pw=userPw;
-				
-				protected javax.mail.PasswordAuthentication getPasswordAuthentication() {
-					System.out.println(un);
-					System.out.println(pw);
-					return new javax.mail.PasswordAuthentication(un, pw);
-				}
-			});
-			
+	            // Subject
+	            message.setSubject("제목을 입력하세요"); //메일 제목을 입력
 
-			session.setDebug(false); //Debug 모드 설정.
+	            // Text
+	            message.setText("내용을 입력하세요");    //메일 내용을 입력
 
-			Message mimeMessage = new MimeMessage(session);
-			mimeMessage.setFrom(new InternetAddress(sender)); 
-
-			// 받는 사람 이메일주소 세팅
-			InternetAddress[] toAddr = new InternetAddress[1];
-			toAddr[0] = new InternetAddress ("thespiae81@gmail.com");
-
-			mimeMessage.setRecipient(Message.RecipientType.TO, toAddr[0] ); //수신자 셋팅
-
-			mimeMessage.setSubject(subject); //제목 세팅
-			mimeMessage.setText(body); //본문 세팅
-
-			//메일 발송
-			Transport.send(mimeMessage);
-
-			System.out.println("메일 발송 성공!!");
-		} catch (Exception e) {
-			System.out.println("메일보내기 오류 : "+ e.getMessage());
-		}
-	}
+	            // send the message
+	            Transport.send(message); ////전송
+	            System.out.println("message sent successfully...");
+	        } catch (AddressException e) {
+	        	System.out.println("에러");
+	        	e.printStackTrace();
+	        } catch (MessagingException e) {
+	        	System.out.println("에러");
+	            e.printStackTrace();
+	        }
+    }
 
 }
