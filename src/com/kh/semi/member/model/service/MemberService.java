@@ -3,9 +3,11 @@ package com.kh.semi.member.model.service;
 import static com.kh.semi.common.JDBCTemplate.*;
 
 import java.sql.Connection;
+import java.util.ArrayList;
 
 import com.kh.semi.member.model.dao.MemberDao;
 import com.kh.semi.member.model.vo.MemberVO;
+import com.kh.semi.payment.model.vo.PointVO;
 
 public class MemberService {
 
@@ -84,6 +86,14 @@ public class MemberService {
 		}
 		
 		return result;
+	}
+
+	public ArrayList<PointVO> selectPointHisList(String mNo) {
+		Connection con = getConnection();
+		ArrayList<PointVO> pointList = new MemberDao().selectPointHisList(con, mNo);
+		
+		close(con);
+		return pointList;
 	}
 
 }
