@@ -5,6 +5,7 @@ import static com.kh.semi.common.JDBCTemplate.*;
 import java.sql.Connection;
 import java.util.ArrayList;
 
+import com.kh.semi.admin.model.vo.PageInfo;
 import com.kh.semi.member.model.dao.MemberDao;
 import com.kh.semi.member.model.vo.MemberVO;
 import com.kh.semi.payment.model.vo.PointVO;
@@ -88,12 +89,20 @@ public class MemberService {
 		return result;
 	}
 
-	public ArrayList<PointVO> selectPointHisList(String mNo) {
+	public ArrayList<PointVO> selectPointHisList(String mNo, PageInfo pi) {
 		Connection con = getConnection();
-		ArrayList<PointVO> pointList = new MemberDao().selectPointHisList(con, mNo);
+		ArrayList<PointVO> pointList = new MemberDao().selectPointHisList(con, mNo, pi);
 		
 		close(con);
 		return pointList;
+	}
+
+	public int getPointListCount(String mNo) {
+		Connection con = getConnection();
+		int count = new MemberDao().getPointListCount(con, mNo);
+		
+		close(con);
+		return count;
 	}
 
 }

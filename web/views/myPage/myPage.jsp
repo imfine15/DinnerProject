@@ -140,7 +140,7 @@ input{
 						style="width: 678px; height: 116px; margin: 0 0 52px 16px; overflow: hidden; background: url(images/subbar.png) no-repeat 0 0">
 						<li
 							style="float: left; width: 161px; height: 116px; margin-right: 55px;">
-							<form action="<%=request.getContextPath()%>/selecPointtList.py">
+							<form action="<%=request.getContextPath()%>/views/myPage/myPoint.jsp">
 								<button style="display: block; width: 50px; height: 16px; margin-left: 16px;margin-top: 90px; maring-right:30px;"></button>
 							</form>
 						</li>

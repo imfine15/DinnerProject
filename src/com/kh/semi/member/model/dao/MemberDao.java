@@ -12,6 +12,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Properties;
 
+import com.kh.semi.admin.model.vo.PageInfo;
 import com.kh.semi.member.model.vo.MemberVO;
 import com.kh.semi.payment.model.vo.PointVO;
 
@@ -226,36 +227,64 @@ public class MemberDao {
 		return result;
 	}
 
-	public ArrayList<PointVO> selectPointHisList(Connection con, String mNo) {
+	public ArrayList<PointVO> selectPointHisList(Connection con, String mNo, PageInfo pi) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		ArrayList<PointVO> pointList = new ArrayList<>();
 		String query = prop.getProperty("selectPointHisList");
 		
 		try {
+			int startRow = (pi.getCurrentPage() - 1) * pi.getLimit() + 1;
+	        int endRow = startRow + pi.getLimit() - 1;
+	        
 			pstmt = con.prepareStatement(query);
 			pstmt.setString(1, mNo);
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
 			
 			rset = pstmt.executeQuery();
 			while(rset.next()) {
 				PointVO p = new PointVO();
 				p.setmNo(rset.getString("MEMBER_NO"));
-				if(rset.getInt("POINT_AMOUNT") > 0) {
-					p.setpAmount(rset.getInt("POINT_AMMONT"));
-				} else {
-					p.setpAmount(rset.getInt("POINT_AMMONT") * -1);
-				}
+				p.setpAmount(rset.getInt("POINT_AMMONT"));
  				p.setPointDate(rset.getTimestamp("POINT_DATE"));
 				if(rset.getString("SAVE_CODE") != null) {
 					p.setSaveCode(rset.getString("SAVE_CODE"));
 				}
+				p.setSaveStatue(rset.getString("SAVE_STATUS"));
+				pointList.add(p);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		return pointList;
+	}
+
+	public int getPointListCount(Connection con, String mNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String query = prop.getProperty("getPointListCount");
+		int count = 0;
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, mNo);
+			
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				count = rset.getInt("COUNT");
 			}
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
 		}
-		
-		return null;
+		return count;
 	}
 	
 }
