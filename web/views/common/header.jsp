@@ -44,11 +44,11 @@ body {
 	<div class="navbar navbar-inverse navbar-static-top"
 		style="background: white; border-color: pink;">
 		<div class="container2" style="background: white;">
-			<a href="/semiproject/views/main/main.jsp">
+			<a href="/semiproject/views/main/main.jsp" style="margin-left: 50px;">
 				<img src="/semiproject/images/YUMEET LOGO.png" style="width: 200px;">
 			</a>
 			<% if(loginUser == null) { %>
-			<a id="dd" style="float: right" href="/semiproject/views/signIn/signIn.jsp">
+			<a id="dd" style="float: right; margin-right: 70px;" href="/semiproject/views/signIn/signIn.jsp">
 				<button id="login">로그인</button>
 			</a>
 			<% } else { %>
@@ -69,6 +69,7 @@ body {
 		function goMypage() {
 		location.href="<%=request.getContextPath()%>/views/myPage/myPage.jsp";
 		}
+		
 	</script>
 </body>
 </html>

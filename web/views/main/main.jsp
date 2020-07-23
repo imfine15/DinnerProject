@@ -25,9 +25,9 @@
 <title>YUMEET</title>
 </head>
 
-<body style="width: 1440px;">
    <%@include file="/views/common/header.jsp"%>
-   <div class="wrapper">
+<body id="mainWidth" style="width: 1420px; margin-left: auto; margin-right: auto;">
+   <div>
       <!-- banner -->
       <div class="banner" style="padding-top: -1px; margin-top: -300px; height: 500px; position: relative;">
          <div>
@@ -37,11 +37,23 @@
             <button style="height: 100%; background: white; float: left; margin-left: 5px; border: 0px white;">
                <img src="/semiproject/images/Vector.png">
             </button>
-            <input  onkeyup="if(event.keyCode === 13) { searchEnp(); }" id="search" name="search" type="search" style="height: 100%; width: 70%; border: 1px solid white; background: white; padding-left: 10px; float:left;">
+            <input  onkeyup="if(event.keyCode === 13) { searchEnp(); }" id="search" name="search" type="search" style="height: 100%; width: 80%; border: 1px solid white; background: white; padding-left: 10px; float:left;">
             <button onclick="searchEnp();" style="height: 95%; background: white; border: 0px white; float: right; margin-right: 5px;">
                 <img src="/semiproject/images/searchicon.png">
             </button>
             <script>
+
+    		var windowWidth = $( window ).width();
+    			$("#mainWidth").width(windowWidth);
+    		var windowHeight = $( window ).height();
+    		$( window ).resize(function() {
+    			windowWidth = $( window ).width();
+    			if(windowWidth > 1420){
+    				$("#mainWidth").width(windowWidth);
+    			}else {
+    				$("#mainWidth").width(1420);
+    			}
+    		});
             	function searchEnp() {
             		var search = $("#search").val();
             		
@@ -170,7 +182,7 @@
       <br>
       <br>
       <br>
-      <h2 style="color: #D5706D; margin-left: 50px;">오늘의 메뉴</h2>
+      <h2 style="color: #D5706D; margin-left: 50px;">코스 리뷰</h2>
       <div class="container" style="border: 0px white; width: 1400px; height: 450px">
 	  <div class="slideshow-container">
 

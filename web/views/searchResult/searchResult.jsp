@@ -22,7 +22,7 @@
 <link rel="icon" href="/semiproject/images/favicon.ico" type="image/x-icon">
 <link rel="stylesheet" type="text/css" href="/semiproject/views/searchResult/css/searchResultStyle.css" />
 </head>
-<body style="width:1440px;">
+<body id="mainWidth" style="width:1440px;">
 	<%@ include file="/views/common/header.jsp" %>
 	
 	<!-- outer start -->
@@ -38,6 +38,17 @@
             </button>
             <input onkeyup="if(event.keyCode === 13) { searchEnp(); }" id="search" name="search" type="search" style="height: 100%; width: 70%; border:0; background: white; font-size: 22px; margin-left: 10px; float:left;">
             <script>
+            var windowWidth = $( window ).width();
+			$("#mainWidth").width(windowWidth);
+		var windowHeight = $( window ).height();
+		$( window ).resize(function() {
+			windowWidth = $( window ).width();
+			if(windowWidth > 1420){
+				$("#mainWidth").width(windowWidth);
+			}else {
+				$("#mainWidth").width(1420);
+			}
+		});
             	function searchEnp() {
             		var search = $("#search").val();
             		

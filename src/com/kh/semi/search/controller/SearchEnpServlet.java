@@ -45,7 +45,7 @@ public class SearchEnpServlet extends HttpServlet {
 		request.getSession().setAttribute("viewSortBoardEnpList", viewSortBoardEnpList);
 		request.getSession().setAttribute("dateSortBoardEnpList", dateSortBoardEnpList);
 		request.getSession().setAttribute("likeSortBoardEnpList", likeSortBoardEnpList);
-		response.sendRedirect(page);
+		request.getRequestDispatcher(page).forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

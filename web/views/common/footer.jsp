@@ -186,7 +186,7 @@ html, body {
 	<!-- FOOTER START -->
 	<div class="footer">
 		<div class="contain">
-			<div class="col" style="margin-top:20px; margin-left:30px; ">
+			<div class="col" style="margin-top:20px; margin-left:100px; ">
 				<img src="/semiproject/images/YUMEET LOGO.png" id="ylogo"
 					alt="yumeetlogo">
 			</div>
