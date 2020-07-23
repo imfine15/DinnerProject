@@ -26,16 +26,17 @@
 </head>
 
    <%@include file="/views/common/header.jsp"%>
-<body id="mainWidth" style="width: 1400px; margin-left: auto; margin-right: auto;">
+<body id="mainWidth" onload="showImage()" style="width:1380px; margin:0; padding:0; oveflow-x:hidden !important;">
    <div>
       <!-- banner -->
-      <div class="banner" style="padding-top: -1px; margin-top: -300px; height: 500px; position: relative;">
+      <div class="banner" style="padding-top: -1px; margin-top: -300px; height: 500px; position: relative; oveflow-x:hidden;">
          <div>
-            <img src="/semiproject/images/mainBanner6.png" style="width: 100%; height: 600px;">
+            <img id="introImg" style="width:100%;  oveflow-x:hidden; height: 600px;">
          </div>
          <div class="container" style="background: white; height: 60px; width: 600px; padding: 1px; margin-bottom: -100px; position: absolute; top: 120%; left: 38%; border-radius: 10px; font-size: 22px; margin-left: -50px;">
             <button style="height: 100%; background: white; float: left; margin-left: 5px; border: 0px white;">
                <img src="/semiproject/images/Vector.png">
+               
             </button>
             <input  onkeyup="if(event.keyCode === 13) { searchEnp(); }" id="search" name="search" type="search" style="height: 100%; width: 80%; border: 1px solid white; background: white; padding-left: 10px; float:left;">
             <button onclick="searchEnp();" style="height: 95%; background: white; border: 0px white; float: right; margin-right: 5px;">
@@ -339,6 +340,7 @@
             </div>
          </div>
       </div>
+     </div> 
    <br><br><br>
 <script>
 	var slideIndex = 1;
@@ -382,5 +384,27 @@
       <script src="/semiproject/views/main/js/html5shiv.js"></script>
       <!-- Custom JS -->
       <script src="/semiproject/views/main/js/custom.js"></script>
+      
+         <script type="text/javascript">
+        var imgArray= new Array();
+        imgArray[0]="/semiproject/images/mainImages/main1.png"; 
+        imgArray[1]="/semiproject/images/mainImages/main2.png"; 
+        imgArray[2]="/semiproject/images/mainImages/main3.png";    
+        imgArray[3]="/semiproject/images/mainImages/main4.png";    
+        imgArray[4]="/semiproject/images/mainImages/main5.png";    
+        imgArray[5]="/semiproject/images/mainImages/main6.png";    
+        imgArray[6]="/semiproject/images/mainImages/main7.png";    
+        imgArray[7]="/semiproject/images/mainImages/main8.png";    
+        imgArray[8]="/semiproject/images/mainImages/main9.png";    
+        imgArray[9]="/semiproject/images/mainImages/main10.png";    
+               
+        function showImage()
+        {
+            var imgNum=Math.round(Math.random()*10);
+            var objImg=document.getElementById("introImg");
+            objImg.src=imgArray[imgNum];
+            
+        }
+    </script>
 </body>
 </html>

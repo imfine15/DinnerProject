@@ -39,6 +39,7 @@ body{
 	font-weight: 400;
 	color: #545454;
 	-webkit-font-smoothing: antialiased;
+	oveflow-x:hidden;
 }
 
 h1,h2,h3,h4,h5,h6{

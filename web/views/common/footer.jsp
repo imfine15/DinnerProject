@@ -12,6 +12,8 @@ html, body {
 	padding: 0;
 	height: 100%;
 	font-family: Arial, Helvetica, Sans-serif;
+	oveflow-x:hidden;
+	width:100%;
 }
 
 .dummy_page {
@@ -21,6 +23,7 @@ html, body {
 	text-align: center;
 	box-sizing: border-box;
 	padding: 60px 0px;
+	oveflow-x:hidden
 }
 /* STYLES SPECIFIC TO FOOTER  */
 
@@ -176,6 +179,7 @@ html, body {
 	height: auto;
 	background-color: white;
 	font-family:-윤고딕310;
+	oveflow-x:hidden;
 }
 }
 </style>
@@ -187,8 +191,8 @@ html, body {
 	<div class="footer">
 		<div class="contain">
 			<div class="col" style="margin-top:20px; margin-left:100px; ">
-				<img src="/semiproject/images/YUMEET LOGO.png" id="ylogo"
-					alt="yumeetlogo">
+				<a href="/semiproject/views/main/main.jsp"><img src="/semiproject/images/YUMEET LOGO.png" id="ylogo"
+					alt="yumeetlogo"></a>
 			</div>
 			<div class="col2" id="dd" style="margin-left:0px;">
 				<ul style="margin-top:45px;">
