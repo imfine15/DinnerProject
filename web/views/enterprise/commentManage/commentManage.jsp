@@ -250,7 +250,6 @@
 <br>
 <br>
 <br>
-	<%@include file="../../common/enterpriseFooter.jsp" %>
 <script>
 	$(function () {
 		$("ul li a").click(function () {

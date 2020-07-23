@@ -62,7 +62,7 @@ body {
 			<% } else { %>
 			<button id="logout" style="float:right;" onclick="logout();">로그아웃</button>
 			<a style="float: right">
-				<img src="/semiproject/images/myicon.png" onclick="goMypage();" style="width: 100px; cursor:pointer;">
+				<img src="/semiproject/images/myicon.png" onclick="goMypage();" style="width: 80px; cursor:pointer;">
 			</a>
 			<% } %>
 			<input type="hidden" value="" name="url" id="url"> 

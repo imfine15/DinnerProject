@@ -133,11 +133,11 @@ sup {
   top: -.5em; }
 
 a {
-  color: #007bff;
+  color: gray;
   text-decoration: none;
   background-color: none; }
   a:hover {
-    color: white;
+    color: black;
     text-decoration: underline; }
 
 a:not([href]):not([tabindex]) {
@@ -178,7 +178,7 @@ table {
 caption {
   padding-top: 0.75rem;
   padding-bottom: 0.75rem;
-  color: #6c757d;
+  color: gray;
   text-align: left;
   caption-side: bottom; }
 
@@ -417,7 +417,7 @@ mark,
 
 code {
   font-size: 87.5%;
-  color: #e83e8c;
+  color: black;
   word-break: break-word; }
   a > code {
     color: inherit; }
@@ -8144,7 +8144,7 @@ a {
   -webkit-transition: .3s all ease;
   -o-transition: .3s all ease;
   transition: .3s all ease;
-  color: #efefef; }
+  color: gray; }
   a:hover, a:focus {
     text-decoration: none !important;
     outline: none !important;

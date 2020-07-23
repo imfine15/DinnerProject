@@ -296,7 +296,6 @@ System.out.println("modalListsize : " + modalList.size());
 				<br>
 				<br>
 				<br>
-	<%@include file="../../common/enterpriseFooter.jsp" %>
 <br>
 <script>
 	$(function () {

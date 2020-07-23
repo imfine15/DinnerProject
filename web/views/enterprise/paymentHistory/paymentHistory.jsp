@@ -212,7 +212,6 @@
 	</div>
 	
 	
-	<%@include file="../../common/enterpriseFooter.jsp" %>
 <br>
 <script>
 	$(function () {

@@ -19,11 +19,12 @@
 }
 
 #wrapper {
-	width: 80%;
-	height: 100%;
+	width: 81.2%;
+	height: 90%;
 	margin-left: 230px;
 	padding-top: 30px;
 	padding-left: 30px;
+	margin-right:10px;
 }
 
 #title-box {
@@ -35,6 +36,7 @@
 	font-family: Noto Sans KR;
 	font-size: 30px;
 	font-weight: bolder;
+	margin-right:0px;
 }
 
 #inner-box {
@@ -43,10 +45,12 @@
 }
 
 #inner-wrap {
-	padding-left: 0px;
 	background: white;
 	width: 100%;
 	height:40%;
+	margin-bottom: 10px;
+	padding-left: 10px;
+	margin-right:0px;
 }
 <!--
 td {
@@ -62,18 +66,33 @@ tr {
 	height: 40px;
 }
 -->
-#mainMenu {
-	width:150px;
-}
+
 #mainMenuForm {
 	width:100%;
 	margin:0;
-}
-td {
-	width:284.5px;
+	height:30%;
 }
 #recentPost {
-	
+	display:inline-block;
+}
+.wrap {
+	width: 250px;
+	margin: 10px auto;
+	position: relative;
+}
+.mone {
+	width: 100%;
+	vertical-align: middle;
+}
+.main-text {
+	padding: 5px 10px;
+	text-align: center;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	color:white;
+	transform: translate( -50%, -50% );
+	font-size:22px;
 }
 </style>
 </head>
@@ -85,54 +104,103 @@ td {
 			<br>
 		</div>
 		<div id="inner-wrap">
+			<div style="height: 35px"></div>
+			<div id="mainMenuDiv" style="display: block;">
 				<form id="mainMenuForm">
 					<table>
 						<tr>
-							<td>
-								<div><img src="/semiproject/images/mintCircle.png" alt="mainMenu" id="mainMenu"></div>
-								<div><p>공지사항</p></div>
+							<td class="wrap">
+								<div class="mone">
+									<img src="/semiproject/images/mintCircle.png" alt="mainMenu"
+										id="mainMenu" style="width: 190px">
+								</div>
+								<div class="main-text">
+									<a><p>공지사항</p></a>
+								</div>
 							</td>
-							<td>
-								<img src="/semiproject/images/mintCircle.png" alt="mainMenu" id="mainMenu">
-								<p>공지사항</p>
+							<td class="wrap">
+								<div class="mone">
+									<img src="/semiproject/images/mintCircle.png" alt="mainMenu"
+										id="mainMenu" style="width: 190px">
+								</div>
+								<div class="main-text">
+									<p>공지사항</p>
+								</div>
 							</td>
-							<td>
-								<img src="/semiproject/images/mintCircle.png" alt="mainMenu" id="mainMenu">
-								<p>공지사항</p>
+							<td class="wrap">
+								<div class="mone">
+									<img src="/semiproject/images/mintCircle.png" alt="mainMenu"
+										id="mainMenu" style="width: 190px">
+								</div>
+								<div class="main-text">
+									<p>공지사항</p>
+								</div>
 							</td>
-							<td>
-								<img src="/semiproject/images/mintCircle.png" alt="mainMenu" id="mainMenu">
-								<p>공지사항</p>
+							<td class="wrap">
+								<div class="mone">
+									<img src="/semiproject/images/mintCircle.png" alt="mainMenu"
+										id="mainMenu" style="width: 190px">
+								</div>
+								<div class="main-text">
+									<p>공지사항</p>
+								</div>
 							</td>
 
 						</tr>
 					</table>
 				</form>
-		</div>
-		<div id="recentPost">
-			<form>
-				<table></table>
-			</form>
-		</div>
-		<div>
-			<form>
-				<table></table>
-			</form>
-		</div>
-		<div>
-			<form>
-				<table></table>
-			</form>
-		</div>
-		<div>
-			<form>
-				<table></table>
-			</form>
-		</div>
-		
-		</div>
+			</div>
+			</div>
+				<div id="recentPost">
+					<form>
+						<table
+							style="background-color: white; width: 570px; height: 300px; margin-right:0; padding-right:0;">
+							<tr>
+								<td style="width:100%;float:left; text-align:left;margin-top:10px; font-size:17px; ">&nbsp;&nbsp;게시글 현황</td>
+							</tr>
+							<tr>
+							</tr>
+							<tr>
+							</tr>
+							<tr>
+							</tr>
+							<tr>
+							</tr>
+						</table>
+					</form>
+				</div>
+				<div id="recentPost">
+					<form>
+						<table
+							style="background-color: white; width: 580px; height: 300px">
+							<tr>
+								<td style="width:100%;float:left; text-align:left;margin-top:10px; background-color:#F9F9F9;">&nbsp;&nbsp;게시글 현황</td>
+							</tr>
+							<tr>
+							</tr>
+							<tr>
+							</tr>
+							<tr>
+							</tr>
+							<tr>
+							</tr>
+							
+						</table>
+					</form>
+				</div>
+				<div>
+					<form>
+						<table></table>
+					</form>
+				</div>
+				<div>
+					<form>
+						<table></table>
+					</form>
+				</div>
 
-
+			</div>
+			</div>
 
 
 
