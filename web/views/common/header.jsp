@@ -18,9 +18,11 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
 <style>
 body {
 	background: white;
+	 oveflow-x:hidden;
 }
 
 .container2 {
@@ -29,27 +31,33 @@ body {
 
 #login, #logout {
 	width:76px;
-	height:45px;
+	height:35px;
 	cursor:pointer;
 	border:0;
 	color:white;
 	margin:12px;
 	background-color:#EB7673;
 	border-radius:5px;
-	font-size:13px;
+	font-size:15px;
+	font-family: 'Noto Sans KR', sans-serif;
+}
+.navbar navbar-inverse navbar-static-top {
+	width:100%;
+	margin:0 0 0 0 auto;
+	padding:0;
 }
 </style>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 <body>
-	<div class="navbar navbar-inverse navbar-static-top"
+	<div class="navbar navbar-inverse navbar-static-top" 
 		style="background: white; border-color: pink;">
 		<div class="container2" style="background: white;">
-			<a href="/semiproject/views/main/main.jsp" style="margin-left: 50px;">
-				<img src="/semiproject/images/YUMEET LOGO.png" style="width: 200px;">
+			<a href="/semiproject/views/main/main.jsp" style="margin-left: 20px;">
+				<img src="/semiproject/images/YUMEET LOGO.png" style="width: 150px;">
 			</a>
 			<% if(loginUser == null) { %>
-			<a id="dd" style="float: right; margin-right: 70px;" href="/semiproject/views/signIn/signIn.jsp">
+			<a id="dd" style="float: right; margin-right: 30px;" href="/semiproject/views/signIn/signIn.jsp">
 				<button id="login">로그인</button>
 			</a>
 			<% } else { %>
