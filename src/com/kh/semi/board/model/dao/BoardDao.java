@@ -18,6 +18,7 @@ import java.util.Properties;
 import com.kh.semi.admin.model.vo.PageInfo;
 import com.kh.semi.board.model.vo.BoardUpVo;
 import com.kh.semi.board.model.vo.BoardVO;
+import com.kh.semi.board.model.vo.History;
 import com.sun.corba.se.spi.orbutil.fsm.Guard.Result;
 
 public class BoardDao {
@@ -948,6 +949,36 @@ public class BoardDao {
 		
 		
 		return result;
+	}
+
+	public History selectHistory(Connection con, String boardNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		History history = null;
+		
+		String query = prop.getProperty("selectHistory");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, boardNo);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				history = new History();
+				history.setUploadNo(rset.getString("UPLOAD_NO"));
+				history.setStatusCode(rset.getString("STATUS_CODE"));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		
+		return history;
 	}
 
 	

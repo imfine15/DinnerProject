@@ -290,7 +290,7 @@ public class AdminDao {
 			
 			result = pstmt.executeUpdate();
 			
-			System.out.println("resultat : " + result);
+			
 
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

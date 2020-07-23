@@ -58,11 +58,11 @@ public class UpdateBoardServlet extends HttpServlet {
 			
 			Enumeration<String> file = multiRequest.getFileNames();
 			
-			System.out.println("file : " + file.hasMoreElements());
+			
 			
 			while(file.hasMoreElements()) {
 				String name  = file.nextElement();
-				System.out.println("name : " + name);
+				
 				saveFiles.add(multiRequest.getFilesystemName(name));
 	            originFiles.add(multiRequest.getOriginalFileName(name));
 	            
@@ -83,8 +83,7 @@ public class UpdateBoardServlet extends HttpServlet {
 		String boardContent = "";
 		
 		for(int i = 0; i <count;i++) {
-			System.out.println("originName : " + originNameArr[i]);
-			System.out.println("changeNameArr : " + changeNameArr[i]);
+			
 			if(count-1 == i) {
 				boardContent += content[i];
 			} else {
@@ -101,22 +100,19 @@ public class UpdateBoardServlet extends HttpServlet {
 		board.setBoardContent(boardContent);
 		
 		
-		System.out.println("boardNo : "+boardNo);
 		
 		ArrayList<BoardUpVo> fileList = new ArrayList<>();
 		BoardUpVo bf = null ;
 		for(int i = 0; i <count;i++) {
 			 bf = new BoardUpVo();
-	            System.out.println("originName : " + originNameArr[i]);
-	            System.out.println("changeNameArr : " + changeNameArr[i]);
+	            
         	 bf.setFilePath(filePath);
         	 bf.setOriginName(originNameArr[i]);
         	 bf.setChangeName(changeNameArr[i]);
             
             fileList.add(bf);
          }
-         System.out.println("fileList : " + fileList);
-
+         
          int result = new BoardService().updateBoard(board, fileList);
          
          
