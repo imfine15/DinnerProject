@@ -443,7 +443,7 @@ public class ReservationDao {
 			pstmt = con.prepareStatement(query);
 			pstmt.setInt(1, seq);
 			pstmt.setString(2, pointVO.getmNo());
-			pstmt.setInt(3, pointVO.getpAmount());
+			pstmt.setInt(3, -pointVO.getpAmount());
 			pstmt.setString(4, pointVO.getSaveStatue());
 			
 			result = pstmt.executeUpdate();
@@ -521,9 +521,6 @@ public class ReservationDao {
 		return result;
 	}
 }
-
-
-
 
 
 
