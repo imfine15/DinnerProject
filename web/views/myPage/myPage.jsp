@@ -54,7 +54,24 @@ input{
 </style>
 </head>
 <body>
+
 	<%@ include file="/views/common/header.jsp" %>
+	<script>
+		$.ajax({
+			type : "post",
+			url : "/semiproject/selectPoint.me",
+			data : {
+				mNo: "<%=loginUser.getmNo()%>"
+			},
+			success: function(data){
+				console.log("point성공입니다.");
+
+				$("#currentPoint").html("보유포인트 : " + data + "p");
+			},
+			error: function(){
+			}
+		});
+	</script>
 	<div id="daumWrap" class="userinfo_type1 ">
 		<div id="daumHead" role="banner">
 			<div class="inner_head" style="padding-right:30px;">
@@ -92,10 +109,10 @@ input{
 								</a>
 							</div>
 							<div style="margin-top: -10px;">
-								<label class="info">이름 : </label> <label class="info2">정용탁</label><br>
-								<label class="info">닉네임 : </label> <label class="info2">Paduck</label><br> 
-								<label class="info">주소 : </label> <label class="info2">서울 서초구 양재동 16-12</label><br> 
-								<label class="info">번호 : </label> <label class="info2">010-4422-3043</label>
+								<label class="info">이름 : </label> <label class="info2"><%=loginUser.getmName() %></label><br>
+								<label class="info">닉네임 : </label> <label class="info2"><%=loginUser.getmNickname() %></label><br> 
+								<label class="info">이메일 : </label> <label class="info2"><%=loginUser.getmEmail() %></label><br> 
+								<label class="info">번호 : </label> <label class="info2"><%=loginUser.getmPhone() %></label>
 							</div>
 						</div>
 						<a href="/semiproject/views/myPage/writePostsByMe.jsp" class="bg_box" style="display: inline-block; border: 1px solid darkgray;"> <!-- 미사용시 class 'box_off', 사용시 class 'box_on' -->
@@ -123,22 +140,22 @@ input{
 						style="width: 678px; height: 116px; margin: 0 0 52px 16px; overflow: hidden; background: url(images/subbar.png) no-repeat 0 0">
 						<li
 							style="float: left; width: 161px; height: 116px; margin-right: 55px;">
-							<form action="<%=request.getContextPath()%>/selectList.py">
-								<button style="display: block; width: 50px; height: 16px; margin-top: 90px; maring-right:30px; padding-rightL"></button>
+							<form action="<%=request.getContextPath()%>/selecPointtList.py">
+								<button style="display: block; width: 50px; height: 16px; margin-left: 16px;margin-top: 90px; maring-right:30px;"></button>
 							</form>
 						</li>
 
 						<li
 							style="float: left; width: 161px; height: 116px; margin-right: 55px;">
 							<form action="<%=request.getContextPath()%>/selectList.py">
-								<button style="display: block; width: 50px; height: 16px; margin-top: 90px; maring-right:30px; padding-rightL"></button>
+								<button style="display: block; width: 50px; height: 16px; margin-top: 90px; maring-right:30px;"></button>
 							</form>
 						</li>
 						<li
 							style="float: left; width: 161px; height: 116px; margin-right: 65px;">
 							
 							<form action="<%=request.getContextPath()%>/selectList.py">
-								<button style="display: block; width: 50px; height: 16px; margin-top: 90px; maring-right:30px; padding-rightL"></button>
+								<button style="display: block; width: 50px; height: 16px; margin-top: 90px; maring-right:30px;"></button>
 							</form>
 						</li>
 					</ul>
@@ -154,9 +171,9 @@ input{
 								<span class="frame_img">프로필 이미지 관리</span> <span
 								class="">프로필 이미지 업로드</span>
 							</a> <a href="/semiproject/views/myPage/checkingPassword.jsp" class="link_user"
-								data-tiara-action-name="내_정보">dydxkr님<br>
+								data-tiara-action-name="내_정보"><%=loginUser.getmName()%>님<br>
 							</a><a class="link_user" href="/semiproject/views/myPage/myPoint.jsp">
-							<label class="" >포인트 : 300</label>	
+							<label id="currentPoint" >포인트 : </label>	
 							</a>
 							
 							<div id="profileImageAgreeDialog" class="layer_manage"
