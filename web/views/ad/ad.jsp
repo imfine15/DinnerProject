@@ -112,51 +112,50 @@ color: #000000;
 			</table>
 		</div>
 		<hr style="width: 1000px;">
+			<form action="<%=request.getContextPath() %>/insertAd.ad" method="post" enctype="multipart/form-data">
 		<div id="adsec">
 			<p id="submitad">광고 상담 신청</p>
 			<p id="minit">※모든 내용을 정확히 기입해주시면 원활한 상담이 진행될 수 있습니다.</p>
-			<form>
 				<table>
 					<tr>
 						<td><input size="50" style="line-height: 30px;"
-							placeholder="이름"></td>
+							placeholder="이름" name="adName"></td>
 					</tr>
 					<tr>
 						<td><input size="50" style="line-height: 30px;"
-							placeholder="전화번호"></td>
+							placeholder="전화번호" name="adPhone"></td>
 					</tr>
 					<tr>
 						<td><input size="50" style="line-height: 30px;"
-							placeholder="이메일"></td>
+							placeholder="이메일" name="adEmail"></td>
 					</tr>
 					<tr>
 						<td><input size="50" style="line-height: 30px;"
-							placeholder="업체명"></td>
+							placeholder="업체명" name="adEnpName"></td>
 					</tr>
 					<tr>
 						<td><input size="50" style="line-height: 30px;"
-							placeholder="업체주소"></td>
+							placeholder="업체주소" name="adEnpAddress"></td>
 					</tr>
 					<tr>
 						<td><input size="50" style="line-height: 30px;"
-							placeholder="업체종류"></td>
+							placeholder="업체종류" name="adEnpType"></td>
 					</tr>
 					<tr>
 						<td><input size="50" style="line-height: 30px;"
-							placeholder="어떤 경로를 통해 알게 되셨나요?"></td>
+							placeholder="어떤 경로를 통해 알게 되셨나요?" name="searchPath"></td>
 					</tr>
 					<tr>
-						<td><select
-							style="font-size: 18px; width: 100%; height: 40px;font-family: 나눔스퀘어_AC;"><option>메인
+						<td><select name="adType"
+							style="font-size: 18px; width: 100%; height: 40px;font-family: 나눔스퀘어_AC;"><option value="메인배너">메인
 									페이지 배너 광고</option>
-								<option>기타 페이지 배너 광고</option></select></td>
+								<option value="페이지배너">기타 페이지 배너 광고</option></select></td>
 					</tr>
 					<tr>
-						<td><textarea placeholder="상담내용"
+						<td><textarea placeholder="상담내용" name="counselContent"
 								style="resize:none;font-size: 20px; width: 100%; height: 200px; font-family: 나눔스퀘어_AC;"></textarea></td>
 					</tr>
 				</table>
-			</form>
 		</div>
 		<div>
 			<p id="anno">Phone : 02 6537 7772<br>
@@ -164,6 +163,7 @@ color: #000000;
 			<div style="height:30px;"></div>
 			<button id="sub_click_" type="submit" style="color: white;">상담 신청하기</button>
 		</div>
+			</form>
 	</div>
 	<div style="height: 100px;"></div>
 	<%@ include file="/views/common/footer.jsp" %>

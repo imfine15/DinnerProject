@@ -135,6 +135,7 @@
 	<br>
 <%@ include file="/views/common/footer.jsp" %>
 <script>
+
 $(document).ready(function(){
 	$.ajax({
 		url: "/semiproject/selectReply.pa",
@@ -172,6 +173,7 @@ $(document).ready(function(){
                                                        });
                 $replydiv.append($numBtn);
 			}
+			
 		},
 		error: function(){
 			console.log("실패입니다.");
@@ -309,6 +311,8 @@ $(document).ready(function(){
 					if($("#right1").val() > data[1].maxPage) $("#right1").val(data[1].maxPage);
 
 					$("#cou").html(data[1].listCount);
+					
+					$("#commentBox").val('');
 				},
 				error: function(){
 					console.log("실패입니다.");
@@ -316,6 +320,7 @@ $(document).ready(function(){
 			});
 		});
 	});
+	
 </script>
 </body>
 </html>

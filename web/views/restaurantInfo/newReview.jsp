@@ -89,7 +89,8 @@
 		<%-- <input type="hidden" name="mamberNo" value="<%=loginUser.getmNo()%>">
 		<input type="hidden" name="enpNo" value="<%=%>">
 		<input type="hidden" name="reservationHistoryNo" value="<%=%>">
-		<input type="hidden" name="visitDate" value="<%=%>"> --%>
+		<input type="hidden" name="visitDate" value="<%=%>"> 
+		<input type="hidden" name="reviewType" value=<%=%>"> --%>
 		<div align="left" class="foodNameBox">
 		<span class="foodName">식당이름</span><span>에 대한 솔직한 리뷰를 써주세요.</span>
 		</div>
@@ -97,7 +98,7 @@
 			<table>
 				<tr>
 					<td><img src="/semiproject/images/Star.png" id="star"></td>
-					<td><input type="text" name="averageRating"></td>
+					<td><input type="text" name="averageRating" id="averageRating"></td>
 					<td><span class="starText">/5</span></td>
 				</tr>
 			</table>
@@ -116,6 +117,7 @@
 		</form>
 		</div>
 		<script>
+			
 		</script>
 	<%//} else { %>
 <!-- 	<script>

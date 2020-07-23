@@ -68,21 +68,25 @@ if(ServletFileUpload.isMultipartContent(request)) {
 			String reviewContent = multiRequest.getParameter("reviewContent");
 			String memberNo = multiRequest.getParameter("memberNo");
 			String enpNo = multiRequest.getParameter("enpNo");
-			//double averageRating = Double.parseDouble(multiRequest.getParameter("averageRating"));
+			double averageRating = Double.parseDouble(multiRequest.getParameter("averageRating"));
 			String reservationHistoryNo = multiRequest.getParameter("reservationHistoryNo");
+			String reviewType = multiRequest.getParameter("reviewType");
 			
 			ReviewVO review = new ReviewVO();
 			review.setReviewContent(reviewContent);
 			review.setMemberNo(memberNo);
 			review.setEnpNo(enpNo);
-			//review.setAverageRating(averageRating);
+			review.setAverageRating(averageRating);
 			review.setReservationHistoryNo(reservationHistoryNo);
+			review.setReviewType(reviewType);
 			
-			System.out.println("reviewContent : " + reviewContent);
-			System.out.println("memberNo : " + memberNo);
-			System.out.println("enpNo : " + enpNo);
-			//System.out.println("averageRating : " + averageRating);
-			System.out.println("reservationHistoryNo : " + reservationHistoryNo);
+			
+			
+//			System.out.println("reviewContent : " + reviewContent);
+//			System.out.println("memberNo : " + memberNo);
+//			System.out.println("enpNo : " + enpNo);
+//			System.out.println("averageRating : " + averageRating);
+//			System.out.println("reservationHistoryNo : " + reservationHistoryNo);
 			
 			
 			ArrayList<ReviewAttachment> fileList = new ArrayList<>();
@@ -98,7 +102,7 @@ if(ServletFileUpload.isMultipartContent(request)) {
 	            fileList.add(ra);
 	         }
 	        
-	         //int result = new ReviewService().insertReview(review, fileList);
+	         int result = new ReviewService().insertReview(review, fileList);
 	         
 	         for(int i = originFiles.size() -1; i>= 0; i--) {
 	        	 ReviewAttachment ra = new ReviewAttachment();

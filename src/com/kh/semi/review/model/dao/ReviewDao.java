@@ -9,10 +9,12 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
+import com.kh.semi.review.model.vo.ReviewAttachment;
 import com.kh.semi.review.model.vo.ReviewVO;
 
 public class ReviewDao {
@@ -223,5 +225,90 @@ public class ReviewDao {
 		}
 		
 		return datas;
+	}
+
+	public int insertReview(Connection con, ReviewVO review) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("insertReview");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, review.getReviewContent());
+			pstmt.setString(2, review.getMemberNo());
+			pstmt.setString(3, review.getReviewType());
+			pstmt.setString(3, review.getEnpNo());
+			pstmt.setDate(4, review.getVisitDate());
+			pstmt.setDouble(5, review.getAverageRating());
+			
+			result = pstmt.executeUpdate();
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public String selectCurrval(Connection con) {
+		Statement stmt = null;
+		ResultSet rset = null;
+		String reviewNo = "";
+		
+		String query = prop.getProperty("selectCurrval");
+		
+		try {
+			stmt = con.createStatement();
+			rset = stmt.executeQuery(query);
+			
+			if(rset.next()) {
+				int id = rset.getInt("currval");
+				
+				reviewNo = "RE"+id;
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(stmt);
+			close(rset);
+		}
+		
+		
+		
+		return reviewNo;
+	}
+
+	public int insertAttachment(Connection con, ReviewAttachment reviewAttachment) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("insertAttachment");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, reviewAttachment.getOriginName());
+			pstmt.setString(2, reviewAttachment.getChangeName());
+			pstmt.setString(3, reviewAttachment.getFilePath());
+			pstmt.setString(4, reviewAttachment.getReviewNo());
+			
+			result = pstmt.executeUpdate();
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		
+		return result;
 	}
 }

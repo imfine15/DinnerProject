@@ -43,7 +43,7 @@ public class UpdateEnterpriseServlet extends HttpServlet {
 		
 		if(ServletFileUpload.isMultipartContent(request)) {
 			HttpSession session = request.getSession();
-			String changeName = (String)request.getAttribute("changeName");
+			//String changeName = (String)request.getAttribute("changeName");
 			int maxSize = 1024 * 1024 * 10;
 			
 			String root = request.getSession().getServletContext().getRealPath("/");
@@ -111,18 +111,18 @@ public class UpdateEnterpriseServlet extends HttpServlet {
 			
 
 			String originName = multiRequest.getParameter("originName");
-			String changeName1 = multiRequest.getParameter("changeName");
+			String changeName = multiRequest.getParameter("changName");
 			String filePath = multiRequest.getParameter("filePath");
 			
 			System.out.println("orginName : " + originName);
-			System.out.println("changeName : " + changeName1);
+			System.out.println("changeName : " + changeName);
 			System.out.println("filePath : " + filePath);
 			
 			
 			
 			ArrayList<EnpAttachment> fileList = new ArrayList<>();
 			EnpAttachment ea = new EnpAttachment();
-	        if(originFiles.get(0)!=null) {
+	        if(saveFiles.get(0)!=null) {
 	        	for(int i = originFiles.size() -1; i>= 0; i--) {
 	        		
 	        		ea.setFilePath(savePath);
@@ -135,7 +135,9 @@ public class UpdateEnterpriseServlet extends HttpServlet {
 	        } else {
 	        	ea.setFilePath(filePath);
 	        	ea.setOriginName(originName);
-	        	ea.setChangeName(changeName1);
+	        	ea.setChangeName(changeName);
+	        	
+	        	fileList.add(ea);
 	        	System.out.println("여긴가");
 	        }
 	         
@@ -158,10 +160,12 @@ public class UpdateEnterpriseServlet extends HttpServlet {
 		        } else {
 		        	ea.setFilePath(filePath);
 		        	ea.setOriginName(originName);
-		        	ea.setChangeName(changeName1);
+		        	ea.setChangeName(changeName);
+		        	
+		        	fileList.add(ea);
 		        }
 	         
-	         
+	         System.out.println("fileList : " +fileList);
 	         
 	         String page = "";
 	         if(result > 0) {
