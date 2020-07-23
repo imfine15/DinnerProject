@@ -427,6 +427,7 @@ $("input[type=radio]").click(function(){
     }
 
 });
+
 </script>
 	<%} else { %>
 	<script>
