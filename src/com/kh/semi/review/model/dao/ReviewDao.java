@@ -195,4 +195,33 @@ public class ReviewDao {
 		
 		return reviewsWithFiles;
 	}
+
+	public String[] checkVisit(Connection con, String mNo, String enpNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String query = prop.getProperty("checkVisit");
+		String[] datas = new String[3];
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			
+			pstmt.setString(1, mNo);
+			pstmt.setString(2, enpNo);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				datas[0] = rset.getString("RESERVATION_HISTORY_NO");
+				datas[1] = rset.getString("VISIT_DATE");
+				datas[2] = rset.getString("REVIEW_TYPE");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		return datas;
+	}
 }
