@@ -27,15 +27,16 @@ body {
   box-shadow:0px 5px 10px 5px #DE6B6B;
 }
 
-#login {
-	width:92px;
-	height:61px;
+#login, #logout {
+	width:76px;
+	height:45px;
 	cursor:pointer;
 	border:0;
 	color:white;
-	margin:4px;
+	margin:12px;
 	background-color:#EB7673;
 	border-radius:5px;
+	font-size:13px;
 }
 </style>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -52,6 +53,7 @@ body {
 				<button id="login">로그인</button>
 			</a>
 			<% } else { %>
+			<button id="logout" style="float:right;" onclick="logout();">로그아웃</button>
 			<a style="float: right">
 				<img src="/semiproject/images/myicon.png" onclick="goMypage();" style="width: 100px; cursor:pointer;">
 			</a>
@@ -62,14 +64,17 @@ body {
 	<script>
 		var pag = "<%= session.getAttribute("backPage")%>";
 		$("#dd").click(function(){
-			console.log(pag);
-			console.log(123123);
 			location.href = "/semiproject/views/signIn/signIn.jsp";
 		});
+		
 		function goMypage() {
-		location.href="<%=request.getContextPath()%>/views/myPage/myPage.jsp";
+			location.href="<%=request.getContextPath()%>/views/myPage/myPage.jsp";
 		}
 		
+		function logout(){
+			window.alert("로그아웃되었습니다.");
+			location.href="<%=request.getContextPath()%>/logout.me";
+		}
 	</script>
 </body>
 </html>
