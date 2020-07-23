@@ -232,16 +232,14 @@ public class QuestionDao {
 		QuestionVO question = null;
 		QuestionFileVO attachment = null;
 		ArrayList<QuestionFileVO> list = null;
-		String qNo = "";
-		
-		int qId= rset.getInt("currval");
-		qno = "Q"+qId;
+		String qNo = "Q"+num;
+	
 		
 		String query = prop.getProperty("selectOne");
 		
 		try {
 			pstmt = con.prepareStatement(query);
-			pstmt.setInt(1,  num);
+			pstmt.setString(1, qNo);
 			
 			rset = pstmt.executeQuery();
 
@@ -259,9 +257,7 @@ public class QuestionDao {
 				question.setQuestionDisposalStatus(rset.getString("QUESTION_DISPOSAL_CODE"));
 				question.setQuestionEmail(rset.getString("QUESTION_EMAIL"));
 				question.setQuestionPhone(rset.getString("QUESTION_PHONE"));
-				
-		
-				
+						
 				attachment = new QuestionFileVO();
 				attachment.setChangeName(rset.getString("CHANGE_NAME"));
 				attachment.setFileNo(rset.getString("FILE_NO"));
