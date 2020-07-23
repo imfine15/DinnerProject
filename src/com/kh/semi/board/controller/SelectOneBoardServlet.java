@@ -13,6 +13,7 @@ import javax.servlet.http.HttpSession;
 
 import com.kh.semi.board.model.service.BoardService;
 import com.kh.semi.board.model.vo.BoardUpVo;
+import com.kh.semi.board.model.vo.History;
 
 /**
  * Servlet implementation class SelectOneBoardServlet
@@ -41,6 +42,8 @@ public class SelectOneBoardServlet extends HttpServlet {
 		BoardUpVo board = new BoardService().selectOneBoard(boardNo);
 		ArrayList<HashMap<String, Object>> list2 = null;
 		
+		History history = new BoardService().selectHistory(boardNo);
+		
 			
 		list2 = new BoardService().selectThumbnailList(boardNo);
 		
@@ -53,6 +56,7 @@ public class SelectOneBoardServlet extends HttpServlet {
 			session.setAttribute("board", board);
 			session.setAttribute("boardNo", boardNo);
 			request.setAttribute("replyList", replyList);
+			request.setAttribute("history", history);
 		} else {
 			page="views/common/errorPage.jsp";
 			request.setAttribute("msg", "게시판 조회 실패!");

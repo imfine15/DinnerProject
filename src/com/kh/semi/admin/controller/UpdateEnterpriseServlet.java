@@ -61,35 +61,29 @@ public class UpdateEnterpriseServlet extends HttpServlet {
 			
 			while(file.hasMoreElements()) {
 				String name  = file.nextElement();
-				
+				System.out.println("name : " + name);
 				saveFiles.add(multiRequest.getFilesystemName(name));
 	            originFiles.add(multiRequest.getOriginalFileName(name));
 	            
 			}
+			
+			System.out.println("originFiles.get(0) : " + originFiles.get(0));
+			
 			String enpNo = multiRequest.getParameter("enpNo");
 			String enpName = multiRequest.getParameter("enpName");
 			String enpAddress = multiRequest.getParameter("enpAddress");
 			String enpPhone = multiRequest.getParameter("enpPhone");
 			String enpPartnerType = multiRequest.getParameter("enpPartnerType");
-			
-			
-			
 			String menuName = multiRequest.getParameter("menuName");
 			int menuPrice = Integer.parseInt(multiRequest.getParameter("menuPrice"));
 			String priceRange = multiRequest.getParameter("priceRange");
 			String enpHour = multiRequest.getParameter("enpHour");
 			String closedDay = multiRequest.getParameter("closedDay");
-			
-			
 			String website = multiRequest.getParameter("website");
 			String hashTags = multiRequest.getParameter("hashTags");
 			String introduce = multiRequest.getParameter("introduce");
 			String parkingPossible = multiRequest.getParameter("parkingPossible");
 			String enpType = multiRequest.getParameter("enpType");
-			
-		
-			
-			
 			String enpStatus = multiRequest.getParameter("enpStatus");
 			String uploadApproval = multiRequest.getParameter("uploadApproval");
 			
@@ -116,18 +110,34 @@ public class UpdateEnterpriseServlet extends HttpServlet {
 			
 			
 
+			String originName = multiRequest.getParameter("originName");
+			String changeName1 = multiRequest.getParameter("changeName");
+			String filePath = multiRequest.getParameter("filePath");
+			
+			System.out.println("orginName : " + originName);
+			System.out.println("changeName : " + changeName1);
+			System.out.println("filePath : " + filePath);
+			
 			
 			
 			ArrayList<EnpAttachment> fileList = new ArrayList<>();
-			EnpAttachment at = new EnpAttachment();
-	         for(int i = originFiles.size() -1; i>= 0; i--) {
-	            
-	            at.setFilePath(savePath);
-	            at.setOriginName(originFiles.get(i));
-	            at.setChangeName(saveFiles.get(i));
-	            
-	            fileList.add(at);
-	         }
+			EnpAttachment ea = new EnpAttachment();
+	        if(originFiles.get(0)!=null) {
+	        	for(int i = originFiles.size() -1; i>= 0; i--) {
+	        		
+	        		ea.setFilePath(savePath);
+	        		ea.setOriginName(originFiles.get(i));
+	        		ea.setChangeName(saveFiles.get(i));
+	        		
+	        		fileList.add(ea);
+	        	}
+	        	System.out.println("여기?");
+	        } else {
+	        	ea.setFilePath(filePath);
+	        	ea.setOriginName(originName);
+	        	ea.setChangeName(changeName1);
+	        	System.out.println("여긴가");
+	        }
 	         
 	         
 	        
@@ -135,15 +145,21 @@ public class UpdateEnterpriseServlet extends HttpServlet {
 	         
 	         
 	         fileList = new ArrayList<>();
-	         EnpAttachment ea = new EnpAttachment();
-	         for(int i = originFiles.size() -1; i>= 0; i--) {
-	            
-	            ea.setFilePath(savePath);
-	            ea.setOriginName(originFiles.get(i));
-	            ea.setChangeName(saveFiles.get(i));
-	            
-	            fileList.add(ea);
-	         }
+	         if(originFiles.get(0)!=null) {
+		        	for(int i = originFiles.size() -1; i>= 0; i--) {
+		        		
+		        		ea.setFilePath(savePath);
+		        		ea.setOriginName(originFiles.get(i));
+		        		ea.setChangeName(saveFiles.get(i));
+		        		
+		        		fileList.add(ea);
+		        	}
+		        	
+		        } else {
+		        	ea.setFilePath(filePath);
+		        	ea.setOriginName(originName);
+		        	ea.setChangeName(changeName1);
+		        }
 	         
 	         
 	         

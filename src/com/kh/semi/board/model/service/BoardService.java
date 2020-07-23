@@ -11,6 +11,7 @@ import com.kh.semi.admin.model.vo.PageInfo;
 import com.kh.semi.board.model.dao.BoardDao;
 import com.kh.semi.board.model.vo.BoardUpVo;
 import com.kh.semi.board.model.vo.BoardVO;
+import com.kh.semi.board.model.vo.History;
 
 import oracle.jdbc.OracleConnection.CommitOption;
 
@@ -324,19 +325,17 @@ public class BoardService {
 			int result1 = 0;
 			int result2 = 0;
 			result1 = new BoardDao().updateBoard(con, board);
-			System.out.println("boardNo : " +board.getBoardNo());
+			
 			if(result1 > 0) {
 				String[] fileNo= new String[fileList.size()];
 				fileNo = new BoardDao().selectFileCurrval(con, fileNo, board);
 				
 				for(int i = 0; i < fileList.size(); i++) {
 					fileList.get(i).setFileNo(fileNo[i]);
-					System.out.println("fileNo : " + fileNo[i]);
+					
 					result2 += new BoardDao().updateAttachment(con, fileList.get(i));
 				}
 			}
-			
-			System.out.println("result1 : " + result1 + "result2 : " +result2);
 			
 			if(result1 > 0 && result2 > 0) {
 				commit(con);
@@ -361,5 +360,12 @@ public class BoardService {
 			}
 			
 			return result;
+		}
+
+		public History selectHistory(String boardNo) {
+			Connection con = getConnection();
+			History history = new BoardDao().selectHistory(con, boardNo);
+			
+			return history;
 		}
 }

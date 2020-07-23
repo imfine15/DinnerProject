@@ -84,9 +84,7 @@ public class AdminService {
 			}
 			result3 = new AdminDao().updateMenu(con, enpUp);
 		}
-		System.out.println("fileListSize : " + fileList.size());
 		
-		System.out.println("result1 : " + result1 + ", result2 : " + result2 + ", result3 : " + result3);
 		if(result1 > 0 && result3 > 0 && result2 == fileList.size()) {
 			commit(con);
 			result = 1;
