@@ -390,8 +390,8 @@ public class SearchDao {
 			rset = pstmt.executeQuery();
 			
 			bestCourse = new ArrayList<>();
-			
-			for(int i = 0; i < 2; i++) {
+			// 샘플데이터 추가 후 i < 2로 고쳐주세요
+			for(int i = 0; i < 1; i++) {
 				rset.next();
 				
 				BoardVO b = new BoardVO();
@@ -407,6 +407,14 @@ public class SearchDao {
 				b.setViewCount(rset.getInt("VIEW_COUNT"));
 				b.setHashTags(rset.getString("HASH_TAGS"));
 				b.setLikeCount(rset.getInt("LIKE_COUNT"));
+				
+				b.setCourseNo(rset.getString("COURSE_NO"));
+				
+				b.setUploadNo(rset.getString("UPLOAD_NO"));
+				b.setStatusName(rset.getString("STATUS_NAME"));
+				b.setUploadDate(rset.getDate("UPLOAD_DATE"));
+				
+				bestCourse.add(b);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -422,19 +430,23 @@ public class SearchDao {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		String query = prop.getProperty("getBestFile");
-		ArrayList<BoardVO> bestDetail = null;
 		
 		try {
 			pstmt = con.prepareStatement(query);
-			
-			for(int i = 0; i < 2; i++) {
+			// 샘플데이터 추가후에 i < 2로 고쳐주세요
+			for(int i = 0; i < 1; i++) {
 				pstmt.setString(1, bestCourse.get(i).getBoardNo());
 				
 				rset = pstmt.executeQuery();
 				
-				if(rset.next()) {
-					
+				int j = 0;
+				String[] temp = new String[2];
+				while(rset.next()) {
+					temp[j] = rset.getString("FILE_PATH");
+					j++;
 				}
+				
+				bestCourse.get(i).setFilePaths(temp);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -443,7 +455,7 @@ public class SearchDao {
 			close(pstmt);
 		}
 		
-		return bestDetail;
+		return bestCourse;
 	}
 
 }

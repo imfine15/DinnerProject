@@ -247,20 +247,24 @@
 	<!-- 일정검색창시작 -->
 	<div id="schedule" align="center" style="display: none;">
 		<p id="text2" align="left">베스트 코스리뷰</p><br>
-		<% for(int i = 0; i < 2; i++) { %>
+		<% for(int i = 0; i < 1; i++) { %> <!-- 샘플데이터 들어간 뒤에 i < 2로 고쳐주세요 -->
 		<div class="best" align="left">
 			<img src="" style="width: 450px; height: 200px;" id="bestImg<%= i %>">
 			<p class="bestBig" id="bestBig<%= i %>"></p>
 			<p class="bestSmall" id="bestSmall<%= i %>"></p>
 		</div>
 		<script>
-			/* $(function() {
-				url: "/semiproject/getBestCourseReview.se",
-				type: "post",
-				success: function(data) {
-					
-				}
-			}); */
+			$(function() {
+				$.ajax({
+					url: "/semiproject/getBestCourseReview.se",
+					type: "post",
+					success: function(data) {
+						$("#bestImg<%= i %>").attr("src", data[<%= i %>].filePaths[0]);
+						$("#bestBig<%= i %>").html(data[<%= i %>].boardTitle);
+						$("#bestSmall<%= i %>").html(data[<%= i %>].hashTags);
+					}
+				});
+			});
 		</script>
 		<% } %>
 		<!-- 리뷰게시판시작 -->
@@ -280,48 +284,62 @@
 						var sort = $(this).html();
 						
 						switch(sort) {
-							case '조회순' : break;
-							case '추천순' : break;
-							case '최신순' : break;
+							case '조회순' : viewSortCourse(); break;
+							case '추천순' : likeSortCourse(); break;
+							case '최신순' : dateSortCourse(); break;
 						}
 					});
 				});
+				
+				var sortCourse;
+				
+				function viewSortCourse() {
+					
+				}
+				
+				function likeSortCourse() {
+					
+				}
+				
+				function dateSortCourse() {
+					
+				}
 			</script>
 			<hr>
-			<%-- <div class="textArea">
-			<table style="border-bottom: 1px solid black;">
+			<div class="textArea">
+			<table style="border-bottom: 1px solid black;" id="courseTable">
 				<tr>
-					<td rowspan="3" width="100px"><%= courseBoardList.get(i).getBoardNo() %></td>
-					<td rowspan="3"><img src="<%= courseBoardList.get(i).getFilePaths()[0] %>" width="200px" height="150px"></td>
-					<td align="left" valign="bottom"><label class="textreview"><%= courseBoardList.get(i).getBoardTitle() %></label></td>
+					<td rowspan="3" width="100px">getBoardNo()</td>
+					<td rowspan="3"><img src="" width="200px" height="150px"></td>
+					<td align="left" valign="bottom"><label class="textreview">getBoardTitle()</label></td>
 					<td rowspan="3" valign="top" width="40px"><img class="heart" src="/semiproject/images/heartblack.png"></td>
-					<td align="right" valign="bottom"><%= courseBoardList.get(i).getUploadDate() %></td>
+					<td align="right" valign="bottom">getUploadDate()</td>
 					<td rowspan="2" width="180px" align="center">
 						<div class="profileBox" align="center">
-							<img id="cprofilePic<%= i %>" class="profile" src="">
+							<img id="cprofilePic0" class="profile" src="">
 						</div>
 					</td>
 				</tr>
 				<tr>
-					<td width="400px" align="left" valign="top" rowspan="2"><label><%= courseBoardList.get(i).getHashTags() %></label></td>
-					<td align="right" valign="top" width="100px">조회수 : <%= courseBoardList.get(i).getViewCount() %></td>
+					<td width="400px" align="left" valign="top" rowspan="2"><label>getHashTags()</label></td>
+					<td align="right" valign="top" width="100px">조회수 : getViewCount()</td>
 				</tr>
 				<tr>
 					<td align="right"><button class="report">신고</button></td>
-					<td id="cprofileNickName<%= i %>" align="center"></td>
+					<td id="cprofileNickName0" align="center"></td>
 				</tr>
 			</table>
 			<script>
 				$(function() {
-					var mNo = "<%= courseBoardList.get(i).getMemberNo() %>";
+					var mNo = "ajax에서 받아서 값을 넣어주세요";
 					
 					$.ajax({
 						url: "/semiproject/selectMember.me",
 						type: "post",
 						data: {mNo: mNo},
 						success: function(data) {
-							$("#cprofilePic<%= i %>").attr("src", data.filePath);
-							$("#cprofileNickName<%= i %>").html(data.mNickname);
+							$("#cprofilePic0").attr("src", data.filePath);
+							$("#cprofileNickName0").html(data.mNickname);
 						}
 					});
 				});
@@ -331,7 +349,7 @@
 		<!-- 리뷰게시판끝 -->
 		<!-- 페이징처리해야하는부분 -->
 		<!-- 맛집리뷰시작 -->
-		<div class="inner2" align="center">
+		<%-- <div class="inner2" align="center">
 			<div align="left">
 				<label id="text3">맛집 리뷰</label>
 			</div>
@@ -357,8 +375,6 @@
 			</script>
 			<hr>
 			<div class="textArea">
-			<%! public void enpReview() { %>
-			<% for(int i = 0; i < enpBoardList.size(); i++) { %>
 			<table style="border-bottom: 1px solid black;">
 				<tr>
 					<td rowspan="3" width="100px"><%= enpBoardList.get(i).getBoardNo() %></td>
@@ -396,8 +412,6 @@
 					});
 				});
 			</script>
-			<% } %>
-			<%! } %>
 			</div>
 		</div> --%>
 		<!-- 페이징처리해야할부분 -->

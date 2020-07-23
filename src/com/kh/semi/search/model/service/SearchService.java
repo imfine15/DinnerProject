@@ -89,7 +89,7 @@ public class SearchService {
 		
 		close(con);
 		
-		return bestCourse;
+		return bestCourseDetail;
 	}
 
 }
