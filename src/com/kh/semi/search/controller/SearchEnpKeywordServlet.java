@@ -30,13 +30,6 @@ public class SearchEnpKeywordServlet extends HttpServlet {
 		String keyword = request.getParameter("keyword");
 		String[] words = {searchWord, keyword};
 		
-		List<BoardVO> viewSortBoardList = new BoardService().viewSortBoard();
-		List<BoardVO> dateSortBoardList = new BoardService().dateSortBoard();
-		List<BoardVO> likeSortBoardList = new BoardService().likeSortBoard();
-		List<BoardVO> viewSortBoardEnpList = new BoardService().viewSortEnpBoard();
-		List<BoardVO> dateSortBoardEnpList = new BoardService().dateSortEnpBoard();
-		List<BoardVO> likeSortBoardEnpList = new BoardService().likeSortEnpBoard();
-		
 		int currentPage; // 현재 페이지를 표시할 변수
     	int limit; // 한 페이지에서 게시글이 몇 개 보여질 것인지 표시할 변수
     	int maxPage; // 전체 페이지에서 가장 마지막 페이지
@@ -83,12 +76,6 @@ public class SearchEnpKeywordServlet extends HttpServlet {
     		request.setAttribute("pi", pi);
     		request.setAttribute("enpMenus", enpMenus);
     		request.setAttribute("search", searchWord);
-    		request.setAttribute("viewSortBoardList", viewSortBoardList);
-    		request.setAttribute("dateSortBoardList", dateSortBoardList);
-    		request.setAttribute("likeSortBoardList", likeSortBoardList);
-    		request.setAttribute("viewSortBoardEnpList", viewSortBoardEnpList);
-    		request.setAttribute("dateSortBoardEnpList", dateSortBoardEnpList);
-    		request.setAttribute("likeSortBoardEnpList", likeSortBoardEnpList);
     	} else {
     		page = "views/common/errorPage.jsp";
     		request.setAttribute("msg", "검색 실패");

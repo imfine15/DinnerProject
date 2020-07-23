@@ -190,8 +190,16 @@ ArrayList<ReviewVO> normalReviews = (ArrayList<ReviewVO>)session.getAttribute("n
 				});
 			});
 		</script>
-		<div class="ReviewWrite">작성하기 <img alt="리뷰 작성 버튼" src="/semiproject/images/writeReview.png" class="writeReviewBtn"></div>
+		<div onclick="visitReviewWrite();" class="ReviewWrite">작성하기 <img alt="리뷰 작성 버튼" src="/semiproject/images/writeReview.png" class="writeReviewBtn"></div>
 	</div>
+	<script>
+		function visitReviewWrite() {
+			var enpNo = "<%= selectedEnp.getEnpNo() %>";
+			$.ajax({
+				
+			});
+		}
+	</script>
 	<hr class="hr">
 	<!-- visitorReview Div start -->
 	<div class="visitorReview">

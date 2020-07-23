@@ -9,6 +9,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.kh.semi.board.model.vo.BoardVO;
 import com.kh.semi.enterprise.model.vo.EnpVO;
 import com.kh.semi.search.model.dao.SearchDao;
 import com.kh.semi.search.model.vo.PageInfo;
@@ -79,6 +80,16 @@ public class SearchService {
 		close(con);
 		
 		return listCount;
+	}
+
+	public ArrayList<BoardVO> getBestCourse() {
+		Connection con = getConnection();
+		ArrayList<BoardVO> bestCourse = new SearchDao().getBestCourse(con);
+		ArrayList<BoardVO> bestCourseDetail = new SearchDao().getBestFile(con, bestCourse);
+		
+		close(con);
+		
+		return bestCourse;
 	}
 
 }
