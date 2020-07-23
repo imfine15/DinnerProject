@@ -347,4 +347,19 @@ public class BoardService {
 			
 			return result;
 		}
+
+		public int uploadBoard(BoardUpVo board) {
+			Connection con = getConnection();
+			int result = 0;
+			
+			result = new BoardDao().uploadBoard(con, board);
+			
+			if(result > 0 ) {
+				commit(con);
+			} else {
+				rollback(con);
+			}
+			
+			return result;
+		}
 }
