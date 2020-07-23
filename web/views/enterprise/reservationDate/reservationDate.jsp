@@ -255,7 +255,7 @@ tr {
 	</div>
 				<% } %>
 				<%}else{} %> --%>
-	<% for(int j = 0 ; j < modalList.size(); j++){%>
+	<% for(int j = 0 ; j < list.size(); j++){%>
 	<div class="modal fade" id="testModal<%=j %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 		<div class="modal-dialog" role="document">
 			<div class="modal-content">
@@ -390,6 +390,16 @@ function dd(){
 
 
 
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
 	<%@include file="../../common/enterpriseFooter.jsp"%>
 	<br>
 	<script>

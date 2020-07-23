@@ -264,4 +264,19 @@ public class EnpService {
 		System.out.println("service : " + requestReserve);
 		return requestReserve;
 	}
+
+	public int updateCrList(String rno) {
+		Connection con = getConnection();
+		
+		int result = new EnpDao().updateCrList(con,rno);
+		
+		if(result > 0) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		close(con);
+		
+		return result;
+	}
 }

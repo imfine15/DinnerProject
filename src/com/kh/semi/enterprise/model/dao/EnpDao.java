@@ -375,7 +375,8 @@ Properties prop = new Properties();
 			}
 		}
 		System.out.println("rlist : " + rlist);
-		return requestReserve;
+		System.out.println("reqeustReserve : " + requestReserve);
+		return rlist;
 	}
 	
 	public int getListCount(Connection con) {
@@ -825,7 +826,7 @@ Properties prop = new Properties();
 			}
 		}
 		System.out.println("rlist : " + rlist);
-		return requestReserve;
+		return rlist;
 	}
 	
 	public ArrayList<ForEntCrVO> selectRDModalList(Connection con, String memId, String requestDay) {
@@ -947,5 +948,28 @@ Properties prop = new Properties();
 		
 		
 		return requestReserve;
+	}
+
+	public int updateCrList(Connection con, String rno) {
+		PreparedStatement pstmt = null;
+		
+		int result = 0;
+		String query = prop.getProperty("updateCrList");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, rno);
+			
+			result = pstmt.executeUpdate();
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		return result;
 	}
 }
