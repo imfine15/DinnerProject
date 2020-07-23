@@ -841,12 +841,92 @@ public class BoardDao {
 		
 		String query = prop.getProperty("updateBoard");
 		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, board.getBoardTitle());
+			pstmt.setString(2, board.getHashTags());
+			pstmt.setString(3, board.getBoardContent());
+			pstmt.setString(4, board.getBoardNo());
+			
+			result = pstmt.executeUpdate();
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
 		return result;
 	}
 
 	public int updateAttachment(Connection con, BoardUpVo boardUpVo) {
-		// TODO Auto-generated method stub
-		return 0;
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("updateAttachment");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, boardUpVo.getOriginName());
+			pstmt.setString(2, boardUpVo.getChangeName());
+			pstmt.setString(3, boardUpVo.getFilePath());
+			pstmt.setString(4, boardUpVo.getFileNo());
+			
+			
+			result = pstmt.executeUpdate();
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public String[] selectFileCurrval(Connection con, String[] fileNos, BoardUpVo board) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String fileNo="";
+		
+		String query = prop.getProperty("selectFileCurrval");
+		System.out.println("boardNo : " +board.getBoardNo());
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, board.getBoardNo());
+			
+			
+			rset = pstmt.executeQuery();
+			
+			int i = 0;
+			
+			while(rset.next()) {
+				fileNo = rset.getString("FILE_NO");
+				
+				fileNos[i]=fileNo;
+				
+				fileNo="";
+				
+				i++;
+			}
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		
+		return fileNos;
 	}
 
 	
