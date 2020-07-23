@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8" import="java.util.*, com.kh.semi.question.model.vo.*"%>
+<%
+	QuestionVO q = (QuestionVO) request.getAttribute("question");
+%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -115,10 +119,10 @@ outline-style: none;
 					<form>
 						<table id="body-table">
 							<tr>
-								<td style="font-weight:bolder;">회원탈퇴 시 적립포인트는 어떻게 처리 되나요?</td>
-								<td style="font-weight:bolder;">IMFINE_123</td>
-								<td>20/06/17 17:33</td>
-								<td><button id="confirm-before-btn">처리 대기</button></td>
+								<td style="font-weight:bolder;"><%=q.getQuestionTitle() %></td>
+								<td style="font-weight:bolder;"><%=q.getMemberId() %></td>
+								<td><%=q.getQuestionDate() %></td>
+								<td><button id="confirm-before-btn"><%=q.getQuestionDisposalStatus() %></button></td>
 							</tr>
 							<tr>
 								<td colspan="4"><hr></td>
@@ -127,10 +131,8 @@ outline-style: none;
 								<td colspan="4">
 								<div id="content-div">
 								<p>
-								안녕하세요<br>
-								회원 탈퇴 후 기존에 적립됐던 포인트의 처리가 어떻게 되는지 궁금하여 문의 글 남깁니다.<br>
-								쌓여있는 포인트가 꽤 되는데 사이트에서는 탈퇴를 하고 싶어서 <br>
-								다른 방법으로 환급을 받을 수 있는지 궁금해서요.</p>
+								<%=q.getQuestionContent() %>
+								</p>
 								</div>
 								</td>
 							</tr>
@@ -139,25 +141,25 @@ outline-style: none;
 				</div>
 				<div id="answer-box">
 				<hr>
-					<form>
+					<form id="answer-f">
 						<table id="answer-tb">
 							<tr style="height:40px;">
 								<td style="width:10%;"></td>
 								<td style="width:10%; font-weight:bolder;">이메일</td>
-								<td style="width:35%;">imfine123@gmail.com</td>
+								<td style="width:35%;"><%=q.getQuestionEmail() %></td>
 								<td style="width:10%; font-weight:bolder;">전화번호</td>
-								<td style="width:35%;">010-8888-7777</td>
+								<td style="width:35%;"><%=q.getQuestionPhone() %></td>
 							</tr>
 							<tr>
 								<td style="width:10%; font-weight:bolder;">제목</td>
 								<td colspan="4">
-									<input type="text" style="width:100%; height:30px;">
+									<input type="text" name="answerT" style="width:100%; height:30px;">
 								</td>
 							</tr>
 							<tr>
 								<td style="width:10%; font-weight:bolder;">내용</td>
 								<td colspan="4">
-									<textarea style="width:100%; height:300px; margin-top:10px; resize:none;">
+									<textarea name="answerC"style="width:100%; height:300px; margin-top:10px; resize:none;">
 									
 									</textarea>
 								</td>
