@@ -86,6 +86,10 @@
 	<h1 style="margin-left: 200px; margin-top: 30px;">리뷰 등록</h1>
 		<div class="box" align="center">
 		<form action="<%=request.getContextPath() %>/insertReview.re"  method="post" enctype="multipart/form-data">
+		<%-- <input type="hidden" name="mamberNo" value="<%=loginUser.getmNo()%>">
+		<input type="hidden" name="enpNo" value="<%=%>">
+		<input type="hidden" name="reservationHistoryNo" value="<%=%>">
+		<input type="hidden" name="visitDate" value="<%=%>"> --%>
 		<div align="left" class="foodNameBox">
 		<span class="foodName">식당이름</span><span>에 대한 솔직한 리뷰를 써주세요.</span>
 		</div>
@@ -93,13 +97,13 @@
 			<table>
 				<tr>
 					<td><img src="/semiproject/images/Star.png" id="star"></td>
-					<td><input type="text"></td>
+					<td><input type="text" name="averageRating"></td>
 					<td><span class="starText">/5</span></td>
 				</tr>
 			</table>
 		</div>
 		<div class="textBox">
-			<textarea rows="15" cols="100" placeholder=" 이름님 주문하신 메뉴는 무엇인가요? 식당의 분위기와 서비스도 궁금해요!"></textarea>
+			<textarea rows="15" cols="100" name="reviewContent" placeholder=" 이름님 주문하신 메뉴는 무엇인가요? 식당의 분위기와 서비스도 궁금해요!"></textarea>
 			<div align="right" style="width: 717px">0/10000</div>
 		</div>
 		<div align="left" class="fileBox">

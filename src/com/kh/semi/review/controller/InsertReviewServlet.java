@@ -16,6 +16,9 @@ import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
 import com.kh.semi.common.MyFileRenamePolicy;
 import com.kh.semi.enterprise.model.service.EnpService;
 import com.kh.semi.enterprise.model.vo.EnpAttachment;
+import com.kh.semi.review.model.service.ReviewService;
+import com.kh.semi.review.model.vo.ReviewAttachment;
+import com.kh.semi.review.model.vo.ReviewVO;
 import com.oreilly.servlet.MultipartRequest;
 
 /**
@@ -61,40 +64,71 @@ if(ServletFileUpload.isMultipartContent(request)) {
 	            
 			}
 			
-			String 
+			
+			String reviewContent = multiRequest.getParameter("reviewContent");
+			String memberNo = multiRequest.getParameter("memberNo");
+			String enpNo = multiRequest.getParameter("enpNo");
+			//double averageRating = Double.parseDouble(multiRequest.getParameter("averageRating"));
+			String reservationHistoryNo = multiRequest.getParameter("reservationHistoryNo");
+			
+			ReviewVO review = new ReviewVO();
+			review.setReviewContent(reviewContent);
+			review.setMemberNo(memberNo);
+			review.setEnpNo(enpNo);
+			//review.setAverageRating(averageRating);
+			review.setReservationHistoryNo(reservationHistoryNo);
+			
+			System.out.println("reviewContent : " + reviewContent);
+			System.out.println("memberNo : " + memberNo);
+			System.out.println("enpNo : " + enpNo);
+			//System.out.println("averageRating : " + averageRating);
+			System.out.println("reservationHistoryNo : " + reservationHistoryNo);
 			
 			
-			
-			ArrayList<EnpAttachment> fileList = new ArrayList<>();
+			ArrayList<ReviewAttachment> fileList = new ArrayList<>();
 	         for(int i = originFiles.size() -1; i>= 0; i--) {
-	            EnpAttachment at = new EnpAttachment();
+	        	 ReviewAttachment ra = new ReviewAttachment();
 	            
-	            at.setFilePath(savePath);
-	            at.setOriginName(originFiles.get(i));
-	            at.setChangeName(saveFiles.get(i));
+	        	 ra.setFilePath(savePath);
+	        	 ra.setOriginName(originFiles.get(i));
+	        	 ra.setChangeName(saveFiles.get(i));
 	            
 	            
 	            
-	            fileList.add(at);
+	            fileList.add(ra);
 	         }
 	        
-	         int result = new ReviewService().insertEnterprise(enpUp, fileList);
-	         String page = "";
-	         if(result > 0) {
-	        	 page="";
-	        	 
-	        	 
-	         } else {
-	        	 for(int i = 0 ; i < saveFiles.size(); i++) {
-	                 File failedFile = new File(savePath + saveFiles.get(i));
-	                 
-	                 failedFile.delete();
-	              }
-	              page = "views/common/errorPage.jsp";
-	              request.setAttribute("msg", "사진 게시판 등록 실패");
-	         }
-	        response.sendRedirect(page);
+	         //int result = new ReviewService().insertReview(review, fileList);
 	         
+	         for(int i = originFiles.size() -1; i>= 0; i--) {
+	        	 ReviewAttachment ra = new ReviewAttachment();
+	            
+	        	 ra.setFilePath(savePath);
+	        	 ra.setOriginName(originFiles.get(i));
+	        	 ra.setChangeName(saveFiles.get(i));
+	            
+	            
+	            
+	            fileList.add(ra);
+	         }
+	         
+//	         
+//	         String page = "";
+//	         if(result > 0) {
+//	        	 page="";
+//	        	 
+//	        	 
+//	         } else {
+//	        	 for(int i = 0 ; i < saveFiles.size(); i++) {
+//	                 File failedFile = new File(savePath + saveFiles.get(i));
+//	                 
+//	                 failedFile.delete();
+//	              }
+//	              page = "views/common/errorPage.jsp";
+//	              request.setAttribute("msg", "사진 게시판 등록 실패");
+//	         }
+//	        response.sendRedirect(page);
+//	         
 	         
 	         
 		}
