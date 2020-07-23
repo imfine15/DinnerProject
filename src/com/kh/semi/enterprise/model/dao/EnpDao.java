@@ -22,6 +22,7 @@ import com.kh.semi.enterprise.model.vo.EnpUpVo;
 import com.kh.semi.enterprise.model.vo.EnpVO;
 import com.kh.semi.enterprise.model.vo.ForCmVO;
 import com.kh.semi.enterprise.model.vo.ForEntCrVO;
+import com.kh.semi.enterprise.model.vo.ForSdVO;
 import com.kh.semi.enterprise.model.vo.PageInfo;
 import com.kh.semi.payment.model.vo.ReservationVO;
 import com.sun.org.apache.xerces.internal.impl.dtd.models.CMAny;
@@ -881,5 +882,70 @@ Properties prop = new Properties();
 		
 		
 		return result;
+	}
+
+	public int getSDListCount(Connection con, String enp) {
+		PreparedStatement stmt = null;
+		int listCount = 0;
+		ResultSet rset = null;
+		
+		String query = prop.getProperty("sdListCount");
+		try {
+			stmt = con.prepareStatement(query);
+			stmt.setString(1, enp);
+			rset = stmt.executeQuery();
+			if(rset.next()) {
+				listCount = rset.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(stmt);
+			close(rset);
+		}
+		
+		return listCount;
+	}
+
+	public ArrayList<ForSdVO> selectSDList(Connection con, PageInfo pi, String enp) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<ForSdVO> requestReserve = null;
+		
+		int startRow = (pi.getCurrentPage() -1) * pi.getLimit() + 1;
+		int endRow = startRow + pi.getLimit() - 1;
+		
+		
+		String query = prop.getProperty("selectSDList");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, enp);
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
+			
+			rset = pstmt.executeQuery();
+			
+			requestReserve = new ArrayList<>();
+			
+			while(rset.next()) {
+				ForSdVO s = new ForSdVO();
+				s.setProductName(rset.getString("PRODUCT_NAME"));
+				s.setPartnerPrice(rset.getInt("PARTNER_PRICE"));
+				s.setStartDate(rset.getDate("CONTRACT_START_DATE"));
+				s.setEndDate(rset.getDate("CONTRACT_END_DATE"));
+				
+				requestReserve.add(s);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		
+		return requestReserve;
 	}
 }
