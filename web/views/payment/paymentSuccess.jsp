@@ -37,12 +37,13 @@
 	<%@ include file="/views/common/footer.jsp" %>
 	<script>
 	function home(){
-		location.href="/semiproject/views/main/main.jsp";
+		location.href="/semiproject/ma";
 	}
 	history.pushState(null, null, location.href);
 	window.onpopstate = function(event) {
 		history.go(1);
 		alert("만료된 페이지입니다.");
+		
 	}
 	</script>
 </body>
