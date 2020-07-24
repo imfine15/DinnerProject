@@ -163,7 +163,7 @@ $(document).ready(function(){
 				
 				$replySelectTable.append($tr);
 			}
-			for(var key = 0; key < 10; key ++){
+			for(var key = 0; key < data[1].currentPage; key ++){
 				var $replydiv = $("#bus");
                 
                 var $numBtn = $("<button>").text(key + 1).attr({
