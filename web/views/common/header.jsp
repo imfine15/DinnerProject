@@ -52,7 +52,7 @@ body {
 	<div class="navbar navbar-inverse navbar-static-top" 
 		style="background: white; border-color: pink;">
 		<div class="container2" style="background: white;">
-			<a href="/semiproject/views/main/main.jsp" style="margin-left: 20px;">
+			<a href="/semiproject/ma" style="margin-left: 20px;">
 				<img src="/semiproject/images/YUMEET LOGO.png" style="width: 150px;">
 			</a>
 			<% if(loginUser == null) { %>

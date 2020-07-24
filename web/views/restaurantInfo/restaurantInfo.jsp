@@ -3,6 +3,7 @@
 <!DOCTYPE html>
 <%
 EnpVO selectedEnp = (EnpVO)session.getAttribute("selectedEnp");
+System.out.println("selectedEnp : " + selectedEnp);
 double rating = (double)session.getAttribute("rating");
 ArrayList<ReviewVO> visitReviews = (ArrayList<ReviewVO>)session.getAttribute("visitReviews");
 ArrayList<ReviewVO> normalReviews = (ArrayList<ReviewVO>)session.getAttribute("normalReviews");
@@ -114,7 +115,7 @@ ArrayList<ReviewVO> normalReviews = (ArrayList<ReviewVO>)session.getAttribute("n
 			});
 		</script>
 		<div id="infoRight">
-			<img alt="매장 대표사진" src="" id="dishPic">
+			<img style="max-width: 100%; max-height:100%; overflow: hidden;" alt="매장 대표사진" src="<%=request.getContextPath()%>/thumbnail_uploadFile/<%=selectedEnp.getChangeName() %>" id="">
 		</div>
 		<script>
 			$(function() {

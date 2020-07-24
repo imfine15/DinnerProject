@@ -133,6 +133,8 @@ public class SearchDao {
 				e.setWebsite(rset.getString("WEBSITE"));
 				e.setIntroduce(rset.getString("INTRODUCE"));
 				e.setParkingPossible(rset.getString("PARKING_POSSIBLE"));
+				e.setChangeName(rset.getString("CHANGE_NAME"));
+				e.setFilePath(rset.getString("FILE_PATH"));
 				
 				if(rset.getString("ENP_PARTNER_TYPE").equals("PARTNER")) {
 					e.setEnpRegisterNo(rset.getString("ENP_REGISTER_NO"));
