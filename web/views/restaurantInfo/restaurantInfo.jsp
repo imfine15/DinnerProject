@@ -14,8 +14,22 @@ ArrayList<ReviewVO> normalReviews = (ArrayList<ReviewVO>)session.getAttribute("n
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <meta charset="UTF-8">
 <title>YUMEET - <%= selectedEnp.getEnpName() %></title>
-<link rel="shortcut icon" href="/semiproject/images/favicon.ico" type="image/x-icon">
-<link rel="icon" href="/semiproject/images/favicon.ico" type="image/x-icon">
+<link rel="shortcut icon" href="/semiproject/images/favicon.ico"
+	type="image/x-icon">
+<link rel="icon" href="/semiproject/images/favicon.ico"
+	type="image/x-icon">
+<style>
+.dd {
+	background: gray;
+	color: #FFFFFF;
+	border: 0;
+	outline: 0;
+	width: 80px;
+	height: 25px;
+	font-size: 15px;
+	border-radius: 5px;
+}
+</style>
 </head>
 <body>
 	<%@ include file="/views/common/header.jsp" %>
@@ -332,7 +346,7 @@ ArrayList<ReviewVO> normalReviews = (ArrayList<ReviewVO>)session.getAttribute("n
 	<% if(selectedEnp.getEnpStatus().equals("Y")) { %>
 		<input type='button' id='btn1' value='폐업신고' disabled="disabled" style="cursor:default; box-shadow: none;"/>
 	<% } else { %> 
-		<input type='button' id='shutdown' value='폐업신고'/>
+		<input class="dd" type='button' id='shutdown' value='폐업신고'/>
 	<% } %>
 	</div>
 	<hr class="hr">
@@ -356,6 +370,9 @@ ArrayList<ReviewVO> normalReviews = (ArrayList<ReviewVO>)session.getAttribute("n
 		</div>
 	</div>
 	<script>
+	$("#shutdown").click(function(){
+		location.href="<%=request.getContextPath()%>/views/qna/question.jsp";
+	});
 		$(function() {
 			$.ajax({
 				url: "/semiproject/selectTopThree.bo",

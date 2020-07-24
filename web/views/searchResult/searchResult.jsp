@@ -517,6 +517,13 @@
 					schedule.style.display = "block";
 				}
 			}
+			
+			$("#addEnpBtn").click(function(){
+				location.href="/semiproject/views/upload/foodUpload.jsp";
+			});
+			$("#write").click(function(){
+				location.href="/semiproject/views/upload/scheduleUpload.jsp";
+			});
 		</script>
 </body>
 </html>
