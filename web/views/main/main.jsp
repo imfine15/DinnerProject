@@ -74,7 +74,7 @@
          <div class="container" style="border: 0px white; width: 100%; box-shadow: 0px;">
             <h2 style="color: #D5706D; margin-left: 50px">오늘의 메뉴</h2>
             <div class="row" style="margin-top: 0px;">
-               <%for(int i = 4; i < 8; i ++) {%>
+               <%for(int i = 4; i < 5; i ++) {%>
                <div class="col-md-3">
                   <!-- work item -->
                   <div class="work-item">
@@ -91,21 +91,7 @@
                <%} %>
                <br>
                
-               <%for(int i = 8; i < blist.size(); i ++) {%>
-               <div class="col-md-3">
-                  <!-- work item -->
-                  <div class="work-item">
-                     <!-- work details image -->
-                     <img class="img-responsive" src="<%=request.getContextPath()%>/thumbnail_uploadFile/<%=blist.get(i).getChangeName() %>" style="width: 100%; height: 171px;" />
-                     <!-- heading -->
-                     <h3>
-                        <a href="/semiproject/selectMainEnp.en?enpNo=<%=blist.get(i).getEnpNo() %>" style="color: black; font-weight: 600;"><%=blist.get(i).getBoardTitle() %></a>
-                     </h3>
-                     <!-- brand org -->
-                     <span class="org"><%=blist.get(i).getAddress() %></span>
-                  </div>
-               </div>
-               <%} %>
+              
                
                
             </div>

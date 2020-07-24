@@ -115,7 +115,7 @@ tr {
 										id="mainMenu" style="width: 190px">
 								</div>
 								<div class="main-text">
-									<a><p>공지사항</p></a>
+									<p>공지사항</p>
 								</div>
 							</td>
 							<td class="wrap">
@@ -124,7 +124,7 @@ tr {
 										id="mainMenu" style="width: 190px">
 								</div>
 								<div class="main-text">
-									<p>공지사항</p>
+									<p><a href="/views/admin/">공지사항</a></p>
 								</div>
 							</td>
 							<td class="wrap">
