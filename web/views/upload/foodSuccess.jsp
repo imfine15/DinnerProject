@@ -31,7 +31,7 @@
 		<h3>새로운 식당 인증은 3~5일 정도 소요됩니다.</h3>
 		<br><br><br><br>
 		<br>
-		<button id="home" onclick="location.href='/semiproject/views/main/main.jsp'">홈으로</button>
+		<button id="home" onclick="location.href='/semiproject/ma'">홈으로</button>
 		<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 	</div>
 	   <script>

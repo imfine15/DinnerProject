@@ -91,7 +91,7 @@
                <%} %>
                <br>
                
-               <%for(int i = 8; i < blist.size(); i ++) {%>
+               <%for(int i = 8; i < 12; i ++) {%>
                <div class="col-md-3">
                   <!-- work item -->
                   <div class="work-item">
@@ -180,7 +180,7 @@
                <%} %>
                <br>
                
-               <%for(int i = 8; i < blist.size(); i ++) {%>
+               <%for(int i = 8; i < 12; i ++) {%>
                <div class="col-md-3">
                   <!-- work item -->
                   <div class="work-item">
