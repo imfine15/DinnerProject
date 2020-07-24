@@ -4,7 +4,9 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>YUMEET</title>
+<link rel="shortcut icon" href="/semiproject/images/favicon.ico" type="image/x-icon">
+<link rel="icon" href="/semiproject/images/favicon.ico" type="image/x-icon">
 <style>
 p {
 	font-family: 나눔스퀘어_AC;
@@ -39,7 +41,7 @@ p {
 		<div style="height: 50px;"></div>
 		<p id="explain">광고를 위한 상담 신청이 완료되었습니다!</p>
 		<div style="height: 50px;"></div>
-		<button id="sub_click" type="submit" style="color: white;">홈으로</button>
+		<button id="sub_click" type="submit" style="color: white;" onclick="location.href='/semiproject/ma'">홈으로</button>
 	</div>
 	<div style="height:300px;"></div>
 	<%@ include file="/views/common/footer.jsp" %>

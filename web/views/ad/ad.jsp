@@ -113,6 +113,7 @@ color: #000000;
 		</div>
 		<hr style="width: 1000px;">
 			<form action="<%=request.getContextPath() %>/insertAd.ad" method="post">
+			<!-- <input type="hidden" name="managerNo" value=""> -->
 		<div id="adsec">
 			<p id="submitad">광고 상담 신청</p>
 			<p id="minit">※모든 내용을 정확히 기입해주시면 원활한 상담이 진행될 수 있습니다.</p>
