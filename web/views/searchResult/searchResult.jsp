@@ -4,7 +4,6 @@
 <%
 	ArrayList<EnpVO> enpList = (ArrayList<EnpVO>) request.getAttribute("enpList");
 	String search = (String) request.getAttribute("search");
-	List<HashMap<String, Integer>> enpMenus = (List<HashMap<String, Integer>>) request.getAttribute("enpMenus");
 	PageInfo pi = (PageInfo)request.getAttribute("pi");
 	int listCount = pi.getListCount();
 	int currentPage = pi.getCurrentPage();
@@ -33,7 +32,7 @@
             <button onclick="searchEnp();" style="height: 95%; background: white; border: 0px white; float: right; margin-right: 3px; margin-left:25px;">
                 <img src="/semiproject/images/searchicon.png">
             </button>
-            <button style="height: 100%; background: white; float: right; margin-left: 5px; border: 0px white;">
+            <button style="height: 100%; background: white; float: left; margin-left: 5px; border: 0px white;">
             	<img src="/semiproject/images/Vector.png">
             </button>
             <input onkeyup="if(event.keyCode === 13) { searchEnp(); }" id="search" name="search" type="search" style="height: 100%; width: 70%; border:0; background: white; font-size: 22px; margin-left: 10px; float:left;">
@@ -83,12 +82,6 @@
 						Entry<String, Integer> entry = null;
 						for(int i = 0; i < enpList.size(); i++) {
 							double rating = Math.round(enpList.get(i).getRating() * 10.0) / 10.0;
-							HashMap<String, Integer> temp = enpMenus.get(i);
-							Iterator<Map.Entry<String, Integer>> entries = temp.entrySet().iterator();
-							
-							if(entries.hasNext()){
-								entry = (Entry<String, Integer>) entries.next();
-							}
 					%>
 						<div id="foodArea<%= i + 1 %>" class="foodArea">
 							<img id="" src="<%=request.getContextPath()%>/thumbnail_uploadFile/<%=enpList.get(i).getChangeName() %>" class="foodImg"><br>
@@ -105,14 +98,13 @@
 							<% } %>
 							<br>
 							<p class="small"><%= enpList.get(i).getEnpAddress() %></p>
-							<p class="small"><%= entry.getKey() %></p>
+							<p class="small"><%= enpList.get(i).getMenuName() %></p>
 						</div>
 						<script>
 							$("#foodArea<%= i + 1 %>").click(function() {
 								var enpNo = "<%= enpList.get(i).getEnpNo() %>";
 								
 								location.href="<%= request.getContextPath() %>/selectEnp.en?enpNo=" + enpNo + "&rating=" + <%= rating %>;
-								<% session.setAttribute("enpMenus", entries); %>
 							});
 							
 							$(function() {
@@ -167,10 +159,7 @@
 								$adDiv = $("#ad");
 								
 								$adDiv.html(
-										'<a href="http://' + data.adWebsite + '" target="_blank">'
-										+ '<img src="'
-										+ data.filePath + '" '
-										+ 'title="' + data.adContent + '" id="adImg"></a>'
+										'<p class="rating">' + data.adContent + '</p>'
 										+ '<p class="rating" style="float:none; font-weight:bold;">' + data.adEnpName + '</p>'
 								);
 							}

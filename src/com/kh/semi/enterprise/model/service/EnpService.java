@@ -1,5 +1,7 @@
 package com.kh.semi.enterprise.model.service;
 
+import static com.kh.semi.common.JDBCTemplate.*;
+
 import java.sql.Connection;
 import java.util.ArrayList;
 
@@ -11,10 +13,7 @@ import com.kh.semi.enterprise.model.vo.ForCmVO;
 import com.kh.semi.enterprise.model.vo.ForEntCrVO;
 import com.kh.semi.enterprise.model.vo.ForSdVO;
 import com.kh.semi.enterprise.model.vo.PageInfo;
-import com.kh.semi.member.model.dao.MemberDao;
 import com.kh.semi.payment.model.vo.ReservationVO;
-
-import static com.kh.semi.common.JDBCTemplate.*;
 
 public class EnpService {
 

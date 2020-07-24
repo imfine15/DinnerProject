@@ -524,6 +524,8 @@ Properties prop = new Properties();
 				selectedEnp.setLikeCount(rset.getInt("LIKE_COUNT"));
 				selectedEnp.setChangeName(rset.getString("CHANGE_NAME"));
 				selectedEnp.setFilePath(rset.getString("FILE_PATH"));
+				selectedEnp.setMenuName(rset.getString("MENU_NAME"));
+				selectedEnp.setMenuPrice(rset.getInt("MENU_PRICE"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

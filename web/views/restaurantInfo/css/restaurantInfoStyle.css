@@ -172,10 +172,11 @@
 		float:left;
 	}
 	
-	#adContent > span {
+	#adBtn > p {
 		font-size:25px;
 		font-weight:bold;
 		padding-left:59px;
+		width:900px;
 	}
 	
 	#adBtn {

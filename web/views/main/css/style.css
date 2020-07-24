@@ -18,7 +18,7 @@ input[type="search"]{
   margin-left:auto;
   margin-right:auto;
 }
-input[type="search"]{
+/* input[type="search"]{
     background-color: rgba(255, 255, 255, 0.075);
     border-color: rgba(255, 255, 255, 0.25); }
 input[type="search"]:focus{
@@ -32,7 +32,7 @@ input[type="search"]
   border-color: rgba(0, 0, 0, 0.25); }
   input[type="search"]:focus{
     border-color: white;
-    box-shadow: 0 0 0 1px #ce1b28; }
+    box-shadow: 0 0 0 1px #ce1b28; } */
     
 body{
 	font-family: 'Open Sans', Sans Serif;
@@ -344,4 +344,10 @@ img {vertical-align: middle;}
 /* On smaller screens, decrease text size */
 @media only screen and (max-width: 300px) {
   .prev, .next,.text {font-size: 11px}
+}
+
+#search:focus {
+	outline-style: none;
+	outline-color: white;
+	outline-width: 0;
 }
