@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.kh.semi.ad.model.service.AdService;
 import com.kh.semi.ad.model.vo.AdVO;
 
 /**
@@ -36,8 +37,8 @@ public class InsertAdServlet extends HttpServlet {
 		String adEnpType = request.getParameter("adEnpType");
 		String searchPath = request.getParameter("searchPath");
 		String counselContent = request.getParameter("counselContent");
-		String adContent = request.getParameter("adContent");
-		String adTitle = request.getParameter("adTitle");
+		//String adContent = request.getParameter("adContent");
+		//String adTitle = request.getParameter("adTitle");
 		
 		AdVO ad = new AdVO();
 		ad.setAdName(adName);
@@ -48,19 +49,22 @@ public class InsertAdServlet extends HttpServlet {
 		ad.setAdEnpType(adEnpType);
 		ad.setSearchPath(searchPath);
 		ad.setCounselContent(counselContent);
-		ad.setAdContent(adContent);
-		ad.setAdTitle(adTitle);
+		//ad.setAdContent(adContent);
+		//ad.setAdTitle(adTitle);
 		
-		System.out.println("adName : " + adName);
-		System.out.println("adPhone : " + adPhone);
-		System.out.println("adEmail : " + adEmail);
-		System.out.println("adEnpName : " + adEnpName);
-		System.out.println("adEnpAddress : " + adEnpAddress);
-		System.out.println("adEnpType : " + adEnpType);
-		System.out.println("searchPath : " + searchPath);
-		System.out.println("counselContent : " + counselContent);
-		System.out.println("adContent : " + adContent);
-		System.out.println("adTitle : " + adTitle);
+//		System.out.println("adName : " + adName);
+//		System.out.println("adPhone : " + adPhone);
+//		System.out.println("adEmail : " + adEmail);
+//		System.out.println("adEnpName : " + adEnpName);
+//		System.out.println("adEnpAddress : " + adEnpAddress);
+//		System.out.println("adEnpType : " + adEnpType);
+//		System.out.println("searchPath : " + searchPath);
+//		System.out.println("counselContent : " + counselContent);
+//		System.out.println("adContent : " + adContent);
+//		System.out.println("adTitle : " + adTitle);
+		
+		int result = new AdService().insertAd(ad);
+		
 		
 		
 	}

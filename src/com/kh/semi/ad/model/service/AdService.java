@@ -23,4 +23,13 @@ public class AdService {
 		return randomAd;
 	}
 
+	public int insertAd(AdVO ad) {
+		Connection con = getConnection();
+		int result = 0;
+		
+		
+		
+		return 0;
+	}
+
 }
