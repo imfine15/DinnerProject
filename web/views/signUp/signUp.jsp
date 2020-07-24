@@ -113,7 +113,7 @@
 			</tr>
 			<tr>
 				<td colspan="3" style="text-align:center;">
-					<a target="_blank" id="terms" href="https://www.mangoplate.com/en/terms/contract">이용약관 및 개인정보처리방침 보러가기 (새 탭으로 이동)</a>
+					<a target="_blank" id="terms" href="/semiproject/views/stickyFooter/termsOfUse.jsp">이용약관 및 개인정보처리방침 보러가기 (새 탭으로 이동)</a>
 				</td>
 			</tr>
 			<tr>
