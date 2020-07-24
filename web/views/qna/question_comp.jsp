@@ -9,7 +9,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>YUMEET</title>
 <style>
 #quest-c {
 	width: 150px;
@@ -97,6 +97,8 @@ footer {
 	clear: both;
 }
 </style>
+<link rel="shortcut icon" href="/semiproject/images/favicon.ico" type="image/x-icon">
+<link rel="icon" href="/semiproject/images/favicon.ico" type="image/x-icon">
 </head>
 <body>
 	<%@ include file="../common/header.jsp"%>
@@ -118,8 +120,8 @@ footer {
 		</div>
 		<div style="height: 50px;"></div>
 		<div class="btnArea">
-			<button id="question-confirm">문의 내역 확인하기</button>
-			<button id="back">돌아가기</button>
+			<button id="question-confirm" type="button" onclick="">문의 내역 확인하기</button>
+			<button id="back" type="button" onclick="goHome();">홈으로 돌아가기</button>
 		</div>
 	</div>
 	<!-- content div end -->
@@ -129,5 +131,10 @@ footer {
 	<footer>
 		<%@ include file="../common/footer.jsp"%>
 	</footer>
+	<script>
+	function goHome() {
+		location.href="<%=request.getContextPath()%>/ma";
+	}
+	</script>
 </body>
 </html>

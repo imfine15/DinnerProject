@@ -4,9 +4,11 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>YUMEET</title>
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+<link rel="shortcut icon" href="/semiproject/images/favicon.ico" type="image/x-icon">
+<link rel="icon" href="/semiproject/images/favicon.ico" type="image/x-icon">
 <style>
 #wrapper {
 	width:100%;
@@ -110,6 +112,13 @@ td {
 	<%@ include file="../common/footer.jsp"%>
 		<script>
 		AOS.init();
+		
+		$(document).ready(function() {
+			$('.box').hover(function) {
+				$(this).css('c)
+			}
+			
+		}
 	</script>
 </body>
 </html>
