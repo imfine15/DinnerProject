@@ -47,9 +47,8 @@
 .navbar{
 	color: #666666;
 	font-size: 20px;
-	
-	
 }
+
 .left{
 	list-style-type:none;
 	float:left;
