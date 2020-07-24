@@ -20,7 +20,7 @@ public class SendMail {
         // SMTP 서버 정보를 설정한다.
         Properties prop = new Properties();
         prop.put("mail.smtp.host", "smtp.gmail.com"); 
-        prop.put("mail.smtp.port", 443); 
+        prop.put("mail.smtp.port", 465); 
         prop.put("mail.smtp.auth", "true"); 
         prop.put("mail.smtp.ssl.enable", "true"); 
         prop.put("mail.smtp.ssl.trust", "smtp.gmail.com");
@@ -36,7 +36,7 @@ public class SendMail {
             message.setFrom(new InternetAddress(user));
 
             //수신자메일주소
-            message.addRecipient(Message.RecipientType.TO, new InternetAddress("hjin_94@naver.com")); 
+            message.addRecipient(Message.RecipientType.TO, new InternetAddress("thespiae81@gmail.com")); 
 
             // Subject
             message.setSubject("제목을 제발"); //메일 제목을 입력
