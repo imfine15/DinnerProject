@@ -111,7 +111,52 @@ public class AdDao {
 		
 		String query = prop.getProperty("selectAdCode");
 		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, ad.getAdType());
+			
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				adCode = rset.getString("AD_CODE");
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
+		}
 		
 		return adCode;
+	}
+
+	public String selectAdContent(Connection con, AdVO ad) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String adContent = "";
+		
+		String query = prop.getProperty("selectAdContent");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, ad.getAdType());
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				adContent = rset.getString("AD_DETAIL");
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		
+		return adContent;
 	}
 }

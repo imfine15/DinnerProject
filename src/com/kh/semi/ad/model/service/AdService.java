@@ -38,10 +38,11 @@ public class AdService {
 		ad.setAdContent(adContent);
 		
 		result1 = new AdDao().insertAd(con, ad);
-		
+
 		
 		if(result1 > 0 ) {
 			commit(con);
+			result = 1;
 		} else {
 			rollback(con);
 		}

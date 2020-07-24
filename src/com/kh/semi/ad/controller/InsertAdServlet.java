@@ -37,8 +37,8 @@ public class InsertAdServlet extends HttpServlet {
 		String adEnpType = request.getParameter("adEnpType");
 		String searchPath = request.getParameter("searchPath");
 		String counselContent = request.getParameter("counselContent");
-		//String adContent = request.getParameter("adContent");
-		//String adTitle = request.getParameter("adTitle");
+		String adType = request.getParameter("adType");
+
 		
 		AdVO ad = new AdVO();
 		ad.setAdName(adName);
@@ -49,23 +49,22 @@ public class InsertAdServlet extends HttpServlet {
 		ad.setAdEnpType(adEnpType);
 		ad.setSearchPath(searchPath);
 		ad.setCounselContent(counselContent);
-		//ad.setAdContent(adContent);
-		//ad.setAdTitle(adTitle);
-		
-//		System.out.println("adName : " + adName);
-//		System.out.println("adPhone : " + adPhone);
-//		System.out.println("adEmail : " + adEmail);
-//		System.out.println("adEnpName : " + adEnpName);
-//		System.out.println("adEnpAddress : " + adEnpAddress);
-//		System.out.println("adEnpType : " + adEnpType);
-//		System.out.println("searchPath : " + searchPath);
-//		System.out.println("counselContent : " + counselContent);
-//		System.out.println("adContent : " + adContent);
-//		System.out.println("adTitle : " + adTitle);
+		ad.setAdType(adType);
+	
 		
 		int result = new AdService().insertAd(ad);
 		
+		System.out.println("result : " + result);
 		
+		String page = "";
+		if(result > 0 ) {
+			page = "/semiproject/views/ad/adSuccess.jsp";
+			
+		} else {
+			page = "/semiproject/views/common/errorPage.jsp";
+			request.setAttribute("mag", "광고문의 접수에 실패했습니다.");
+		}
+		response.sendRedirect(page);
 		
 	}
 

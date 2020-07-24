@@ -13,12 +13,14 @@ public class AdVO implements java.io.Serializable {
 	private String counselContent; // 상담내용
 	private String adContent; // 광고내용
 	private String adTitle; //광고명
+	private String managerNo;
+	private String adType;
 	
 	public AdVO() {}
 
 	public AdVO(String adNo, String adName, String adPhone, String adEmail, String adEnpName, String adEnpAddress,
-			String adEnpType, String adCode, String searchPath, String counselContent, String adContent,
-			String adTitle) {
+			String adEnpType, String adCode, String searchPath, String counselContent, String adContent, String adTitle,
+			String managerNo, String adType) {
 		super();
 		this.adNo = adNo;
 		this.adName = adName;
@@ -32,6 +34,8 @@ public class AdVO implements java.io.Serializable {
 		this.counselContent = counselContent;
 		this.adContent = adContent;
 		this.adTitle = adTitle;
+		this.managerNo = managerNo;
+		this.adType = adType;
 	}
 
 	public String getAdNo() {
@@ -130,14 +134,31 @@ public class AdVO implements java.io.Serializable {
 		this.adTitle = adTitle;
 	}
 
+	public String getManagerNo() {
+		return managerNo;
+	}
+
+	public void setManagerNo(String managerNo) {
+		this.managerNo = managerNo;
+	}
+
+	public String getAdType() {
+		return adType;
+	}
+
+	public void setAdType(String adType) {
+		this.adType = adType;
+	}
+
 	@Override
 	public String toString() {
 		return "AdVO [adNo=" + adNo + ", adName=" + adName + ", adPhone=" + adPhone + ", adEmail=" + adEmail
 				+ ", adEnpName=" + adEnpName + ", adEnpAddress=" + adEnpAddress + ", adEnpType=" + adEnpType
 				+ ", adCode=" + adCode + ", searchPath=" + searchPath + ", counselContent=" + counselContent
-				+ ", adContent=" + adContent + ", adTitle=" + adTitle + "]";
+				+ ", adContent=" + adContent + ", adTitle=" + adTitle + ", managerNo=" + managerNo + ", adType="
+				+ adType + "]";
 	}
-	
+
 	
 	
 	
