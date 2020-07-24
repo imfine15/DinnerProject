@@ -154,7 +154,7 @@ input{
 						<li
 							style="float: left; width: 161px; height: 116px; margin-right: 65px;">
 							
-							<form action="<%=request.getContextPath()%>/selectList.py">
+							<form action="<%=request.getContextPath()%>/selectInquiryList.py">
 								<button style="display: block; width: 50px; height: 16px; margin-top: 90px; maring-right:30px;"></button>
 							</form>
 						</li>

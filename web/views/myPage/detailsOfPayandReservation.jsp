@@ -139,6 +139,22 @@ ul li a span:hover{
 </head>
 <body>
 	<%@ include file="/views/common/header.jsp" %>
+	<script>
+		$.ajax({
+			type : "post",
+			url : "/semiproject/selectPoint.me",
+			data : {
+				mNo: "<%=loginUser.getmNo()%>"
+			},
+			success: function(data){
+				console.log("point성공입니다.");
+
+				$("#currentPoint").html("보유포인트 : " + data + "p");
+			},
+			error: function(){
+			}
+		});
+	</script>
 	<div id="daumWrap" class="userinfo_type1 ">
 
 		<div id="daumWrap" class="userinfo_type1 ">
@@ -547,9 +563,9 @@ ul li a span:hover{
 								<span class="frame_img">프로필 이미지 관리</span> <span
 								class="">프로필 이미지 업로드</span>
 							</a> <a href="/semiproject/views/myPage/checkingPassword.jsp" class="link_user"
-								data-tiara-action-name="내_정보">dydxkr님<br>
+								data-tiara-action-name="내_정보"><%=loginUser.getmName()%>님<br>
 							</a><a class="link_user" href="/semiproject/views/myPage/myPoint.jsp">
-							<label class="" >포인트 : 300</label>	
+							<label id="currentPoint" >포인트 : </label>	
 							</a>
 							
 							<div id="profileImageAgreeDialog" class="layer_manage"

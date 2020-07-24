@@ -9,6 +9,7 @@ import com.kh.semi.admin.model.vo.PageInfo;
 import com.kh.semi.member.model.dao.MemberDao;
 import com.kh.semi.member.model.vo.MemberVO;
 import com.kh.semi.payment.model.vo.PointVO;
+import com.kh.semi.question.model.vo.QuestionVO;
 
 public class MemberService {
 
@@ -100,6 +101,22 @@ public class MemberService {
 	public int getPointListCount(String mNo) {
 		Connection con = getConnection();
 		int count = new MemberDao().getPointListCount(con, mNo);
+		
+		close(con);
+		return count;
+	}
+
+	public ArrayList<QuestionVO> selectInqHistoryList(PageInfo pi, String mNo) {
+		Connection con = getConnection();
+		ArrayList<QuestionVO> qlist = new MemberDao().selectInqHistoryList(con, pi, mNo);
+		
+		close(con);
+		return qlist;
+	}
+
+	public int getInquiryListCount(String mNo) {
+		Connection con = getConnection();
+		int count = new MemberDao().getInquiryListCount(con, mNo);
 		
 		close(con);
 		return count;

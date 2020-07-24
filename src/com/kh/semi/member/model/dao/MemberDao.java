@@ -15,6 +15,7 @@ import java.util.Properties;
 import com.kh.semi.admin.model.vo.PageInfo;
 import com.kh.semi.member.model.vo.MemberVO;
 import com.kh.semi.payment.model.vo.PointVO;
+import com.kh.semi.question.model.vo.QuestionVO;
 
 public class MemberDao {
 	Properties prop = new Properties();
@@ -268,6 +269,80 @@ public class MemberDao {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		String query = prop.getProperty("getPointListCount");
+		int count = 0;
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, mNo);
+			
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				count = rset.getInt("COUNT");
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
+		}
+		return count;
+	}
+
+	public ArrayList<QuestionVO> selectInqHistoryList(Connection con, PageInfo pi, String mNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<QuestionVO> qlist = new ArrayList<>();
+		String query = prop.getProperty("selectInqHistoryList");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, mNo);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+//		PreparedStatement pstmt = null;
+//		ResultSet rset = null;
+//		ArrayList<PointVO> pointList = new ArrayList<>();
+//		String query = prop.getProperty("selectPointHisList");
+//		
+//		try {
+//			int startRow = (pi.getCurrentPage() - 1) * pi.getLimit() + 1;
+//	        int endRow = startRow + pi.getLimit() - 1;
+//	        
+//			pstmt = con.prepareStatement(query);
+//			pstmt.setString(1, mNo);
+//			pstmt.setInt(2, startRow);
+//			pstmt.setInt(3, endRow);
+//			
+//			rset = pstmt.executeQuery();
+//			while(rset.next()) {
+//				PointVO p = new PointVO();
+//				p.setmNo(rset.getString("MEMBER_NO"));
+//				p.setpAmount(rset.getInt("POINT_AMMONT"));
+// 				p.setPointDate(rset.getTimestamp("POINT_DATE"));
+//				if(rset.getString("SAVE_CODE") != null) {
+//					p.setSaveCode(rset.getString("SAVE_CODE"));
+//				}
+//				p.setSaveStatue(rset.getString("SAVE_STATUS"));
+//				pointList.add(p);
+//			}
+		
+		
+		return null;
+	}
+
+	public int getInquiryListCount(Connection con, String mNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String query = prop.getProperty("getInquiryListCount");
 		int count = 0;
 		try {
 			pstmt = con.prepareStatement(query);

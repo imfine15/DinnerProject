@@ -71,6 +71,22 @@ ul li a span:hover{
 </head>
 <body>
 	<%@ include file="/views/common/header.jsp" %>
+	<script>
+		$.ajax({
+			type : "post",
+			url : "/semiproject/selectPoint.me",
+			data : {
+				mNo: "<%=loginUser.getmNo()%>"
+			},
+			success: function(data){
+				console.log("point성공입니다.");
+
+				$("#currentPoint").html("보유포인트 : " + data + "p");
+			},
+			error: function(){
+			}
+		});
+	</script>
 	<div id="daumWrap" class="userinfo_type1 ">
 
 		<div id="daumHead" role="banner">
