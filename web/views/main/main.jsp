@@ -255,7 +255,6 @@
         imgArray[7]="/semiproject/images/mainImages/main8.png";    
         imgArray[8]="/semiproject/images/mainImages/main9.png";    
         imgArray[9]="/semiproject/images/mainImages/main10.png";    
-        imgArray[10]="/semiproject/images/main10.png";    
                
         function showImage()
         {
