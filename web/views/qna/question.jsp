@@ -250,7 +250,7 @@ tr {
 								<option value="QTC3">신고 및 제재 문의</option>
 								<option value="QTC4">회원 문의</option>
 								<option value="QTC5">잘못된 정보 신고</option>
-								<option value="QTC6">폐업 신고</option>
+								<option value="QTC6"selected>폐업 신고</option>
 								<option value="QTC7">기타 문의</option>
 							</select>
 						</td>
