@@ -31,7 +31,7 @@
 		
 		<br><br><br><br>
 		<br>
-		<button id="home">홈으로</button>
+		<button id="home" onclick="location.href='/semiproject/ma'">홈으로</button>
 		<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 	</div>
 	<%@ include file="/views/common/footer.jsp" %>

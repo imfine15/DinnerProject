@@ -1,6 +1,6 @@
 package com.kh.semi.ad.model.service;
 
-import static com.kh.semi.common.JDBCTemplate.close;
+import static com.kh.semi.common.JDBCTemplate.*;
 import static com.kh.semi.common.JDBCTemplate.getConnection;
 
 import java.sql.Connection;
@@ -26,10 +26,27 @@ public class AdService {
 	public int insertAd(AdVO ad) {
 		Connection con = getConnection();
 		int result = 0;
+		int result1 = 0;
 		
 		
 		
-		return 0;
+		
+		String adCode = new AdDao().selectAdCode(con, ad);
+		String adContent = new AdDao().selectAdContent(con, ad);
+		
+		ad.setAdCode(adCode);
+		ad.setAdContent(adContent);
+		
+		result1 = new AdDao().insertAd(con, ad);
+		
+		
+		if(result1 > 0 ) {
+			commit(con);
+		} else {
+			rollback(con);
+		}
+		
+		return result;
 	}
 
 }

@@ -71,4 +71,48 @@ public class AdDao {
 		
 		return adList;
 	}
+
+	public int insertAd(Connection con, AdVO ad) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("insertAd");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, ad.getAdName());
+			pstmt.setString(2, ad.getAdPhone());
+			pstmt.setString(3, ad.getAdEmail());
+			pstmt.setString(4, ad.getAdEnpName());
+			pstmt.setString(5, ad.getAdEnpAddress());
+			pstmt.setString(6, ad.getAdEnpType());
+			pstmt.setString(7, ad.getAdCode());
+			pstmt.setString(8, ad.getSearchPath());
+			pstmt.setString(9, ad.getCounselContent());
+			pstmt.setString(10, ad.getAdContent());
+			
+			result = pstmt.executeUpdate();
+			
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public String selectAdCode(Connection con, AdVO ad) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String adCode = "";
+		
+		String query = prop.getProperty("selectAdCode");
+		
+		
+		return adCode;
+	}
 }
