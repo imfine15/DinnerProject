@@ -3,7 +3,6 @@
 <!DOCTYPE html>
 <%
 EnpVO selectedEnp = (EnpVO)session.getAttribute("selectedEnp");
-System.out.println("selectedEnp : " + selectedEnp);
 double rating = (double)session.getAttribute("rating");
 ArrayList<ReviewVO> visitReviews = (ArrayList<ReviewVO>)session.getAttribute("visitReviews");
 ArrayList<ReviewVO> normalReviews = (ArrayList<ReviewVO>)session.getAttribute("normalReviews");
@@ -83,7 +82,7 @@ ArrayList<ReviewVO> normalReviews = (ArrayList<ReviewVO>)session.getAttribute("n
 				</tr>
 				<tr>
 					<td class="infoTitle">대표메뉴</td>
-					<td class="infoContent" id="menus"></td>
+					<td class="infoContent" id="menus"><%= selectedEnp.getMenuName() %> - <%= selectedEnp.getMenuPrice() %></td>
 				</tr>
 				<tr>
 					<td class="infoTitle">웹 사이트</td>
@@ -114,20 +113,6 @@ ArrayList<ReviewVO> normalReviews = (ArrayList<ReviewVO>)session.getAttribute("n
 				</tr>
 			</table>
 		</div>
-		<script>
-			$(function() {
-				$.ajax({
-					url: "/semiproject/getMenu.se",
-					type: "post",
-					data: {enpNo: "<%= selectedEnp.getEnpNo() %>"},
-					success: function(data) {
-						$.each(data, function(key, value) {
-							$("#menus").append(key + " " + value + "원<br>");
-						});
-					}
-				});
-			});
-		</script>
 		<div id="infoRight">
 			<img style="max-width: 100%; max-height:100%; overflow: hidden;" alt="매장 대표사진" src="<%=request.getContextPath()%>/thumbnail_uploadFile/<%=selectedEnp.getChangeName() %>" id="">
 		</div>
@@ -161,12 +146,8 @@ ArrayList<ReviewVO> normalReviews = (ArrayList<ReviewVO>)session.getAttribute("n
 		<div id="adContent">
 			<div id="adBtn">
 				<div id="adCloseBtn"><img alt="광고 종료 버튼" src="/semiproject/images/adCloseBtn.png"></div>
-				<div id="adInfoBtn"><img alt="광고 정보 버튼" src="/semiproject/images/adInfoBtn.png"></div>
+				<p></p>
 			</div>
-			<span></span>
-		</div>
-		<div id="adPic">
-			<img alt="배너광고" src="" id="ad">
 		</div>
 	</div>
 	<script>
@@ -175,17 +156,11 @@ ArrayList<ReviewVO> normalReviews = (ArrayList<ReviewVO>)session.getAttribute("n
 				url: "/semiproject/foundAllAd.ad",
 				type: "get",
 				success: function(data) {
-					$("#adInfoBtn").click(function() {
-						window.open("http://" + data.adWebsite, "_blank");
-					});
-					
 					$("#adCloseBtn").click(function() {
 						$("#adDiv").hide();
 					});
 					
-					$("#adContent span").html(data.adContent);
-					
-					$("#ad").attr("src", data.filePath).css({"width":"420px", "height":"106px"});
+					$("#adBtn p").html(data.adContent);
 				}
 			});
 		});
@@ -205,24 +180,26 @@ ArrayList<ReviewVO> normalReviews = (ArrayList<ReviewVO>)session.getAttribute("n
 				});
 			});
 		</script>
+		<% if(loginUser != null) { %>
 		<div onclick="visitReviewWrite();" class="ReviewWrite">작성하기 <img alt="리뷰 작성 버튼" src="/semiproject/images/writeReview.png" class="writeReviewBtn"></div>
-	</div>
-	<script>
-		function visitReviewWrite() {
-			var enpNo = "<%= selectedEnp.getEnpNo() %>";
-			$.ajax({
-				url: "/semiproject/checkVisit.re",
-				type: "post",
-				data: {enpNo: enpNo, mNo: "<%= loginUser.getmNo() %>"},
-				success: function(data) {
-					var rhn = data[0]; // 리뷰내역번호
-					var visitDate = data[1]; // 방문일자
-					var reviewType = data[2]; // 리뷰타입(일반, 방문)
-					location.href="<%= request.getContextPath() %>/views/restaurantInfo/newReview.jsp?rhn=" + rhn + "&visitDate=" + visitDate + "&reviewType=" + reviewType;
+			<script>
+				function visitReviewWrite() {
+					var enpNo = "<%= selectedEnp.getEnpNo() %>";
+					$.ajax({
+						url: "/semiproject/checkVisit.re",
+						type: "post",
+						data: {enpNo: enpNo, mNo: "<%= loginUser.getmNo() %>"},
+						success: function(data) {
+							var rhn = data[0]; // 리뷰내역번호
+							var visitDate = data[1]; // 방문일자
+							var reviewType = data[2]; // 리뷰타입(일반, 방문)
+							location.href="<%= request.getContextPath() %>/views/restaurantInfo/newReview.jsp?rhn=" + rhn + "&visitDate=" + visitDate + "&reviewType=" + reviewType;
+						}
+					});
 				}
-			});
-		}
-	</script>
+			</script>
+		<% } %>
+	</div>
 	<hr class="hr">
 	<!-- visitorReview Div start -->
 	<div class="visitorReview">
@@ -299,7 +276,9 @@ ArrayList<ReviewVO> normalReviews = (ArrayList<ReviewVO>)session.getAttribute("n
 				});
 			});
 		</script>
+		<% if(loginUser != null) { %>
 		<div class="ReviewWrite">작성하기 <img alt="리뷰 작성 버튼" src="/semiproject/images/writeReview.png" class="writeReviewBtn"></div>
+		<% } %>
 	</div>
 	<hr class="hr">
 	<% if(normalReviews.size() != 0) { 

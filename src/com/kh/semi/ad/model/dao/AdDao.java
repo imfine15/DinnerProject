@@ -41,13 +41,14 @@ public class AdDao {
 			adList = new ArrayList<>();
 			
 			stmt = con.createStatement();
+			
 			rset = stmt.executeQuery(query);
 			
 			while(rset.next()) {
 				AdVO a = new AdVO();
 				
 				a.setAdNo(rset.getString("AD_NO"));
-				a.setAdTitle(rset.getString("AD_TITLE"));
+				a.setAdTitle(rset.getString("AD_NAME"));
 				a.setAdPhone(rset.getString("AD_PHONE"));
 				a.setAdEmail(rset.getString("AD_EMAIL"));
 				a.setAdEnpName(rset.getString("AD_ENP_NAME"));
@@ -57,8 +58,6 @@ public class AdDao {
 				a.setSearchPath(rset.getString("SEARCH_PATH"));
 				a.setCounselContent(rset.getString("COUNSEL_CONTENT"));
 				a.setAdContent(rset.getString("AD_CONTENT"));
-				a.setAdWebsite(rset.getString("AD_WEBSITE"));
-				a.setFilePath(rset.getString("FILE_PATH"));
 				
 				adList.add(a);
 			}

@@ -349,3 +349,7 @@
 		background-color:#EB7673;
 		margin:1px;
 	}
+	
+	#search:focus {
+		outline:none;
+	}

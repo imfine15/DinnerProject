@@ -135,6 +135,8 @@ public class SearchDao {
 				e.setParkingPossible(rset.getString("PARKING_POSSIBLE"));
 				e.setChangeName(rset.getString("CHANGE_NAME"));
 				e.setFilePath(rset.getString("FILE_PATH"));
+				e.setMenuName(rset.getString("MENU_NAME"));
+				e.setMenuPrice(rset.getInt("MENU_PRICE"));
 				
 				if(rset.getString("ENP_PARTNER_TYPE").equals("PARTNER")) {
 					e.setEnpRegisterNo(rset.getString("ENP_REGISTER_NO"));

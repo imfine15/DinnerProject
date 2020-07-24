@@ -1,8 +1,6 @@
 package com.kh.semi.search.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -11,8 +9,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.kh.semi.board.model.service.BoardService;
-import com.kh.semi.board.model.vo.BoardVO;
 import com.kh.semi.enterprise.model.vo.EnpVO;
 import com.kh.semi.search.model.service.SearchService;
 import com.kh.semi.search.model.vo.PageInfo;
@@ -67,14 +63,12 @@ public class SearchEnpKeywordServlet extends HttpServlet {
     	PageInfo pi = new PageInfo(currentPage, listCount, limit, maxPage, startPage, endPage);
     	
     	List<EnpVO> enpList = new SearchService().searchKeyword(words);
-    	List<HashMap<String, Integer>> enpMenus = new SearchService().getMenus(enpList);
     	
     	String page = "";
     	if(enpList != null) {
     		page = "views/searchResult/searchResult.jsp";
     		request.setAttribute("enpList", enpList);
     		request.setAttribute("pi", pi);
-    		request.setAttribute("enpMenus", enpMenus);
     		request.setAttribute("search", searchWord);
     	} else {
     		page = "views/common/errorPage.jsp";
