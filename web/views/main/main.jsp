@@ -5,23 +5,13 @@
 	session.setAttribute("backPage", backPage);
 
 	ArrayList<BoardUpVo> blist = (ArrayList<BoardUpVo>) request.getAttribute("boardList");
-	if(blist == null){
-		System.out.println(blist);
-		System.out.println(request.getContextPath() + "/ma");
-		response.sendRedirect(request.getContextPath() + "/ma");
-	}
+
 %>
 
 <!DOCTYPE html>
 <html>
 <head>
-<script>
-			var b = <%= blist %>;
-			console.log(b);
-			if(b == null){
-				location.href="/semiproject/ma";
-			}
-</script>
+
 <meta charset="utf-8">
 <!-- Styles -->
 <!-- Bootstrap CSS -->
@@ -84,7 +74,7 @@
          <div class="container" style="border: 0px white; width: 100%; box-shadow: 0px;">
             <h2 style="color: #D5706D; margin-left: 50px">오늘의 메뉴</h2>
             <div class="row" style="margin-top: 0px;">
-               <%for(int i = 4; i < 7; i ++) {%>
+               <%for(int i = 4; i < 8; i ++) {%>
                <div class="col-md-3">
                   <!-- work item -->
                   <div class="work-item">
@@ -92,7 +82,7 @@
                      <img class="img-responsive" src="<%=request.getContextPath()%>/thumbnail_uploadFile/<%= blist.get(i).getChangeName() %>" style="width: 100%; height: 171px;" />
                      <!-- heading -->
                      <h3>
-                        <a href="location.href='<%= request.getContextPath() %>/selectEnp.en?enpNo=' + ENP1" style="color: black; font-weight: 600;"><%=blist.get(i).getBoardTitle() %></a>
+                        <a href="/semiproject/selectMainEnp.en?enpNo=<%=blist.get(i).getEnpNo() %>" style="color: black; font-weight: 600;"><%=blist.get(i).getBoardTitle() %></a>
                      </h3>
                      <!-- brand org -->
                      <span class="org"><%=blist.get(i).getAddress() %></span>
@@ -109,7 +99,7 @@
                      <img class="img-responsive" src="<%=request.getContextPath()%>/thumbnail_uploadFile/<%=blist.get(i).getChangeName() %>" style="width: 100%; height: 171px;" />
                      <!-- heading -->
                      <h3>
-                        <a href="" style="color: black; font-weight: 600;"><%=blist.get(i).getBoardTitle() %></a>
+                        <a href="/semiproject/selectMainEnp.en?enpNo=<%=blist.get(i).getEnpNo() %>" style="color: black; font-weight: 600;"><%=blist.get(i).getBoardTitle() %></a>
                      </h3>
                      <!-- brand org -->
                      <span class="org"><%=blist.get(i).getAddress() %></span>
@@ -173,113 +163,38 @@
          <div class="container" style="border: 0px white; width: 100%; box-shadow: 0px;">
             <h2 style="color: #D5706D; margin-left: 50px">YUMEET'S PICK</h2>
             <div class="row" style="margin-top: 0px;">
+               <%for(int i = 4; i < 8; i ++) {%>
                <div class="col-md-3">
                   <!-- work item -->
                   <div class="work-item">
                      <!-- work details image -->
-                     <img class="img-responsive" src="/semiproject/views/main/img/curry.png" style="width: 100%; height: 171px;" />
+                     <img class="img-responsive" src="<%=request.getContextPath()%>/thumbnail_uploadFile/<%= blist.get(i).getChangeName() %>" style="width: 100%; height: 171px;" />
                      <!-- heading -->
                      <h3>
-                        <a href="#" style="color: black; font-weight: 600;">카레이서</a>
+                        <a href="location.href='<%= request.getContextPath() %>/selectEnp.en?enpNo=' + ENP1" style="color: black; font-weight: 600;"><%=blist.get(i).getBoardTitle() %></a>
                      </h3>
                      <!-- brand org -->
-                     <span class="org">서울 역삼점</span>
+                     <span class="org"><%=blist.get(i).getAddress() %></span>
                   </div>
                </div>
-
-               <div class="col-md-3" style="margin-top: 0px;">
-                  <!-- work item -->
-                  <div class="work-item">
-                     <!-- work details image -->
-                     <img class="img-responsive" src="/semiproject/views/main/img/boode.png" alt=""
-                        style="width: 100%; height: 171px;" />
-                     <!-- heading -->
-                     <h3>
-                        <a href="#" style="color: black; font-weight: 600;">송탄부대찌개</a>
-                     </h3>
-                     <!-- brand org -->
-                     <span class="org">경기 평택시</span>
-                  </div>
-               </div>
-               <div class="col-md-3" style="margin-top: 0px;">
-                  <!-- work item -->
-                  <div class="work-item">
-                     <!-- work details image -->
-                     <img class="img-responsive" src="/semiproject/views/main/img/noodle.png" style="width: 100%; height: 171px;" />
-                     <!-- heading -->
-                     <h3>
-                        <a href="#" style="color: black; font-weight: 600;">권숙수</a>
-                     </h3>
-                     <!-- brand org -->
-                     <span class="org">대전 둔산동</span>
-                  </div>
-               </div>
-               <div class="col-md-3" style="margin-top: 0px;">
-                  <!-- work item -->
-                  <div class="work-item">
-                     <!-- work details image -->
-                     <img class="img-responsive" src="/semiproject/views/main/img/pasta.png" style="width: 100%; height: 171px;" />
-                     <!-- heading -->
-                     <h3>
-                        <a href="#" style="color: black; font-weight: 600;">파스타 학교</a>
-                     </h3>
-                     <!-- brand org -->
-                     <span class="org">대전 유성구</span>
-                  </div>
-               </div>
+               <%} %>
                <br>
-               <div class="col-md-3" style="margin-top: 0px;">
+               
+               <%for(int i = 8; i < blist.size(); i ++) {%>
+               <div class="col-md-3">
                   <!-- work item -->
                   <div class="work-item">
                      <!-- work details image -->
-                     <img class="img-responsive" src="/semiproject/views/main/img/lamb.png" style="width: 100%; height: 171px;" />
+                     <img class="img-responsive" src="<%=request.getContextPath()%>/thumbnail_uploadFile/<%=blist.get(i).getChangeName() %>" style="width: 100%; height: 171px;" />
                      <!-- heading -->
                      <h3>
-                        <a href="#" style="color: black; font-weight: 600;">이치류</a>
+                        <a href="" style="color: black; font-weight: 600;"><%=blist.get(i).getBoardTitle() %></a>
                      </h3>
                      <!-- brand org -->
-                     <span class="org">서울 양재동</span>
+                     <span class="org"><%=blist.get(i).getAddress() %></span>
                   </div>
                </div>
-               <div class="col-md-3" style="margin-top: 0px;">
-                  <!-- work item -->
-                  <div class="work-item">
-                     <!-- work details image -->
-                     <img class="img-responsive" src="/semiproject/views/main/img/jungol.png" style="width: 100%; height: 171px;" />
-                     <!-- heading -->
-                     <h3>
-                        <a href="#" style="color: black; font-weight: 600;">하루전골</a>
-                     </h3>
-                     <!-- brand org -->
-                     <span class="org">경기 포천시</span>
-                  </div>
-               </div>
-               <div class="col-md-3" style="margin-top: 0px;">
-                  <!-- work item -->
-                  <div class="work-item">
-                     <!-- work details image -->
-                     <img class="img-responsive" src="/semiproject/views/main/img/noodle2.png" style="width: 100%; height: 171px;" />
-                     <!-- heading -->
-                     <h3>
-                        <a href="#" style="color: black; font-weight: 600;">스쿠로</a>
-                     </h3>
-                     <!-- brand org -->
-                     <span class="org">경기 광주시</span>
-                  </div>
-               </div>
-               <div class="col-md-3" style="margin-top: 0px;">
-                  <!-- work item -->
-                  <div class="work-item">
-                     <!-- work details image -->
-                     <img class="img-responsive" src="/semiproject/views/main/img/pattai.png" style="width: 100%; height: 171px;" />
-                     <!-- heading -->
-                     <h3>
-                        <a href="#" style="color: black; font-weight: 600;">쏭타이</a>
-                     </h3>
-                     <!-- brand org -->
-                     <span class="org">대전 달성구</span>
-                  </div>
-               </div>
+               <%} %>
             </div>
          </div>
       </div>

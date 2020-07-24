@@ -91,9 +91,12 @@
 							}
 					%>
 						<div id="foodArea<%= i + 1 %>" class="foodArea">
-							<img id="foodImg<%= i %>" src="" class="foodImg"><br>
+							<img id="" src="<%=request.getContextPath()%>/thumbnail_uploadFile/<%=enpList.get(i).getChangeName() %>" class="foodImg"><br>
 							<% if(enpList.get(i).getEnpStatus().equals("N")) { %>
 							<label class="maintext"><%= enpList.get(i).getEnpName() %></label>
+							<script>
+								console.log("<%=enpList.get(i).getChangeName() %>");					
+							</script>
 							<% } else {%>
 							<label class="maintext" style="color:gray;"><%= enpList.get(i).getEnpName() + " (폐업)"%></label>
 							<% } %>

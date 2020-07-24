@@ -522,6 +522,8 @@ Properties prop = new Properties();
 				selectedEnp.setParkingPossible(rset.getString("PARKING_POSSIBLE"));
 				selectedEnp.setUploadApproval(rset.getString("UPLOAD_APPROVAL"));
 				selectedEnp.setLikeCount(rset.getInt("LIKE_COUNT"));
+				selectedEnp.setChangeName(rset.getString("CHANGE_NAME"));
+				selectedEnp.setFilePath(rset.getString("FILE_PATH"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
