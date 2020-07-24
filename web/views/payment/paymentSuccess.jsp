@@ -43,7 +43,6 @@
 	window.onpopstate = function(event) {
 		history.go(1);
 		alert("만료된 페이지입니다.");
-		
 	}
 	</script>
 </body>
