@@ -48,7 +48,7 @@ public class SignInEnterpriseServlet extends HttpServlet {
 			request.setAttribute("currentPage", 1);
 			response.sendRedirect("selectConfirmRequestList.en");
 		}else {
-			request.setAttribute("msg", "로그인 에러");
+			request.setAttribute("msg", "로그인 에러!");
 			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
 		}
 		/*if(loginUser != null) {
