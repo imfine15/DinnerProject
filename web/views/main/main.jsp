@@ -163,7 +163,7 @@
          <div class="container" style="border: 0px white; width: 100%; box-shadow: 0px;">
             <h2 style="color: #D5706D; margin-left: 50px">YUMEET'S PICK</h2>
             <div class="row" style="margin-top: 0px;">
-               <%for(int i = 4; i < 8; i ++) {%> 
+               <%for(int i = 4; i < 8; i ++) {%>
                <div class="col-md-3">
                   <!-- work item -->
                   <div class="work-item">
