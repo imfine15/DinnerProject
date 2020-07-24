@@ -173,7 +173,7 @@ System.out.println("modalListsize : " + modalList.size());
 		                <td><%=list.get(i).getrDate3() %></td>
 		                <td><%=list.get(i).getPeople() %></td>
 		                <td><%=list.get(i).getrDate2() %></td>
-		                <td><button class="moreInfoBtn">확인</button></td>
+		                <td><button class="moreInfoBtn" id="moreInfoBtn<%=i%>">확인</button></td>
 		                <td><button class="userInfoBtn" id="userInfoBtn<%=i%>">확인</button></td>
 		                <td><button class="reservateBtn" id="reservateBtn<%=i%>">확인</button> <button class="cancelBtn" id="cancelBtn<%=i %>" style="background-color: gray;">취소</button></td>
 					</tr>
@@ -320,14 +320,11 @@ System.out.println("modalListsize : " + modalList.size());
 			$(this).parent().parent().children().children().eq(0).css("background","#5EB8B4");
 		});
 	});
-	$(function () {
-		$(".cancelBtn").click(function () {
-			
-			$(this).parent().parent().children().empty();
-		});
-	});
+	
 	$(function () {
 		$(".reservateBtn").click(function () {
+			
+			alert("예약 확인이 완료되었습니다.");
 			var str = $(this).attr('id');
 			var no=str.replace(/[^0-9]/g,'');
 			
@@ -335,9 +332,24 @@ System.out.println("modalListsize : " + modalList.size());
 			
 			location.href="/semiproject/updateRequest.en?enpId=<%=loginEnp.getEnpNo()%>&rno=" + rno;
 			
-			$(rno)
 		});
 	});
+	
+	$(function () {
+		$(".cancelBtn").click(function () {
+			
+			alert("예약 취소가 완료되었습니다.");
+			var str = $(this).attr('id');
+			var no=str.replace(/[^0-9]/g,'');
+			
+			var rno = $("#rNo"+no).html();
+			
+			location.href="/semiproject/deleteRequest.en?enpId=<%=loginEnp.getEnpNo()%>&rno=" + rno;
+			
+		});
+	});
+	
+	
 </script>
 <!-- <script src="/semiproject/views/enterprise/sidebar/js/jquery.min.js"></script>
 <script src="/semiproject/views/enterprise/sidebar/js/popper.js"></script>

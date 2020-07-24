@@ -190,7 +190,7 @@ public class EnpService {
 	}
 
 	public int selectCRRownum(String enp) {
-		Connection con = getConnection();
+		//Connection con = getConnection();
 
 		// int rownum = new EnpDao().selectCRRownum(con,enp);
 
@@ -266,16 +266,31 @@ public class EnpService {
 
 	public int updateCrList(String rno) {
 		Connection con = getConnection();
-		
-		int result = new EnpDao().updateCrList(con,rno);
-		
-		if(result > 0) {
+
+		int result = new EnpDao().updateCrList(con, rno);
+
+		if (result > 0) {
 			commit(con);
-		}else {
+		} else {
 			rollback(con);
 		}
 		close(con);
-		
+
+		return result;
+	}
+
+	public int deleteCrList(String rno) {
+		Connection con = getConnection();
+
+		int result = new EnpDao().deleteCrList(con, rno); 
+
+		if (result > 0) {
+			commit(con);
+		} else {
+			rollback(con);
+		}
+		close(con);
+
 		return result;
 	}
 }

@@ -976,4 +976,25 @@ Properties prop = new Properties();
 		
 		return result;
 	}
+	public int deleteCrList(Connection con, String rno) {
+		PreparedStatement pstmt = null;
+		
+		int result = 0;
+		String query = prop.getProperty("deleteCrList");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, rno);
+			System.out.println("rno in enpdao : " + rno);
+			result = pstmt.executeUpdate();
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
 }
