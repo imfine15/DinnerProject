@@ -10,16 +10,16 @@ import javax.servlet.http.HttpServletResponse;
 import com.kh.semi.enterprise.model.service.EnpService;
 
 /**
- * Servlet implementation class UpdateConfirmRequestServlet
+ * Servlet implementation class DeleteConfirmRequestServlet
  */
-@WebServlet("/updateRequest.en")
-public class UpdateConfirmRequestServlet extends HttpServlet {
+@WebServlet("/deleteRequest.en")
+public class DeleteConfirmRequestServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public UpdateConfirmRequestServlet() {
+    public DeleteConfirmRequestServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -34,7 +34,7 @@ public class UpdateConfirmRequestServlet extends HttpServlet {
 		System.out.println("enpId : : : : " + enp);
 		System.out.println("rno  : : : : :" + rno);
 		
-		int result = new EnpService().updateCrList(rno);
+		int result = new EnpService().deleteCrList(rno);
 		
 		
 		String page = "";
@@ -43,10 +43,9 @@ public class UpdateConfirmRequestServlet extends HttpServlet {
 			request.setAttribute("enp", enp);
 		}else {
 			page="views/common/errorPage.jsp";
-			request.setAttribute("msg", "예약 수락 실패");
+			request.setAttribute("msg", "예약 삭제 실패");
 		}
 		request.getRequestDispatcher(page).forward(request, response);
-
 	}
 
 	/**
