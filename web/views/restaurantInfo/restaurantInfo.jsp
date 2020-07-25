@@ -53,6 +53,19 @@ ArrayList<ReviewVO> normalReviews = (ArrayList<ReviewVO>)session.getAttribute("n
 						}
 					});
 				});
+				
+				$(function() {
+					var enpNo = "<%= selectedEnp.getEnpNo() %>";
+					var mNo = "<%= loginUser.getmNo() %>";
+					$.ajax({
+						url: "/semiproject/plusLikeCount.se",
+						type: "post",
+						data: {enpNo: enpNo, mNo: mNo},
+						success: function(data) {
+							
+						}
+					});
+				});
 			</script>
 		</div>
 		<div id="top2">
