@@ -4,7 +4,9 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>YUMEET</title>
+<link rel="shortcut icon" href="/semiproject/images/favicon.ico" type="image/x-icon">
+<link rel="icon" href="/semiproject/images/favicon.ico" type="image/x-icon">
 <style>
 .wrapper {
 	font-family: 나눔스퀘어;
@@ -42,10 +44,16 @@ footer {
 		<div style="height: 50px;"></div>
 		<p id="explain">제휴를 위한 상담 신청이 완료되었습니다!</p>
 		<div style="height: 50px;"></div>
-		<button id="sub_click" type="submit" style="color: white;">홈으로</button>
+		<button id="sub_click" type="BUTTON" style="color: white;" onclick="goHome();">홈으로</button>
 	</div>
 	<footer>
 	<%@ include file="../common/footer.jsp"%>
 	</footer>
+	<script>
+			function goHome() {
+				location.href="<%=request.getContextPath()%>/ma";
+			}
+
+	</script>
 </body>
 </html>

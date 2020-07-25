@@ -4,11 +4,13 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>YUMEET</title>
 <link rel="stylesheet" href="/semiproject/fils/aos.css" />
 <script src="/semiproject/fils/aos.js"></script>
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+<link rel="shortcut icon" href="/semiproject/images/favicon.ico" type="image/x-icon">
+<link rel="icon" href="/semiproject/images/favicon.ico" type="image/x-icon">
 <style>
 td {
 	padding: 10px;
@@ -145,48 +147,53 @@ textarea {
 		</div>
 		<!-- partner form start -->
 		<div>
-			<form action="" method="post">
+			<form action="<%= request.getContextPath() %>/insert.pa" method="post" >
 				<table class="partner_f">
 					<tr>
 						<td>이름 :</td>
-						<td colspan="4"><input type="text" size="50" name="title"></td>
+						<td colspan="4"><input type="text" size="50" name="pName"></td>
 					</tr>
 					<tr>
 						<td>전화번호 :</td>
-						<td colspan="4"><input type="text" size="50" name="title"></td>
+						<td colspan="4"><input type="text" size="50" name="pPhone"></td>
 					</tr>
 					<tr>
 						<td>이메일 :</td>
-						<td colspan="3"><input type="text" size="50" name="title"></td>
+						<td colspan="3"><input type="text" size="50" name="pMail"></td>
 					</tr>
 					<tr>
 						<td>업체명 :</td>
-						<td colspan="3"><input type="text" size="50" name="title"></td>
+						<td colspan="3"><input type="text" size="50" name="pStoreName"></td>
 					</tr>
 					<tr>
 						<td>업체주소 :</td>
-						<td colspan="3"><input type="text" size="50" name="title"></td>
+						<td colspan="3"><input type="text" size="50" name="pAddress"></td>
 					</tr>
 					<tr>
 						<td>업체종류 :</td>
-						<td colspan="3"><input type="text" size="50" name="title"></td>
+						<td colspan="3"><input type="text" size="50" name="pKind"></td>
 					</tr>
 					<tr>
 						<td>상품선택 :</td>
-						<td colspan="3"><select id="pro-choice">
-								<option>베이직</option>
-								<option>프리미엄</option>
+						<td colspan="3"><select id="pro-choice" name="product">
+								<option value="basic">베이직</option>
+								<option value="premium">프리미엄</option>
 						</select></td>
 					</tr>
 					<tr>
 						<td style="vertical-align: top;">상담내용 :</td>
-						<td colspan="3"><textarea style="resize: none;"></textarea></td>
+						<td colspan="3"><textarea name="pContent"style="resize: none;"></textarea></td>
+					</tr>
+					<tr>
+						<td colspan="4">
+							<div align="center">
+							<div style="height: 50px"></div>
+							<button id="sub_click_" style="color: white;">상담
+								신청하기</button>
+								</div>
+						</td>
 					</tr>
 				</table>
-				<div align="center"></div>
-				<div style="height: 50px"></div>
-				<button id="sub_click_" type="submit" style="color: white;">상담
-					신청하기</button>
 			</form>
 		</div>
 		<!-- partner form end -->

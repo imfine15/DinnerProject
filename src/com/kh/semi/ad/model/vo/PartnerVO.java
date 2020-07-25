@@ -2,7 +2,7 @@ package com.kh.semi.ad.model.vo;
 
 import java.util.Date;
 
-public class PartnerVO {
+public class PartnerVO implements java.io.Serializable{
 	
 	private String partnerQuestionNo;
 	private String managerNo;
