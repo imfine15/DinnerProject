@@ -14,21 +14,54 @@
 <link rel="stylesheet" type="text/css"
 	href="/semiproject/views/myPage/css/myPage.css" />
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-	<script>
-   $(function(){
-	  	$("#listArea td").mouseenter(function(){
-	  		$(this).parent().css({"background":"darkgray","cursor":"pointer"});
-	  	}).mouseout(function(){
-	  		$(this).parent().css({"background":"white"});
-	  	}).click(function(){
-	  		var num = $(this).parent().children().eq(0).text();
-	  		
-	  		console.log(num);
-	  		location.href="<%=request.getContextPath()%>/selectOne.no?num=" + num;
-	  	})
-   });
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
+
    </script>
 <style>
+span{
+	word-break: normal;
+	margin-bottom: 10px;
+}
+*{margin:0; padding:0;}
+a.button{display:inline-block; padding: 10px 20px; text-decoration:none; color:#fff; background:#000; margin:20px;}
+#modal{
+  display:none;
+  position:fixed; 
+  width:100%; height:100%;
+  top:0; left:0; 
+  background:rgba(0,0,0,0.3);
+}
+.modal-con{
+  display:none;
+  position:fixed;
+  top:50%; left:50%;
+  transform: translate(-50%,-50%);
+  max-width: 30%;
+  min-height: 30%;
+  background:#fff;
+}
+.modal-con .title{
+  font-size:20px; 
+  padding: 20px; 
+  background : #D5706D;
+  color: white;
+}
+.modal-con .con{
+  font-size:13px; line-height:1.3;
+  padding: 30px;
+}
+.modal-con .close{
+  display:block;
+  position:absolute;
+  width:30px; height:30px;
+  border-radius:50%; 
+  border: 3px solid #000;
+  text-align:center; line-height: 30px;
+  text-decoration:none;
+  color:#000; font-size:20px; font-weight: bold;
+  right:10px; top:10px;
+}
 .info {
 	font-family: Roboto;
 	font-style: normal;
@@ -159,14 +192,60 @@ ul li a span:hover{
 						<%}count--;} %>
 					
 					</table>
-
+					<form action="selectInquiryList.py" method="post">
+					<div align="center">
+					<%for(int i = 0; i < pi.getEndPage();i ++){ %>
+					
+					<input type="submit" value="<%=i+1%>" name="curval">
+					<%} %>
+					
+					</div>
+					</form>
 				</div>
+	<div id="wrap">
+  <a href="javascript:openModal('modal1');" class="button modal-open">모달열기1</a>
+  <a href="javascript:openModal('modal2');" class="button modal-open">모달열기2</a>
+</div>
 
+<div id="modal"></div>
+  <div class="modal-con modal1">
+    <a href="javascript:;" class="close">X</a>
+    <p class="title">문의내용</p>
+    <div class="con">
+      <table>
+      
+      <tr>
+      	<td style="width:150px;">아이디 : infine</td>
+      	<td>이름 : infine</td>
+      </tr>	
+      <tr>
+      	<td style="width:150px;">요청일 : 2020-04-11</td> <td>답변일 : 2020-05-11</td>
+      </tr>
+      <tr> 
+      	<td>제목 : 이이이이</td>
+      </tr>
+      <tr>
+      	<td>내용</td>
+      </tr>
+      <tr>
+      	<td colspan="2"><%=qlist.get(1).getQuestionContent() %></td>
+      </tr>
+      </table>
+    </div>
+  </div>
+<script>
 
+function openModal(modalname){
+	  document.get
+	  $("#modal").fadeIn(300);
+	  $("."+modalname).fadeIn(300);
+	}
 
-
-
-
+	$("#modal, .close").on('click',function(){
+	  $("#modal").fadeOut(300);
+	  $(".modal-con").fadeOut(300);
+	});
+</script>
 
 				<!--// mArticle -->
 				<div id="mAside">
@@ -215,131 +294,6 @@ ul li a span:hover{
 		<div id="wrapMinidaum"></div>
 	</div>
 
-	<script type="text/javascript">
-    var minidaum_options = {
 
-        enableLogoutRetun: false,
-        returnUrl: '',
-        disableHotissue: false,
-        disableLogo: false,
-        disableTracker: false,
-        enableShield: false
-    }
-</script>
-
-	<script type="text/javascript">
-    $(document).ready(function(){
-        Home.init();
-        initProfileImage();
-    });
-
-    function hideElement(id) {
-        $("#"+id).hide();
-    }
-
-    var Home= {
-        init: function() {
-            if(!false) {
-                $("#recommnendContents").addClass("info_set")
-                $("#recommnendContents").text("로그인시, 이중 보안되는 2단계 인증을 사용해보세요!")
-            } else if(!true) {
-                $("#recommnendContents").addClass("info_allow")
-                $("#recommnendContents").text("로그인 허용 국가가 올바른지 확인해 보세요!")
-            } else if(!false) {
-                $("#recommnendContents").addClass("info_noticepw")
-                $("#recommnendContents").text("비밀번호 변경알림을 이메일로 받아보세요!")
-            } else if (2617 > 180){
-                $("#recommnendContents").addClass("info_modifypw")
-                $("#recommnendContents").text("6개월마다 새로운 비밀번호로 안전하게 관리해 주세요!")
-            } else {
-                $("#recommnendContents").addClass("info_safe")
-                $("#recommnendContents").text("내정보 보호설정으로 안전하게 관리되고 있습니다!")
-            }
-
-            $(".link_user").on("focus", function(){
-                $(".profile_edit").css({'display': 'none'});
-            });
-
-            $("#contactLink").on("focus", function(){
-                $(".profile_edit").css({'display': 'none'});
-            });
-            $("#helpBtn").on("click", function(){
-                $(".layer_certify").toggle();
-            });
-            $("#closeHelpBtn").on("click", function(){
-                $(".layer_certify").css({'display': 'none'});
-            })
-        }
-    }
-
-    function initProfileImage() {
-        $("#profileImageContainer").click(function () {
-            profileImageHandler.hasProfileImageAlready('98f9',
-                    function exist() {
-                        $("#profileImageChangeDialog").show();
-                        $("#profileImageAgreeDialog").hide();
-                    },
-                    function notExist() {
-                        $("#profileImageChangeDialog").hide();
-                        $("#profileImageAgreeDialog").show();
-                    }
-            );
-        });
-
-        profileImageHandler.initProfileImageUpload('98f9',
-                'profileImageAgreeInput',
-                function() {
-                    $('#profileImageAgreeDialog').hide();
-                },
-                function(url) {
-                    $('#profileImage').attr('src', url);
-                }
-        );
-        profileImageHandler.initProfileImageUpload('98f9',
-                'profileImageChangeInput',
-                function() {
-                    $('#profileImageChangeDialog').hide();
-                },
-                function(url) {
-                    $('#profileImage').attr('src', url);
-                }
-        );
-
-        $("#profileImageDisagree").click(function () {
-            $("#profileImageAgreeDialog").hide();
-        });
-
-        $("#profileImageDelete").click(function () {
-            $("#profileImageChangeDialog").hide();
-            profileImageHandler.deleteProfileImage('98f9');
-        });
-    }
-</script>
-
-
-
-	<script type="text/javascript"
-		src="//t1.daumcdn.net/tiara/js/v1/tiara.min.js"></script>
-	<script type='text/javascript'>
-
-    var profile = "";
-    var isDevMode = "false";
-    var customProps = { profile: profile, isDev: isDevMode };
-    var deployment = "production"
-    if (isDevMode === "true") {
-        deployment = "dev";
-    }
-    TiaraTracker.getInstance()
-            .setSvcDomain("member.daum.net")
-            .setDeployment(deployment)
-            .trackPage("Home")
-            .setSection("member.web.home")
-            .setPage("내정보_홈")
-            .setReferrer(document.referrer)
-            .setEnableHash(true)
-            .customProps(customProps)
-            .setAutoClick(true)
-            .track();
-</script>
 
 </body>

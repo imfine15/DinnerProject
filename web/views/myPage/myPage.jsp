@@ -64,8 +64,6 @@ input{
 				mNo: "<%=loginUser.getmNo()%>"
 			},
 			success: function(data){
-				console.log("point성공입니다.");
-
 				$("#currentPoint").html("보유포인트 : " + data + "p");
 			},
 			error: function(){

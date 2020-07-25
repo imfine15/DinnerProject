@@ -34,7 +34,7 @@ public class SelectInquiryHistoryListServlet extends HttpServlet implements Serv
 		int startPage;		// 시작페이지
 		int endPage;		// 마지막페이지
 		
-		//currentPage = Integer.parseInt(request.getParameter("curval"));	
+		currentPage = Integer.parseInt(request.getParameter("curval"));	
 		limit = 10;
 		
 		int listCount = new MemberService().getInquiryListCount(mNo);
