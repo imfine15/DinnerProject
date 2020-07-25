@@ -17,13 +17,13 @@
 <meta charset="UTF-8">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <title>YUMEET</title>
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link rel="shortcut icon" href="/semiproject/images/favicon.ico" type="image/x-icon">
 <link rel="icon" href="/semiproject/images/favicon.ico" type="image/x-icon">
 <link rel="stylesheet" type="text/css" href="/semiproject/views/searchResult/css/searchResultStyle.css" />
 </head>
 <body id="mainWidth" style="width:1440px;">
 	<%@ include file="/views/common/header.jsp" %>
-	
 	<!-- outer start -->
 	<div class="outer" align="center">
 		<!-- 상단 글자랑 필터등등 -->
@@ -32,11 +32,42 @@
             <button onclick="searchEnp();" style="height: 95%; background: white; border: 0px white; float: right; margin-right: 3px; margin-left:25px;">
                 <img src="/semiproject/images/searchicon.png">
             </button>
-            <button style="height: 100%; background: white; float: left; margin-left: 5px; border: 0px white;">
+            <button id="recommendBtn" style="height: 100%; background: white; float: left; margin-left: 5px; border: 0px white;">
             	<img src="/semiproject/images/Vector.png">
             </button>
             <input onkeyup="if(event.keyCode === 13) { searchEnp(); }" id="search" name="search" type="search" style="height: 100%; width: 70%; border:0; background: white; font-size: 22px; margin-left: 10px; float:left;">
             <script>
+				$("#recommendBtn").click(function() {
+					var s = $("#search").val();
+					
+					if(s === "양재") {
+						var flag = window.confirm("양재동은 어떠세요?");
+						
+						if(flag) {
+							$("#search").val("양재동");
+							searchEnp();
+						}
+					}
+					
+					if(s === "강남") {
+						var flag = window.confirm("강남구는 어떠세요?");
+						
+						if(flag) {
+							$("#search").val("강남구");
+							searchEnp();
+						}
+					}
+					
+					if(s === "삼겹") {
+						var flag = window.confirm("삼겹살은 어떠세요?");
+						
+						if(flag) {
+							$("#search").val("삼겹살");
+							searchEnp();
+						}
+					}
+				});          
+            
 	            var windowWidth = $( window ).width();
 				$("#mainWidth").width(windowWidth);
 				
@@ -87,9 +118,6 @@
 							<img id="" src="<%=request.getContextPath()%>/thumbnail_uploadFile/<%=enpList.get(i).getChangeName() %>" class="foodImg"><br>
 							<% if(enpList.get(i).getEnpStatus().equals("N")) { %>
 							<label class="maintext"><%= enpList.get(i).getEnpName() %></label>
-							<script>
-								console.log("<%=enpList.get(i).getChangeName() %>");					
-							</script>
 							<% } else {%>
 							<label class="maintext" style="color:gray;"><%= enpList.get(i).getEnpName() + " (폐업)"%></label>
 							<% } %>
@@ -139,6 +167,8 @@
 					<button class="keybtn">양식</button>
 					<button class="keybtn">분식</button>
 					<button class="keybtn">패스트푸드</button>
+					<button class="keybtn">카페</button>
+					<button class="keybtn">아시아</button>
 				</div>
 				<script>
 					$("#keywordArea button").click(function() {
@@ -299,25 +329,27 @@
 						data: {sort: sort, currentPage: currentPage},
 						success: function(data) {
 								if(currentPage > data[1].maxPage) {
-									$("#courseTableDiv").html("잘못된 페이지 번호입니다.");
-								} else {
-									for(var i = 0; i < data[0].length; i++) {
-										$("#courseTableDiv").html(
-												'<table style="border-bottom: 1px solid black;"><tr><td rowspan="3" width="100px">' + data[0][i].boardNo + '</td><td rowspan="3">'
-												+ '<img src="' + data[0][i].filePaths[0] + '" width="200px" height="150px"></td>'
-												+ '<td align="left" valign="bottom"><label class="textreview">' + data[0][i].boardTitle + '</label></td>'
-												+ '<td rowspan="3" valign="top" width="40px"><img class="heart" src="/semiproject/images/heartblack.png"></td><td align="right" valign="bottom">' + data[0][i].uploadDate + '</td>'
-												+ '<td rowspan="2" width="180px" align="center"><div class="profileBox" align="center"><img id="cprofilePic' + i + '" class="profile" src="">'
-												+ '</div></td></tr><tr><td width="400px" align="left" valign="top" rowspan="2"><label>' + data[0][i].hashTags + '</label></td>'
-												+ '<td align="right" valign="top" width="100px">조회수 : ' + data[0][i].viewCount + '</td></tr>'
-												+ '<tr><td align="right"><button class="report">신고</button></td><td id="cprofileNickName' + i + '" align="center">'
-												+ '</td></tr></table>'
-												+ '<input id="mNo' + i + '" type="hidden" value="' + data[0][i].memberNo + '">'
-										);
-									
-										getUserInfo();
+									currentPage = 1;
 								}
-							}
+								
+								for(var i = 0; i < data[0].length; i++) {
+									$("#courseTableDiv").html(
+											'<table style="border-bottom: 1px solid black;"><tr><td rowspan="3" width="100px">' + data[0][i].boardNo + '</td><td rowspan="3">'
+											+ '<img src="' + data[0][i].filePaths[0] + '" width="200px" height="150px"></td>'
+											+ '<td align="left" valign="bottom"><label class="textreview">' + data[0][i].boardTitle + '</label></td>'
+											+ '<td rowspan="3" valign="top" width="40px"><img class="heart" src="/semiproject/images/heartblack.png"></td><td align="right" valign="bottom">' + data[0][i].uploadDate + '</td>'
+											+ '<td rowspan="2" width="180px" align="center"><div class="profileBox" align="center"><img id="cprofilePic' + i + '" class="profile" src="">'
+											+ '</div></td></tr><tr><td width="400px" align="left" valign="top" rowspan="2"><label>' + data[0][i].hashTags + '</label></td>'
+											+ '<td align="right" valign="top" width="100px">조회수 : ' + data[0][i].viewCount + '</td></tr>'
+											+ '<tr><td align="right"><button class="report">신고</button></td><td id="cprofileNickName' + i + '" align="center">'
+											+ '</td></tr></table>'
+											+ '<input id="mNo' + i + '" type="hidden" value="' + data[0][i].memberNo + '">'
+									);
+									
+									$("#maxPage").html("  마지막 페이지 : " + data[1].maxPage);
+									
+									getUserInfo();
+								}
 						}
 					});
 				}
@@ -362,8 +394,9 @@
 			</script>
 			<hr>
 			<div class="textArea" id="courseTableDiv"></div>
-			<input type="number" id="pagingNo" style="width:45px;">
+			<input type="number" id="pagingNo" style="width:45px;" min="1">
 			<button id="pagingGo" onclick="pagingGo();">페이지로 이동</button>
+			<span id="maxPage"></span>
 			<script>
 				function pagingGo() {
 					var requestNo = $("#pagingNo").val();
@@ -414,24 +447,26 @@
 						data: {sort: sortEnp, currentPage: currentPageEnp},
 						success: function(data) {
 								if(currentPageEnp > data[1].maxPage) {
-									$("#enpTableDiv").html("잘못된 페이지 번호입니다.");
-								} else {
-									for(var i = 0; i < data[0].length; i++) {
-										$("#enpTableDiv").html(
-												'<table style="border-bottom: 1px solid black;"><tr><td rowspan="3" width="100px">' + data[0][i].boardNo + '</td><td rowspan="3">'
-												+ '<img src="' + data[0][i].filePaths[0] + '" width="200px" height="150px"></td>'
-												+ '<td align="left" valign="bottom"><label class="textreview">' + data[0][i].boardTitle + '</label></td>'
-												+ '<td rowspan="3" valign="top" width="40px"><img class="heart" src="/semiproject/images/heartblack.png"></td><td align="right" valign="bottom">' + data[0][i].uploadDate + '</td>'
-												+ '<td rowspan="2" width="180px" align="center"><div class="profileBox" align="center"><img id="eprofilePic' + i + '" class="profile" src="">'
-												+ '</div></td></tr><tr><td width="400px" align="left" valign="top" rowspan="2"><label>' + data[0][i].hashTags + '</label></td>'
-												+ '<td align="right" valign="top" width="100px">조회수 : ' + data[0][i].viewCount + '</td></tr>'
-												+ '<tr><td align="right"><button class="report">신고</button></td><td id="eprofileNickName' + i + '" align="center">'
-												+ '</td></tr></table>'
-												+ '<input id="mNoEnp' + i + '" type="hidden" value="' + data[0][i].memberNo + '">'
-										);
-									
-										getUserInfoEnp();
+									currentPage = 1;
 								}
+								
+								for(var i = 0; i < data[0].length; i++) {
+									$("#enpTableDiv").html(
+											'<table style="border-bottom: 1px solid black;"><tr><td rowspan="3" width="100px">' + data[0][i].boardNo + '</td><td rowspan="3">'
+											+ '<img src="' + data[0][i].filePaths[0] + '" width="200px" height="150px"></td>'
+											+ '<td align="left" valign="bottom"><label class="textreview">' + data[0][i].boardTitle + '</label></td>'
+											+ '<td rowspan="3" valign="top" width="40px"><img class="heart" src="/semiproject/images/heartblack.png"></td><td align="right" valign="bottom">' + data[0][i].uploadDate + '</td>'
+											+ '<td rowspan="2" width="180px" align="center"><div class="profileBox" align="center"><img id="eprofilePic' + i + '" class="profile" src="">'
+											+ '</div></td></tr><tr><td width="400px" align="left" valign="top" rowspan="2"><label>' + data[0][i].hashTags + '</label></td>'
+											+ '<td align="right" valign="top" width="100px">조회수 : ' + data[0][i].viewCount + '</td></tr>'
+											+ '<tr><td align="right"><button class="report">신고</button></td><td id="eprofileNickName' + i + '" align="center">'
+											+ '</td></tr></table>'
+											+ '<input id="mNoEnp' + i + '" type="hidden" value="' + data[0][i].memberNo + '">'
+									);
+									
+									$("#maxPageEnp").html("  마지막 페이지 : " + data[1].maxPage);
+									
+									getUserInfoEnp();
 							}
 						}
 					});
@@ -477,8 +512,9 @@
 			</script>
 			<hr>
 			<div class="textArea" id="enpTableDiv"></div>
-			<input type="number" id="pagingNoEnp" style="width:45px;">
+			<input type="number" id="pagingNoEnp" style="width:45px;" min="1">
 			<button id="pagingGoEnp" onclick="pagingGoEnp();">페이지로 이동</button>
+			<span id="maxPageEnp"></span>
 			<script>
 				function pagingGoEnp() {
 					var requestNoEnp = $("#pagingNoEnp").val();

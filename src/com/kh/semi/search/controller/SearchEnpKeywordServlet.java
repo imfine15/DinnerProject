@@ -62,7 +62,7 @@ public class SearchEnpKeywordServlet extends HttpServlet {
     	
     	PageInfo pi = new PageInfo(currentPage, listCount, limit, maxPage, startPage, endPage);
     	
-    	List<EnpVO> enpList = new SearchService().searchKeyword(words);
+    	List<EnpVO> enpList = new SearchService().searchKeyword(pi, words);
     	
     	String page = "";
     	if(enpList != null) {

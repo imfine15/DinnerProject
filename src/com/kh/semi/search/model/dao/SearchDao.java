@@ -10,7 +10,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -109,8 +108,10 @@ public class SearchDao {
 			int endRow = startRow + pi.getLimit() - 1;
 			
 			pstmt.setString(1, search);
-			pstmt.setInt(2, startRow);
-			pstmt.setInt(3, endRow);
+			pstmt.setString(2, search);
+			pstmt.setString(3, search);
+			pstmt.setInt(4, startRow);
+			pstmt.setInt(5, endRow);
 			
 			rset = pstmt.executeQuery();
 			
@@ -169,40 +170,6 @@ public class SearchDao {
 		return enpList;
 	}
 
-	public List<HashMap<String, Integer>> getMenus(Connection con, List<EnpVO> enpList) {
-		PreparedStatement pstmt = null;
-		ResultSet rset = null;
-		HashMap<String, Integer> enpMenuMap = null;
-		List<HashMap<String, Integer>> enpMenus = null;
-		String query = prop.getProperty("getMenus");
-		
-		try {
-			enpMenus = new ArrayList<>();
-			pstmt = con.prepareStatement(query);
-			
-			for(int i = 0; i < enpList.size(); i++) {
-				enpMenuMap = new HashMap<>();
-				
-				pstmt.setString(1, enpList.get(i).getEnpNo());
-				
-				rset = pstmt.executeQuery();
-				
-				while(rset.next()) {
-					enpMenuMap.put(rset.getString("MENU_NAME"), rset.getInt("MENU_PRICE"));
-				}
-				
-				enpMenus.add(enpMenuMap);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close(rset);
-			close(pstmt);
-		}
-		
-		return enpMenus;
-	}
-
 	public ArrayList<EnpVO> getRating(Connection con, ArrayList<EnpVO> enpList) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
@@ -235,7 +202,7 @@ public class SearchDao {
 		return enpListWithRating;
 	}
 
-	public List<EnpVO> searchKeyword(Connection con, String[] words) {
+	public List<EnpVO> searchKeyword(Connection con, PageInfo pi, String[] words) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		String query = prop.getProperty("searchKeyword");
@@ -244,9 +211,16 @@ public class SearchDao {
 		try {
 			enpList = new ArrayList<>();
 			
+			int startRow = (pi.getCurrentPage() - 1) * pi.getLimit() + 1;
+			int endRow = startRow + pi.getLimit() - 1;
+			
 			pstmt = con.prepareStatement(query);
 			pstmt.setString(1, words[0]); // 검색어
-			pstmt.setString(2, words[1]); // 키워드
+			pstmt.setString(2, words[0]); // 검색어
+			pstmt.setString(3, words[0]); // 검색어
+			pstmt.setString(4, words[1]); // 키워드
+			pstmt.setInt(5, startRow); // 검색어
+			pstmt.setInt(6, endRow); // 검색어
 			
 			rset = pstmt.executeQuery();
 			
@@ -267,6 +241,10 @@ public class SearchDao {
 				e.setWebsite(rset.getString("WEBSITE"));
 				e.setIntroduce(rset.getString("INTRODUCE"));
 				e.setParkingPossible(rset.getString("PARKING_POSSIBLE"));
+				e.setChangeName(rset.getString("CHANGE_NAME"));
+				e.setFilePath(rset.getString("FILE_PATH"));
+				e.setMenuName(rset.getString("MENU_NAME"));
+				e.setMenuPrice(rset.getInt("MENU_PRICE"));
 				
 				if(rset.getString("ENP_PARTNER_TYPE").equals("PARTNER")) {
 					e.setEnpRegisterNo(rset.getString("ENP_REGISTER_NO"));
@@ -337,6 +315,8 @@ public class SearchDao {
 			pstmt = con.prepareStatement(query);
 			
 			pstmt.setString(1, search);
+			pstmt.setString(2, search);
+			pstmt.setString(3, search);
 			
 			rset = pstmt.executeQuery();
 			
