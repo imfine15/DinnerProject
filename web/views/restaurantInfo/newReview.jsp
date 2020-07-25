@@ -5,6 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>YUMEET</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <link rel="shortcut icon" href="/semiproject/images/favicon.ico" type="image/x-icon">
 <link rel="icon" href="/semiproject/images/favicon.ico" type="image/x-icon">
 <style>
@@ -82,15 +83,15 @@
 </head>
 <body>
 <%@ include file="/views/common/header.jsp" %>
-<% //if(loginUser != null) {%>
+<% if(loginUser != null) {%>
 	<h1 style="margin-left: 200px; margin-top: 30px;">리뷰 등록</h1>
 		<div class="box" align="center">
 		<form action="<%=request.getContextPath() %>/insertReview.re"  method="post" enctype="multipart/form-data">
-		<%-- <input type="hidden" name="mamberNo" value="<%=loginUser.getmNo()%>">
-		<input type="hidden" name="enpNo" value="<%=%>">
-		<input type="hidden" name="reservationHistoryNo" value="<%=%>">
-		<input type="hidden" name="visitDate" value="<%=%>"> 
-		<input type="hidden" name="reviewType" value=<%=%>"> --%>
+		<input type="hidden" name="memberNo" id="memberNo">
+		<input type="hidden" name="enpNo" id="enpNo">
+		<input type="hidden" name="reservationHistoryNo" id="reservationHistoryNo">
+		<input type="hidden" name="visitDate" id="visitDate"> 
+		<input type="hidden" name="reviewType" id="reviewType">
 		<div align="left" class="foodNameBox">
 		<span class="foodName">식당이름</span><span>에 대한 솔직한 리뷰를 써주세요.</span>
 		</div>
@@ -104,7 +105,7 @@
 			</table>
 		</div>
 		<div class="textBox">
-			<textarea rows="15" cols="100" name="reviewContent" placeholder=" 이름님 주문하신 메뉴는 무엇인가요? 식당의 분위기와 서비스도 궁금해요!"></textarea>
+			<textarea rows="15" cols="100" name="reviewContent" placeholder=" <%=loginUser.getmName() %>님 주문하신 메뉴는 무엇인가요? 식당의 분위기와 서비스도 궁금해요!"></textarea>
 			<div align="right" style="width: 717px">0/10000</div>
 		</div>
 		<div align="left" class="fileBox">
@@ -117,15 +118,31 @@
 		</form>
 		</div>
 		<script>
-			
+			$(document).ready(function() {
+				var para = location.href.split("?");
+				var pa = para[1].split("&");
+				var rhn = pa[0].split("=");
+				var visitDate = pa[1].split("=");
+				var reviewType = pa[2].split("=");
+				var enpNo = pa[3].split("=");
+				
+				$("#enpNo").val(enpNo[1]);
+				$("#reservationHistoryNo").val(rhn[1]);
+				$("#visitDate").val(visitDate[1]);
+				$("#reviewType").val(reviewType[1]);
+				$("#memberNo").val("<%=loginUser.getmNo()%>");
+				console.log(pa);
+				console.log(rhn + ", " + visitDate + ", " + reviewType + ", " + enpNo);
+				console.log("<%=loginUser.getmNo()%>");
+			});
 		</script>
-	<%//} else { %>
+	<%} else { %>
 <!-- 	<script>
 		alert("로그인 후 이용하시길 바랍니다.");
 		document.location.href="/semiproject/views/signIn/signIn.jsp";
 	</script> -->
 	
-	<%// } %>
+	<% } %>
 	
 
 

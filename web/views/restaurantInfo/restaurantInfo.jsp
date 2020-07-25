@@ -230,7 +230,7 @@ ArrayList<ReviewVO> normalReviews = (ArrayList<ReviewVO>)session.getAttribute("n
 								var rhn = data[0]; // 리뷰내역번호
 								var visitDate = data[1]; // 방문일자
 								var reviewType = "방문";
-								location.href="<%= request.getContextPath() %>/views/restaurantInfo/newReview.jsp?rhn=" + rhn + "&visitDate=" + visitDate + "&reviewType=" + reviewType;
+								location.href="<%= request.getContextPath() %>/views/restaurantInfo/newReview.jsp?rhn=" + rhn + "&visitDate=" + visitDate + "&reviewType=" + reviewType + "&enpNo=" + enpNo;
 							} else {
 								window.alert("방문 기록이 없습니다.");
 							}

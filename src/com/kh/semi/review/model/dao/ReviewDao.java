@@ -237,9 +237,10 @@ public class ReviewDao {
 			pstmt.setString(1, review.getReviewContent());
 			pstmt.setString(2, review.getMemberNo());
 			pstmt.setString(3, review.getReviewType());
-			pstmt.setString(3, review.getEnpNo());
-			pstmt.setDate(4, review.getVisitDate());
-			pstmt.setDouble(5, review.getAverageRating());
+			pstmt.setString(4, review.getEnpNo());
+			pstmt.setDate(5, review.getVisitDate());
+			pstmt.setDouble(6, review.getAverageRating());
+			pstmt.setString(7, review.getReservationHistoryNo());
 			
 			result = pstmt.executeUpdate();
 			

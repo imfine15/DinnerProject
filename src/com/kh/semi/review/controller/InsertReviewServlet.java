@@ -82,11 +82,11 @@ if(ServletFileUpload.isMultipartContent(request)) {
 			
 			
 			
-//			System.out.println("reviewContent : " + reviewContent);
-//			System.out.println("memberNo : " + memberNo);
-//			System.out.println("enpNo : " + enpNo);
-//			System.out.println("averageRating : " + averageRating);
-//			System.out.println("reservationHistoryNo : " + reservationHistoryNo);
+			System.out.println("reviewContent : " + reviewContent);
+			System.out.println("memberNo : " + memberNo);
+			System.out.println("enpNo : " + enpNo);
+			System.out.println("averageRating : " + averageRating);
+			System.out.println("reservationHistoryNo : " + reservationHistoryNo);
 			
 			
 			ArrayList<ReviewAttachment> fileList = new ArrayList<>();
@@ -101,6 +101,7 @@ if(ServletFileUpload.isMultipartContent(request)) {
 	            
 	            fileList.add(ra);
 	         }
+	         System.out.println("originName : " + originFiles.get(0));
 	        
 	         int result = new ReviewService().insertReview(review, fileList);
 	         
@@ -116,23 +117,23 @@ if(ServletFileUpload.isMultipartContent(request)) {
 	            fileList.add(ra);
 	         }
 	         
-//	         
-//	         String page = "";
-//	         if(result > 0) {
-//	        	 page="";
-//	        	 
-//	        	 
-//	         } else {
-//	        	 for(int i = 0 ; i < saveFiles.size(); i++) {
-//	                 File failedFile = new File(savePath + saveFiles.get(i));
-//	                 
-//	                 failedFile.delete();
-//	              }
-//	              page = "views/common/errorPage.jsp";
-//	              request.setAttribute("msg", "사진 게시판 등록 실패");
-//	         }
-//	        response.sendRedirect(page);
-//	         
+	         
+	         String page = "";
+	         if(result > 0) {
+	        	 page="views/restaurantInfo/restaurantInfo.jsp";
+	        	 request.setAttribute("review", review);
+	        	 request.setAttribute("fileList", fileList);
+	         } else {
+	        	 for(int i = 0 ; i < saveFiles.size(); i++) {
+	                 File failedFile = new File(savePath + saveFiles.get(i));
+	                 
+	                 failedFile.delete();
+	              }
+	              page = "views/common/errorPage.jsp";
+	              request.setAttribute("msg", "사진 게시판 등록 실패");
+	         }
+	        response.sendRedirect(page);
+	         
 	         
 	         
 		}
