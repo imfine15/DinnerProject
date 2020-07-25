@@ -236,7 +236,7 @@ html, body {
 		}
 		
 		function goAdRequestManage() {
-			location.href="<%=request.getContextPath()%>/";
+			location.href="<%=request.getContextPath()%>/selectAdList.ad";
 		}
 		
 		function goMemberQuestionManage() {

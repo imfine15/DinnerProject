@@ -1,5 +1,18 @@
+<%@page import="com.kh.semi.admin.model.vo.PageInfo"%>
+<%@page import="com.kh.semi.ad.model.vo.AdVO"%>
+<%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%
+ArrayList<AdVO> list = (ArrayList<AdVO>) request.getAttribute("list");
+PageInfo pi = (PageInfo) request.getAttribute("pi");
+int listCount = pi.getListCount();
+int currentPage = pi.getCurrentPage();
+int maxPage = pi.getMaxPage();
+int startPage = pi.getStartPage();
+int endPage = pi.getEndPage();
+%>
+	
 <!DOCTYPE html>
 <html>
 <head>
@@ -132,11 +145,11 @@ tr {
 		
 }
  .productBtn{
- 	background: #E07370;
+ 	
  		color: #FFFFFF;
 		border: 0;
 		outline: 0;
-		width: 60px;
+		width: 90px;
 		height: 25px;
 		font-size: 14px;
  }
@@ -153,143 +166,83 @@ tr {
 		<div id="inner-wrap">
 			<div id="inner-box">
 				<div style="height: 30px;"></div>
-				<form>
+				<form action="<%=request.getContextPath()%>/selectAdList.ad" method="post">
 					<table id="review-tb" style="width: 100%;">
 						<tr>
-							<th>회원명</th>
+							<th>업체명</th>
 							<th>전화번호</th>
 							<th>이메일</th>
-							<th>업체명</th>
 							<th>업체 종류</th>
 							<th>상품 선택</th>
-							<th>신청 일자</th>
-							<th>처리 상태</th>
-							<th></th>
+							<th>확인</th>
 						</tr>
+						<% for(AdVO ad : list) {%>
 						<tr>
-							<td>임희진</td>
-							<td>010-6537-7772</td>
-							<td>abc@gmail.com</td>
-							<td>예승이콩버거</td>
-							<td>패스트푸드</td>
+							<td><%=ad.getAdName() %></td>
+							<td><%=ad.getAdPhone() %></td>
+							<td><%=ad.getAdEmail() %></td>
+							<td><%=ad.getAdEnpType() %></td>
 							<td>
-								<button class="productBtn">기타</button>
+								<%if(ad.getAdTitle().equals("메인배너")) {%>
+								<button class="productBtn" style="background: #E07370;"><%=ad.getAdTitle() %></button>
+								<%} else { %>
+								<button class="productBtn" style="background: #5BB8B4;"><%=ad.getAdTitle() %></button>
+								<%} %>
 							</td>
-							<td>2020-06-22</td>
 							<td>
-								<button class="checkBtn">미확인</button>
-							</td>
-							<td>
-								<img src="/semiproject/images/toggle.png" class="toggle" id="toggle1">
+								<button type="button" class="checkBtn" onclick="location.href='<%=request.getContextPath()%>/selectOneAd.ad?no=<%=ad.getAdNo()%>'">자세히</button>
 							</td>
 						</tr>
+						<%} %>
 						
-						
-						<tr class="innerText1">
-							<td colspan="3">업체주소</td>
-							<td colspan="2">상담내용</td>
-							<td colspan="2">진행 세부 상황</td>
-							<td colspan="2">취소사유</td>
-						</tr>
-						<tr class="innerText1">
-							<td colspan="3">서울특별시 강남대로 42길 3, 파덕스하우스 1층</td>
-							<td colspan="2">프리미엄으로 신청하고 싶어여!</td>
-							<td colspan="2"></td>
-							<td colspan="2"></td>
-						</tr>
-						
-						
-						<tr>
-							<td>윤수경</td>
-							<td>010-6537-7772</td>
-							<td>abc@gmail.com</td>
-							<td>예승이콩버거</td>
-							<td>패스트푸드</td>
-							<td>
-								<button class="productBtn">메인</button>
-							</td>
-							<td>2020-06-22</td>
-							<td>
-								<button class="checkBtn">미확인</button>
-							</td>
-							<td>
-								<img src="/semiproject/images/toggle.png" class="toggle" id="toggle2">
-							</td>
-				
-						</tr>
-						<tr>
-							<td>백종현</td>
-							<td>010-6537-7772</td>
-							<td>abc@gmail.com</td>
-							<td>예승이콩버거</td>
-							<td>패스트푸드</td>
-							<td>
-								<button class="productBtn">메인</button>
-							</td>
-							<td>2020-06-22</td>
-							<td>
-								<button class="checkBtn">미확인</button>
-							</td>
-							<td>
-								<img src="/semiproject/images/toggle.png" class="toggle" id="toggle3">
-							</td>
-				
-						</tr>
-						<tr>
-							<td>지니어스</td>
-							<td>010-6537-7772</td>
-							<td>abc@gmail.com</td>
-							<td>예승이콩버거</td>
-							<td>패스트푸드</td>
-							<td>
-								<button class="productBtn">기타</button>
-							</td>
-							<td>2020-06-22</td>
-							<td>
-								<button class="checkBtn">미확인</button>
-							</td>
-							<td>
-								<img src="/semiproject/images/toggle.png" class="toggle" id="toggle4">
-							</td>
-				
-						</tr>
-						<tr>
-							<td>김진호</td>
-							<td>010-6537-7772</td>
-							<td>abc@gmail.com</td>
-							<td>예승이콩버거</td>
-							<td>패스트푸드</td>
-							<td>
-								<button class="productBtn">메인</button>
-							</td>
-							<td>2020-06-22</td>
-							<td>
-								<button class="checkBtn">미확인</button>
-							</td>
-							<td>
-								<img src="/semiproject/images/toggle.png" class="toggle" id="toggle5">
-							</td>
-				
-						</tr>
-						<tr>
-							<td>정파덕</td>
-							<td>010-6537-7772</td>
-							<td>abc@gmail.com</td>
-							<td>예승이콩버거</td>
-							<td>패스트푸드</td>
-							<td>
-								<button class="productBtn">메인</button>
-							</td>
-							<td>2020-06-22</td>
-							<td>
-								<button class="checkBtn">미확인</button>
-							</td>
-							<td>
-								<img src="/semiproject/images/toggle.png" class="toggle" id="toggle6">
-							</td>
-						</tr>
 					</table>
 				</form>
+				
+				<div class="pageingArea" align="center">
+			<button
+				onclick="location.href='<%=request.getContextPath()%>/selectAdList.ad?currentPage=1'"><<</button>
+
+			<%
+				if (currentPage <= 1) {
+			%>
+			<button disabled><</button>
+			<%
+				}
+			%>
+
+			<%
+				for (int p = startPage; p <= endPage; p++) {
+					if (p == currentPage) {
+			%>
+			<button disabled><%=p%></button>
+			<%
+				} else {
+			%>
+			<button
+				onclick="location.href='<%=request.getContextPath()%>/selectAdList.ad?currentPage=<%=p%>'"><%=p%></button>
+			<%
+				}
+				}
+			%>
+
+			<%
+				if (currentPage >= maxPage) {
+			%>
+			<button disabled>></button>
+			<%
+				} else {
+			%>
+			<button
+				onclick="location.href='<%=request.getContextPath()%>/selectAdList.ad?currentPage=<%=currentPage + 1%>'">></button>
+			<%
+				}
+			%>
+
+			<button
+				onclick="location.href='<%=request.getContextPath()%>/selectAdList.ad?currentPage=<%=maxPage%>'">>></button>
+	</div>
+				
+				
 				<div style="height: 30px;"></div>
 				<div id="search-box" align="center">
 					<form>
@@ -312,38 +265,9 @@ tr {
 		</div>
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-		<div class="pagingArea" align="center">
-			<button class="hide"
-				onclick="location.href='<%=request.getContextPath()%>/selectList.no?currentPage=1'"><<</button>
-			<button class="hide"
-				onclick="location.href='<%=request.getContextPath()%>/selectList.no?currentPage='"><</button>
-
-			<button class="hide"
-				onclick="location.href='<%=request.getContextPath()%>/selectList.no?currentPage='">
-				<img style="width: 15px; height: 15px"
-					src="/semiproject/images/arrow.png">
-			</button>
-			<button class="hide"
-				onclick="location.href='<%=request.getContextPath()%>/selectList.no?currentPage='">>></button>
-		</div>
 	</div>
-		<script>
+	
+		<!-- <script>
 
 	
 	$(document).ready(function() {
@@ -359,6 +283,6 @@ tr {
 		});
 	});
 	
-	</script>
+	</script> -->
 </body>
 </html>

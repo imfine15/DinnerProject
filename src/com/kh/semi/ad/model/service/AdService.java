@@ -4,10 +4,12 @@ import static com.kh.semi.common.JDBCTemplate.*;
 import static com.kh.semi.common.JDBCTemplate.getConnection;
 
 import java.sql.Connection;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.kh.semi.ad.model.dao.AdDao;
 import com.kh.semi.ad.model.vo.AdVO;
+import com.kh.semi.admin.model.vo.PageInfo;
 
 public class AdService {
 
@@ -27,10 +29,7 @@ public class AdService {
 		Connection con = getConnection();
 		int result = 0;
 		int result1 = 0;
-		
-		
-		
-		
+
 		String adCode = new AdDao().selectAdCode(con, ad);
 		String adContent = new AdDao().selectAdContent(con, ad);
 		
@@ -48,6 +47,30 @@ public class AdService {
 		}
 		
 		return result;
+	}
+
+	public int getListCount() {
+		Connection con = getConnection();
+		int result = 0;
+		result = new AdDao().getListCount(con);
+		
+		return result;
+	}
+
+	public ArrayList<AdVO> selectList(PageInfo pi) {
+		Connection con = getConnection();
+		ArrayList<AdVO> list = new AdDao().selectList(con, pi);
+		
+		return list;
+	}
+
+	public AdVO selectOneAd(String adNo) {
+		Connection con = getConnection();
+		
+		AdVO ad = new AdDao().selecOneAd(con, adNo);
+		
+		
+		return ad;
 	}
 
 }
