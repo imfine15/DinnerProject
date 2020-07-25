@@ -13,6 +13,8 @@ import java.util.ArrayList;
 import java.util.Properties;
 
 import com.kh.semi.admin.model.vo.PageInfo;
+import com.kh.semi.board.model.vo.BoardUpVo;
+import com.kh.semi.board.model.vo.BoardVO;
 import com.kh.semi.member.model.vo.MemberVO;
 import com.kh.semi.payment.model.vo.PointVO;
 import com.kh.semi.question.model.vo.QuestionVO;
@@ -354,5 +356,91 @@ public class MemberDao {
 		}
 		return count;
 	}
+
+	public int getBoardPostListCount(Connection con, String mNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String query = prop.getProperty("selectPostHistoryList");
+		int count = 0;
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, mNo);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				count = rset.getInt("COUNT");
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
+		}
+		return count;
+	}
+
+	public ArrayList<BoardVO> selectPostList(Connection con, String mNo, PageInfo pi) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String query = prop.getProperty("selectPostHisList");
+		ArrayList<BoardVO> blist = new ArrayList<>();
+		
+		try {
+			int startRow = (pi.getCurrentPage() - 1) * pi.getLimit() + 1;
+	        int endRow = startRow + pi.getLimit() - 1;
+	        
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, mNo);
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
+			
+			rset = pstmt.executeQuery();
+			while(rset.next()) {
+				BoardVO b = new BoardVO();
+				b.setBoardNo(rset.getString("BOARD_NO"));
+				b.setBoardContent(rset.getString("BOARD_TITLE"));
+				b.setViewCount(rset.getInt("VIEW_COUNT"));
+				b.setUploadDate(rset.getDate("UPLOAD_DATE"));
+				b.setLikeCount(rset.getInt("LIKE_COUNT"));
+				b.setStatusName(rset.getString("STATUS_CODE"));
+				
+				blist.add(b);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		return blist;
+	}
+
+	public int updateMemInfo(Connection con, MemberVO changeMember) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String query = prop.getProperty("updateMemInfo");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, changeMember.getmName());
+			pstmt.setString(2, changeMember.getmEmail());
+			pstmt.setString(3, changeMember.getmPhone());
+			pstmt.setString(4, changeMember.getmNickname());
+			pstmt.setString(5, changeMember.getmNo());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	} 
 	
 }

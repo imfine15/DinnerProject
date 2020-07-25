@@ -163,12 +163,12 @@ ul li a span:hover{
 						<label style="margin-left: 80px;"class="text">상태</label>
 						<label style="margin-left: 80px;"class="text">문의 완료 일자</label>
 					</div>
-					<table style="border-bottom: 1px solid pink" id="listArea">
+					<table style="border-bottom: 1px solid pink; border-spacing: 0 10px;" id="listArea">
 					<%int count = qlist.size();
 					for(int i = 0; i < qlist.size(); i++) {%>
 						<tr>
 							<td><div class="text2" style="width:30px; margin-left:30px;"><%=count %></div></td>
-							<td><div class="text2" style="width:160px; margin-left:20px;"><%=qlist.get(i).getQuestionContent() %></div></td>
+							<td><a href="javascript:openModal('modal<%=i+1 %>');" class="modal-open"><div class="text2" style="width:160px; margin-left:20px;"><%=qlist.get(i).getQuestionContent() %></div></a></td>
 							<td><div class="text2" style="width:130px; margin-left:10px;"><%=qlist.get(i).getQuestionDate() %></div></td>
 							<% 
 								String status = "";
@@ -203,36 +203,37 @@ ul li a span:hover{
 					</form>
 				</div>
 	<div id="wrap">
-  <a href="javascript:openModal('modal1');" class="button modal-open">모달열기1</a>
-  <a href="javascript:openModal('modal2');" class="button modal-open">모달열기2</a>
 </div>
 
 <div id="modal"></div>
-  <div class="modal-con modal1">
+<%for(int i = 0; i <qlist.size(); i++){ %>
+  <div class="modal-con modal<%=i+1 %>">
     <a href="javascript:;" class="close">X</a>
     <p class="title">문의내용</p>
     <div class="con">
-      <table>
-      
+      <table style="border-spacing: 0 10px;">
       <tr>
-      	<td style="width:150px;">아이디 : infine</td>
-      	<td>이름 : infine</td>
+      	<td style="width:150px;">아이디 : <%=qlist.get(i).getMemberId() %></td>
+      	<td>이름 : <%=qlist.get(i).getMemberName() %></td>
       </tr>	
       <tr>
-      	<td style="width:150px;">요청일 : 2020-04-11</td> <td>답변일 : 2020-05-11</td>
+      	<td style="width:150px;">요청일 : <%=qlist.get(i).getQuestionDate() %></td> <%if(qlist.get(i).getQuestionDisposalStatus().equals("QDSC3")) {%><td>답변일 : <%=qlist.get(i).getDisposalDate() %></td>
+      	<%} %>
       </tr>
-      <tr> 
-      	<td>제목 : 이이이이</td>
+      <tr>
+      	<td colspan="2">제목 : <%=qlist.get(i).getQuestionTitle() %></td>
       </tr>
       <tr>
       	<td>내용</td>
+      	<td colspan="2"><%=qlist.get(i).getQuestionContent() %></td>
       </tr>
       <tr>
-      	<td colspan="2"><%=qlist.get(1).getQuestionContent() %></td>
       </tr>
       </table>
     </div>
   </div>
+  
+  <%} %>
 <script>
 
 function openModal(modalname){

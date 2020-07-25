@@ -92,16 +92,16 @@ button:active{
 				<!-- PC 웹 내정보 GNB -->
 				<div id="" role="navigation">
 					<ul style="padding-top: 10px; padding-left:-30px;">
-						<li class="left"><a class="left2" href="/semiproject/views/myPage/myPage.jsp"><span class="navbar"">내정보 홈</span></a></li>
-						<li class="left"><a class="left2"  href="/semiproject/views/myPage/checkingPassword.jsp"><span class="navbar" style="color: #E1A9A9;">내정보 관리</span></a></li>
-						<li class="left"><a class="left2"  href="/semiproject/views/myPage/checkingPassword.jsp"><span class="navbar">비밀번호 변경</span></a></li>
+						<li class="left"><a class="left2" href="/semiproject/views/myPage/myPage.jsp"><span class="navbar" style="color: #E1A9A9;">내정보 홈</span></a></li>
+						<li class="left"><a class="left2"  href="/semiproject/views/myPage/checkingPassword.jsp?num=1"><span class="navbar">내정보 관리</span></a></li>
+						<li class="left"><a class="left2"  href="/semiproject/views/myPage/checkingPassword.jsp?num=2"><span class="navbar">비밀번호 변경</span></a></li>
 						<li class="left"><a class="left2"  href=""><span class="navbar">고객센터</span></a></li>
-						<li class="left"><a class="left2"  href="/semiproject/views/myPage/checkingPassword.jsp"><span class="navbar">회원탈퇴</span></a></li>
+						<li class="left"><a class="left2"  href="/semiproject/views/myPage/checkingPassword.jsp?num=3"><span class="navbar">회원탈퇴</span></a></li>
 					</ul>
 				</div>
 			</div>
 		</div>
-	<form method="post">
+	<form method="post" action="/semiproject/changeMemInfo.me">
 	<div
 		style="width: 700px; height: 700px; margin-left: auto; margin-right: auto;">
 		
@@ -117,33 +117,28 @@ button:active{
 			<tr>
 				<td><label class="text">아이디 </label> <label class="text2"
 					style="margin-left: 100px;">YUMEET 아이디 </label> <label
-					class="text2" style="margin-left: 80px;">paducks </label> <br>
+					class="text2" style="margin-left: 80px;"><%=loginUser.getmId() %> </label> <br>
 				<br>
 				<hr>
 				<br></td>
 			</tr>
 			
 			<tr>
-				<td><label class="text">닉네임/연락처</label> 
+				<td><label class="text">닉네임/연락처</label>
 					<label class="text2"style="margin-left: 27px;">닉네임 </label> 
-					<label id="nickname" class="text2" style="margin-left: 153px;">파덕이악사</label>
+					<label id="nickname" class="text2" style="margin-left: 153px;"><%=loginUser.getmNickname() %></label>
 					<input name="nickname" id="changeNicknameInput" type="text" style="width:130px; margin-left:390px;">
 					<button type="button" id="changeNickname" class="box2">변경</button> <br><br> 
 					
 					<label class="text2" style="margin-left: 178px;">연락처</label>
 					
 					<img src="images/phone.png.png" width=20px; style="margin-left: 155px;" >
-					<label id="phone" class="text2">010-4444-3333</label>
+					<label id="phone" class="text2"><%=loginUser.getmPhone() %></label>
 					<input name="phone" id="changePhoneInput" type="text" style="width:130px; margin-left:390px;">
 					<button type="button" id="changePhone" class="box2">변경</button> <br><br> 
-					
-					<img src="images/homePage.png.png" width=20px; style="margin-left: 391px;" >
-					<label id="address" class="text2">서울 서초구 양재동</label>
-					<input name="address" id="changeAddressInput" type="text" style="width:130px; margin-left:390px;">
-					<button type="button" id="changeAddress" class="box2">변경</button> <br><br> 
-					
+
 					<img src="images/email.png.png" width=20px; style="margin-left: 391px;" >
-					<label id="email" class="text2">ddddd@naver.com</label>
+					<label id="email" class="text2"><%=loginUser.getmEmail() %></label>
 					<input name="email" id="changeEmailInput" type="text" style="width:130px; margin-left:390px;">
 					<button type="button" id="changeEmail" class="box2">변경</button> <br>
 					
@@ -155,16 +150,11 @@ button:active{
 				<td><label class="text">이름/연령확인</label> 
 				
 				<label class="text2"style="margin-left: 27px;">이름 </label> 
-				<label class="text2" id="name" style="margin-left: 171px;">정용탁</label>
+				<label class="text2" id="name" style="margin-left: 171px;"><%=loginUser.getmName() %></label>
 				<input name="name" id="changeNameInput" type="text" style="width:100px; margin-left:390px;">
 				<button type="button" id="changeName" class="box2">변경</button> 
 				<br><br> 
-					
-				<label class="text2" style="margin-left: 178px;">나이</label>
-				<label class="text2" id="age" style="margin-left: 175px;">33</label><label class="text2">살</label>
-				<input name="age" id="changeAgeInput" type="text" style="width:100px; margin-left:390px;">
-				<button type="button" id="changeAge" class="box2">변경</button><br><br> 
-					
+				
 				</td>
 			</tr>
 		</table><div align="center">

@@ -108,11 +108,11 @@ ul li a span:hover{
 				<!-- PC 웹 내정보 GNB -->
 				<div id="" role="navigation">
 					<ul style="padding-top: 10px; padding-left:-30px;">
-						<li class="left"><a class="left2" href="/semiproject/views/myPage/myPage.jsp"><span class="navbar">내정보 홈</span></a></li>
-						<li class="left"><a class="left2"  href="/semiproject/views/myPage/checkingPassword.jsp"><span class="navbar">내정보 관리</span></a></li>
-						<li class="left"><a class="left2"  href="/semiproject/views/myPage/checkingPassword.jsp"><span class="navbar">비밀번호 변경</span></a></li>
+						<li class="left"><a class="left2" href="/semiproject/views/myPage/myPage.jsp"><span class="navbar" style="color: #E1A9A9;">내정보 홈</span></a></li>
+						<li class="left"><a class="left2"  href="/semiproject/views/myPage/checkingPassword.jsp?num=1"><span class="navbar">내정보 관리</span></a></li>
+						<li class="left"><a class="left2"  href="/semiproject/views/myPage/checkingPassword.jsp?num=2"><span class="navbar">비밀번호 변경</span></a></li>
 						<li class="left"><a class="left2"  href=""><span class="navbar">고객센터</span></a></li>
-						<li class="left"><a class="left2"  href="/semiproject/views/myPage/checkingPassword.jsp"><span class="navbar">회원탈퇴</span></a></li>
+						<li class="left"><a class="left2"  href="/semiproject/views/myPage/checkingPassword.jsp?num=3"><span class="navbar">회원탈퇴</span></a></li>
 					</ul>
 				</div>
 			</div>

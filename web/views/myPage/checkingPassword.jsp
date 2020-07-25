@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%
+	String num = (String)request.getParameter("num");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -158,11 +161,19 @@ ul li a span:hover{
 			$.ajax({
 				url: "/semiproject/pwdCheck.me",
 				type: "post",
-				data: {id: "<%= loginUser.getmId() %>", password: password},
+				data: {
+					id: "<%= loginUser.getmId() %>", 
+					password: password,
+					num : "<%= num%>"
+					},
 				success: function(data) {
-					if(data === "success") {
+					if(data === "success1") {
+						location.href = "/semiproject/views/myPage/changeMyProfile.jsp";
+					} else if(data === "success2") {
+						location.href = "/semiproject/views/myPage/changePassword.jsp";
+					} else if(data === "success") {
 						location.href = "/semiproject/views/myPage/withdrawalFromMembership.jsp";
-					} else if(data === "fail") {
+					} else {
 						$("#check").show();
 					}
 				}

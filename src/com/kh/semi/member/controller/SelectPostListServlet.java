@@ -3,29 +3,31 @@ package com.kh.semi.member.controller;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import javax.servlet.Servlet;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.servlet.http.HttpSessionActivationListener;
 
 import com.kh.semi.admin.model.vo.PageInfo;
+import com.kh.semi.board.model.vo.BoardUpVo;
+import com.kh.semi.board.model.vo.BoardVO;
 import com.kh.semi.member.model.service.MemberService;
 import com.kh.semi.member.model.vo.MemberVO;
-import com.kh.semi.question.model.vo.QuestionVO;
 
-@WebServlet("/selectInquiryList.py")
-public class SelectInquiryHistoryListServlet extends HttpServlet implements Servlet {
+@WebServlet("/selectPostList.me")
+public class SelectPostListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     
-    public SelectInquiryHistoryListServlet() {
+    public SelectPostListServlet() {
         super();
     }
+    
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
-		MemberVO m = (MemberVO) session.getAttribute("loginUser");
+		MemberVO m = (MemberVO)session.getAttribute("loginUser");
 		String mNo = m.getmNo();
 		
 		int currentPage = 1;	// 현재페이지
@@ -40,7 +42,7 @@ public class SelectInquiryHistoryListServlet extends HttpServlet implements Serv
 		
 		limit = 10;
 		
-		int listCount = new MemberService().getInquiryListCount(mNo);
+		int listCount = new MemberService().getBoardPostListCount(mNo);
 		
 		maxPage = (int)((double)listCount / limit + 0.9);
 	      startPage = ( ( (int)( (double)currentPage / 10 + 0.9) ) -1) *10 + 1;
@@ -51,17 +53,16 @@ public class SelectInquiryHistoryListServlet extends HttpServlet implements Serv
 	      }
 	      
 	    PageInfo pi = new PageInfo(currentPage, listCount, limit, maxPage, startPage, endPage);
-	    ArrayList<QuestionVO> qlist = new MemberService().selectInqHistoryList(pi, mNo);
-	    
-	    if(qlist != null) {
-	    	request.setAttribute("qlist", qlist);
+		
+		ArrayList<BoardVO> blist = new MemberService().selectPostList(mNo, pi);
+		
+		if(blist != null) {
+			request.setAttribute("blist", blist);
 	    	request.setAttribute("pi", pi);
-	    	request.getRequestDispatcher("views/myPage/inquiryHistory.jsp").forward(request, response);
-	    }else {
-	    	
-	    }
-	    
+	    	request.getRequestDispatcher("views/myPage/writePostsByMe.jsp").forward(request, response);
+		}
 	}
+	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doGet(request, response);
 	}

@@ -24,15 +24,21 @@ public class CheckPasswordForWithdrawl extends HttpServlet {
 		String id = request.getParameter("id");
 		String password = request.getParameter("password");
 		String result = "fail";
-		
+		String num = request.getParameter("num");
 		MemberVO requestMember = new MemberVO();
 		requestMember.setmId(id);
 		requestMember.setmPwd(password);
-		
 		int count = new MemberService().checkPassword(requestMember);
 		
 		if(count != 0) {
-			result = "success";
+			if(num.equals("1")) {
+				result = "success1"; //관리 
+			}else if(num.equals("2")) {
+				result = "success2"; //변경 
+			}else {
+				result = "success3"; //탈퇴
+			}
+			
 		} else if(count == 0) {
 			result = "fail";
 		}

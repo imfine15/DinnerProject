@@ -6,6 +6,8 @@ import java.sql.Connection;
 import java.util.ArrayList;
 
 import com.kh.semi.admin.model.vo.PageInfo;
+import com.kh.semi.board.model.vo.BoardUpVo;
+import com.kh.semi.board.model.vo.BoardVO;
 import com.kh.semi.member.model.dao.MemberDao;
 import com.kh.semi.member.model.vo.MemberVO;
 import com.kh.semi.payment.model.vo.PointVO;
@@ -120,6 +122,34 @@ public class MemberService {
 		
 		close(con);
 		return count;
+	}
+
+	public int getBoardPostListCount(String mNo) {
+		Connection con = getConnection();
+		int count = new MemberDao().getBoardPostListCount(con, mNo);
+		
+		close(con);
+		return count;
+	}
+
+	public ArrayList<BoardVO> selectPostList(String mNo, PageInfo pi) {
+		Connection con = getConnection();
+		ArrayList<BoardVO> blist = new MemberDao().selectPostList(con, mNo, pi);
+		
+		close(con);
+		return blist;
+	}
+
+	public int updateMemInfo(MemberVO changeMember) {
+		Connection con = getConnection();
+		int result = new MemberDao().updateMemInfo(con, changeMember);
+		
+		if(result > 0) {
+			commit(con);
+		} else {
+			rollback(con);
+		}
+		return result;
 	}
 
 }

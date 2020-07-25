@@ -1,5 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8" import="java.util.*, com.kh.semi.admin.model.vo.*, com.kh.semi.board.model.vo.*,com.kh.semi.admin.model.vo.PageInfo"%>
+<%
+	ArrayList<BoardVO> blist = (ArrayList<BoardVO>)request.getAttribute("blist");
+	PageInfo pi = (PageInfo) request.getAttribute("pi");
+
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,20 +15,7 @@
 <link rel="stylesheet" type="text/css"
 	href="/semiproject/views/myPage/css/myPage.css" />
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-	<script>
-   $(function(){
-	  	$("#listArea td").mouseenter(function(){
-	  		$(this).parent().css({"background":"darkgray","cursor":"pointer"});
-	  	}).mouseout(function(){
-	  		$(this).parent().css({"background":"white"});
-	  	}).click(function(){
-	  		var num = $(this).parent().children().eq(0).text();
-	  		
-	  		console.log(num);
-	  		location.href="<%=request.getContextPath()%>/selectOne.no?num=" + num;
-	  	})
-   });
-   </script>
+	
 <style>
 .info {
 	font-family: Roboto;
@@ -49,6 +41,10 @@
 	font-size: 13px;
 	line-height: 18px;
 	color: #343434;
+	white-space: nowrap;
+	overflow: hidden; 
+	text-overflow: ellipsis;
+	display: inline-block;
 }
 .navbar{
 	color: #666666;
@@ -80,8 +76,6 @@ ul li a span:hover{
 				mNo: "<%=loginUser.getmNo()%>"
 			},
 			success: function(data){
-				console.log("point성공입니다.");
-
 				$("#currentPoint").html("보유포인트 : " + data + "p");
 			},
 			error: function(){
@@ -98,10 +92,10 @@ ul li a span:hover{
 				<div id="" role="navigation">
 					<ul style="padding-top: 10px; padding-left:-30px;">
 						<li class="left"><a class="left2" href="/semiproject/views/myPage/myPage.jsp"><span class="navbar" style="color: #E1A9A9;">내정보 홈</span></a></li>
-						<li class="left"><a class="left2"  href="/semiproject/views/myPage/checkingPassword.jsp"><span class="navbar">내정보 관리</span></a></li>
-						<li class="left"><a class="left2"  href="/semiproject/views/myPage/checkingPassword.jsp"><span class="navbar">비밀번호 변경</span></a></li>
+						<li class="left"><a class="left2"  href="/semiproject/views/myPage/checkingPassword.jsp?num=1"><span class="navbar">내정보 관리</span></a></li>
+						<li class="left"><a class="left2"  href="/semiproject/views/myPage/checkingPassword.jsp?num=2"><span class="navbar">비밀번호 변경</span></a></li>
 						<li class="left"><a class="left2"  href=""><span class="navbar">고객센터</span></a></li>
-						<li class="left"><a class="left2"  href="/semiproject/views/myPage/checkingPassword.jsp"><span class="navbar">회원탈퇴</span></a></li>
+						<li class="left"><a class="left2"  href="/semiproject/views/myPage/checkingPassword.jsp?num=3"><span class="navbar">회원탈퇴</span></a></li>
 					</ul>
 				</div>
 			</div>
@@ -121,44 +115,40 @@ ul li a span:hover{
 						<label style="margin-left: 30px;"class="text">등록번호</label>
 						<label style="margin-left: 50px;"class="text">제목</label>
 						<label style="margin-left: 100px;"class="text">요청일자</label>
-						<label style="margin-left: 40px;"class="text">승인일자</label>
-						<label style="margin-left: 30px;"class="text">조회수</label>
+						<label style="margin-left: 35px;"class="text">상태</label>
+						<label style="margin-left: 45px;"class="text">조회수</label>
 						<label style="margin-left: 30px;"class="text">리뷰수</label>
 					</div>
 					<table style="border-bottom: 1px solid pink" id="listArea">
+					<% int count = blist.size();
+					for(int i = 0; i < blist.size(); i++) {%>
 						<tr>
-							<td><div style="width:72px; margin-left:30px;"><label class="text2">kh_03</label></div></td>
-							<td><div style="width:170px; margin-left:5px;"><label class="text2">입에서 살살녹는 역삼갈비</label></div></td>
-							<td><div style="width:100px;"><label class="text2">2020-05-11</label></div></td>
-							<td><div style="width:80px; "><label class="text2">미승인</label></div></td>
-							<td><div style="width:80px; margin-left:30px;"><label class="text2">450회</label></div></td>
-							<td><div style="width:80px;"><label class="text2">20건</label></div></td>
+							<td><div class="text2" style="width:72px; margin-left:30px;"><%=count %></div></td>
+							<td><a href="<%=request.getContextPath() %>/selectOneCourse?no=<%=blist.get(i).getBoardNo()%>">
+							<div class="text2" style="width:170px; margin-left:5px;"><%=blist.get(i).getBoardContent() %></div>
+							</a></td>
+							<td><div class="text2" style="width:100px;"><%=blist.get(i).getUploadDate() %></div></td>
+							<% String status = "";
+							if(blist.get(i).getStatusName().equals("USC1"))
+								status = "요청";
+							else if(blist.get(i).getStatusName().equals("USC2"))
+								status = "보류";
+							else if(blist.get(i).getStatusName().equals("USC3"))
+								status = "완료";
+							else if(blist.get(i).getStatusName().equals("USC4"))
+								status = "수정";
+							else {
+								status = "삭제";
+							}
+								%>
+							<td><div class="text2" style="width:50px; "><%=status %></div></td>
+							<td><div class="text2" style="width:80px; margin-left:30px;"><%=blist.get(i).getViewCount() %>회</div></td>
+							<td><div class="text2" style="width:80px;"><%=blist.get(i).getViewCount() %>건</div></td>
 						</tr>
-						<tr>
-							<td><div style="width:72px; margin-left:30px;"><label class="text2">kh_02</label></div></td>
-							<td><div style="width:170px; margin-left:5px;"><label class="text2">강남역 친구들과 놀기좋은곳</label></div></td>
-							<td><div style="width:100px;"><label class="text2">2020-05-11</label></div></td>
-							<td><div style="width:80px; "><label class="text2">2020-06-11</label></div></td>
-							<td><div style="width:80px; margin-left:30px;"><label class="text2">450회</label></div></td>
-							<td><div style="width:80px;"><label class="text2">20건</label></div></td>
-						</tr>
-						<tr>
-							<td><div style="width:72px; margin-left:30px;"><label class="text2">kh_01</label></div></td>
-							<td><div style="width:170px; margin-left:5px;"><label class="text2">다음에보자 장터!!!</label></div></td>
-							<td><div style="width:100px;"><label class="text2">2020-05-11</label></div></td>
-							<td><div style="width:80px; "><label class="text2">2020-06-11</label></div></td>
-							<td><div style="width:80px; margin-left:30px;"><label class="text2">2002회</label></div></td>
-							<td><div style="width:80px;"><label class="text2">386건</label></div></td>
-						</tr>
+					<%count --;
+					} %>
 					</table>
-
 				</div>
-
-
-
-
-
-
 
 				<!--// mArticle -->
 				<div id="mAside">
