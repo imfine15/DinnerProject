@@ -15,6 +15,7 @@ import java.util.List;
 import java.util.Properties;
 
 import com.kh.semi.ad.model.vo.AdVO;
+import com.kh.semi.admin.model.vo.PageInfo;
 
 public class AdDao {
 	Properties prop = new Properties();
@@ -158,5 +159,130 @@ public class AdDao {
 		
 		
 		return adContent;
+	}
+
+	public int getListCount(Connection con) {
+		Statement stmt = null;
+		ResultSet rset = null;
+		int listCount = 0;
+		
+		String query = prop.getProperty("getListCount");
+		
+		try {
+			stmt = con.createStatement();
+			rset = stmt.executeQuery(query);
+			
+			if(rset.next()) {
+				listCount = rset.getInt(1);
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(stmt);
+			close(rset);
+		}
+		
+		
+		return listCount;
+	}
+
+	public ArrayList<AdVO> selectList(Connection con, PageInfo pi) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<AdVO> list = null;
+		AdVO ad;
+		
+		String query = prop.getProperty("selectList");
+		
+		
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			
+			int startRow = (pi.getCurrentPage() - 1) * pi.getLimit() + 1;
+			int endRow = startRow + pi.getLimit() - 1;
+			
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
+			
+			rset = pstmt.executeQuery();
+			
+			list = new ArrayList<>();
+			
+			while(rset.next()) {
+				ad = new AdVO();
+				ad.setAdNo(rset.getString("AD_NO"));
+				ad.setAdName(rset.getString("AD_NAME"));
+				ad.setAdPhone(rset.getString("AD_PHONE"));
+				ad.setAdEmail(rset.getString("AD_EMAIL"));
+				ad.setAdEnpName(rset.getString("AD_ENP_NAME"));
+				ad.setAdEnpAddress(rset.getString("AD_ENP_ADDRESS"));
+				ad.setAdEnpType(rset.getString("AD_ENP_TYPE"));
+				ad.setAdCode(rset.getString("AD_CODE"));
+				ad.setSearchPath(rset.getString("SEARCH_PATH"));
+				ad.setCounselContent(rset.getString("COUNSEL_CONTENT"));
+				ad.setAdContent(rset.getString("AD_CONTENT"));
+				ad.setManagerNo(rset.getString("MANAGER_NO"));
+				ad.setAdTitle(rset.getString("AD_TITLE"));
+				
+				list.add(ad);
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		
+		
+		return list;
+	}
+
+	public AdVO selecOneAd(Connection con, String adNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		AdVO ad = null;
+		
+		String query = prop.getProperty("selectOneAd");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, adNo);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				ad = new AdVO();
+				ad.setAdNo(rset.getString("AD_NO"));
+				ad.setAdName(rset.getString("AD_NAME"));
+				ad.setAdPhone(rset.getString("AD_PHONE"));
+				ad.setAdEmail(rset.getString("AD_EMAIL"));
+				ad.setAdEnpName(rset.getString("AD_ENP_NAME"));
+				ad.setAdEnpAddress(rset.getString("AD_ENP_ADDRESS"));
+				ad.setAdEnpType(rset.getString("AD_ENP_TYPE"));
+				ad.setAdCode(rset.getString("AD_CODE"));
+				ad.setSearchPath(rset.getString("SEARCH_PATH"));
+				ad.setCounselContent(rset.getString("COUNSEL_CONTENT"));
+				ad.setAdContent(rset.getString("AD_CONTENT"));
+				ad.setManagerNo(rset.getString("MANAGER_NO"));
+				ad.setAdTitle(rset.getString("AD_TITLE"));
+			}
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		
+		return ad;
 	}
 }
