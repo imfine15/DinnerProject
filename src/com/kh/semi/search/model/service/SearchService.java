@@ -5,7 +5,6 @@ import static com.kh.semi.common.JDBCTemplate.getConnection;
 
 import java.sql.Connection;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -15,33 +14,14 @@ import com.kh.semi.search.model.dao.SearchDao;
 import com.kh.semi.search.model.vo.PageInfo;
 
 public class SearchService {
-//	public ArrayList<EnpVO> searchEnp(String search) {
-//		Connection con = getConnection();
-//		ArrayList<EnpVO> enpList = new SearchDao().searchEnp(con, search);
-//		
-//		ArrayList<EnpVO> enpListWithRating = new SearchDao().getRating(con, enpList);
-//		
-//		close(con);
-//		
-//		return enpListWithRating;
-//	}
-
-	public List<HashMap<String, Integer>> getMenus(List<EnpVO> enpList) {
+	public List<EnpVO> searchKeyword(PageInfo pi, String[] words) {
 		Connection con = getConnection();
-		List<HashMap<String, Integer>> enpMenus = new SearchDao().getMenus(con, enpList);
+		List<EnpVO> enpList = new SearchDao().searchKeyword(con, pi, words);
+		ArrayList<EnpVO> enpListWithRating = new SearchDao().getRating(con, (ArrayList<EnpVO>)enpList);
 		
 		close(con);
 		
-		return enpMenus;
-	}
-
-	public List<EnpVO> searchKeyword(String[] words) {
-		Connection con = getConnection();
-		List<EnpVO> enpList = new SearchDao().searchKeyword(con, words);
-		
-		close(con);
-		
-		return enpList;
+		return enpListWithRating;
 	}
 
 	public Map<String, Integer> getSelectedEnpMenus(String enpNo) {

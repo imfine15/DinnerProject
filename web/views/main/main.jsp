@@ -39,7 +39,7 @@
             <img id="introImg" style="width:100%; oveflow:hidden; height: 600px;">
          </div>
          <div class="container" style="background: white; height: 60px; width: 600px; padding: 1px; margin-bottom: -100px; position: absolute; top: 120%; left: 38%; border-radius: 10px; font-size: 22px; margin-left: -50px;">
-            <button style="height: 100%; background: white; float: left; margin-left: 5px; border: 0px white;">
+            <button id="recommendBtn" style="height: 100%; background: white; float: left; margin-left: 5px; border: 0px white;">
                <img src="/semiproject/images/Vector.png">
                
             </button>
@@ -48,6 +48,37 @@
                 <img src="/semiproject/images/searchicon.png">
             </button>
             <script>
+	            $("#recommendBtn").click(function() {
+					var s = $("#search").val();
+					
+					if(s === "양재") {
+						var flag = window.confirm("양재동은 어떠세요?");
+						
+						if(flag) {
+							$("#search").val("양재동");
+							searchEnp();
+						}
+					}
+					
+					if(s === "강남") {
+						var flag = window.confirm("강남구는 어떠세요?");
+						
+						if(flag) {
+							$("#search").val("강남구");
+							searchEnp();
+						}
+					}
+					
+					if(s === "삼겹") {
+						var flag = window.confirm("삼겹살은 어떠세요?");
+						
+						if(flag) {
+							$("#search").val("삼겹살");
+							searchEnp();
+						}
+					}
+				}); 
+            
 	    		var windowWidth = $( window ).width();
 	    			$("#mainWidth").width(windowWidth);
 	    		var windowHeight = $( window ).height();
