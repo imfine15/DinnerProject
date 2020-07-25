@@ -92,7 +92,7 @@ public class SelectConfirmRequestListServlet extends HttpServlet {
 		String cancelId = "RSC3";
 		String visitId = "RSC5";
 		
-		//ArrayList<ForCrInfoVO> infoModalList = new EnpService().selectCrInfoModalList(memId);
+		ArrayList<ForCrInfoVO> infoModalList = new EnpService().selectCrInfoModalList(enp);
 		int rownum = new EnpService().selectCRRownum(enp);
 		
 		ArrayList<ReservationVO> checkCountList = new ArrayList<ReservationVO>();
@@ -126,13 +126,14 @@ public class SelectConfirmRequestListServlet extends HttpServlet {
 			System.out.println(r.getcNo());
 		}
 		
-		if(list != null && modalList != null) {
+		if(list != null && modalList != null && infoModalList != null) {
 			page = "views/enterprise/confirmRequest/confirmRequest.jsp";
 			request.setAttribute("list", list);
 			request.setAttribute("pi", pi);
 			request.setAttribute("modalList", modalList);
 			request.setAttribute("cancelCount", cancelCount);
 			request.setAttribute("visitCount", visitCount);
+			request.setAttribute("infoModalList", infoModalList);
 		}else {
 			page="views/common/errorPage.jsp";
 			request.setAttribute("msg", "조회 실패");

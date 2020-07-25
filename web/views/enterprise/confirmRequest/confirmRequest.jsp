@@ -1,3 +1,4 @@
+<%@page import="com.kh.semi.enterprise.model.vo.ForCrInfoVO"%>
 <%@page import="com.kh.semi.enterprise.model.vo.ForEntCrVO"%>
 <%@page import="com.kh.semi.enterprise.model.vo.PageInfo"%>
 <%@page import="com.kh.semi.payment.model.vo.ReservationVO"%>
@@ -6,6 +7,7 @@
     pageEncoding="UTF-8"%>
 <%
 ArrayList<ReservationVO> list = (ArrayList<ReservationVO>)request.getAttribute("list"); 
+ArrayList<ForCrInfoVO> infoList = (ArrayList<ForCrInfoVO>)request.getAttribute("infoModalList");
 PageInfo pi = (PageInfo) request.getAttribute("pi");
 int listCount = pi.getListCount();
 int currentPage = pi.getCurrentPage();
@@ -155,7 +157,7 @@ System.out.println("modalListsize : " + modalList.size());
                  
                </tr> -->
                
-               <% for(int i = 0; i < list.size(); i++){
+               <% for(int i = 0; i <= list.size(); i++){
             		System.out.print("LIST SIZE : " + list.size());
                %>
                		
@@ -228,12 +230,12 @@ System.out.println("modalListsize : " + modalList.size());
 	<br>	
 	
 		<%if(modalList != null){%>
-		         		 <% for(int j = 0 ; j < list.size(); j++){%>
+		         		 <% for(int j = 0 ; j <= list.size(); j++){%>
 	<div class="modal fade" id="testModal<%=j %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 		<div class="modal-dialog" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h5 class="modal-title" id="exampleModalLabel">상세 정보</h5>
+					<h5 class="modal-title" id="exampleModalLabel">고객 정보 확인</h5>
 					<button class="close" type="button" data-dismiss="modal" aria-label="Close">
 						<span aria-hidden="true">X</span>
 					</button>
@@ -248,7 +250,7 @@ System.out.println("modalListsize : " + modalList.size());
 			         			<th>총 방문횟수</th>
 			         			<th>총 취소횟수</th>
 			         			<th style="color:red;">No Show</th>
-			         			<th>최근 방문일</th>
+			         			<th>예약 요청일</th>
 			         			<th>예약자 정보</th>
 			         		</tr>
 		         		</thead>
@@ -267,6 +269,64 @@ System.out.println("modalListsize : " + modalList.size());
 		         			</td>
 		         			<td>
 		         				<%=modalList.get(j).getNickName() %>
+		         			</td>
+		         			
+		         		</tr>
+	         		</table>			
+				</div>
+				<br>
+				<br>
+				
+				
+				<div class="modal-footer">
+					<!-- <a class="btn" id="modalY" href="#">예</a> -->
+					<button class="btn" type="button" data-dismiss="modal">확인</button>
+				</div>
+		         		
+				
+			</div>
+		</div>
+	</div>
+	<% } %> 
+	<% } %> 
+	
+	
+	<%if(infoList != null){%>
+		         		 <% for(int j = 0 ; j <= list.size(); j++){%>
+	<div class="modal fade" id="infoModal<%=j %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">상세 정보</h5>
+					<button class="close" type="button" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">X</span>
+					</button>
+				</div>
+				<br>
+				<br>
+				<div class="modal-body" id="">
+					<table align="center">
+					
+		         		<thead>
+			         		<tr style="font-size: 14px; color:black; text-align: center;">
+			         			<th>고객 이름</th>
+			         			<th>고객 이메일</th>
+			         			<th>고객 전화번호</th>
+			         			<th>요청사항</th>
+			         		</tr>
+		         		</thead>
+		         		<tr style="font-size: 10px; text-align: center;">
+		         			<td style="font-weight: bolder; color:black;">
+		         			<%=infoList.get(j).getMemberName() %>
+		         			</td>
+		         			<td>
+		         			<%=infoList.get(j).getMemberEmail() %>
+							</td>
+							<td style="font-weight: bolder; color:black;">
+							<%=infoList.get(j).getMemberPhone() %>
+		         			</td>
+		         			<td>
+		         			<%=infoList.get(j).getRequestMemo() %>
 		         			</td>
 		         			
 		         		</tr>
@@ -313,6 +373,15 @@ System.out.println("modalListsize : " + modalList.size());
 			var str = $(this).attr('id');
 			var no=str.replace(/[^0-9]/g,'');
 			$('#testModal' + no).modal("show");
+		});
+	});
+	
+	$(function () {
+		$(".moreInfoBtn").click(function () {
+			
+			var str = $(this).attr('id');
+			var no=str.replace(/[^0-9]/g,'');
+			$('#infoModal' + no).modal("show");
 		});
 	});
 	
