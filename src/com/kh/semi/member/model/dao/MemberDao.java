@@ -318,6 +318,7 @@ public class MemberDao {
 				q.setQuestionDisposalStatus(rset.getString("QUESTION_DISPOSAL_CODE"));
 				q.setDisposalDate(rset.getDate("DISPOSAL_DATE"));
 				
+				
 				qlist.add(q);
 			}
 		} catch (SQLException e) {
