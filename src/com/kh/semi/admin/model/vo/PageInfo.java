@@ -20,6 +20,12 @@ public class PageInfo implements java.io.Serializable {
 		this.endPage = endPage;
 	}
 
+	public PageInfo(int currentPage, int listCount, int limit) {
+		this.currentPage = currentPage;
+		this.listCount = listCount;
+		this.limit = limit;
+	}
+
 	public int getCurrentPage() {
 		return currentPage;
 	}

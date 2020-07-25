@@ -68,7 +68,7 @@ public class SelectListPartnerServlet extends HttpServlet {
 		String page = "";
 		
 		if(list != null) {
-			page = "/views/admin/partnerQuestion/partnerQuestion.jsp";
+			page = "/views/admin/partnerQuestion/partnerQuestionList.jsp";
 			request.setAttribute("list", list);
 			request.setAttribute("pi", pi);
 		} else {
