@@ -58,11 +58,12 @@ public class ReviewService {
 		
 		
 		result1 = new ReviewDao().insertReview(con, review);
+		System.out.println("result : " + result1);
 		
 		if(result1 > 0) {
 			
 			String reviewNo = new ReviewDao().selectCurrval(con);
-			
+			System.out.println("reviewNo : " + reviewNo);
 			for(int i = 0; i < fileList.size(); i++) {
 				fileList.get(i).setReviewNo(reviewNo);
 				review.setReviewNo(reviewNo);
@@ -71,6 +72,8 @@ public class ReviewService {
 				
 			}
 		}
+		
+		System.out.println("result2 : " + result2);
 		
 		if(result1 > 0 && result2 == fileList.size()) {
 			commit(con);
