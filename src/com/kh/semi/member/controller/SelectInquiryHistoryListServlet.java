@@ -27,14 +27,14 @@ public class SelectInquiryHistoryListServlet extends HttpServlet implements Serv
 		HttpSession session = request.getSession();
 		MemberVO m = (MemberVO) session.getAttribute("loginUser");
 		String mNo = m.getmNo();
-				
+		
 		int currentPage = 1;	// 현재페이지
 		int limit;			// 한 페이지당 보여지는 갯수
 		int maxPage;		// 페이지갯수 max
 		int startPage;		// 시작페이지
 		int endPage;		// 마지막페이지
 		
-		currentPage = Integer.parseInt(request.getParameter("curval"));	
+		//currentPage = Integer.parseInt(request.getParameter("curval"));	
 		limit = 10;
 		
 		int listCount = new MemberService().getInquiryListCount(mNo);
@@ -49,6 +49,15 @@ public class SelectInquiryHistoryListServlet extends HttpServlet implements Serv
 	      
 	    PageInfo pi = new PageInfo(currentPage, listCount, limit, maxPage, startPage, endPage);
 	    ArrayList<QuestionVO> qlist = new MemberService().selectInqHistoryList(pi, mNo);
+	    
+	    System.out.println("qlist : " + qlist);
+	    if(qlist != null) {
+	    	request.setAttribute("qlist", qlist);
+	    	request.setAttribute("pi", pi);
+	    	request.getRequestDispatcher("views/myPage/inquiryHistory.jsp").forward(request, response);
+	    }else {
+	    	
+	    }
 	    
 	}
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

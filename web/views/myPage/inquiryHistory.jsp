@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8" import="java.util.*, com.kh.semi.admin.model.vo.*,com.kh.semi.question.model.vo.QuestionVO"%>
+<%
+	PageInfo pi = (PageInfo) request.getAttribute("pi");
+	ArrayList<QuestionVO> qlist = (ArrayList<QuestionVO>)request.getAttribute("qlist");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -48,6 +52,10 @@
 	font-size: 14px;
 	line-height: 18px;
 	color: #343434;
+	white-space: nowrap;
+	overflow: hidden; 
+	text-overflow: ellipsis;
+	display: inline-block;
 }
 .navbar{
 	color: #666666;
@@ -79,8 +87,6 @@ ul li a span:hover{
 				mNo: "<%=loginUser.getmNo()%>"
 			},
 			success: function(data){
-				console.log("point성공입니다.");
-
 				$("#currentPoint").html("보유포인트 : " + data + "p");
 			},
 			error: function(){
@@ -125,34 +131,33 @@ ul li a span:hover{
 						<label style="margin-left: 80px;"class="text">문의 완료 일자</label>
 					</div>
 					<table style="border-bottom: 1px solid pink" id="listArea">
+					<%int count = qlist.size();
+					for(int i = 0; i < qlist.size(); i++) {%>
 						<tr>
-							<td><div style="width:30px; margin-left:30px;"><label class="text2">4</label></div></td>
-							<td><div style="width:160px; margin-left:20px;"><label class="text2">회원탈퇴시 적립포인트...</label></div></td>
-							<td><div style="width:130px; margin-left:10px;"><label class="text2">2020/05/11 17:33</label></div></td>
-							<td><div style="width:80px; margin-left:45px;"><label class="text2">문의확인</label></div></td>
-							<td><div style="width:132px; margin-left:40px;"><label class="text2"></label></div></td>
+							<td><div class="text2" style="width:30px; margin-left:30px;"><%=count %></div></td>
+							<td><div class="text2" style="width:160px; margin-left:20px;"><%=qlist.get(i).getQuestionContent() %></div></td>
+							<td><div class="text2" style="width:130px; margin-left:10px;"><%=qlist.get(i).getQuestionDate() %></div></td>
+							<% 
+								String status = "";
+								String ds = qlist.get(i).getQuestionDisposalStatus();
+								if(ds.equals("QDSE1")){
+									status = "미확인";
+								} else if (ds.equals("QDSC2")){
+									status = "처리대기";
+								} else {
+									status = "처리완료";
+								}
+								
+							%>
+							<td><div class="text2" style="width:80px; margin-left:45px;"><%=status %></div></td>
+							<%if(ds.equals("QDSC3")){ %>
+							<td><div class="text2" style="width:132px; margin-left:40px;"><%=qlist.get(i).getDisposalDate() %></div></td>
+						
+					<%} else {%>
+						<td><div class="text2" style="width:132px; margin-left:40px;"></div></td>
 						</tr>
-						<tr>
-							<td><div style="width:30px; margin-left:30px;"><label class="text2">3</label></div></td>
-							<td><div style="width:160px; margin-left:20px;"><label class="text2">회원탈퇴시 적립포인트...</label></div></td>
-							<td><div style="width:130px; margin-left:10px;"><label class="text2">2020/05/09 17:33</label></div></td>
-							<td><div style="width:80px; margin-left:45px;"><label class="text2">문의확인</label></div></td>
-							<td><div style="width:132px; margin-left:40px;"><label class="text2"></label></div></td>
-						</tr>
-						<tr>
-							<td><div style="width:30px; margin-left:30px;"><label class="text2">2</label></div></td>
-							<td><div style="width:160px; margin-left:20px;"><label class="text2">회원탈퇴시 적립포인트...</label></div></td>
-							<td><div style="width:130px; margin-left:10px;"><label class="text2">2020/05/03 17:33</label></div></td>
-							<td><div style="width:80px; margin-left:45px;"><label class="text2">답변완료</label></div></td>
-							<td><div style="width:132px; margin-left:40px;"><label class="text2">2020/05/04 11:22</label></div></td>
-						</tr>
-						<tr>
-							<td><div style="width:30px; margin-left:30px;"><label class="text2">1</label></div></td>
-							<td><div style="width:160px; margin-left:20px;"><label class="text2">회원탈퇴시 적립포인트...</label></div></td>
-							<td><div style="width:130px; margin-left:10px;"><label class="text2">2020/05/01 11:33</label></div></td>
-							<td><div style="width:80px; margin-left:45px;"><label class="text2">답변완료</label></div></td>
-							<td><div style="width:132px; margin-left:40px;"><label class="text2">2020/05/02 11:22</label></div></td>
-						</tr>
+						<%}count--;} %>
+					
 					</table>
 
 				</div>
