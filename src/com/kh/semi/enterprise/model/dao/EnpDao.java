@@ -784,32 +784,8 @@ Properties prop = new Properties();
 			close(rset);
 		}
 		
-		String quer = prop.getProperty("selectCurrentList");
-		ArrayList<ReservationVO> rlist = new ArrayList<>();
-		for(int i = 0; i < requestReserve.size(); i++) {
-			PreparedStatement pstm = null;
-			ResultSet rse = null;
-			try {
-				pstm = con.prepareStatement(quer);
-				System.out.println("rNo" + requestReserve.get(i).getrNo());
-				pstm.setString(1, requestReserve.get(i).getrNo());
-				rse = pstm.executeQuery();
-				if(rse.next()) {
-					if(rse.getString("STATUS_CODE").equals("RSC2")) {
-						rlist.add(requestReserve.get(i));
-						System.out.println("request" + requestReserve.get(i));
-					}
-				}
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} finally {
-				close(pstm);
-				close(rse);
-			}
-		}
-		System.out.println("rlist : " + rlist);
-		return rlist;
+		
+		return requestReserve;
 	}
 	
 	public ArrayList<ForEntCrVO> selectRDModalList(Connection con, String memId, String requestDay) {
