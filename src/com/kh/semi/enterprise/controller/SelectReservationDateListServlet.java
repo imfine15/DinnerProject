@@ -108,7 +108,7 @@ public class SelectReservationDateListServlet extends HttpServlet {
 		limit = 5;
 		
 		//전체 목록 갯수 조회
-		int listCount = new EnpService().getListCount();
+		int listCount = new EnpService().getListCount(enp);
 		System.out.println(listCount);
 		
 		//총 페이지 수 계산

@@ -350,44 +350,23 @@ Properties prop = new Properties();
 			close(rset);
 		}
 		
-		String quer = prop.getProperty("selectCurrentList");
-		ArrayList<ReservationVO> rlist = new ArrayList<>();
-		for(int i = 0; i < requestReserve.size(); i++) {
-			PreparedStatement pstm = null;
-			ResultSet rse = null;
-			try {
-				pstm = con.prepareStatement(quer);
-				System.out.println("rNo" + requestReserve.get(i).getrNo());
-				pstm.setString(1, requestReserve.get(i).getrNo());
-				rse = pstm.executeQuery();
-				if(rse.next()) {
-					if(rse.getString("STATUS_CODE").equals("RSC1")) {
-						rlist.add(requestReserve.get(i));
-						System.out.println("request" + requestReserve.get(i));
-					}
-				}
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} finally {
-				close(pstm);
-				close(rse);
-			}
-		}
-		System.out.println("rlist : " + rlist);
+		
 		System.out.println("reqeustReserve : " + requestReserve);
-		return rlist;
+		return requestReserve;
 	}
 	
-	public int getListCount(Connection con) {
-		Statement stmt = null;
+	public int getListCount(Connection con, String enp) {
+		PreparedStatement stmt = null;
 		int listCount = 0;
 		ResultSet rset = null;
 		
 		String query = prop.getProperty("listCount");
 		try {
-			stmt = con.createStatement();
-			rset = stmt.executeQuery(query);
+			stmt = con.prepareStatement(query);
+			stmt.setString(1, enp);
+			
+			rset = stmt.executeQuery();
+
 			if(rset.next()) {
 				listCount = rset.getInt(1);
 			}

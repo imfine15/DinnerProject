@@ -252,7 +252,8 @@ input[type="number"]::-webkit-inner-spin-button {
 	IMP.init("imp12858574");
 	
 	
- 	function reservation(){
+	
+ 	 function reservation(){
 	if($("#finaltime").html() === null || $("#finaltime").html() === ""){
 		alert("날짜 입력를 입력해주세요.");
 		return false;
@@ -288,14 +289,14 @@ input[type="number"]::-webkit-inner-spin-button {
 		        msg += '카드 승인번호 : ' + rsp.apply_num;
 				$("#payprice").val(rsp.paid_amount);
 				$("#muid").val(rsp.merchant_uid);
-				//document.reserInfo.submit();
+				document.reserInfo.submit();
 		    } else {
 		        var msg = '결제에 실패하였습니다.';
 		        msg += '에러내용 : ' + rsp.error_msg;
 		    }
 		});
 	} 
-	}
+	} 
 	
 </script>
 	<%@ include file="/views/common/footer.jsp"%>

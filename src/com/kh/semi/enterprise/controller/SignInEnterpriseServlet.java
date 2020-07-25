@@ -44,9 +44,8 @@ public class SignInEnterpriseServlet extends HttpServlet {
 		
 		if(loginEnp != null) {
 			request.getSession().setAttribute("loginEnp", loginEnp);
-			request.setAttribute("enpId", loginEnp.getPartnerId());
 			request.setAttribute("currentPage", 1);
-			response.sendRedirect("selectConfirmRequestList.en");
+			request.getRequestDispatcher("selectConfirmRequestList.en?enpId="+loginEnp.getEnpNo()).forward(request, response);
 		}else {
 			request.setAttribute("msg", "로그인 에러!");
 			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
