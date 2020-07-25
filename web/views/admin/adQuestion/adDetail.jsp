@@ -51,6 +51,7 @@ th{
 	border-right: 0.5px solid #9F9F9F;
 	border-left: 0.5px solid #9F9F9F;
 	text-indent: 0.5em;
+	font-weight: normal;
 }
 
 td {
@@ -70,6 +71,15 @@ tr {
 .left{
 	text-align: left;
 	text-indent: 0.5em;
+}
+.btn{
+	color: #FFFFFF;
+	border: 0;
+	outline: 0;
+	width: 90px;
+	height: 30px;
+	font-size: 16px;
+	margin: 30px;
 }
 
 </style>
@@ -112,8 +122,8 @@ tr {
 						<td colspan="3" class="left"><%=ad.getCounselContent()%></td>
 					</tr>
 				</table>
-				<button>처리완료</button>
-				<button>취소</button>
+				<button class="btn" style="background: #E07370;">처리완료</button>
+				<button class="btn" style="background: lightgray;">취소</button>
 			</div>
 		</div>
 
