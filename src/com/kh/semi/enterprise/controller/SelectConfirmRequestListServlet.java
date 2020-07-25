@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.kh.semi.enterprise.model.service.EnpService;
 import com.kh.semi.enterprise.model.vo.EnpVO;
+import com.kh.semi.enterprise.model.vo.ForCrInfoVO;
 import com.kh.semi.enterprise.model.vo.ForEntCrVO;
 import com.kh.semi.enterprise.model.vo.PageInfo;
 import com.kh.semi.payment.model.vo.ReservationVO;
@@ -91,6 +92,7 @@ public class SelectConfirmRequestListServlet extends HttpServlet {
 		String cancelId = "RSC3";
 		String visitId = "RSC5";
 		
+		//ArrayList<ForCrInfoVO> infoModalList = new EnpService().selectCrInfoModalList(memId);
 		int rownum = new EnpService().selectCRRownum(enp);
 		
 		ArrayList<ReservationVO> checkCountList = new ArrayList<ReservationVO>();
