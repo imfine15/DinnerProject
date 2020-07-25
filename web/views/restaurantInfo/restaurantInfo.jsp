@@ -39,7 +39,7 @@ ArrayList<ReviewVO> normalReviews = (ArrayList<ReviewVO>)session.getAttribute("n
 			<span id="score"><%= rating %></span>
 			<br>
 			<img alt="즐겨찾기 이미지" src="/semiproject/images/heart.png" id="heart">
-			<p id="likeCount"><%= selectedEnp.getLikeCount() %></p>
+			<p id="likeCount"></p>
 			<img alt="리뷰 이미지" src="/semiproject/images/comment.png" id="comment">
 			<p id="commentCount"></p>
 			<script>
@@ -55,14 +55,12 @@ ArrayList<ReviewVO> normalReviews = (ArrayList<ReviewVO>)session.getAttribute("n
 				});
 				
 				$(function() {
-					var enpNo = "<%= selectedEnp.getEnpNo() %>";
-					var mNo = "<%= loginUser.getmNo() %>";
 					$.ajax({
-						url: "/semiproject/plusLikeCount.se",
+						url: "/semiproject/getLikeCount.se",
 						type: "post",
-						data: {enpNo: enpNo, mNo: mNo},
+						data: {enpNo: "<%= selectedEnp.getEnpNo() %>"},
 						success: function(data) {
-							
+							$("#likeCount").html(data);
 						}
 					});
 				});
@@ -75,11 +73,36 @@ ArrayList<ReviewVO> normalReviews = (ArrayList<ReviewVO>)session.getAttribute("n
 				<span class="commentAndLike">좋아요</span>
 			</div>
 			<div id="commentDiv">
-				<img alt="즐겨찾기 이미지" src="/semiproject/images/comment.png" id="commentImg">
+				<img alt="리뷰쓰기 이미지" src="/semiproject/images/comment.png" id="commentImg">
 				<br>
 				<span class="commentAndLike">리뷰쓰기</span>
 			</div>
 		</div>
+		<script>
+			<% if(loginUser != null) { %>
+			$("#likeImg").click(function() {
+				var enpNo = "<%= selectedEnp.getEnpNo() %>";
+				var mNo = "<%= loginUser.getmNo() %>";
+				$.ajax({
+					url: "/semiproject/plusLikeCount.se",
+					type: "post",
+					data: {enpNo: enpNo, mNo: mNo},
+					success: function(data) {
+						if(data === 0) {
+							window.alert("이미 좋아요를 누른 가게입니다.");
+						} else if(data === 1) {
+							$("#likeCount").html(<%= selectedEnp.getLikeCount() %> + 1);
+							window.alert("<%= selectedEnp.getEnpName() %> 가게에 좋아요를 누르셨습니다.")
+						}
+					}
+				});
+			})
+			<% } else { %>
+			$("#likeImg").click(function() {
+				window.alert("로그인을 해야 좋아요를 하실 수 있습니다.");
+			});
+			<% } %>
+		</script>
 	</div>
 	<hr class="hr">
 	<div id="info">
