@@ -82,7 +82,7 @@ public class SelectConfirmRequestListServlet extends HttpServlet {
 		String memId = new EnpService().selectCRMemId(enp);
 		System.out.println(memId);
 		
-		ArrayList<ForEntCrVO> modalList = new EnpService().selectCRModalList(memId);
+		ArrayList<ForEntCrVO> modalList = new EnpService().selectCRModalList(enp);
 		for(ForEntCrVO f : modalList) {
 			System.out.println("modalList's rownum : " + f.getRownum());
 			System.out.println("modalList's nickName : "+f.getNickName());

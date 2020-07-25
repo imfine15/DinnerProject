@@ -137,7 +137,7 @@ public class SelectReservationDateListServlet extends HttpServlet {
 		String memId = new EnpService().selectCRMemId(enp);
 		System.out.println(memId);
 		
-		ArrayList<ForEntCrVO> modalList = new EnpService().selectRDModalList(memId,requestDay);
+		ArrayList<ForEntCrVO> modalList = new EnpService().selectRDModalList(enp,requestDay);
 		for(ForEntCrVO f : modalList) {
 			System.out.println("modalList's rownum : " + f.getRownum());
 			System.out.println("modalList's nickName : "+f.getNickName());
