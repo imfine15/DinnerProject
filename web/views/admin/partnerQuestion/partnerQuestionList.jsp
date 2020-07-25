@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8" import="java.util.*, com.kh.semi.ad.model.vo.PartnerVO"%>
+<%@ page import="com.kh.semi.admin.model.vo.PageInfo" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -182,110 +183,6 @@ tr {
 							</td>
 				
 						</tr>
-						<tr class="innerText1">
-							<td colspan="3">업체주소</td>
-							<td colspan="2">상담내용</td>
-							<td colspan="2">진행 세부 상황</td>
-							<td colspan="2">취소사유</td>
-						</tr>
-						<tr class="innerText1">
-							<td colspan="3">서울특별시 강남대로 42길 3, 파덕스하우스 1층</td>
-							<td colspan="2">프리미엄으로 신청하고 싶어여!</td>
-							<td colspan="2"></td>
-							<td colspan="2"></td>
-						</tr>
-						
-						<tr>
-							<td>윤수경</td>
-							<td>010-6537-7772</td>
-							<td>abc@gmail.com</td>
-							<td>예승이콩버거</td>
-							<td>패스트푸드</td>
-							<td>
-								<button class="productBtn">프리미엄</button>
-							</td>
-							<td>2020-06-22</td>
-							<td>
-								<button class="checkBtn">미확인</button>
-							</td>
-							<td>
-								<img src="/semiproject/images/toggle.png" class="toggle" id="toggle2">
-							</td>
-				
-						</tr>
-						<tr>
-							<td>백종현</td>
-							<td>010-6537-7772</td>
-							<td>abc@gmail.com</td>
-							<td>예승이콩버거</td>
-							<td>패스트푸드</td>
-							<td>
-								<button class="productBtn">프리미엄</button>
-							</td>
-							<td>2020-06-22</td>
-							<td>
-								<button class="checkBtn">미확인</button>
-							</td>
-							<td>
-								<img src="/semiproject/images/toggle.png" class="toggle" id="toggle3">
-							</td>
-				
-						</tr>
-						<tr>
-							<td>지니어스</td>
-							<td>010-6537-7772</td>
-							<td>abc@gmail.com</td>
-							<td>예승이콩버거</td>
-							<td>패스트푸드</td>
-							<td>
-								<button class="productBtn">프리미엄</button>
-							</td>
-							<td>2020-06-22</td>
-							<td>
-								<button class="checkBtn">미확인</button>
-							</td>
-							<td>
-								<img src="/semiproject/images/toggle.png" class="toggle" id="toggle4">
-							</td>
-				
-						</tr>
-						<tr>
-							<td>김진호</td>
-							<td>010-6537-7772</td>
-							<td>abc@gmail.com</td>
-							<td>예승이콩버거</td>
-							<td>패스트푸드</td>
-							<td>
-								<button class="productBtn">프리미엄</button>
-							</td>
-							<td>2020-06-22</td>
-							<td>
-								<button class="checkBtn">미확인</button>
-							</td>
-							<td>
-								<img src="/semiproject/images/toggle.png" class="toggle" id="toggle5">
-							</td>
-				
-						</tr>
-						<tr>
-							<td>정파덕</td>
-							<td>010-6537-7772</td>
-							<td>abc@gmail.com</td>
-							<td>예승이콩버거</td>
-							<td>패스트푸드</td>
-							<td>
-								<button class="productBtn">프리미엄</button>
-							</td>
-							<td>2020-06-22</td>
-							<td>
-								<button class="checkBtn">미확인</button>
-							</td>
-							<td>
-								<img src="/semiproject/images/toggle.png" class="toggle" id="toggle6">
-							</td>
-				
-						</tr>
-
 					</table>
 				</form>
 				<div style="height: 30px;"></div>
@@ -308,41 +205,9 @@ tr {
 				</div>
 			</div>
 		</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-		<div class="pagingArea" align="center">
-			<button class="hide"
-				onclick="location.href='<%=request.getContextPath()%>/selectList.no?currentPage=1'"><<</button>
-			<button class="hide"
-				onclick="location.href='<%=request.getContextPath()%>/selectList.no?currentPage='"><</button>
-
-			<button class="hide"
-				onclick="location.href='<%=request.getContextPath()%>/selectList.no?currentPage='">
-				<img style="width: 15px; height: 15px"
-					src="/semiproject/images/arrow.png">
-			</button>
-			<button class="hide"
-				onclick="location.href='<%=request.getContextPath()%>/selectList.no?currentPage='">>></button>
-		</div>
 	</div>
+	
 		<script>
-
 	
 	$(document).ready(function() {
 		$("#toggle1").click(function() {

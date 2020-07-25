@@ -106,18 +106,16 @@ td {
 		<div style="height:50px;"></div>
 		<p style="color:gray; font-size:14px;">※ 단, 계약 해지 후 예약 리뷰는 2년간 보관 후 파기합니다. </p>
 		<div style="height:70px;"></div>
-		<button id="partner_click_">상담신청하기</button>
+		<button id="partner_click_" type="button" onclick="goPartner();">상담신청하기</button>
 	</div>
 		<div style="height:100px;"></div>
 	<%@ include file="../common/footer.jsp"%>
 		<script>
 		AOS.init();
-		
-		$(document).ready(function() {
-			$('.box').hover(function) {
-				$(this).css('c)
-			}
-			
+	</script>
+	<script>
+		function goPartner() {
+			location.href="<%=request.getContextPath()%>/views/partner/partner.jsp";
 		}
 	</script>
 </body>
