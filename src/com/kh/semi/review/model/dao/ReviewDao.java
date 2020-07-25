@@ -202,7 +202,7 @@ public class ReviewDao {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		String query = prop.getProperty("checkVisit");
-		String[] datas = new String[3];
+		String[] datas = new String[2];
 		
 		try {
 			pstmt = con.prepareStatement(query);
@@ -215,7 +215,6 @@ public class ReviewDao {
 			if(rset.next()) {
 				datas[0] = rset.getString("RESERVATION_HISTORY_NO");
 				datas[1] = rset.getString("VISIT_DATE");
-				datas[2] = rset.getString("REVIEW_TYPE");
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
