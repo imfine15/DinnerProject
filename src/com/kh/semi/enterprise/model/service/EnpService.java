@@ -92,10 +92,10 @@ public class EnpService {
 		return requestReserve;
 	}
 
-	public int getListCount() {
+	public int getListCount(String enp) {
 		Connection con = getConnection();
 
-		int listCount = new EnpDao().getListCount(con);
+		int listCount = new EnpDao().getListCount(con,enp);
 
 		close(con);
 

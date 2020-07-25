@@ -198,6 +198,7 @@ System.out.println("modalListsize : " + modalList.size());
 			<%} %>
 			
 			<%for(int p = startPage; p <= endPage; p++){ 
+				System.out.println("p : " + pi);
 				if(p == currentPage) {
 			%>
 				<button disabled><%=p %></button>
