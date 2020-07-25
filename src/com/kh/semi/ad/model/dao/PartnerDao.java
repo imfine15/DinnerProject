@@ -134,4 +134,43 @@ public class PartnerDao {
 		return list;
 	}
 
+	public PartnerVO selectOne(Connection con, int pNo) {
+	
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		PartnerVO partner = null;
+
+		String query = prop.getProperty("selectOne");
+
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1,  pNo);
+
+			rset = pstmt.executeQuery();
+
+			if(rset.next()) {
+				partner = new PartnerVO();
+				
+				partner.setPartnerQuestionNo(rset.getString("TO_NUMBER(SUBSTR(PARTNER_QUESTION_NO,3))"));
+				partner.setPartQName(rset.getString("PART_Q_NAME"));
+				partner.setPartQPhone(rset.getString("PART_Q_PHONE"));
+				partner.setPartQEmail(rset.getString("PART_Q_EMAIL"));
+				partner.setPartQAddress(rset.getString("PART_Q_ADDRESS"));
+				partner.setPartQEnpType(rset.getString("PART_Q_ENP_TYPE"));
+				partner.setPartQType(rset.getString("PART_Q_TYPE"));
+				partner.setPartQContent(rset.getString("PART_Q_CONTENT"));
+				partner.setPartQDate(rset.getDate("PART_Q_DATE"));
+				partner.setPartQTitle(rset.getString("PART_Q_TITLE"));
+			
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+
+		return partner;
+	}
+
 }

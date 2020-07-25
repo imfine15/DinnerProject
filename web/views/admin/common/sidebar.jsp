@@ -40,7 +40,7 @@
 
 .sidenav .main-buttons>li {
 	padding: 16px 40px;
-	padding-left:50px;
+	padding-left:20px;
 	-moz-box-sizing: border-box;
 	-webkit-box-sizing: border-box;
 	box-sizing: border-box;
@@ -131,13 +131,17 @@ html, body {
 	background-color:white;
 	border:none;
 }
+a:link,a:visited, a:active, a:hover {
+	text-decoration:none; 
+	color:white;
+}
 </style>
 </head>
 <body>
 	<!-- header start -->
 	<header id="admin-header">
 		<div id="admin-t">
-			<p><a>ADMINISTRATOR</a></p>
+			<p><a href="<%=request.getContextPath()%>/select.ma">ADMINISTRATOR</a></p>
 		</div>
 		<div id="logout">
 		<button id="logoutBtn" onclick="">로그아웃</button>
@@ -153,7 +157,7 @@ html, body {
 		<nav class="sidenav">
 			<div style="height:50px"></div>
 			<ul class="main-buttons">
-				<li><i class="fa fa-circle fa-2x"></i> 예약/가게/리뷰 관리
+				<li><img style="width:23px;"src="/semiproject/images/shop.png"><i class="fa fa-circle fa-2x"></i>&nbsp;예약/가게/리뷰 관리
 					<ul class="hidden">
 						<div style="height:50px"></div>
 						<li onclick="goReservationHistory();">예약 내역</li>
@@ -161,33 +165,38 @@ html, body {
 						<li onclick="goReviewManage();">리뷰 게시글 관리</li>
 					</ul></li>
 					
-				<li><i class="fa fa-circle fa-2x"></i> 공지사항
+				<li><img style="width:23px;"src="/semiproject/images/warning.png"><i class="fa fa-circle fa-2x"></i>&nbsp;공지사항
 					<ul class="hidden">
 						<div style="height:50px"></div>
 						<li onclick="goClientNotice();">고객 공지사항</li>
 						<li onclick="goEnterNotice();">업체 공지사항</li>
 						<li onclick="goAdminNotice();">관리자 공지사항</li>
 					</ul></li>
-				<li><i class="fa fa-circle fa-2x"></i> 정산 환불관리
+				<li><img style="width:23px;"src="/semiproject/images/payment-method.png"><i class="fa fa-circle fa-2x"></i> 정산 환불관리
 					<ul class="hidden">
 						<div style="height:50px"></div>
 						<li onclick="goMemberRefundHistory();">회원 환불 내역</li>
 						<li onclick="goCalculateRequestManage();">정산 요청 관리</li>
 						<li onclick="goDemurrerHistory();">정산 이의신청 내역</li>
 					</ul></li>
-				<li><i class="fa fa-circle fa-2x"></i> 문의사항 관리
+				<li><img style="width:23px;"src="/semiproject/images/question.png"><i class="fa fa-circle fa-2x"></i> 문의사항 관리
 					<ul class="hidden">
 						<div style="height:50px"></div>
 						<li onclick="goPartnerRequestManage();">제휴 문의 관리</li>
 						<li onclick="goAdRequestManage();">광고 문의 관리</li>
 						<li onclick="goMemberQuestionManage();">회원 문의 관리</li>
 					</ul></li>
-				<li><i class="fa fa-circle fa-2x"></i> 고객 관리
+				<li><img style="width:23px;"src="/semiproject/images/value.png"><i class="fa fa-circle fa-2x"></i> 고객 관리
 					<ul class="hidden">
 						<div style="height:50px"></div>
 						<li onclick="goMemberManage();">회원 관리</li>
 						<li onclick="goEnterManage();">업체 관리</li>
 						<li onclick="goMemberReportHistory();">회원 신고내역 관리</li>
+					</ul></li>
+				<li><img style="width:23px;"src="/semiproject/images/value.png"><i class="fa fa-circle fa-2x"></i> 직원 관리
+					<ul class="hidden">
+						<div style="height:50px"></div>
+						<li onclick="goAdminManage();">직원 정보 관리</li>
 					</ul></li>
 
 			</ul>
@@ -232,7 +241,7 @@ html, body {
 		}
 		
 		function goPartnerRequestManage() {
-			location.href="<%=request.getContextPath()%>/";
+			location.href="<%=request.getContextPath()%>/selectList.pa";
 		}
 		
 		function goAdRequestManage() {
@@ -253,6 +262,9 @@ html, body {
 		
 		function goMemberReportHistory() {
 			location.href="<%=request.getContextPath()%>/";
+		}
+		function goAdminManage() {
+			location.href="<%=request.getContextPath()%>/selectList.ma";
 		}
 		
 	</script>

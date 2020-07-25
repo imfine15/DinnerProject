@@ -1,4 +1,4 @@
-package com.kh.semi.ad.controller;
+package com.kh.semi.admin.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -14,19 +14,20 @@ import com.kh.semi.ad.model.service.AdService;
 import com.kh.semi.ad.model.vo.AdVO;
 import com.kh.semi.admin.model.service.AdminService;
 import com.kh.semi.admin.model.vo.PageInfo;
-import com.kh.semi.enterprise.model.vo.EnpUpVo;
+import com.kh.semi.board.model.vo.BoardVO;
+import com.kh.semi.notice.model.vo.AdminNoticeVO;
 
 /**
- * Servlet implementation class SelectAdListServlet
+ * Servlet implementation class SelectAdminMainServlet
  */
-@WebServlet("/selectAdList.ad")
-public class SelectAdListServlet extends HttpServlet {
+@WebServlet("/select.ma")
+public class SelectAdminMainServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public SelectAdListServlet() {
+    public SelectAdminMainServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -38,9 +39,6 @@ public class SelectAdListServlet extends HttpServlet {
 		
 		int currentPage;	
 		int limit;			
-		int maxPage;		
-		int startPage;		
-		int endPage;
 		
 		currentPage = 1;
 		
@@ -48,42 +46,34 @@ public class SelectAdListServlet extends HttpServlet {
 			currentPage = Integer.parseInt(request.getParameter("currentPage"));
 		}
 		
-		limit = 10;
+		limit = 5;
 		
-		int listCount = new AdService().getListCount();
+		int listAdminCount = new AdminService().getListAdminCount();
+		int listBCount = new AdminService().getListBCount();
+				
+		PageInfo pi = new PageInfo(currentPage, listAdminCount, limit);
+		PageInfo piB = new PageInfo(currentPage, listBCount, limit);
 		
-		System.out.println("listCount : " + listCount);
-		
-		maxPage = (int)((double)listCount / limit + 0.9);
-		
-		startPage = (((int)((double)currentPage / 10 + 0.9)) -1) * 10 + 1;
-		
-		endPage = startPage + 10 - 1;
-		
-		if(maxPage < endPage) {
-			endPage = maxPage;
-		}
-		
-		PageInfo pi = new PageInfo(currentPage, listCount, limit, maxPage, startPage, endPage);
-		
-		ArrayList<AdVO> list = new AdService().selectList(pi);
-		
-		System.out.println("list : " + list);
+		ArrayList<AdminNoticeVO> list = new AdminService().selectMainList(pi);	
+		ArrayList<BoardVO> listB = new AdminService().selectMainbList(piB);
 		
 		HttpSession session = request.getSession();
 		
 		String page = "";
 		
 		if(list != null) {
-			page ="views/admin/adQuestion/adQuestionList.jsp";
+			page ="views/admin/main/mainAdmin.jsp";
 			request.setAttribute("list", list);	
+			request.setAttribute("listB", listB);
 			request.setAttribute("pi", pi);
+			request.setAttribute("piB", piB);
 		} else {
 			page ="views/common/errorPage.jsp";
 			request.setAttribute("msg", "게시판 조회 실패!");
 		}
 		
 		request.getRequestDispatcher(page).forward(request, response);
+		
 	}
 
 	/**

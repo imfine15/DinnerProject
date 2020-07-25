@@ -6,9 +6,11 @@ import java.util.ArrayList;
 
 import com.kh.semi.admin.model.dao.AdminDao;
 import com.kh.semi.admin.model.vo.PageInfo;
+import com.kh.semi.board.model.vo.BoardVO;
 import com.kh.semi.enterprise.model.dao.EnpDao;
 import com.kh.semi.enterprise.model.vo.EnpAttachment;
 import com.kh.semi.enterprise.model.vo.EnpUpVo;
+import com.kh.semi.notice.model.vo.AdminNoticeVO;
 
 public class AdminService {
 
@@ -16,8 +18,7 @@ public class AdminService {
 		Connection con = getConnection();
 		
 		int listCount = new AdminDao().getListCount(con);
-		
-		
+				
 		close(con);
 		
 		return listCount;
@@ -125,6 +126,52 @@ public class AdminService {
 		}
 		close(con);
 		return result;
+	}
+
+	public ArrayList<AdminNoticeVO> selectMainList(PageInfo pi) {
+		
+		Connection con = getConnection();
+		
+		ArrayList<AdminNoticeVO> list = new AdminDao().selectMainList(con,pi);
+		
+		close(con);
+		
+		return list;
+	}
+
+	public ArrayList<BoardVO> selectMainbList(PageInfo pi) {
+		
+		Connection con = getConnection();
+		
+		ArrayList<BoardVO> listb = new AdminDao().selectMainbList(con,pi);
+		
+		close(con);
+		
+		return listb;
+	}
+
+	public int getListAdminCount() {
+		
+		Connection con = getConnection();
+		
+		int listCount = new AdminDao().getAdminListCount(con);
+				
+		close(con);
+		
+		return listCount;
+		
+	}
+
+	public int getListBCount() {
+		
+		Connection con = getConnection();
+		
+		int listCount = new AdminDao().getBoardListCount(con);
+				
+		close(con);
+		
+		return listCount;
+		
 	}
 
 	

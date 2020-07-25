@@ -13,8 +13,10 @@ import java.util.Properties;
 import javax.swing.plaf.synth.SynthSpinnerUI;
 
 import com.kh.semi.admin.model.vo.PageInfo;
+import com.kh.semi.board.model.vo.BoardVO;
 import com.kh.semi.enterprise.model.vo.EnpAttachment;
 import com.kh.semi.enterprise.model.vo.EnpUpVo;
+import com.kh.semi.notice.model.vo.AdminNoticeVO;
 
 import static com.kh.semi.common.JDBCTemplate.*;
 
@@ -402,6 +404,127 @@ public class AdminDao {
 		return result;
 	}
 
+	public ArrayList<AdminNoticeVO> selectMainList(Connection con, PageInfo pi) {
 	
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<AdminNoticeVO> list = null;
+		AdminNoticeVO adminNotice;
+		String query = prop.getProperty("selectMainList");
+			
+		try {
+			pstmt = con.prepareStatement(query);
+			
+			rset = pstmt.executeQuery();
+			
+			list = new ArrayList<>();
+				
+			while(rset.next()) {
+
+				adminNotice = new AdminNoticeVO();
+				adminNotice.setNoticeTitle(rset.getString("NOTICE_TITLE"));
+				adminNotice.setNoticeDate(rset.getDate("NOTICE_DATE"));
+				
+				list.add(adminNotice);		
+			}
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
+		}
+
+		return list;
+	}
+
+	public ArrayList<BoardVO> selectMainbList(Connection con, PageInfo pi) {
+
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<BoardVO> list = null;
+		BoardVO b;
+		String query = prop.getProperty("selectMainbList");
+		
+		
+		
+		try {
+			pstmt = con.prepareStatement(query);
+					
+			rset = pstmt.executeQuery();
+			
+			list = new ArrayList<>();
+
+			while(rset.next()) {
+				b = new BoardVO();
+				b.setBoardTitle(rset.getString("BOARD_TITLE"));
+				b.setMemberId(rset.getString("MEMBER_ID"));
+				list.add(b);
+			}	
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
+		}
+		return list;
+	}
+
+	public int getAdminListCount(Connection con) {
+	
+		Statement stmt = null;
+		int listCount = 0;
+		ResultSet rset = null;
+		
+		String query = prop.getProperty("listAdminCount");
+			
+		try {
+			stmt = con.createStatement();
+			rset = stmt.executeQuery(query);
+			
+			if(rset.next()) {
+				listCount = rset.getInt(1);
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(stmt);
+			close(rset);
+		}
+		
+		
+		return listCount;
+	}
+
+	public int getBoardListCount(Connection con) {
+		Statement stmt = null;
+		int listCount = 0;
+		ResultSet rset = null;
+		
+		String query = prop.getProperty("listBoardCount");
+		
+		try {
+			stmt = con.createStatement();
+			rset = stmt.executeQuery(query);
+			
+			if(rset.next()) {
+				listCount = rset.getInt(1);
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(stmt);
+			close(rset);
+		}
+		
+		
+		return listCount;
+	}
 
 }

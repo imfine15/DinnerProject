@@ -20,12 +20,13 @@ public class BoardVO implements java.io.Serializable {
 	private String uploadNo; // 업로드내역번호
 	private String statusName; // 업로드상태
 	private Date uploadDate; // 업로드일자
+	private String memberId;
 	
 	public BoardVO() {}
 
 	public BoardVO(String boardNo, String boardTitle, String memberNo, String managerNo, String boardKeyword,
-			String boardContent, String boardCategory, String enpNo, int viewCount, String hashTags, String courseNo,
-			String[] filePaths, String uploadNo, String statusName, Date uploadDate, int likeCount) {
+			String boardContent, String boardCategory, String enpNo, int viewCount, String hashTags, int likeCount,
+			String courseNo, String[] filePaths, String uploadNo, String statusName, Date uploadDate, String memberId) {
 		super();
 		this.boardNo = boardNo;
 		this.boardTitle = boardTitle;
@@ -37,12 +38,13 @@ public class BoardVO implements java.io.Serializable {
 		this.enpNo = enpNo;
 		this.viewCount = viewCount;
 		this.hashTags = hashTags;
+		this.likeCount = likeCount;
 		this.courseNo = courseNo;
 		this.filePaths = filePaths;
 		this.uploadNo = uploadNo;
 		this.statusName = statusName;
 		this.uploadDate = uploadDate;
-		this.likeCount = likeCount;
+		this.memberId = memberId;
 	}
 
 	public String getBoardNo() {
@@ -125,6 +127,14 @@ public class BoardVO implements java.io.Serializable {
 		this.hashTags = hashTags;
 	}
 
+	public int getLikeCount() {
+		return likeCount;
+	}
+
+	public void setLikeCount(int likeCount) {
+		this.likeCount = likeCount;
+	}
+
 	public String getCourseNo() {
 		return courseNo;
 	}
@@ -165,12 +175,12 @@ public class BoardVO implements java.io.Serializable {
 		this.uploadDate = uploadDate;
 	}
 
-	public int getLikeCount() {
-		return likeCount;
+	public String getMemberId() {
+		return memberId;
 	}
 
-	public void setLikeCount(int likeCount) {
-		this.likeCount = likeCount;
+	public void setMemberId(String memberId) {
+		this.memberId = memberId;
 	}
 
 	@Override
@@ -178,8 +188,10 @@ public class BoardVO implements java.io.Serializable {
 		return "BoardVO [boardNo=" + boardNo + ", boardTitle=" + boardTitle + ", memberNo=" + memberNo + ", managerNo="
 				+ managerNo + ", boardKeyword=" + boardKeyword + ", boardContent=" + boardContent + ", boardCategory="
 				+ boardCategory + ", enpNo=" + enpNo + ", viewCount=" + viewCount + ", hashTags=" + hashTags
-				+ ", courseNo=" + courseNo + ", filePaths=" + Arrays.toString(filePaths) + ", uploadNo=" + uploadNo
-				+ ", statusName=" + statusName + ", uploadDate=" + uploadDate + ", likeCount=" + likeCount + "]";
+				+ ", likeCount=" + likeCount + ", courseNo=" + courseNo + ", filePaths=" + Arrays.toString(filePaths)
+				+ ", uploadNo=" + uploadNo + ", statusName=" + statusName + ", uploadDate=" + uploadDate + ", memberId="
+				+ memberId + "]";
 	}
 
+	
 }

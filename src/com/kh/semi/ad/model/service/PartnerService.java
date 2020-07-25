@@ -53,4 +53,15 @@ public class PartnerService {
 		return list;
 	}
 
+	public PartnerVO selectOne(int pNo) {
+		
+		Connection con = getConnection();
+
+		PartnerVO partner = new PartnerDao().selectOne(con, pNo);
+
+		close(con);
+
+		return partner;
+	}
+
 }
