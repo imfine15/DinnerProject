@@ -442,4 +442,93 @@ public class SearchDao {
 		return bestCourse;
 	}
 
+	public int likeConfirm(Connection con, String enpNo, String mNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String query = prop.getProperty("likeConfirm");
+		int count = 0;
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			
+			pstmt.setString(1, enpNo);
+			pstmt.setString(2, mNo);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				count = rset.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return count;
+	}
+
+	// LIKE_HISTORY 테이블에 내역 저장
+	public int doLike(Connection con, String enpNo, String mNo) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String query = prop.getProperty("doLike");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			
+			pstmt.setString(1, enpNo);
+			pstmt.setString(2, mNo);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} close(pstmt);
+		
+		return result;
+	}
+
+	public int getPreLike(Connection con, String enpNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int previousLikeCount = 0;
+		String query = prop.getProperty("getPreLike");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			
+			pstmt.setString(1, enpNo);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				previousLikeCount = rset.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return previousLikeCount;
+	}
+
+	public int likeUpdate(Connection con, int previousLikeCount, String enpNo) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String query = prop.getProperty("likeUpdate");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
 }

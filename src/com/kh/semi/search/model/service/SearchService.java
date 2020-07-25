@@ -1,7 +1,9 @@
 package com.kh.semi.search.model.service;
 
 import static com.kh.semi.common.JDBCTemplate.close;
+import static com.kh.semi.common.JDBCTemplate.commit;
 import static com.kh.semi.common.JDBCTemplate.getConnection;
+import static com.kh.semi.common.JDBCTemplate.rollback;
 
 import java.sql.Connection;
 import java.util.ArrayList;
@@ -70,6 +72,35 @@ public class SearchService {
 		close(con);
 		
 		return bestCourseDetail;
+	}
+
+	public int doLike(String enpNo, String mNo) {
+		Connection con = getConnection();
+		// 좋아요를 이미 눌렀는지, 아닌지 검증
+		int count1 = new SearchDao().likeConfirm(con, enpNo, mNo);
+		
+		int count2 = 0;
+		if(count1 > 0) {
+			// 이미 좋아요를 누른 상태일경우
+			count2 = 0;
+		} else {
+			// 아직 좋아요를 누르지 않은 상태일 경우
+			count2 = new SearchDao().doLike(con, enpNo, mNo);
+		}
+		
+		int previousLikeCount = 0;
+		int result = 0;
+		if(count2 > 0) {
+			commit(con);
+			previousLikeCount = new SearchDao().getPreLike(con, enpNo);
+			
+			result = new SearchDao().likeUpdate(con, previousLikeCount, enpNo);
+		} else {
+			rollback(con);
+			previousLikeCount = 0;
+		}
+		
+		return result;
 	}
 
 }
