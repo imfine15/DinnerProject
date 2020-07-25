@@ -10,6 +10,7 @@ import com.kh.semi.enterprise.model.vo.EnpAttachment;
 import com.kh.semi.enterprise.model.vo.EnpUpVo;
 import com.kh.semi.enterprise.model.vo.EnpVO;
 import com.kh.semi.enterprise.model.vo.ForCmVO;
+import com.kh.semi.enterprise.model.vo.ForCrInfoVO;
 import com.kh.semi.enterprise.model.vo.ForEntCrVO;
 import com.kh.semi.enterprise.model.vo.ForSdVO;
 import com.kh.semi.enterprise.model.vo.PageInfo;
@@ -292,5 +293,15 @@ public class EnpService {
 		close(con);
 
 		return result;
+	}
+
+	public ArrayList<ForCrInfoVO> selectCrInfoModalList(String enp) {
+		Connection con = getConnection();
+
+		ArrayList<ForCrInfoVO> modalList = new EnpDao().selectCrInfoModalList(con, enp);
+
+		close(con);
+
+		return modalList;
 	}
 }

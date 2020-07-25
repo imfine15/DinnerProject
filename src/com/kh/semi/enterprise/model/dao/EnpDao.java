@@ -21,6 +21,7 @@ import com.kh.semi.enterprise.model.vo.EnpAttachment;
 import com.kh.semi.enterprise.model.vo.EnpUpVo;
 import com.kh.semi.enterprise.model.vo.EnpVO;
 import com.kh.semi.enterprise.model.vo.ForCmVO;
+import com.kh.semi.enterprise.model.vo.ForCrInfoVO;
 import com.kh.semi.enterprise.model.vo.ForEntCrVO;
 import com.kh.semi.enterprise.model.vo.ForSdVO;
 import com.kh.semi.enterprise.model.vo.PageInfo;
@@ -951,5 +952,36 @@ Properties prop = new Properties();
 		}
 		
 		return result;
+	}
+
+	public ArrayList<ForCrInfoVO> selectCrInfoModalList(Connection con, String enp) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<ForCrInfoVO> modalList = null;
+		ForCrInfoVO f = null;
+		String query = prop.getProperty("selectCrInfoModalList");
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, enp);
+			rset = pstmt.executeQuery();
+			
+			modalList = new ArrayList<ForCrInfoVO>();
+			while(rset.next()) {
+				f = new ForCrInfoVO();
+				f.setMemberEmail(rset.getString("MEMBER_EMAIL"));
+				f.setMemberName(rset.getString("MEMBER_NAME"));
+				f.setMemberPhone(rset.getString("MEMBER_PHONE"));
+				f.setRequestMemo(rset.getString("REQUEST_MEMO"));
+				
+				modalList.add(f);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		return modalList;
 	}
 }
