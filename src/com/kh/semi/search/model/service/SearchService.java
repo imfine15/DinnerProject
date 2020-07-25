@@ -91,16 +91,27 @@ public class SearchService {
 		int previousLikeCount = 0;
 		int result = 0;
 		if(count2 > 0) {
-			commit(con);
 			previousLikeCount = new SearchDao().getPreLike(con, enpNo);
 			
 			result = new SearchDao().likeUpdate(con, previousLikeCount, enpNo);
+		}
+		
+		if(result > 0) {
+			commit(con);
 		} else {
 			rollback(con);
-			previousLikeCount = 0;
 		}
 		
 		return result;
+	}
+
+	public int getLikeCount(String enpNo) {
+		Connection con = getConnection();
+		int likeCount = new SearchDao().getLikeCount(con, enpNo);
+		
+		close(con);
+		
+		return likeCount;
 	}
 
 }

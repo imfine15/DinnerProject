@@ -34,67 +34,6 @@ public class SearchDao {
 		}
 	}
 	
-//	public ArrayList<EnpVO> searchEnp(Connection con, String search) {
-//		ArrayList<EnpVO> enpList = null;
-//		PreparedStatement pstmt = null;
-//		ResultSet rset = null;
-//		String query = prop.getProperty("searchEnp");
-//		
-//		try {
-//			pstmt = con.prepareStatement(query);
-//			pstmt.setString(1, search);
-//			rset = pstmt.executeQuery();
-//			enpList = new ArrayList<>();
-//			
-//			while(rset.next()) {
-//				EnpVO e = new EnpVO();
-//				
-//				e.setEnpNo(rset.getString("ENP_NO"));
-//				e.setEnpName(rset.getString("ENP_NAME"));
-//				e.setEnpPhone(rset.getString("ENP_PHONE"));
-//				e.setEnpAddress(rset.getString("ENP_ADDRESS"));
-//				e.setEnpHour(rset.getString("ENP_HOUR"));
-//				e.setEnpType(rset.getString("ENP_TYPE"));
-//				e.setEnpStatus(rset.getString("ENP_STATUS"));
-//				e.setEnpPartnerType(rset.getString("ENP_PARTNER_TYPE"));
-//				e.setHashTags(rset.getString("HASH_TAGS"));
-//				e.setPriceRange(rset.getString("PRICE_RANGE"));
-//				e.setClosedDay(rset.getString("CLOSED_DAY"));
-//				e.setWebsite(rset.getString("WEBSITE"));
-//				e.setIntroduce(rset.getString("INTRODUCE"));
-//				e.setParkingPossible(rset.getString("PARKING_POSSIBLE"));
-//				
-//				if(rset.getString("ENP_PARTNER_TYPE").equals("PARTNER")) {
-//					e.setEnpRegisterNo(rset.getString("ENP_REGISTER_NO"));
-//					e.setPartnerCode(rset.getString("PARTNER_CODE"));
-//					e.setPartnerCode(rset.getString("PARTNER_CODE"));
-//					e.setPenaltyCount(rset.getInt("PENALTY_COUNT"));
-//					e.setPartnerId(rset.getString("PARTNER_ID"));
-//					e.setPartnerPwd(rset.getString("PARTNER_PWD"));
-//					e.setPartnerEmail(rset.getString("PARTNER_EMAIL"));
-//					e.setPartnerName(rset.getString("PARTNER_NAME"));
-//					e.setAccountHolder(rset.getString("ACCOUNT_HOLDER"));
-//					e.setBank(rset.getString("BANK"));
-//					e.setBankAccount(rset.getString("BANK_ACCOUNT"));
-//					e.setDepositLowerLimit(rset.getInt("DEPOSIT_LOWER_LIMIT"));
-//					e.setDepositHigherLimit(rset.getInt("DEPOSIT_HIGHER_LIMIT"));
-//					e.setSignupApproval(rset.getString("SIGNUP_APPROVAL"));
-//					e.setJuminNo(rset.getString("JUMIN_NO"));
-//					e.setEnpLicense(rset.getString("ENP_LICENCE"));
-//				}
-//				
-//				enpList.add(e);
-//			}
-//		} catch (SQLException e) {
-//			e.printStackTrace();
-//		} finally {
-//			close(rset);
-//			close(pstmt);
-//		}
-//		
-//		return enpList;
-//	}
-	
 	public ArrayList<EnpVO> searchEnp(Connection con, PageInfo pi, String search) {
 		ArrayList<EnpVO> enpList = null;
 		PreparedStatement pstmt = null;
@@ -522,6 +461,11 @@ public class SearchDao {
 		
 		try {
 			pstmt = con.prepareStatement(query);
+			
+			pstmt.setInt(1, previousLikeCount + 1);
+			pstmt.setString(2, enpNo);
+			
+			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -529,6 +473,32 @@ public class SearchDao {
 		}
 		
 		return result;
+	}
+
+	public int getLikeCount(Connection con, String enpNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String query = prop.getProperty("getLikeCount");
+		int likeCount = 0;
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			
+			pstmt.setString(1, enpNo);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				likeCount = rset.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return likeCount;
 	}
 
 }

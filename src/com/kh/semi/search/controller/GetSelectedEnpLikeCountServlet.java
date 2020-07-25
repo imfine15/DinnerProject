@@ -11,24 +11,23 @@ import javax.servlet.http.HttpServletResponse;
 import com.google.gson.Gson;
 import com.kh.semi.search.model.service.SearchService;
 
-@WebServlet("/plusLikeCount.se")
-public class PlusLikeCountServlet extends HttpServlet {
+@WebServlet("/getLikeCount.se")
+public class GetSelectedEnpLikeCountServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    public PlusLikeCountServlet() {
+    public GetSelectedEnpLikeCountServlet() {
         super();
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String enpNo = request.getParameter("enpNo");
-		String mNo = request.getParameter("mNo");
 		
-		int result = new SearchService().doLike(enpNo, mNo);
+		int likeCount = new SearchService().getLikeCount(enpNo);
 		
 		response.setContentType("application/json");
 		response.setCharacterEncoding("UTF-8");
 		
-		new Gson().toJson(result, response.getWriter());
+		new Gson().toJson(likeCount, response.getWriter());
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
