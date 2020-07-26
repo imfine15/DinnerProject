@@ -511,4 +511,30 @@ public class ReviewDao {
 		
 		return result;
 	}
+
+	public String getEnpName(Connection con, String enpNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String query = prop.getProperty("getEnpName");
+		String enpName = "";
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			
+			pstmt.setString(1, enpNo);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				enpName = rset.getString("ENP_NAME");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return enpName;
+	}
 }
