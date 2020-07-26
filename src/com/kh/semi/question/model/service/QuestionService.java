@@ -24,32 +24,31 @@ public class QuestionService {
 		int result2 = 0;
 		int result3 = 0;
 		
-		//
+
 		result1 = new QuestionDao().insertQuestion(con, question);
 
 		if(result1 > 0) {
-			
+
 			String questionNo = new QuestionDao().selectCurrval(con);
-			
+
 			for(int i = 0; i < fileList.size(); i++) {
-				
+
 				fileList.get(i).setQuestionNo(questionNo);
 				question.setQuestionNo(questionNo);
 				result2 += new QuestionDao().insertAttachment(con, fileList.get(i));
 			}
 		}
 		if(result1 > 0 && result2 == fileList.size()) {
-			System.out.println(question.getQuestionNo());
 			result3 = new QuestionDao().insertQuestionHistory(question, con);
-			
+
 			commit(con);
 			result = 1;
 		} else {
 			rollback(con);
 		}
-		
+
 		close(con);
-		
+
 		return result;
 	}
 
@@ -71,7 +70,7 @@ public class QuestionService {
 		HashMap<String, Object> hmap = null;
 		
 		hmap = new QuestionDao().selectOne(con, num);
-		
+		System.out.println(hmap);
 		if(hmap != null) {
 			commit(con);
 		} else {
@@ -89,14 +88,15 @@ public class QuestionService {
 		
 		Connection con = getConnection();
 		
-		int result = new QuestionDao().inserAnswerQuestion(con, question);
+		int result = new QuestionDao().updateQuestionHistory(con, question);
+		int result2 = new QuestionDao().insertAnswerQuestion(con, question);
 		
-		if(result > 0) {
+		if(result > 0 && result2 > 0) {
 			commit(con);
 		} else {
 			rollback(con);
 		}
-		
+
 		close(con);
 		
 		return result;

@@ -58,7 +58,7 @@ public class QuestionDao {
 			pstmt.setString(8,  question.getEmailAdmit());
 			pstmt.setString(9,  question.getQuestionPhone());
 			pstmt.setString(10,  question.getPhoneAdmit());
-			
+			System.out.println(question.getMemberNo());
 			result = pstmt.executeUpdate();
 
 			
@@ -140,7 +140,6 @@ public class QuestionDao {
 			pstmt.setString(1, question.getQuestionNo());
 			pstmt.setString(2, question.getMemberNo());
 
-			System.out.println(question.getQuestionNo());
 			result = pstmt.executeUpdate();
 
 		} catch (SQLException e) {
@@ -228,36 +227,37 @@ public class QuestionDao {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		
-		HashMap<String, Object> hmap = null;
+		HashMap<String, Object> hmap = new HashMap<String, Object>();
 		QuestionVO question = null;
 		QuestionFileVO attachment = null;
 		ArrayList<QuestionFileVO> list = null;
 		String qNo = "Q"+num;
-	
+		System.out.println("num : " +num);
 		
 		String query = prop.getProperty("selectOne");
 		
 		try {
 			pstmt = con.prepareStatement(query);
 			pstmt.setString(1, qNo);
-			
+			System.out.println(qNo);
 			rset = pstmt.executeQuery();
-
+			System.out.println(query);
 			list = new ArrayList<QuestionFileVO>();
-				
-			while(rset.next()) {
-				
+	
+			if(rset.next()) {
 				question = new QuestionVO();
 				question.setQuestionNo(rset.getString("QUESTION_NO"));
-				question.setQuestionType(rset.getString("QUESTION_TYPE"));
+				question.setQuestionType(rset.getString("QUESTION_TYPE_CODE"));
 				question.setQuestionTitle(rset.getString("QUESTION_TITLE"));
 				question.setQuestionContent(rset.getString("QUESTION_CONTENT"));
 				question.setMemberId(rset.getString("MEMBER_ID"));
 				question.setQuestionDate(rset.getDate("QUESTION_DATE"));
+				System.out.println(rset.getString("QUESTION_DISPOSAL_CODE"));
 				question.setQuestionDisposalStatus(rset.getString("QUESTION_DISPOSAL_CODE"));
 				question.setQuestionEmail(rset.getString("QUESTION_EMAIL"));
 				question.setQuestionPhone(rset.getString("QUESTION_PHONE"));
-						
+				question.setMemberNo(rset.getString("MNO"));
+				
 				attachment = new QuestionFileVO();
 				attachment.setChangeName(rset.getString("CHANGE_NAME"));
 				attachment.setFileNo(rset.getString("FILE_NO"));
@@ -270,7 +270,7 @@ public class QuestionDao {
 			hmap = new HashMap<>();
 			
 			hmap.put("question", question);
-			hmap.put("attachment", list);
+			hmap.put("list", list);
 					
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -281,17 +281,40 @@ public class QuestionDao {
 		return hmap;
 	}
 
-	public int inserAnswerQuestion(Connection con, QuestionVO question) {
+	public int updateQuestionHistory(Connection con, QuestionVO question) {
 		
 		PreparedStatement pstmt = null;
 		int result = 0;
 
-		String query = prop.getProperty("insertQuestionAnswer");
+		String query = prop.getProperty("updateQuestionHistory");
 		
 		try {
 			pstmt = con.prepareStatement(query);
 			pstmt.setString(1,  question.getQuestionNo());
 			pstmt.setString(2, question.getMemberNo());
+	System.out.println(question.getMemberNo());
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {			
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}		
+		return result;
+	}
+
+	public int insertAnswerQuestion(Connection con, QuestionVO question) {
+	
+		PreparedStatement pstmt = null;
+		int result = 0;
+
+		String query = prop.getProperty("insertQuestionAnswer");
+
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, question.getQuestionNo());
+			pstmt.setString(2, question.getQuestionTitle());
+			pstmt.setString(3,  question.getQuestionContent());
 	
 			result = pstmt.executeUpdate();
 			
@@ -305,3 +328,9 @@ public class QuestionDao {
 
 
 }
+
+
+
+
+
+

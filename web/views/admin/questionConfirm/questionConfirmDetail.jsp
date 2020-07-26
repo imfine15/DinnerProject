@@ -9,6 +9,7 @@
 <head>
 <meta charset="UTF-8">
 <title>YUMEET 관리자페이지</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <link rel="shortcut icon" href="/semiproject/images/favicon.ico" type="image/x-icon">
 <link rel="icon" href="/semiproject/images/favicon.ico" type="image/x-icon">
 <link
@@ -137,7 +138,7 @@ textarea {
 										%>
 										처리대기
 										<%
-											} else {
+											} else if (q.getQuestionDisposalStatus().equals("QDSC3")){
 										%>
 										처리완료
 										<%
@@ -175,20 +176,30 @@ textarea {
 							<tr>
 								<td style="width:10%; font-weight:bolder;">제목</td>
 								<td colspan="4">
+								<% if(q.getQuestionDisposalStatus().equals("QDSC1")) { %>
 									<input type="text" name="answerT" style="width:100%; height:30px;">
+								<% } else if(q.getQuestionDisposalStatus().equals("QDSC3")) { %>
+									<input type="text" name="answerT" style="width:100%; height:30px;" readonly>
 								</td>
+								<% } %>
 							</tr>
 							<tr>
 								<td style="width:10%; font-weight:bolder;">내용</td>
 								<td colspan="4">
+								<% if(q.getQuestionDisposalStatus().equals("QDSC1")) { %>
 									<textarea name="answerC"style="width:100%; height:300px; margin-top:10px; resize:none;">
 									</textarea>
+								<% } else if(q.getQuestionDisposalStatus().equals("QDSC3")) { %>
+									<textarea name="answerC"style="width:100%; height:300px; margin-top:10px; resize:none;" readonly>
+									</textarea>
+								<% } %>			
 								</td>
 							</tr>
 						</table>
-						<div style="height:30px;"><input type="hidden" name="qNo" value="<%= q.getQuestionNo() %>">
-						<input type="hidden" name="mNo" value="<%= q.getMemberNo() %>">
-						<input type="hidden" name="mId" value="<%= q.getMemberId() %>">
+						<div style="height:30px;">
+						<input type="hidden" name="qNo" value="<%=q.getQuestionNo()%>">
+						<input type="hidden" name="mNo" value="<%=q.getMemberNo()%>">
+						<input type="hidden" name="mId" value="<%=q.getMemberId()%>">
 						</div>
 						<div id="btnArea" align="center">
 							<button id="ans-btn">답변등록</button>
@@ -199,5 +210,13 @@ textarea {
 			</div>
 		</div>
 	</div>
+	<script>
+		$(document).ready(function() {
+			console.log("<%=q.getQuestionDisposalStatus() %>");
+		});
+	</script>
 </body>
 </html>
+
+
+

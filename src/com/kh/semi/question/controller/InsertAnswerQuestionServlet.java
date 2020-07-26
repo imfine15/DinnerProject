@@ -6,6 +6,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.kh.semi.notice.model.service.NoticeService;
 import com.kh.semi.notice.model.vo.NoticeVO;
@@ -42,11 +43,17 @@ public class InsertAnswerQuestionServlet extends HttpServlet {
 		
 		question.setQuestionTitle(title);
 		question.setQuestionContent(content);
-				
+		question.setQuestionNo(qNo);
+		question.setMemberId(mId);
+		question.setMemberNo(mNo);
+
 		int result = new QuestionService().inserAnswerQuestion(question);
 		
+		HttpSession session = request.getSession();
+		
 		if(result > 0) {
-			response.sendRedirect("/semiproject/selectclist.no");
+			response.sendRedirect("/semiproject/selectQuestionList.qu");
+        	 session.setAttribute("question", question);
 		} else {
 			request.setAttribute("msg", "문의 답변 등록 실패!");
 			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
@@ -54,7 +61,7 @@ public class InsertAnswerQuestionServlet extends HttpServlet {
 	}
 
 	/**
-	 * 
+	 * /selectQuestionList.qu
 
 		if(result > 0) {
 
@@ -63,10 +70,6 @@ public class InsertAnswerQuestionServlet extends HttpServlet {
 
 			request.getSession().setAttribute("loginUser", requestMember);
 			response.sendRedirect("views/member/memberUpdateForm.jsp");
-		} else {
-			request.setAttribute("msg", "회원정보업데이트실패");
-			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
-		}
 
 	 * 
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
