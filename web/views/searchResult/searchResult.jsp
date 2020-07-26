@@ -308,7 +308,7 @@
 					ajaxSort();
 				});
 				
-				$("#btnArea1 button").click(function() {
+				$("#btnArea1 button[class=check]").click(function() {
 					sort = $(this).html();
 					currentPage = 1;
 					
@@ -330,25 +330,28 @@
 						success: function(data) {
 								if(currentPage > data[1].maxPage) {
 									currentPage = 1;
-								}
-								
-								for(var i = 0; i < data[0].length; i++) {
-									$("#courseTableDiv").html(
-											'<table style="border-bottom: 1px solid black;"><tr><td rowspan="3" width="100px">' + data[0][i].boardNo + '</td><td rowspan="3">'
-											+ '<img src="' + data[0][i].filePaths[0] + '" width="200px" height="150px"></td>'
-											+ '<td align="left" valign="bottom"><label class="textreview">' + data[0][i].boardTitle + '</label></td>'
-											+ '<td rowspan="3" valign="top" width="40px"><img class="heart" src="/semiproject/images/heartblack.png"></td><td align="right" valign="bottom">' + data[0][i].uploadDate + '</td>'
-											+ '<td rowspan="2" width="180px" align="center"><div class="profileBox" align="center"><img id="cprofilePic' + i + '" class="profile" src="">'
-											+ '</div></td></tr><tr><td width="400px" align="left" valign="top" rowspan="2"><label>' + data[0][i].hashTags + '</label></td>'
-											+ '<td align="right" valign="top" width="100px">조회수 : ' + data[0][i].viewCount + '</td></tr>'
-											+ '<tr><td align="right"><button class="report">신고</button></td><td id="cprofileNickName' + i + '" align="center">'
-											+ '</td></tr></table>'
-											+ '<input id="mNo' + i + '" type="hidden" value="' + data[0][i].memberNo + '">'
-									);
+									$("#pagingNo").val(currentPage);
+								} else {
+									$("#courseTableDiv").html("");
 									
-									$("#maxPage").html("  마지막 페이지 : " + data[1].maxPage);
-									
-									getUserInfo();
+									for(var i = 0; i < data[0].length; i++) {
+										$("#courseTableDiv").append(
+												'<table style="border-bottom: 1px solid black;"><tr><td rowspan="3" width="100px">' + data[0][i].boardNo + '</td><td rowspan="3">'
+												+ '<img src="' + data[0][i].filePaths[0] + '" width="200px" height="150px"></td>'
+												+ '<td align="left" valign="bottom"><label class="textreview">' + data[0][i].boardTitle + '</label></td>'
+												+ '<td rowspan="3" valign="top" width="40px"><img class="heart" src="/semiproject/images/heartblack.png"></td><td align="right" valign="bottom">' + data[0][i].uploadDate + '</td>'
+												+ '<td rowspan="2" width="180px" align="center"><div class="profileBox" align="center"><img id="cprofilePic' + i + '" class="profile" src="">'
+												+ '</div></td></tr><tr><td width="400px" align="left" valign="top" rowspan="2"><label>' + data[0][i].hashTags + '</label></td>'
+												+ '<td align="right" valign="top" width="100px">조회수 : ' + data[0][i].viewCount + '</td></tr>'
+												+ '<tr><td align="right"><button class="report">신고</button></td><td id="cprofileNickName' + i + '" align="center">'
+												+ '</td></tr></table>'
+												+ '<input id="mNo' + i + '" type="hidden" value="' + data[0][i].memberNo + '">'
+										);
+										
+										$("#maxPage").html("  마지막 페이지 : " + data[1].maxPage);
+										
+										getUserInfo();
+									}
 								}
 						}
 					});
@@ -426,7 +429,7 @@
 					ajaxSortEnp();
 				});
 				
-				$("#btnArea2 button").click(function() {
+				$("#btnArea2 button[class=check]").click(function() {
 					sortEnp = $(this).html();
 					currentPageEnp = 1;
 					
@@ -447,27 +450,30 @@
 						data: {sort: sortEnp, currentPage: currentPageEnp},
 						success: function(data) {
 								if(currentPageEnp > data[1].maxPage) {
-									currentPage = 1;
+									currentPageEnp = 1;
+									$("#pagingNoEnp").val(currentPageEnp);
+								} else {
+									$("#enpTableDiv").html("");
+									
+									for(var i = 0; i < data[0].length; i++) {
+										
+										$("#enpTableDiv").append(
+												'<table style="border-bottom: 1px solid black;"><tr><td rowspan="3" width="100px">' + data[0][i].boardNo + '</td><td rowspan="3">'
+												+ '<img src="' + data[0][i].filePaths[0] + '" width="200px" height="150px"></td>'
+												+ '<td align="left" valign="bottom"><label class="textreview">' + data[0][i].boardTitle + '</label></td>'
+												+ '<td rowspan="3" valign="top" width="40px"><img class="heart" src="/semiproject/images/heartblack.png"></td><td align="right" valign="bottom">' + data[0][i].uploadDate + '</td>'
+												+ '<td rowspan="2" width="180px" align="center"><div class="profileBox" align="center"><img id="eprofilePic' + i + '" class="profile" src="">'
+												+ '</div></td></tr><tr><td width="400px" align="left" valign="top" rowspan="2"><label>' + data[0][i].hashTags + '</label></td>'
+												+ '<td align="right" valign="top" width="100px">조회수 : ' + data[0][i].viewCount + '</td></tr>'
+												+ '<tr><td align="right"><button class="report">신고</button></td><td id="eprofileNickName' + i + '" align="center">'
+												+ '</td></tr></table>'
+												+ '<input id="mNoEnp' + i + '" type="hidden" value="' + data[0][i].memberNo + '">'
+										);
+										$("#maxPageEnp").html("  마지막 페이지 : " + data[1].maxPage);
+										
+										getUserInfoEnp();
+									}
 								}
-								
-								for(var i = 0; i < data[0].length; i++) {
-									$("#enpTableDiv").html(
-											'<table style="border-bottom: 1px solid black;"><tr><td rowspan="3" width="100px">' + data[0][i].boardNo + '</td><td rowspan="3">'
-											+ '<img src="' + data[0][i].filePaths[0] + '" width="200px" height="150px"></td>'
-											+ '<td align="left" valign="bottom"><label class="textreview">' + data[0][i].boardTitle + '</label></td>'
-											+ '<td rowspan="3" valign="top" width="40px"><img class="heart" src="/semiproject/images/heartblack.png"></td><td align="right" valign="bottom">' + data[0][i].uploadDate + '</td>'
-											+ '<td rowspan="2" width="180px" align="center"><div class="profileBox" align="center"><img id="eprofilePic' + i + '" class="profile" src="">'
-											+ '</div></td></tr><tr><td width="400px" align="left" valign="top" rowspan="2"><label>' + data[0][i].hashTags + '</label></td>'
-											+ '<td align="right" valign="top" width="100px">조회수 : ' + data[0][i].viewCount + '</td></tr>'
-											+ '<tr><td align="right"><button class="report">신고</button></td><td id="eprofileNickName' + i + '" align="center">'
-											+ '</td></tr></table>'
-											+ '<input id="mNoEnp' + i + '" type="hidden" value="' + data[0][i].memberNo + '">'
-									);
-									
-									$("#maxPageEnp").html("  마지막 페이지 : " + data[1].maxPage);
-									
-									getUserInfoEnp();
-							}
 						}
 					});
 				}

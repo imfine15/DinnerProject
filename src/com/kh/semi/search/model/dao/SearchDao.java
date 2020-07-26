@@ -331,8 +331,6 @@ public class SearchDao {
 				b.setHashTags(rset.getString("HASH_TAGS"));
 				b.setLikeCount(rset.getInt("LIKE_COUNT"));
 				
-				b.setCourseNo(rset.getString("COURSE_NO"));
-				
 				b.setUploadNo(rset.getString("UPLOAD_NO"));
 				b.setStatusName(rset.getString("STATUS_NAME"));
 				b.setUploadDate(rset.getDate("UPLOAD_DATE"));
@@ -499,6 +497,33 @@ public class SearchDao {
 		}
 		
 		return likeCount;
+	}
+
+	public String findId(Connection con, String requestName, String requestEmail) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String query = prop.getProperty("findId");
+		String responseId = "";
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			
+			pstmt.setString(1, requestName);
+			pstmt.setString(2, requestEmail);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				responseId = rset.getString("MEMBER_ID");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return responseId;
 	}
 
 }

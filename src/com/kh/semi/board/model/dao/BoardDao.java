@@ -36,7 +36,7 @@ public class BoardDao {
 	}
 
 	public List<BoardVO> getAllBoard(Connection con) {
-		PreparedStatement pstmt = null;
+		Statement stmt = null;
 		ResultSet rset = null;
 		String query = prop.getProperty("getAllBoard");
 		List<BoardVO> viewSortBoardList = null;
@@ -44,11 +44,9 @@ public class BoardDao {
 		try {
 			viewSortBoardList = new ArrayList<>();
 			
-			pstmt = con.prepareStatement(query);
+			stmt = con.createStatement();
 			
-			pstmt.setString(1, "코스");
-			
-			rset = pstmt.executeQuery();
+			rset = stmt.executeQuery(query);
 			
 			while(rset.next()) {
 				BoardVO b = new BoardVO();
@@ -63,7 +61,6 @@ public class BoardDao {
 				b.setEnpNo(rset.getString("ENP_NO"));
 				b.setViewCount(rset.getInt("VIEW_COUNT"));
 				b.setHashTags(rset.getString("HASH_TAGS"));
-				b.setCourseNo(rset.getString("COURSE_NO"));
 				b.setUploadNo(rset.getString("UPLOAD_NO"));
 				b.setStatusName(rset.getString("STATUS_NAME"));
 				b.setUploadDate(rset.getDate("UPLOAD_DATE"));
@@ -75,57 +72,12 @@ public class BoardDao {
 			e.printStackTrace();
 		} finally {
 			close(rset);
-			close(pstmt);
+			close(stmt);
 		}
 		
 		return viewSortBoardList;
 	}
 
-//	public List<BoardVO> viewSortEnpBoard(Connection con) {
-//		PreparedStatement pstmt = null;
-//		ResultSet rset = null;
-//		String query = prop.getProperty("viewSortEnpBoard");
-//		List<BoardVO> viewSortEnpBoardList = null;
-//		
-//		try {
-//			viewSortEnpBoardList = new ArrayList<>();
-//			
-//			pstmt = con.prepareStatement(query);
-//			
-//			pstmt.setString(1, "맛집");
-//			
-//			rset = pstmt.executeQuery();
-//			
-//			while(rset.next()) {
-//				BoardVO b = new BoardVO();
-//				
-//				b.setBoardNo(rset.getString("BOARD_NO"));
-//				b.setBoardTitle(rset.getString("BOARD_TITLE"));
-//				b.setMemberNo(rset.getString("MEMBER_NO"));
-//				b.setManagerNo(rset.getString("MANAGER_NO"));
-//				b.setBoardKeyword(rset.getString("BOARD_KEYWORD"));
-//				b.setBoardContent(rset.getString("BOARD_CONTENT"));
-//				b.setBoardCategory(rset.getString("BOARD_CATEGORY"));
-//				b.setEnpNo(rset.getString("ENP_NO"));
-//				b.setViewCount(rset.getInt("VIEW_COUNT"));
-//				b.setHashTags(rset.getString("HASH_TAGS"));
-//				b.setUploadNo(rset.getString("UPLOAD_NO"));
-//				b.setStatusName(rset.getString("STATUS_NAME"));
-//				b.setUploadDate(rset.getDate("UPLOAD_DATE"));
-//				b.setLikeCount(rset.getInt("LIKE_COUNT"));
-//				
-//				viewSortEnpBoardList.add(b);
-//			}
-//		} catch (SQLException e) {
-//			e.printStackTrace();
-//		} finally {
-//			close(rset);
-//			close(pstmt);
-//		}
-//		
-//		return viewSortEnpBoardList;
-//	}
-	
 	public int getFileCount(Connection con, String boardNo) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
@@ -752,8 +704,9 @@ public class BoardDao {
 			int startRow = (pi.getCurrentPage() - 1) * pi.getLimit() + 1;
 			int endRow = startRow + pi.getLimit() - 1;
 			
-			pstmt.setInt(1, startRow);
-			pstmt.setInt(2, endRow);
+			pstmt.setString(1, "코스");
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
 			
 			rset = pstmt.executeQuery();
 			
@@ -772,8 +725,6 @@ public class BoardDao {
 				b.setHashTags(rset.getString("HASH_TAGS"));
 				b.setLikeCount(rset.getInt("LIKE_COUNT"));
 				
-				b.setCourseNo(rset.getString("COURSE_NO"));
-				
 				b.setUploadNo(rset.getString("UPLOAD_NO"));
 				b.setStatusName(rset.getString("STATUS_NAME"));
 				b.setUploadDate(rset.getDate("UPLOAD_DATE"));
@@ -791,15 +742,17 @@ public class BoardDao {
 	}
 
 	public int getCourseCount(Connection con) {
-		Statement stmt = null;
+		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		String query = prop.getProperty("getCourseCount");
 		int count = 0;
 		
 		try {
-			stmt = con.createStatement();
+			pstmt = con.prepareStatement(query);
 			
-			rset = stmt.executeQuery(query);
+			pstmt.setString(1, "코스");
+			
+			rset = pstmt.executeQuery();
 			
 			if(rset.next()) {
 				count = rset.getInt(1);
@@ -808,7 +761,7 @@ public class BoardDao {
 			e.printStackTrace();
 		} finally {
 			close(rset);
-			close(stmt);
+			close(pstmt);
 		}
 		
 		return count;
@@ -831,7 +784,9 @@ public class BoardDao {
 				
 				int j = 0;
 				while(rset.next()) {
-					filePaths[j] = rset.getString("FILE_PATH");
+					String temp = "/semiproject/thumbnail_uploadFile/";
+					temp += rset.getString("CHANGE_NAME");
+					filePaths[j] = temp;
 					j++;
 				}
 				

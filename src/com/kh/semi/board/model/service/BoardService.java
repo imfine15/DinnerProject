@@ -264,7 +264,7 @@ public class BoardService {
 			Connection con = getConnection();
 			ArrayList<BoardVO> courseList = new BoardDao().selectCourse(con, sort, pi);
 			ArrayList<BoardVO> courseListWithFile = new BoardDao().getFilePaths(con, courseList);
-			
+
 			close(con);
 			
 			return courseListWithFile;

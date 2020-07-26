@@ -17,7 +17,7 @@
 
 	#logo {
 		display:block;
-		margin:0 auto 0 576px;
+		margin:0 auto 0 546px;
 		width:287px;
 		height:120px;
 	}
@@ -61,24 +61,24 @@
 			<td><input type="email" id="requestEmail" name="requestEmail" placeholder="이메일을 입력해주세요"></td>
 		</tr>
 	</table>
-	<input type="submit" value="아이디 찾기" id="submitBtn" onclick="check();">
+	<input type="button" value="아이디 찾기" id="submitBtn" onclick="check();">
 	<p id="result"></p>
 </div>
 <script>
 	function check() {
 		$.ajax({
-			url: "/semiproject/findId.me",
+			url: "/semiproject/findId.se",
 			type: "post",
-			data: {requestName: requestName, requestEmail: requestEmail},
+			data: {requestName: $("#requestName").val(), requestEmail: $("#requestEmail").val()},
 			success: function(data) {
 				if($("#requestName").val() === "") {
 					$("#result").html("이름은 비어있을 수 없습니다.");
 				} else if($("#requestEmail").val() === "") {
-					$("#result").html("이름은 비어있을 수 없습니다.");
+					$("#result").html("이메일은 비어있을 수 없습니다.");
 				} else if(data === null) {
 					$("#result").html("정보에 맞는 아이디가 없습니다.<br>다시 한 번 확인해주세요.");
 				} else if(data !== null) {
-					$("#result").html("아이디는" + data + "입니다.");
+					$("#result").html("아이디는 " + data + " 입니다.");
 				}
 			}
 		});
