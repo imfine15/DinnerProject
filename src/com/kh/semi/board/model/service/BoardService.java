@@ -234,7 +234,7 @@ public class BoardService {
 			} else {
 				rollback(con);
 			}
-			
+			close(con);
 			return result;
 		}
 
@@ -249,14 +249,14 @@ public class BoardService {
 			} else {
 				rollback(con);
 			}
-			
+			close(con);
 			return result;
 		}
 
 		public History selectHistory(String boardNo) {
 			Connection con = getConnection();
 			History history = new BoardDao().selectHistory(con, boardNo);
-			
+			close(con);
 			return history;
 		}
 

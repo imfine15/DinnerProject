@@ -7,6 +7,7 @@ import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.kh.semi.admin.model.vo.PageInfo;
 import com.kh.semi.review.model.dao.ReviewDao;
 import com.kh.semi.review.model.vo.ReviewAttachment;
 import com.kh.semi.review.model.vo.ReviewVO;
@@ -55,11 +56,18 @@ public class ReviewService {
 		int result = 0;
 		int result1 = 0;
 		int result2 = 0;
+		int result3 = 0;
+		int result4 = 0;
 		
 		
 		result1 = new ReviewDao().insertReview(con, review);
 		System.out.println("result : " + result1);
-		
+		result3 = new ReviewDao().insertPoint(con, review);
+		String pointNo = new ReviewDao().selectPointCurrval(con);
+		if(result3 > 0) {
+			result4 = new ReviewDao().insertPointHistory(con, pointNo, review);
+			
+		}
 		if(result1 > 0) {
 			
 			String reviewNo = new ReviewDao().selectCurrval(con);
@@ -75,14 +83,14 @@ public class ReviewService {
 		
 		System.out.println("result2 : " + result2);
 		
-		if(result1 > 0 && result2 == fileList.size()) {
+		if(result1 > 0 && result2 == fileList.size() && result3 > 0 &result4 > 0) {
 			commit(con);
 			result = 1;
 		} else {
 			rollback(con);
 		}
 		
-		
+		close(con);
 		return result;
 	}
 
@@ -98,6 +106,37 @@ public class ReviewService {
 	public int getListCount() {
 		Connection con = getConnection();
 		int result = new ReviewDao().getListCount(con);
+		
+		close(con);
+		
+		return result;
+	}
+
+	public ArrayList<ReviewVO> selectList(PageInfo pi) {
+		Connection con  = getConnection();
+		ArrayList<ReviewVO> list = new ReviewDao().selectList(con, pi);
+		
+		close(con);
+		
+		return list;
+	}
+
+	public int deleteReview(String reviewNo) {
+		Connection con = getConnection();
+		int result = 0;
+		int result2 = new ReviewDao().deleteAttachment(con, reviewNo);
+		System.out.println("result2 : " + result2);
+		
+			int result1 = new ReviewDao().deleteReview(con, reviewNo);
+		
+			System.out.println("result : " + result1);
+		
+		if(result1 > 0 && result2 > 0) {
+			commit(con);
+			result = 1;
+		} else {
+			rollback(con);
+		}
 		
 		return result;
 	}
