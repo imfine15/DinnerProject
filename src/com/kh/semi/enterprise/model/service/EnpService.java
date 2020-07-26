@@ -12,6 +12,7 @@ import com.kh.semi.enterprise.model.vo.EnpVO;
 import com.kh.semi.enterprise.model.vo.ForCmVO;
 import com.kh.semi.enterprise.model.vo.ForCrInfoVO;
 import com.kh.semi.enterprise.model.vo.ForEntCrVO;
+import com.kh.semi.enterprise.model.vo.ForPhVO;
 import com.kh.semi.enterprise.model.vo.ForSdVO;
 import com.kh.semi.enterprise.model.vo.PageInfo;
 import com.kh.semi.payment.model.vo.ReservationVO;
@@ -309,5 +310,44 @@ public class EnpService {
 		Connection con = getConnection();
 		int result = new EnpDao().getRDListCount(con,enp, requestDay);
 		return result;
+	}
+
+	public ArrayList<ForPhVO> selectPHList(PageInfo pi, String enp) {
+		Connection con = getConnection();
+		ArrayList<ForPhVO> resList = new EnpDao().selectPHList(con,pi,enp);
+		
+		close(con);
+		
+		return resList;
+	}
+
+	public int getPHListCount(String enp) {
+		Connection con = getConnection();
+		
+		int result = new EnpDao().getPHListCount(con,enp);
+		
+		close(con);
+		
+		return result;
+	}
+
+	public ArrayList<ForPhVO> selectSum(ArrayList<ForPhVO> resList, String enp) {
+		Connection con = getConnection();
+		
+		ArrayList<ForPhVO> list = new EnpDao().selectSum(con,resList,enp);
+		
+		close(con);
+		
+		return list;
+	}
+
+	public ArrayList<ForPhVO> getCalcList(String enp) {
+		Connection con = getConnection();
+		ArrayList<ForPhVO> calcList = new EnpDao().getCalcList(con,enp);
+		
+		close(con);
+		
+		
+		return calcList;
 	}
 }
