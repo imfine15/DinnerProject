@@ -84,6 +84,26 @@ public class QuestionService {
 		return hmap;
 	}
 
+	public int inserAnswerQuestion(QuestionVO question) {
+		
+		
+		Connection con = getConnection();
+		
+		int result = new QuestionDao().inserAnswerQuestion(con, question);
+		
+		if(result > 0) {
+			commit(con);
+		} else {
+			rollback(con);
+		}
+		
+		close(con);
+		
+		return result;
+		
+		
+	}
+
 	
 	
 	

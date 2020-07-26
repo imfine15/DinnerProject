@@ -23,34 +23,37 @@
 }
 
 #wrapper {
-	width: 85%;
-	height: 100%;
+	width: 80%;
+	height: auto;
 	margin-left: 230px;
-	padding-top: 40px;
+	padding-top: 30px;
 	padding-left: 30px;
 }
 
 #title-box {
-	background: #F9F9F9;
-	width: 100%;
-	height: 50px;
-	margin-bottom: 10px;
-	padding-left: 10px;
 	font-family: Noto Sans KR;
 	font-size: 30px;
 	font-weight: bolder;
+	background: #F9F9F9;
+	width: 100%;
+	margin-bottom: 10px;
+	height: 50px;
+	padding-left: 10px;
+	padding-right: 10px;
 }
 
 #inner-box {
-	width: 90%;
-	height: 90%;
+	width: 100%;
+	height: 700px;
 }
 
 #inner-wrap {
-	padding-left: 50px;
-	padding-right: 50px;
+	padding-left: 10px;
+	padding-right: 10px;
 	background: white;
-	width: 95%;
+	width: 100%;
+	padding-top: 30px;
+	height: 80%;
 }
 
 #confirm-before-btn {
@@ -64,7 +67,7 @@
 }
 
 #body-table {
-	width: 100%;
+	width: 90%;
 }
 
 #content-div {
@@ -72,7 +75,9 @@
 }
 
 #answer-box {
-	
+	width:85%;
+	float:right;
+	margin-right:60px;
 }
 
 #answer-tb {
@@ -91,17 +96,19 @@
 	background: #E07370;
 	font-size: 18px;
 	color: #FFFBFB;
-	border:none;
+	border: none;
 }
-input{
-border-radius: 0;
-border: 1px solid gray;
-outline-style: none;
+
+input {
+	border-radius: 0;
+	border: 1px solid gray;
+	outline-style: none;
 }
-textarea{
-border-radius: 0;
-border: 1px solid gray;
-outline-style: none;
+
+textarea {
+	border-radius: 0;
+	border: 1px solid gray;
+	outline-style: none;
 }
 </style>
 </head>
@@ -110,27 +117,41 @@ outline-style: none;
 	<div id="wrapper">
 		<div id="title-box">
 			<p>문의 관리</p>
-			<br>
 		</div>
 		<div id="inner-wrap">
-			<div id="inner-box">
-				<div style="height: 50px;"></div>
-				<div id="body-form">
+			<div id="inner-box">				
+				<div id="body-form" align="center">
 					<form>
 						<table id="body-table">
 							<tr>
-								<td style="font-weight:bolder;"><%=q.getQuestionTitle() %></td>
-								<td style="font-weight:bolder;"><%=q.getMemberId() %></td>
-								<td><%=q.getQuestionDate() %></td>
-								<td><button id="confirm-before-btn"><%=q.getQuestionDisposalStatus() %></button></td>
+								<td style="width:50%;font-weight: bolder;"><p style="margin-left:20px;"><%=q.getQuestionTitle()%></p></td>
+								<td style="width:25%;font-weight: bolder;"><%=q.getMemberId()%></td>
+								<td style="width:15%;"><%=q.getQuestionDate()%></td>
+								<td style="width:10%;"><button id="confirm-before-btn" type="Button" >
+										<%
+											if (q.getQuestionDisposalStatus().equals("QDSC1")) {
+										%>
+										미확인
+										<%
+											} else if (q.getQuestionDisposalStatus().equals("QDSC2")) {
+										%>
+										처리대기
+										<%
+											} else {
+										%>
+										처리완료
+										<%
+											}
+										%>
+									</button></td>
 							</tr>
 							<tr>
-								<td colspan="4"><hr></td>
+								<td colspan="4" style="width:100%;"><hr></td>
 							</tr>
 							<tr>
 								<td colspan="4">
 								<div id="content-div">
-								<p>
+								<p style="margin-left:20px;">
 								<%=q.getQuestionContent() %>
 								</p>
 								</div>
@@ -139,9 +160,10 @@ outline-style: none;
 						</table>
 					</form>
 				</div>
-				<div id="answer-box">
-				<hr>
-					<form id="answer-f">
+				<div style="height:50px;"></div>
+				<div id="answer-box" style="display:inline-block;">
+				<img src="/semiproject/images/next.png" style="width:40px;display:inline-block;"> <hr style="display:inline-block;width:95%; color:gray;">
+					<form id="answer-f" action="<%= request.getContextPath() %>/answer.qu" method="post">
 						<table id="answer-tb">
 							<tr style="height:40px;">
 								<td style="width:10%;"></td>
@@ -160,18 +182,20 @@ outline-style: none;
 								<td style="width:10%; font-weight:bolder;">내용</td>
 								<td colspan="4">
 									<textarea name="answerC"style="width:100%; height:300px; margin-top:10px; resize:none;">
-									
 									</textarea>
 								</td>
 							</tr>
 						</table>
-						<div style="height:30px;"></div>
+						<div style="height:30px;"><input type="hidden" name="qNo" value="<%= q.getQuestionNo() %>">
+						<input type="hidden" name="mNo" value="<%= q.getMemberNo() %>">
+						<input type="hidden" name="mId" value="<%= q.getMemberId() %>">
+						</div>
 						<div id="btnArea" align="center">
-							<button id="ans-btn" type="submit">답변등록</button>
+							<button id="ans-btn">답변등록</button>
 						</div>
 					</form>
 				</div>
-						<div style="height:30px;"></div>
+				<div style="height:30px;"></div>
 			</div>
 		</div>
 	</div>

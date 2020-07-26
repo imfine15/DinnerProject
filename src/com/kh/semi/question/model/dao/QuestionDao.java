@@ -281,5 +281,27 @@ public class QuestionDao {
 		return hmap;
 	}
 
+	public int inserAnswerQuestion(Connection con, QuestionVO question) {
+		
+		PreparedStatement pstmt = null;
+		int result = 0;
+
+		String query = prop.getProperty("insertQuestionAnswer");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1,  question.getQuestionNo());
+			pstmt.setString(2, question.getMemberNo());
+	
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {			
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}		
+		return result;
+	}
+
 
 }
