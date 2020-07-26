@@ -82,7 +82,7 @@ tr {
 }
 
 #upload-btn {
-	width: 60px;
+	width: 90px;
 	height: 24px;
 	border: none;
 	background: #E07370;
@@ -134,9 +134,10 @@ tr {
 					<table id="review-tb" style="width: 100%;">
 						<tr>
 							<th id="check-box"></th>
-							<th>제목</th>
+							<th>가게명</th>
 							<th>회원 ID</th>
 							<th>등록 날짜</th>
+							<th>리뷰타입</th>
 							<th>포인트 지급</th>
 							<th>관리</th>
 						</tr>
@@ -145,57 +146,16 @@ tr {
 							<td>울부짖어라, ‘닭갈비'</td>
 							<td>imfine_123</td>
 							<td>20/06/19 17:33</td>
+							<td></td>
 							<td>
 								<button id="send-btn">지급</button>
 							</td>
 							<td>
-								<button id="upload-btn">업로드</button>
-								<button id="update-btn">수정</button>
+								<button id="upload-btn">자세히보기</button>
 								<button id="delete-btn">삭제</button>
 							</td>
 						</tr>
-						<tr>
-							<td id="check-box"><input type="checkbox"></td>
-							<td>울부짖어라, ‘닭갈비'</td>
-							<td>imfine_123</td>
-							<td>20/06/19 17:33</td>
-							<td>
-								<button id="send-btn">지급</button>
-							</td>
-							<td>
-								<button id="upload-btn">업로드</button>
-								<button id="update-btn">수정</button>
-								<button id="delete-btn">삭제</button>
-							</td>
-						</tr>
-						<tr>
-							<td id="check-box"><input type="checkbox"></td>
-							<td>울부짖어라, ‘닭갈비'</td>
-							<td>imfine_123</td>
-							<td>20/06/19 17:33</td>
-							<td>
-								<button id="send-btn">지급</button>
-							</td>
-							<td>
-								<button id="upload-btn">업로드</button>
-								<button id="update-btn">수정</button>
-								<button id="delete-btn">삭제</button>
-							</td>
-						</tr>
-						<tr>
-							<td id="check-box"><input type="checkbox"></td>
-							<td>울부짖어라, ‘닭갈비'</td>
-							<td>imfine_123</td>
-							<td>20/06/19 17:33</td>
-							<td>
-								<button id="sendcom-btn">지급완료</button>
-							</td>
-							<td>
-								<button id="upload-btn">업로드</button>
-								<button id="update-btn">수정</button>
-								<button id="delete-btn">삭제</button>
-							</td>
-						</tr>
+						
 					</table>
 				</form>
 				<div style="height: 30px;"></div>
@@ -204,7 +164,7 @@ tr {
 						<table>
 							<tr>
 								<td><select style="height:25px; font-size:14px;">
-										<option>제목</option>
+										<option>가게명</option>
 										<option>회원 ID</option>
 										<option>등록 날짜</option>
 								</select>&nbsp;&nbsp;&nbsp;</td>

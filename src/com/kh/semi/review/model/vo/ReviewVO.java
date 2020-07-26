@@ -1,7 +1,8 @@
 package com.kh.semi.review.model.vo;
 
-import java.sql.Date;
+
 import java.util.Arrays;
+import java.sql.Date;
 
 public class ReviewVO implements java.io.Serializable {
 	private String reviewNo; // 리뷰번호

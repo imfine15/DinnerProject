@@ -2,7 +2,10 @@ package com.kh.semi.review.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Enumeration;
 
 import javax.servlet.ServletException;
@@ -64,13 +67,22 @@ if(ServletFileUpload.isMultipartContent(request)) {
 	            
 			}
 			
-			
+			String vDate = multiRequest.getParameter("visitDate");
 			String reviewContent = multiRequest.getParameter("reviewContent");
 			String memberNo = multiRequest.getParameter("memberNo");
 			String enpNo = multiRequest.getParameter("enpNo");
 			double averageRating = Double.parseDouble(multiRequest.getParameter("averageRating"));
 			String reservationHistoryNo = multiRequest.getParameter("reservationHistoryNo");
 			String reviewType = multiRequest.getParameter("reviewType");
+			java.sql.Date visitDate = java.sql.Date.valueOf(vDate);
+			//			SimpleDateFormat format = new SimpleDateFormat("yy/MM/dd");
+//			Date visitDate = null;
+//			try {
+//				visitDate = format.parse(vDate);
+//			} catch (ParseException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
 			
 			ReviewVO review = new ReviewVO();
 			review.setReviewContent(reviewContent);
@@ -79,15 +91,16 @@ if(ServletFileUpload.isMultipartContent(request)) {
 			review.setAverageRating(averageRating);
 			review.setReservationHistoryNo(reservationHistoryNo);
 			review.setReviewType(reviewType);
+			review.setVisitDate(visitDate);
 			
 			
-			
+			System.out.println("reviewType : " + reviewType);
 			System.out.println("reviewContent : " + reviewContent);
 			System.out.println("memberNo : " + memberNo);
 			System.out.println("enpNo : " + enpNo);
 			System.out.println("averageRating : " + averageRating);
 			System.out.println("reservationHistoryNo : " + reservationHistoryNo);
-			
+			System.out.println("visitDate : " + visitDate);
 			
 			ArrayList<ReviewAttachment> fileList = new ArrayList<>();
 	         for(int i = originFiles.size() -1; i>= 0; i--) {
