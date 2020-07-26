@@ -81,6 +81,16 @@ ul li a span:hover{
 			error: function(){
 			}
 		});
+		$.ajax({
+			type: "post",
+			url: "/semiproject/selectReviews.me",
+			data: {
+				mNo: "<%=loginUser.getmNo()%>"
+			},
+			success: function(){
+				console.log(123);
+			}
+		})
 	</script>
 	<div id="daumWrap" class="userinfo_type1 ">
 		<div id="daumHead" role="banner">
@@ -143,7 +153,7 @@ ul li a span:hover{
 								%>
 							<td><div class="text2" style="width:50px; "><%=status %></div></td>
 							<td><div class="text2" style="width:80px; margin-left:30px;"><%=blist.get(i).getViewCount() %>회</div></td>
-							<td><div class="text2" style="width:80px;"><%=blist.get(i).getViewCount() %>건</div></td>
+							<td><div class="text2" style="width:80px;"><%=blist.get(i).getLikeCount()%>건</div></td>
 						</tr>
 					<%count --;
 					} %>

@@ -8,27 +8,21 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import javax.servlet.http.HttpSessionActivationListener;
 
 import com.kh.semi.admin.model.vo.PageInfo;
-import com.kh.semi.board.model.vo.BoardUpVo;
 import com.kh.semi.board.model.vo.BoardVO;
 import com.kh.semi.member.model.service.MemberService;
-import com.kh.semi.member.model.vo.MemberVO;
 
-@WebServlet("/selectPostList.me")
-public class SelectPostListServlet extends HttpServlet {
+@WebServlet("/selectReviews.me")
+public class SelectReviewsCountServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     
-    public SelectPostListServlet() {
+    public SelectReviewsCountServlet() {
         super();
     }
     
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		HttpSession session = request.getSession();
-		MemberVO m = (MemberVO)session.getAttribute("loginUser");
-		String mNo = m.getmNo();
+		String mNo = request.getParameter("mNo");
 		
 		int currentPage = 1;	// 현재페이지
 		int limit;			// 한 페이지당 보여지는 갯수
@@ -55,15 +49,9 @@ public class SelectPostListServlet extends HttpServlet {
 	    PageInfo pi = new PageInfo(currentPage, listCount, limit, maxPage, startPage, endPage);
 		
 		ArrayList<BoardVO> blist = new MemberService().selectPostList(mNo, pi);
-		ArrayList<BoardVO> rblist = new MemberService().selectPostReviewsCount(blist);
 		
-		if(rblist != null) {
-			request.setAttribute("blist", rblist);
-	    	request.setAttribute("pi", pi);
-	    	request.getRequestDispatcher("views/myPage/writePostsByMe.jsp").forward(request, response);
-		}
 	}
-	
+
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doGet(request, response);
 	}

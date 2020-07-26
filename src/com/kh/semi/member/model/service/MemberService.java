@@ -152,4 +152,11 @@ public class MemberService {
 		return result;
 	}
 
+	public ArrayList<BoardVO> selectPostReviewsCount(ArrayList<BoardVO> blist) {
+		Connection con = getConnection();
+		ArrayList<BoardVO> result = new MemberDao().selectPostReviewsCount(con, blist);
+		
+		return result;
+	}
+
 }

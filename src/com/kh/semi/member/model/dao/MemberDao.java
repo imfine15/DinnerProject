@@ -441,6 +441,37 @@ public class MemberDao {
 		}
 		
 		return result;
-	} 
+	}
+
+	public ArrayList<BoardVO> selectPostReviewsCount(Connection con, ArrayList<BoardVO> blist) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String query = prop.getProperty("selectPostReviewsCount");
+		ArrayList<BoardVO> rblist = new ArrayList<>();
+		int count = 0;
+		try {
+			while(true) {
+				pstmt = con.prepareStatement(query);
+				pstmt.setString(1, blist.get(count).getBoardNo());
+				
+				rset = pstmt.executeQuery();
+				if(rset.next()) {
+					blist.get(count).setLikeCount(rset.getInt("COUNT"));
+					rblist.add(blist.get(count));
+				}
+				count ++;
+				if(blist.size() == count)break;
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
+		}
+		return rblist;
+	}
+
 	
 }
