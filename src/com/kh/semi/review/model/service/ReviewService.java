@@ -94,4 +94,11 @@ public class ReviewService {
 		
 		return datas;
 	}
+
+	public int getListCount() {
+		Connection con = getConnection();
+		int result = new ReviewDao().getListCount(con);
+		
+		return result;
+	}
 }

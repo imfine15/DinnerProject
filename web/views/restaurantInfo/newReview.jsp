@@ -125,11 +125,13 @@
 				var visitDate = pa[1].split("=");
 				var reviewType = pa[2].split("=");
 				var enpNo = pa[3].split("=");
-				
+				var visit = visitDate[1].split("%");
+				var deCodeType = decodeURI(reviewType[1]);
+				console.log(deCodeType);
 				$("#enpNo").val(enpNo[1]);
 				$("#reservationHistoryNo").val(rhn[1]);
-				$("#visitDate").val(visitDate[1]);
-				$("#reviewType").val(reviewType[1]);
+				$("#visitDate").val(visit[0]);
+				$("#reviewType").val(deCodeType);
 				$("#memberNo").val("<%=loginUser.getmNo()%>");
 				console.log(pa);
 				console.log(rhn + ", " + visitDate + ", " + reviewType + ", " + enpNo);
