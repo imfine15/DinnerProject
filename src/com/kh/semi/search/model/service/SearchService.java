@@ -114,4 +114,13 @@ public class SearchService {
 		return likeCount;
 	}
 
+	public String findId(String requestName, String requestEmail) {
+		Connection con = getConnection();
+		String responseId = new SearchDao().findId(con, requestName, requestEmail);
+		
+		close(con);
+		
+		return responseId;
+	}
+
 }
