@@ -97,15 +97,26 @@ input{
 					<div class="info_servicelist">
 						<div class="bg_box box_tit" style="display: inline-block; border: 1px solid darkgray; width:277px;">
 							<h1 style="color: #D5706D;">YUMEET 프로필</h1>
+							<form id="sub" action="/semiproject/changeMemImg.ma" method="post" enctype="multipart/form-data">
+							<input name="memimg" type="file" style="display: none;" id="image" accept="image/png, image/jpeg">
 							<div class="section_myinfo">
-								<a id="profileImageContainer" class="link_profile profile_img"
-									data-tiara-action-name="프로필_이미지_관리"> <img id="profileImage"
-									alt="프로필 사진" class="img_profile"
-									src="https://img1.daumcdn.net/thumb/R158x158/?fname=http%3A%2F%2Ftwg.tset.daumcdn.net%2Fprofile%2F-IMNvhQBTjI0&t=1593580361035">
-									<span class="frame_img">프로필 이미지 관리</span> <span
-									class="">프로필 이미지 업로드</span>
-								</a>
+								<img onclick="change();" style="width:50px; height:50px;"src="/semiproject/images/signinImg.png">
 							</div>
+							</form>
+							<script>
+								function change(){
+									$("#image").click();
+								}
+								
+								$("input[name='memimg']").change(function(e){
+									if(confirm("정말 수정하시겠습니까?") == true){
+										$("#sub").submit();
+									} else {
+										console.log(123123123);
+										return false;
+									}
+								})
+							</script>
 							<div style="margin-top: -10px;">
 								<label class="info">이름 : </label> <label class="info2"><%=loginUser.getmName() %></label><br>
 								<label class="info">닉네임 : </label> <label class="info2"><%=loginUser.getmNickname() %></label><br> 

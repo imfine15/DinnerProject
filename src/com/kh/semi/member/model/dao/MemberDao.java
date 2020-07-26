@@ -473,5 +473,25 @@ public class MemberDao {
 		return rblist;
 	}
 
+	public int changePwd(Connection con, String changePwd, String mNo) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String query = prop.getProperty("changeMemPwd");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, changePwd);
+			pstmt.setString(2, mNo);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
 	
 }
