@@ -93,7 +93,7 @@
 		<input type="hidden" name="visitDate" id="visitDate"> 
 		<input type="hidden" name="reviewType" id="reviewType">
 		<div align="left" class="foodNameBox">
-		<span>방문한 식당에 대한 솔직한 리뷰를 써주세요.</span>
+		<span class="foodName" id="enpName">매장이름</span><span>에 대한 솔직한 리뷰를 써주세요.</span>
 		</div>
 		<div align="right" class="starBox">
 			<table>
