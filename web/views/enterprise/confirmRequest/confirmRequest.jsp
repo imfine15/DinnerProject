@@ -157,7 +157,7 @@ System.out.println("modalListsize : " + modalList.size());
                  
                </tr> -->
                
-               <% for(int i = 0; i <= list.size(); i++){
+               <% for(int i = 0; i < list.size(); i++){
             		System.out.print("LIST SIZE : " + list.size());
                %>
                		
@@ -230,7 +230,7 @@ System.out.println("modalListsize : " + modalList.size());
 	<br>	
 	
 		<%if(modalList != null){%>
-		         		 <% for(int j = 0 ; j <= list.size(); j++){%>
+		         		 <% for(int j = 0 ; j < list.size(); j++){%>
 	<div class="modal fade" id="testModal<%=j %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 		<div class="modal-dialog" role="document">
 			<div class="modal-content">
@@ -292,7 +292,7 @@ System.out.println("modalListsize : " + modalList.size());
 	
 	
 	<%if(infoList != null){%>
-		         		 <% for(int j = 0 ; j <= list.size(); j++){%>
+		         		 <% for(int j = 0 ; j < list.size(); j++){%>
 	<div class="modal fade" id="infoModal<%=j %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 		<div class="modal-dialog" role="document">
 			<div class="modal-content">
