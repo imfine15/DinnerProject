@@ -44,6 +44,9 @@ public class SelectOneQuestionServlet extends HttpServlet {
 		QuestionVO question = (QuestionVO) hmap.get("question");
 		ArrayList<QuestionFileVO> filelist = (ArrayList<QuestionFileVO>) hmap.get("questionFile");
 		
+		System.out.println(hmap.get("question"));
+		System.out.println(hmap.get("questionFile"));
+		
 		String page = "";
 		if(hmap != null) {
 			page = "/views/admin/questionConfirm/questionConfirmDetail.jsp";
