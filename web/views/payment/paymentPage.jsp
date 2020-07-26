@@ -251,9 +251,15 @@ input[type="number"]::-webkit-inner-spin-button {
 	var IMP = window.IMP;
 	IMP.init("imp12858574");
 	
+	function reservation() {
+		$("#payprice").val($("#deposit"));
+		$("#muid").val("asd13");
+		
+		document.reserInfo.submit();
+	}
 	
 	
- 	 function reservation(){
+ 	 /* function reservation(){
 	if($("#finaltime").html() === null || $("#finaltime").html() === ""){
 		alert("날짜 입력를 입력해주세요.");
 		return false;
@@ -296,7 +302,7 @@ input[type="number"]::-webkit-inner-spin-button {
 		    }
 		});
 	} 
-	} 
+	}  */
 	
 </script>
 	<%@ include file="/views/common/footer.jsp"%>

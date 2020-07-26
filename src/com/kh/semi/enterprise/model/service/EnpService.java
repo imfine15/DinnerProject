@@ -304,4 +304,10 @@ public class EnpService {
 
 		return modalList;
 	}
+
+	public int getRDListCount(String enp,String requestDay) {
+		Connection con = getConnection();
+		int result = new EnpDao().getRDListCount(con,enp, requestDay);
+		return result;
+	}
 }

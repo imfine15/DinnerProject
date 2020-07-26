@@ -984,4 +984,33 @@ Properties prop = new Properties();
 		
 		return modalList;
 	}
+
+	public int getRDListCount(Connection con, String enp, String requestDay) {
+		PreparedStatement stmt = null;
+		int listCount = 0;
+		ResultSet rset = null;
+		
+		
+		
+		
+		
+		String query = prop.getProperty("rdListCount");
+		try {
+			stmt = con.prepareStatement(query);
+			stmt.setString(1, enp);
+			stmt.setString(2, requestDay);
+			rset = stmt.executeQuery();
+
+			if(rset.next()) {
+				listCount = rset.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(stmt);
+			close(rset);
+		}
+		
+		return listCount;
+	}
 }
