@@ -77,7 +77,7 @@ public class ReservationDao {
 	}
 
 	public ArrayList<ReservationVO> selectReservation(Connection con, String mNo) {
-		ArrayList<ReservationVO> list = null;
+		ArrayList<ReservationVO> list = new ArrayList<ReservationVO>();
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		String query = prop.getProperty("selectReservationList");
@@ -86,7 +86,6 @@ public class ReservationDao {
 			System.out.println(query);
 			pstmt = con.prepareStatement(query);
 			pstmt.setString(1, mNo);
-			list = new ArrayList<ReservationVO>();
 			rset = pstmt.executeQuery();
 			
 			while(rset.next()) {
@@ -150,13 +149,16 @@ public class ReservationDao {
 			try {
 				
 				pstmt = con.prepareStatement(query);
-				pstmt.setString(1, list.get(count).geteNo());
-				
-				rset = pstmt.executeQuery();
-				if(rset.next()) {
-					ename = rset.getString("ENP_NAME");
-					
-					enpList.add(ename);
+				System.out.println("list : " + list.size());
+				if(list.size() > 0) {
+					pstmt.setString(1, list.get(count).geteNo());
+					rset = pstmt.executeQuery();
+					if(rset.next()) {
+						ename = rset.getString("ENP_NAME");
+						
+						enpList.add(ename);
+						count ++;
+					}
 				}
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
@@ -165,8 +167,8 @@ public class ReservationDao {
 				close(pstmt);
 				close(rset);
 			}
-			count ++;
-			if(list.size() == count) break;
+			
+			if(list.size() == count || list.size() == 0) break;
 		}
 
 		return enpList;
@@ -182,6 +184,7 @@ public class ReservationDao {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		try {
+			if(list.size() > 0) {
 			String status = "";
 			pstmt = con.prepareStatement(query);
 			pstmt.setString(1, list.get(count).getrNo());
@@ -190,6 +193,8 @@ public class ReservationDao {
 			if(rset.next()) {
 				status = rset.getString("STATUS_CODE");
 				statusList.add(status);
+				count++;
+				}
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -198,7 +203,6 @@ public class ReservationDao {
 			close(pstmt);
 			close(rset);
 		}
-		count++;
 		if(list.size() == count) break;
 		}
 		
