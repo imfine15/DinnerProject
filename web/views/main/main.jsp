@@ -291,10 +291,9 @@
                
         function showImage()
         {
-            var imgNum=Math.round(Math.random()*10);
+            var imgNum=Math.floor(Math.random()*10);
             var objImg=document.getElementById("introImg");
             objImg.src=imgArray[imgNum];
-            
         }
     </script>
 </body>

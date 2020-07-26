@@ -123,4 +123,26 @@ public class SearchService {
 		return responseId;
 	}
 
+	public int checkMemberPwd(String[] datas) {
+		Connection con = getConnection();
+		int check = new SearchDao().checkMemberPwd(con, datas);
+		
+		close(con);
+		
+		return check;
+	}
+
+	public int changePassword(String[] datas) {
+		Connection con = getConnection();
+		int result = new SearchDao().changePassword(con, datas);
+		
+		if(result > 0) {
+			commit(con);
+		} else {
+			rollback(con);
+		}
+		
+		return result;
+	}
+
 }

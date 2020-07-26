@@ -269,7 +269,7 @@
 	<!-- 일정검색창시작 -->
 	<div id="schedule" align="center" style="display: none;">
 		<p id="text2" align="left">베스트 코스리뷰</p><br>
-		<% for(int i = 0; i < 1; i++) { %> <!-- 샘플데이터 들어간 뒤에 i < 2로 고쳐주세요 -->
+		<% for(int i = 0; i < 2; i++) { %>
 		<div class="best" align="left">
 			<img src="" style="width: 450px; height: 200px;" id="bestImg<%= i %>">
 			<p class="bestBig" id="bestBig<%= i %>"></p>
@@ -298,7 +298,7 @@
 				<button class="check">조회순</button>
 				<button class="check">추천순</button>
 				<button class="check">최신순</button>
-				<button id="write">글쓰기</button>
+				<button id="write1">글쓰기</button>
 			</div>
 			<script>
 				sort = "조회순";
@@ -419,7 +419,7 @@
 				<button class="check">조회순</button>
 				<button class="check">추천순</button>
 				<button class="check">최신순</button>
-				<button id="write">글쓰기</button>
+				<button id="write2">글쓰기</button>
 			</div>
 			<script>
 				sortEnp = "조회순";
@@ -552,7 +552,12 @@
 			$("#addEnpBtn").click(function(){
 				location.href="/semiproject/views/upload/foodUpload.jsp";
 			});
-			$("#write").click(function(){
+			
+			$("#write1").click(function(){
+				location.href="/semiproject/views/upload/scheduleUpload.jsp";
+			});
+			
+			$("#write2").click(function(){
 				location.href="/semiproject/views/upload/scheduleUpload.jsp";
 			});
 		</script>
