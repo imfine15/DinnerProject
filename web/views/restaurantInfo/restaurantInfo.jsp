@@ -317,7 +317,12 @@ ArrayList<ReviewVO> normalReviews = (ArrayList<ReviewVO>)session.getAttribute("n
 			});
 		</script>
 		<% if(loginUser != null) { %>
-		<div class="ReviewWrite">작성하기 <img alt="리뷰 작성 버튼" src="/semiproject/images/writeReview.png" class="writeReviewBtn"></div>
+		<div id="normalReviewWrite" class="ReviewWrite">작성하기 <img alt="리뷰 작성 버튼" src="/semiproject/images/writeReview.png" class="writeReviewBtn"></div>
+		<%-- <script>
+			$("#normalReviewWrite").click(function() {
+				location.href="<%= request.getContextPath() %>/views/restaurantInfo/newReview.jsp?reviewType=일반&enpNo=" + enpNo;
+			});
+		</script> --%>
 		<% } %>
 	</div>
 	<hr class="hr">

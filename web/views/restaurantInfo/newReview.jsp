@@ -93,8 +93,20 @@
 		<input type="hidden" name="visitDate" id="visitDate"> 
 		<input type="hidden" name="reviewType" id="reviewType">
 		<div align="left" class="foodNameBox">
-		<span class="foodName">식당이름</span><span>에 대한 솔직한 리뷰를 써주세요.</span>
+		<span class="foodName" id="enpName">매장이름</span><span>에 대한 솔직한 리뷰를 써주세요.</span>
 		</div>
+		<%-- <script>
+			$(function() {
+				$.ajax({
+					url: "getEnpName.re",
+					type: "post",
+					data: {enpNo: "<%= request.getParameter("enpNo") %>"},
+					success: function(data) {
+						$("#enpName").html(data);
+					}
+				});
+			});
+		</script> --%>
 		<div align="right" class="starBox">
 			<table>
 				<tr>

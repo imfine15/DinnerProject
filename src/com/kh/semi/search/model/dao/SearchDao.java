@@ -313,8 +313,7 @@ public class SearchDao {
 			rset = pstmt.executeQuery();
 			
 			bestCourse = new ArrayList<>();
-			// 샘플데이터 추가 후 i < 2로 고쳐주세요
-			for(int i = 0; i < 1; i++) {
+			for(int i = 0; i < 2; i++) {
 				rset.next();
 				
 				BoardVO b = new BoardVO();
@@ -354,8 +353,7 @@ public class SearchDao {
 		
 		try {
 			pstmt = con.prepareStatement(query);
-			// 샘플데이터 추가후에 i < 2로 고쳐주세요
-			for(int i = 0; i < 1; i++) {
+			for(int i = 0; i < 2; i++) {
 				pstmt.setString(1, bestCourse.get(i).getBoardNo());
 				
 				rset = pstmt.executeQuery();
@@ -363,7 +361,7 @@ public class SearchDao {
 				int j = 0;
 				String[] temp = new String[2];
 				while(rset.next()) {
-					temp[j] = rset.getString("FILE_PATH");
+					temp[j] = "/semiproject/thumbnail_uploadFile/" + rset.getString("CHANGE_NAME");
 					j++;
 				}
 				
@@ -524,6 +522,55 @@ public class SearchDao {
 		}
 		
 		return responseId;
+	}
+
+	public int checkMemberPwd(Connection con, String[] datas) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String query = prop.getProperty("checkMemberPwd");
+		int check = 0;
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			
+			pstmt.setString(1, datas[0]); // id
+			pstmt.setString(2, datas[1]); // name
+			pstmt.setString(3, datas[2]); // email
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				check = rset.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return check;
+	}
+
+	public int changePassword(Connection con, String[] datas) {
+		PreparedStatement pstmt = null;
+		String query = prop.getProperty("changePassword");
+		int result = 0;
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			
+			pstmt.setString(1, datas[0]); // password
+			pstmt.setString(2, datas[1]); // id
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
 	}
 
 }
