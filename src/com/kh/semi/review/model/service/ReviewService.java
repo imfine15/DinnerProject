@@ -140,4 +140,13 @@ public class ReviewService {
 		
 		return result;
 	}
+
+	public String getEnpName(String enpNo) {
+		Connection con = getConnection();
+		String enpName = new ReviewDao().getEnpName(con, enpNo);
+		
+		close(con);
+		
+		return enpName;
+	}
 }
