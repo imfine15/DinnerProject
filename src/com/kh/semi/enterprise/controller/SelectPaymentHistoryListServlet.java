@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.kh.semi.enterprise.model.service.EnpService;
 import com.kh.semi.enterprise.model.vo.ForEntCrVO;
+import com.kh.semi.enterprise.model.vo.ForPhVO;
 import com.kh.semi.enterprise.model.vo.PageInfo;
 import com.kh.semi.payment.model.vo.ReservationVO;
 
@@ -53,7 +54,7 @@ public class SelectPaymentHistoryListServlet extends HttpServlet {
 		limit = 5;
 		
 		//전체 목록 갯수 조회
-		int listCount = new EnpService().getListCount();
+		int listCount = new EnpService().getPHListCount(enp);
 		System.out.println(listCount);
 		
 		//총 페이지 수 계산
@@ -75,54 +76,25 @@ public class SelectPaymentHistoryListServlet extends HttpServlet {
 		
 		PageInfo pi = new PageInfo(currentPage, listCount, limit, maxPage, startPage, endPage);
 		
-		ArrayList<ReservationVO> list = new EnpService().selectCRList(pi,enp);
+		ArrayList<ForPhVO> resList = new EnpService().selectPHList(pi,enp);
 		
-		String memId = new EnpService().selectCRMemId(enp);
-		System.out.println(memId);
+		ArrayList<ForPhVO> forSum = new EnpService().selectSum(resList,enp);
 		
-		ArrayList<ForEntCrVO> modalList = new EnpService().selectCRModalList(memId);
-		for(ForEntCrVO f : modalList) {
-			System.out.println("modalList's rownum : " + f.getRownum());
-			System.out.println("modalList's nickName : "+f.getNickName());
-			System.out.println("modalList's resDate : "+f.getReservationDate());
+		ArrayList<ForPhVO> calcList = new EnpService().getCalcList(enp);
+		
+		int sum = 0;
+		
+		for(ForPhVO p : forSum) {
+			sum += p.getSum();
 		}
-		String cancelId = "RSC3";
-		String visitId = "RSC5";
-		
-		int rownum = new EnpService().selectCRRownum(enp);
-		
-		ArrayList<ReservationVO> checkCountList = new ArrayList<ReservationVO>();
-		
-		for(ReservationVO v : list) {
-			int i = 0;
-			v.setmNo(list.get(i).getmNo());
-			
-			checkCountList.add(v);
-			
-			i++;
-		}
-		
-		ArrayList<Integer> cancelCount = new EnpService().selectCRCount(cancelId,enp,checkCountList);
-		
-		ArrayList<Integer> visitCount = new EnpService().selectCRCount(visitId,enp,checkCountList);
-		
-		for(int a : cancelCount) {
-			System.out.println("cancelCount : " + a);
-		}
-		for(int a : visitCount) {
-			System.out.println("visitCount : " + a);
-		}
-		
+		System.out.println("sum : " + sum);
 		
 		String page = "";
 		
-		System.out.println(list);
 		
-		for(ReservationVO r : list) {
-			System.out.println(r.getcNo());
-		}
 		
-		if(list != null && modalList != null) {
+		
+		/*if(list != null && modalList != null) {
 			page = "views/enterprise/confirmRequest/confirmRequest.jsp";
 			request.setAttribute("list", list);
 			request.setAttribute("pi", pi);
@@ -134,7 +106,7 @@ public class SelectPaymentHistoryListServlet extends HttpServlet {
 			page="views/common/errorPage.jsp";
 			request.setAttribute("msg", "조회 실패");
 		}
-		request.getRequestDispatcher(page).forward(request, response);
+		request.getRequestDispatcher(page).forward(request, response);*/
 	}
 
 	/**

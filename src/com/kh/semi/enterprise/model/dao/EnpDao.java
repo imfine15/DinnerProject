@@ -23,6 +23,7 @@ import com.kh.semi.enterprise.model.vo.EnpVO;
 import com.kh.semi.enterprise.model.vo.ForCmVO;
 import com.kh.semi.enterprise.model.vo.ForCrInfoVO;
 import com.kh.semi.enterprise.model.vo.ForEntCrVO;
+import com.kh.semi.enterprise.model.vo.ForPhVO;
 import com.kh.semi.enterprise.model.vo.ForSdVO;
 import com.kh.semi.enterprise.model.vo.PageInfo;
 import com.kh.semi.payment.model.vo.ReservationVO;
@@ -1012,5 +1013,141 @@ Properties prop = new Properties();
 		}
 		
 		return listCount;
+	}
+
+	public ArrayList<ForPhVO> selectPHList(Connection con, PageInfo pi, String enp) {
+		ArrayList<ForPhVO> resList = null;
+		PreparedStatement pstmt=  null;
+		ResultSet rset = null;
+		
+		int startRow = (pi.getCurrentPage() -1) * pi.getLimit() + 1;
+		int endRow = startRow + pi.getLimit() - 1;
+		
+		String query = prop.getProperty("selectPHList");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, enp);
+			pstmt.setString(2, enp);
+			pstmt.setInt(3, startRow);
+			pstmt.setInt(4, endRow);
+			
+			rset = pstmt.executeQuery();
+			
+			resList = new ArrayList<ForPhVO>();
+			
+			while(rset.next()) {
+				ForPhVO p = new ForPhVO();
+				
+				p.setReservationNo(rset.getString("RESERVATION_NO"));
+				
+				
+				resList.add(p);
+				
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		return resList;
+	}
+
+	public int getPHListCount(Connection con, String enp) {
+		PreparedStatement stmt = null;
+		int listCount = 0;
+		ResultSet rset = null;
+		
+		String query = prop.getProperty("rdListCount");
+		try {
+			stmt = con.prepareStatement(query);
+			stmt.setString(1, enp);
+			rset = stmt.executeQuery();
+
+			if(rset.next()) {
+				listCount = rset.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(stmt);
+			close(rset);
+		}
+		
+		return listCount;
+	}
+
+	public ArrayList<ForPhVO> selectSum(Connection con, ArrayList<ForPhVO> resList, String enp) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<ForPhVO> list = null;
+		
+		String query = prop.getProperty("selectPhSum");
+		
+		
+		list = new ArrayList<ForPhVO>();
+		for(ForPhVO p : resList) {
+			try {
+				pstmt = con.prepareStatement(query);
+				pstmt.setString(1, p.getReservationNo());
+				
+				rset = pstmt.executeQuery();
+				
+				if(rset.next()) {
+					p.setSum(rset.getInt("SUM(*)"));
+					
+					list.add(p);
+				}
+				
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}finally {
+				close(pstmt);
+				close(rset);
+			}
+
+		}
+				
+		return list;
+	}
+
+	public ArrayList<ForPhVO> getCalcList(Connection con, String enp) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<ForPhVO> calcList = null;
+		
+		String query = prop.getProperty("getCalcList");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, enp);
+			
+			rset = pstmt.executeQuery();
+			
+			calcList = new ArrayList<ForPhVO>();
+			
+			while(rset.next()) {
+				ForPhVO p = new ForPhVO();
+				
+				p.setCalcNo(rset.getString("CALC_NO"));
+				
+				calcList.add(p);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		
+		
+		return calcList;
 	}
 }
