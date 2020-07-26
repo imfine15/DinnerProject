@@ -171,7 +171,7 @@ ul li a span:hover{
 						location.href = "/semiproject/views/myPage/changeMyProfile.jsp";
 					} else if(data === "success2") {
 						location.href = "/semiproject/views/myPage/changePassword.jsp";
-					} else if(data === "success") {
+					} else if(data === "success3") {
 						location.href = "/semiproject/views/myPage/withdrawalFromMembership.jsp";
 					} else {
 						$("#check").show();

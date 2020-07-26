@@ -87,6 +87,8 @@ ul li a span:hover{
 
 	<div
 		style="width: 500px; height: 500px; margin-left: auto; margin-right: auto;">
+		<form id="check" method="post" action="/semiproject/changeMemPwd.ma">
+		<input type="hidden" value="<%=loginUser.getmNo()%>" name="mNo">
 		<table>
 			<tr>
 				<td><img src=images/changePassword.PNG; style="width: 500px"></td>
@@ -98,7 +100,7 @@ ul li a span:hover{
 			</tr>
 			<tr>
 				<td><label class="text" style="margin-left: 50px">새로운 비밀번호 : &nbsp;</label>
-						<input
+						<input name="password"
 					class="box" type="password" style="margin-left: 50px;" id="password1">
 					<button style="background: #C4C4C4; border-radius: 5px;" id="pwdShowHide1">보기</button><br>
 					<br></td>
@@ -119,15 +121,28 @@ ul li a span:hover{
 			<tr align="center">
 				<td>
 					<button class="text2" style="background: #E4E4E4;">이전으로</button>
-					<button class="text2" style="background: #97D3D3; color: white">확인</button>
+					<button type="button" onclick="check();"class="text2" style="background: #97D3D3; color: white">확인</button>
 				</td>
 			</tr>
-
 		</table>
+		</form>
 
 	</div>
 	<%@ include file="/views/common/footer.jsp" %>
 	<script>
+		function check(){
+			var pwd = $("#password1").val();
+			var pwd2 = $("#password2").val();
+			
+			if(pwd == pwd2 && pwd.length > 7){
+				$("#check").submit();
+			} else {
+				alert("비밀번호가 다릅니다.");
+				$("#password1").val("");
+				$("#password2").val("");
+				return false;
+			}
+		};
 		$(function(){
 		    $('#pwdShowHide2').on('click', function(){
 		        $('.box').toggleClass('active');
