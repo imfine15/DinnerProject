@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
+import com.kh.semi.admin.model.vo.PageInfo;
 import com.kh.semi.review.model.vo.ReviewAttachment;
 import com.kh.semi.review.model.vo.ReviewVO;
 
@@ -334,5 +335,180 @@ public class ReviewDao {
 		}
 		
 		return listCount;
+	}
+
+	public ArrayList<ReviewVO> selectList(Connection con, PageInfo pi) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<ReviewVO> list = null;
+		ReviewVO re;
+		
+		String query = prop.getProperty("selectList");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			
+			int startRow = (pi.getCurrentPage() - 1) * pi.getLimit() + 1;
+			int endRow = startRow + pi.getLimit() - 1;
+			
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
+			
+			rset = pstmt.executeQuery();
+			
+			list = new ArrayList<>();
+			
+			while(rset.next()) {
+				re = new ReviewVO();
+				re.setReviewNo(rset.getString("REVIEW_NO"));
+				re.setReviewContent(rset.getString("REVIEW_CONTENT"));
+				re.setMemberId(rset.getString("MEMBER_ID"));
+				re.setReviewDate(rset.getDate("REVIEW_DATE"));
+				re.setReviewType(rset.getString("REVIEW_TYPE"));
+				re.setEnpName(rset.getString("ENP_NAME"));
+				re.setOriginName(rset.getString("ORIGIN_NAME"));
+				re.setChangeName(rset.getString("CHANGE_NAME"));
+				re.setFilePath(rset.getString("FILE_PATH"));
+				re.setEnpNo(rset.getString("ENP_NO"));
+				
+				list.add(re);
+			}
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		
+		return list;
+	}
+
+	public int deleteReview(Connection con, String reviewNo) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("deleteReview");
+		
+		System.out.println("query : " + query);
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, reviewNo);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public int deleteAttachment(Connection con, String reviewNo) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("deleteAttachment");
+		System.out.println("query : " + query);
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, reviewNo);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		
+		return result;
+	}
+
+	public int insertPoint(Connection con, ReviewVO review) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("insertPoint");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, review.getMemberNo());
+			pstmt.setString(2, "적립");
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public String selectPointCurrval(Connection con) {
+		Statement stmt = null;
+		ResultSet rset = null;
+		String pointNo = "";
+		
+		String query = prop.getProperty("selectPointCurrval");
+		
+		try {
+			stmt = con.createStatement();
+			rset = stmt.executeQuery(query);
+			
+			if(rset.next()) {
+				int id = rset.getInt("currval");
+				
+				pointNo = "POINT"+id;
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(stmt);
+			close(rset);
+		}
+		
+		
+		
+		return pointNo;
+	}
+
+	public int insertPointHistory(Connection con, String pointNo, ReviewVO review) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("insertPointHistory");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, pointNo);
+			pstmt.setString(2, review.getMemberNo());
+			pstmt.setString(3, "적립");
+			
+			result = pstmt.executeUpdate();
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
 	}
 }

@@ -117,15 +117,15 @@
 			</table>
 		</div>
 		<div class="textBox">
-			<textarea rows="15" cols="100" name="reviewContent" placeholder=" <%=loginUser.getmName() %>님 주문하신 메뉴는 무엇인가요? 식당의 분위기와 서비스도 궁금해요!"></textarea>
-			<div align="right" style="width: 717px">0/10000</div>
+			<textarea rows="15" cols="100" id="reviewContent" name="reviewContent" placeholder=" <%=loginUser.getmName() %>님 주문하신 메뉴는 무엇인가요? 식당의 분위기와 서비스도 궁금해요!"></textarea>
+			<div align="right" style="width: 717px" id="counter">(0/10000)</div>
 		</div>
 		<div align="left" class="fileBox">
 			<input type="file" name="foodImg" class="foodImg">
 		</div>
 		<div>
 			<button class="reviewBtn">리뷰 등록</button>
-			<button class="cancleBtn">취소</button>
+			<button type="button" class="cancleBtn" onclick="">취소</button>
 		</div>
 		</form>
 		</div>
@@ -149,6 +149,20 @@
 				console.log(rhn + ", " + visitDate + ", " + reviewType + ", " + enpNo);
 				console.log("<%=loginUser.getmNo()%>");
 			});
+			
+			$('#reviewContent').keyup(function (e){
+			    var content = $(this).val();
+			    $('#counter').html("("+content.length+"/10000)");    //글자수 실시간 카운팅
+
+			    if (content.length > 10000){
+			        alert("최대 10000자까지 입력 가능합니다.");
+			        $(this).val(content.substring(0, 10000));
+			        $('#counter').html("(10000/10000)");
+			    }
+			});
+
+
+		
 		</script>
 	<%} else { %>
 <!-- 	<script>

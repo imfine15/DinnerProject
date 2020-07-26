@@ -15,11 +15,20 @@ public class ReviewVO implements java.io.Serializable {
 	private double averageRating; // 평점
 	private String reservationHistoryNo; // 예약내역번호
 	private String[] filePaths; // 첨부파일경로들
+	private String fileNo;
+	private String originName;
+	private String changeName;
+	private String filePath;
+	private Date uploadDate;
+	private String memberId;
+	private String enpName;
 	
 	public ReviewVO() {}
 
 	public ReviewVO(String reviewNo, String reviewContent, String memberNo, Date reviewDate, String reviewType,
-			String enpNo, Date visitDate, double averageRating, String reservationHistoryNo, String[] filePaths) {
+			String enpNo, Date visitDate, double averageRating, String reservationHistoryNo, String[] filePaths,
+			String fileNo, String originName, String changeName, String filePath, Date uploadDate, String memberId,
+			String enpName) {
 		super();
 		this.reviewNo = reviewNo;
 		this.reviewContent = reviewContent;
@@ -31,6 +40,13 @@ public class ReviewVO implements java.io.Serializable {
 		this.averageRating = averageRating;
 		this.reservationHistoryNo = reservationHistoryNo;
 		this.filePaths = filePaths;
+		this.fileNo = fileNo;
+		this.originName = originName;
+		this.changeName = changeName;
+		this.filePath = filePath;
+		this.uploadDate = uploadDate;
+		this.memberId = memberId;
+		this.enpName = enpName;
 	}
 
 	public String getReviewNo() {
@@ -113,12 +129,72 @@ public class ReviewVO implements java.io.Serializable {
 		this.filePaths = filePaths;
 	}
 
+	public String getFileNo() {
+		return fileNo;
+	}
+
+	public void setFileNo(String fileNo) {
+		this.fileNo = fileNo;
+	}
+
+	public String getOriginName() {
+		return originName;
+	}
+
+	public void setOriginName(String originName) {
+		this.originName = originName;
+	}
+
+	public String getChangeName() {
+		return changeName;
+	}
+
+	public void setChangeName(String changeName) {
+		this.changeName = changeName;
+	}
+
+	public String getFilePath() {
+		return filePath;
+	}
+
+	public void setFilePath(String filePath) {
+		this.filePath = filePath;
+	}
+
+	public Date getUploadDate() {
+		return uploadDate;
+	}
+
+	public void setUploadDate(Date uploadDate) {
+		this.uploadDate = uploadDate;
+	}
+
+	public String getMemberId() {
+		return memberId;
+	}
+
+	public void setMemberId(String memberId) {
+		this.memberId = memberId;
+	}
+
+	public String getEnpName() {
+		return enpName;
+	}
+
+	public void setEnpName(String enpName) {
+		this.enpName = enpName;
+	}
+
 	@Override
 	public String toString() {
 		return "ReviewVO [reviewNo=" + reviewNo + ", reviewContent=" + reviewContent + ", memberNo=" + memberNo
 				+ ", reviewDate=" + reviewDate + ", reviewType=" + reviewType + ", enpNo=" + enpNo + ", visitDate="
 				+ visitDate + ", averageRating=" + averageRating + ", reservationHistoryNo=" + reservationHistoryNo
-				+ ", filePaths=" + Arrays.toString(filePaths) + "]";
+				+ ", filePaths=" + Arrays.toString(filePaths) + ", fileNo=" + fileNo + ", originName=" + originName
+				+ ", changeName=" + changeName + ", filePath=" + filePath + ", uploadDate=" + uploadDate + ", memberId="
+				+ memberId + ", enpName=" + enpName + "]";
 	}
+
+	
 	
 }
