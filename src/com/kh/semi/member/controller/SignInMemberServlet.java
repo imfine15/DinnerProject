@@ -31,7 +31,6 @@ public class SignInMemberServlet extends HttpServlet {
 		requestMember.setmId(id);
 		requestMember.setmPwd(password);
 		MemberVO responseMember = new MemberService().loginMember(requestMember);
-		
 		if(responseMember != null) {
 			if(responseMember.getStatus().equals("Y")) {
 				// 탈퇴한 유저 로그인 시도

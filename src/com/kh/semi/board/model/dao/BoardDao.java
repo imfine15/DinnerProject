@@ -164,7 +164,6 @@ public class BoardDao {
 	public int insertAttachment(Connection con, BoardUpVo file) {
 		PreparedStatement pstmt = null;
 		int result = 0;
-		
 		String query = prop.getProperty("insertAttachment");
 		
 		try {

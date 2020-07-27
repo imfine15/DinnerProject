@@ -12,6 +12,7 @@ import com.kh.semi.member.model.dao.MemberDao;
 import com.kh.semi.member.model.vo.MemberVO;
 import com.kh.semi.payment.model.vo.PointVO;
 import com.kh.semi.question.model.vo.QuestionVO;
+import com.kh.semi.review.model.vo.ReviewAttachment;
 
 public class MemberService {
 
@@ -162,6 +163,18 @@ public class MemberService {
 	public int changePwd(String changePwd, String mNo) {
 		Connection con = getConnection();
 		int result = new MemberDao().changePwd(con, changePwd, mNo);
+		
+		if(result > 0 ) {
+			commit(con);
+		} else {
+			rollback(con);
+		}
+		return result;
+	}
+
+	public int changeMemberImg(ReviewAttachment ra) {
+		Connection con = getConnection();
+		int result = new MemberDao().changeMemberImg(con, ra);
 		
 		if(result > 0 ) {
 			commit(con);
