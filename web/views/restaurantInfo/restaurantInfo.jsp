@@ -41,8 +41,7 @@ ArrayList<ReviewVO> normalReviews = (ArrayList<ReviewVO>)session.getAttribute("n
 			<span id="title"><%= selectedEnp.getEnpName() %></span>
 			<div>
 			<img alt="별점 이미지" src="/semiproject/images/Star.png" id="star">
-			<span id="score"><%= rating %></span>
-			</div>
+			<span id="score"><%= Math.round(selectedEnp.getRating() * 10.0) / 10.0 %></span>
 			<br>
 			<div style="height: 20px;">
 			<img alt="즐겨찾기 이미지" src="/semiproject/images/heart.png" id="heart">
