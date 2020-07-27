@@ -1098,7 +1098,7 @@ Properties prop = new Properties();
 				rset = pstmt.executeQuery();
 				
 				if(rset.next()) {
-					p.setSum(rset.getInt("SUM(*)"));
+					p.setSum(rset.getInt("SUM(DEPOSIT)"));
 					
 					list.add(p);
 				}
@@ -1149,5 +1149,43 @@ Properties prop = new Properties();
 		
 		
 		return calcList;
+	}
+
+	public ArrayList<ForPhVO> selectPhInfoList(Connection con, ArrayList<ForPhVO> calcList) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<ForPhVO> list = null;
+		
+		String query = prop.getProperty("selectPhInfoList");
+		
+		list = new ArrayList<ForPhVO>();
+		
+		for(ForPhVO v : calcList) {
+			try {
+				pstmt = con.prepareStatement(query);
+				pstmt.setString(1, v.getCalcNo());
+				
+				rset = pstmt.executeQuery();
+				
+				while(rset.next()) {
+					ForPhVO p = new ForPhVO();
+					
+					p.setStartDate(rset.getDate("CALC_START_DATE"));
+					p.setEndDate(rset.getDate("CALC_END_DATE"));
+					p.setCalcStatus(rset.getString("CALC_STATUS"));
+					
+					list.add(p);
+				}
+				
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}finally {
+				close(pstmt);
+				close(rset);
+			}
+		}
+		
+		return list;
 	}
 }

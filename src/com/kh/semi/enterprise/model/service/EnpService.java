@@ -350,4 +350,13 @@ public class EnpService {
 		
 		return calcList;
 	}
+
+	public ArrayList<ForPhVO> selectPhInfoList(ArrayList<ForPhVO> calcList) {
+		Connection con = getConnection();
+		ArrayList<ForPhVO> list = new EnpDao().selectPhInfoList(con,calcList);
+		
+		close(con);
+
+		return list;
+	}
 }

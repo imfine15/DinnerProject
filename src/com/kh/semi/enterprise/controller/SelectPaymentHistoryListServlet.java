@@ -82,31 +82,48 @@ public class SelectPaymentHistoryListServlet extends HttpServlet {
 		
 		ArrayList<ForPhVO> calcList = new EnpService().getCalcList(enp);
 		
+		ArrayList<ForPhVO> infoList = new EnpService().selectPhInfoList(calcList);
+		
 		int sum = 0;
+		int count = 0;
+		
+		for(ForPhVO p : resList) {
+			count++;
+		}
 		
 		for(ForPhVO p : forSum) {
 			sum += p.getSum();
 		}
+		
+		for(ForPhVO p : infoList) {
+			int i = 0;
+			infoList.get(i).setSum(sum);
+			i++;
+		}
+		
+		
+		
 		System.out.println("sum : " + sum);
+		System.out.println("calcList : " + calcList);
+		System.out.println("resList : " + resList);
+		System.out.println("infoList : " + infoList); 
 		
 		String page = "";
 		
 		
 		
 		
-		/*if(list != null && modalList != null) {
-			page = "views/enterprise/confirmRequest/confirmRequest.jsp";
-			request.setAttribute("list", list);
+		if(infoList != null) {
+			page = "views/enterprise/paymentHistory/paymentHistory.jsp";
+			request.setAttribute("infoList", infoList);
 			request.setAttribute("pi", pi);
-			request.setAttribute("modalList", modalList);
-			request.setAttribute("cancelCount", cancelCount);
-			request.setAttribute("visitCount", visitCount);
+			request.setAttribute("count", count);
 			request.setAttribute("asd", 4);
 		}else {
 			page="views/common/errorPage.jsp";
 			request.setAttribute("msg", "조회 실패");
 		}
-		request.getRequestDispatcher(page).forward(request, response);*/
+		request.getRequestDispatcher(page).forward(request, response);
 	}
 
 	/**
