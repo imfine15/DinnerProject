@@ -1,5 +1,18 @@
+<%@page import="java.text.SimpleDateFormat"%>
+<%@page import="com.kh.semi.admin.model.vo.PageInfo"%>
+<%@page import="com.kh.semi.payment.model.vo.AdminReservationVo"%>
+<%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%
+	ArrayList<AdminReservationVo> list = (ArrayList<AdminReservationVo>)request.getAttribute("list");
+	PageInfo pi = (PageInfo)request.getAttribute("pi");
+	int listCount = pi.getListCount();
+	int currentPage = pi.getCurrentPage();
+	int maxPage = pi.getMaxPage();
+	int startPage = pi.getStartPage();
+	int endPage = pi.getEndPage();
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -87,7 +100,7 @@ tr {
 	float: right;
 }
 
-#detail {
+.detail {
 	color: white;
 	background-color: #E07370;
 	border: none;
@@ -96,7 +109,7 @@ tr {
 	font-size: 16px;
 }
 
-#modal {
+.mdeal-c {
 	display: none;
 	position: relative;
 	width: 100%;
@@ -106,11 +119,11 @@ tr {
 	align:center;
 }
 
-#modal p {
+.mdeal-c p {
 	margin: 0;
 }
 
-#modal_close_btn {
+.modal_close {
 	display: inline-block;
 	color: white;
 	background-color: #E07370;
@@ -121,7 +134,7 @@ tr {
 	margin-left: 40%;
 }
 
-#modal .modal_content {
+.mdeal-c .modal_content {
 	width: 500px;
 	height: auto;
 	margin: 0 auto;
@@ -132,7 +145,7 @@ tr {
 	box-shadow: 10px 10px 20px #616161;
 }
 
-#modal .modal_layer {
+.mdeal-c .modal_layer {
 	position: fixed;
 	top: 0;
 	left: 0;
@@ -195,35 +208,46 @@ tr {
 							<th>예약 일자</th>
 							<th>더보기</th>
 						</tr>
+						<%int count1 = 0;
+						for(AdminReservationVo ar : list) {
+						SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+		                String rDate = format.format(list.get(count1).getReservationDate());
+						%>
 						<tr>
-							<td>09180001</td>
-							<td>정파덕</td>
-							<td>paduck</td>
-							<td>돼지되지</td>
-							<td>28</td>
-							<td>99,400원</td>
-							<td>2020/07/28</td>
-							<td><button id="detail">자세히</button></td>
+							<td><%= ar.getReservationNo() %></td>
+							<td><%= ar.getMemberName() %></td>
+							<td><%= ar.getMemberId() %></td>
+							<td><%= ar.getEnpName() %></td>
+							<td><%= ar.getPeople() %></td>
+							<td><%= ar.getDeposit() %></td>
+							<td><%= rDate %></td>
+							<td><button type="button" class="detail" id="detail<%= ar.getReservationNo()%>">자세히</button></td>
 						</tr>
+						<%count1++;
+						} %>
 					</table>
 				</form>
-				<div id="modal" class="mdeal-c">
+				
+				<%int count = 0;
+				for(AdminReservationVo ar : list) {
+					SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+	                  String rDate = format.format(list.get(count).getReservationDate());
+				%>
+				<div id="modal<%= ar.getReservationNo() %>" class="mdeal-c">
 					<div class="modal_content">
 						<p style="font-size:25px;">예약 상세 정보</p><br>
-						<label>고객 : 정파덕 (paduck)</label><br>
-						<label>예약 상태 : 취소됨 </label><br>
-						<label>일자 : 2020/09/18</label><br>
-						<label>시간 : 12:00</label><br>
-						<label>인원 : 28명</label><br>
-						<label>결제 일자 : 2020/06/22 14:24</label><br>
-						<label>취소 일자 : 2020/06/23 11:12</label><br>
-						<label>업체 수락 일자 : 2020/06/24 23:42</label><br>
-						<label>환불 금액 : 현금 99,400 원 | 포인트 600 점</label><br>
-						<label>취소 사유 : (없음)</label><br><br>
-						<button id="modal_close_btn">확인</button>
+						<label>고객 : <%= ar.getMemberName() %> (<%= ar.getMemberId() %>)</label><br>
+						<label>예약 상태 : <%= ar.getStatusName() %> </label><br>
+						<label>일자/시간 : <%= rDate %></label><br>
+						<label>인원 : <%= ar.getPeople() %>명</label><br>
+						<label>결제 일자 : <%= ar.getPayDate() %></label><br>
+						<label>사용 금액 : 현금 <%= ar.getDeposit() %>원 | 포인트 <%= ar.getPointAmmount() %> 점</label><br><br>
+						<button class="modal_close" id="modal_close_btn<%= ar.getReservationNo() %>">확인</button>
 					</div>
 					<div class="modal_layer"></div>
 				</div>
+				<%count++;
+				} %>
 				<div style="height: 30px;"></div>
 
 			</div>
@@ -243,13 +267,15 @@ tr {
 		</div>
 	</div>
 	<script>
-		$("#detail").click(function() {
-			$("#modal").css("display", "block");
+	<% for(AdminReservationVo ar : list) {%>
+		$("#detail<%= ar.getReservationNo()%>").click(function() {
+			$("#modal<%= ar.getReservationNo()%>").css("display", "block");
 		});
 
-		$("#modal_close_btn").click(function() {
-			$("#modal-c").css("display", "none");
+		$("#modal_close_btn<%= ar.getReservationNo() %>").click(function() {
+			$("#modal<%= ar.getReservationNo()%>").css("display", "none");
 		});
+		<%}%>
 	</script>
 </body>
 </html>

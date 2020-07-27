@@ -5,8 +5,10 @@ import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import com.kh.semi.admin.model.vo.PageInfo;
 import com.kh.semi.enterprise.model.vo.EnpVO;
 import com.kh.semi.payment.model.dao.ReservationDao;
+import com.kh.semi.payment.model.vo.AdminReservationVo;
 import com.kh.semi.payment.model.vo.PaymentHistoryVO;
 import com.kh.semi.payment.model.vo.PointVO;
 import com.kh.semi.payment.model.vo.ReservationVO;
@@ -201,6 +203,23 @@ public class ReservationService {
 		else result = 0;
 		
 		return result;
+	}
+
+	public int getListCount() {
+		Connection con = getConnection();
+		int result = new ReservationDao().getListCount(con);
+		System.out.println("result : " + result);
+		close(con);
+		return result;
+	}
+
+	public ArrayList<AdminReservationVo> selectList(PageInfo pi) {
+		Connection con = getConnection();
+		ArrayList<AdminReservationVo> list = new ReservationDao().selectList(con, pi);
+		
+		close(con);
+		
+		return list;
 	}
 
 

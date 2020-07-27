@@ -12,7 +12,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Properties;
 
+import com.kh.semi.admin.model.vo.PageInfo;
 import com.kh.semi.enterprise.model.vo.EnpVO;
+import com.kh.semi.payment.model.vo.AdminReservationVo;
 import com.kh.semi.payment.model.vo.PaymentHistoryVO;
 import com.kh.semi.payment.model.vo.PointVO;
 import com.kh.semi.payment.model.vo.ReservationVO;
@@ -523,6 +525,86 @@ public class ReservationDao {
 			close(pstmt);
 		}
 		return result;
+	}
+
+	public int getListCount(Connection con) {
+		Statement stmt = null;
+		int listCount = 0;
+		ResultSet rset = null;
+		
+		String query = prop.getProperty("listCount");
+		
+		try {
+			stmt = con.createStatement();
+			rset = stmt.executeQuery(query);
+			
+			if(rset.next()) {
+				listCount = rset.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(stmt);
+			close(rset);
+		}
+		
+		return listCount;
+	}
+
+	public ArrayList<AdminReservationVo> selectList(Connection con, PageInfo pi) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<AdminReservationVo> list = null;
+		AdminReservationVo ar;
+		
+		String query = prop.getProperty("selectList");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			
+			int startRow = (pi.getCurrentPage() - 1) * pi.getLimit() + 1;
+			int endRow = startRow + pi.getLimit() - 1;
+			
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
+			
+			rset = pstmt.executeQuery();
+			
+			list = new ArrayList<>();
+			
+			while(rset.next()) {
+				ar = new AdminReservationVo();
+				ar.setReservationNo(rset.getString("RESERVATION_NO"));
+				ar.setReservationDate(rset.getTimestamp("RESERVATION_DATE"));
+				ar.setMemberNo(rset.getString("MEMBER_NO"));
+				ar.setMemberId(rset.getString("MEMBER_ID"));
+				ar.setMemberName(rset.getString("MEMBER_NAME"));
+				ar.setEnpNo(rset.getString("ENP_NO"));
+				ar.setEnpName(rset.getString("ENP_NAME"));
+				ar.setCalcNo(rset.getString("CALC_NO"));
+				ar.setRequestMemo(rset.getString("REQUEST_MEMO"));
+				ar.setPointAmmount(rset.getInt("POINT_AMMOUNT"));
+				ar.setPeople(rset.getInt("PEOPLE"));
+				ar.setDeposit(rset.getInt("DEPOSIT"));
+				ar.setStatusCode(rset.getString("STATUS_CODE"));
+				ar.setStatusName(rset.getString("STATUS_NAME"));
+				ar.setPayDate(rset.getDate("PAY_DATE"));
+				
+				
+				list.add(ar);
+			}
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		
+		return list;
 	}
 }
 
