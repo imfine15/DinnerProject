@@ -601,15 +601,13 @@ public class SearchDao {
 	public List<String> getLikeEnps(Connection con, String mNo) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		List<String> likeEnps = null;
+		List<String> likeEnps = new ArrayList<>();
 		String query = prop.getProperty("getLikeEnps");
 		
 		try {
 			pstmt = con.prepareStatement(query);
 			
 			pstmt.setString(1, mNo);
-			
-			likeEnps = new ArrayList<>();
 			
 			rset = pstmt.executeQuery();
 			

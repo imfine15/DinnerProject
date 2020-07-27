@@ -158,8 +158,8 @@
 		  <div class="numbertext"></div>
 		  <%for(int i = 0; i < 1; i ++){ %>
 		  <div style="position: relative;">
-		  <img style="width:47%; height: 350px; margin-right:3%; display: inline-block;" src="/semiproject/thumbnail_uploadFile/<%=clist.get(i).getChangeName() %>">
-		  <img style=" float:right; width:47%; height: 350px; display: inline-block;" src="/semiproject/thumbnail_uploadFile/<%=clist.get(i + 1).getChangeName() %>">
+		  <img onclick="click11(this);" name="<%=clist.get(i).getBoardNo()%>" style="width:47%; height: 350px; margin-right:3%; display: inline-block;" src="/semiproject/thumbnail_uploadFile/<%=clist.get(i).getChangeName() %>">
+		  <img onclick="click11(this);" name="<%=clist.get(i + 1).getBoardNo()%>" style=" float:right; width:47%; height: 350px; display: inline-block;" src="/semiproject/thumbnail_uploadFile/<%=clist.get(i + 1).getChangeName() %>">
 		  <div style="text-overflow:ellipsis; overflow:hidden; color: white;left: 170px; width: 400px; bottom: 160px; font-size: 1.8em; font-weight: bold; position: absolute;"><%=clist.get(i).getBoardTitle() %></div>
 		  <div style="text-overflow:ellipsis; overflow:hidden; color: white;left: 900px; width: 400px; bottom: 160px; font-size: 1.8em; font-weight: bold; position: absolute;"><%=clist.get(i).getBoardTitle() %></div>
 		  </div>
@@ -169,8 +169,8 @@
 		<div class="mySlides fade">
 		    <%for(int i = 2; i < 3; i ++){ %>
 		  <div style="position: relative;">
-		  <img style="width:47%; height: 350px; margin-right:3%; display: inline-block;" src="/semiproject/thumbnail_uploadFile/<%=clist.get(i).getChangeName() %>">
-		  <img style=" float:right; width:47%; height: 350px; display: inline-block;" src="/semiproject/thumbnail_uploadFile/<%=clist.get(i + 1).getChangeName() %>">
+		  <img onclick="click11(this);" name="<%=clist.get(i).getBoardNo()%>" style="width:47%; height: 350px; margin-right:3%; display: inline-block;" src="/semiproject/thumbnail_uploadFile/<%=clist.get(i).getChangeName() %>">
+		  <img onclick="click11(this);" name="<%=clist.get(i + 1).getBoardNo()%>" style=" float:right; width:47%; height: 350px; display: inline-block;" src="/semiproject/thumbnail_uploadFile/<%=clist.get(i + 1).getChangeName() %>">
 		  <div style="text-overflow:ellipsis; overflow:hidden; color: white;left: 170px; width: 400px; bottom: 160px; font-size: 1.8em; font-weight: bold; position: absolute;"><%=clist.get(i).getBoardTitle() %></div>
 		  <div style="text-overflow:ellipsis; overflow:hidden; color: white;left: 900px; width: 400px; bottom: 160px; font-size: 1.8em; font-weight: bold; position: absolute;"><%=clist.get(i).getBoardTitle() %></div>
 		  </div>
@@ -181,8 +181,8 @@
 		  <div class="numbertext"></div>
 		   <%for(int i = 4; i < 5; i ++){ %>
 		  <div style="position: relative;">
-		  <img style="width:47%; height: 350px; margin-right:3%; display: inline-block;" src="/semiproject/thumbnail_uploadFile/<%=clist.get(i).getChangeName() %>">
-		  <img style=" float:right; width:47%; height: 350px; display: inline-block;" src="/semiproject/thumbnail_uploadFile/<%=clist.get(i + 1).getChangeName() %>">
+		  <img onclick="click11(this);" name="<%=clist.get(i).getBoardNo()%>" style="width:47%; height: 350px; margin-right:3%; display: inline-block;" src="/semiproject/thumbnail_uploadFile/<%=clist.get(i).getChangeName() %>">
+		  <img onclick="click11(this);" name="<%=clist.get(i + 1).getBoardNo()%>" style=" float:right; width:47%; height: 350px; display: inline-block;" src="/semiproject/thumbnail_uploadFile/<%=clist.get(i + 1).getChangeName() %>">
 		  <div style="text-overflow:ellipsis; overflow:hidden; color: white;left: 170px; width: 400px; bottom: 160px; font-size: 1.8em; font-weight: bold; position: absolute;"><%=clist.get(i).getBoardTitle() %></div>
 		  <div style="text-overflow:ellipsis; overflow:hidden; color: white;left: 900px; width: 400px; bottom: 160px; font-size: 1.8em; font-weight: bold; position: absolute;"><%=clist.get(i).getBoardTitle() %></div>
 		  </div>
@@ -195,7 +195,12 @@
 	</div>
 	</div>
 	</div>
-
+<script>
+function click11(data){
+	console.log(data.name);
+	location.href="/semiproject/selectOneCourse?no=" + data.name;
+}
+</script>
 <div style="text-align:center">
   <span class="dot" onclick="currentSlide(1)"></span> 
   <span class="dot" onclick="currentSlide(2)"></span> 

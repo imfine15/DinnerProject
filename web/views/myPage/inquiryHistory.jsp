@@ -173,7 +173,8 @@ ul li a span:hover{
 							<% 
 								String status = "";
 								String ds = qlist.get(i).getQuestionDisposalStatus();
-								if(ds.equals("QDSE1")){
+								System.out.println(qlist.get(i).getQuestionDisposalStatus());
+								if(ds.equals("QDSC1")){
 									status = "미확인";
 								} else if (ds.equals("QDSC2")){
 									status = "처리대기";

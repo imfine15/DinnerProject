@@ -40,7 +40,7 @@ ArrayList<ReviewVO> normalReviews = (ArrayList<ReviewVO>)session.getAttribute("n
 			<span id="title"><%= selectedEnp.getEnpName() %></span>
 			<div>
 			<img alt="별점 이미지" src="/semiproject/images/Star.png" id="star">
-			<span id="score"><%= rating %></span>
+			<span id="score"><%= selectedEnp.getRating() %></span>
 			</div>
 			<br>
 			<div style="height: 50px;">

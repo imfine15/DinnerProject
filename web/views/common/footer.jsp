@@ -10,7 +10,7 @@
 html, body {
 	margin: 0;
 	padding: 0;
-	height: 100%;
+	min-height: 100%;
 	font-family: Arial, Helvetica, Sans-serif;
 	oveflow-x:hidden;
 	width:100%;
@@ -180,6 +180,8 @@ html, body {
 	background-color: white;
 	font-family:-윤고딕310;
 	oveflow-x:hidden;
+	position: relative;
+	
 }
 }
 </style>
