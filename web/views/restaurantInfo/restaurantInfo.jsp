@@ -28,6 +28,10 @@ ArrayList<ReviewVO> normalReviews = (ArrayList<ReviewVO>)session.getAttribute("n
 	font-size: 15px;
 	border-radius: 5px;
 }
+#map{
+	margin-right: auto;
+	margin-left: auto;
+}
 </style>
 </head>
 <body>
@@ -35,13 +39,17 @@ ArrayList<ReviewVO> normalReviews = (ArrayList<ReviewVO>)session.getAttribute("n
 	<div id="infoTop">
 		<div id="top1">
 			<span id="title"><%= selectedEnp.getEnpName() %></span>
+			<div>
 			<img alt="별점 이미지" src="/semiproject/images/Star.png" id="star">
 			<span id="score"><%= rating %></span>
+			</div>
 			<br>
+			<div style="height: 20px;">
 			<img alt="즐겨찾기 이미지" src="/semiproject/images/heart.png" id="heart">
 			<p id="likeCount"></p>
 			<img alt="리뷰 이미지" src="/semiproject/images/comment.png" id="comment">
 			<p id="commentCount"></p>
+			</div>
 			<script>
 				$(function() {
 					$.ajax({
@@ -150,7 +158,7 @@ ArrayList<ReviewVO> normalReviews = (ArrayList<ReviewVO>)session.getAttribute("n
 			</table>
 		</div>
 		<div id="infoRight">
-			<img style="max-width: 100%; max-height:100%; overflow: hidden;" alt="매장 대표사진" src="<%=request.getContextPath()%>/thumbnail_uploadFile/<%=selectedEnp.getChangeName() %>" id="">
+			<img style="max-width: 100%; max-height:100%; overflow: hidden; margin-top: 50px;" alt="매장 대표사진" src="<%=request.getContextPath()%>/thumbnail_uploadFile/<%=selectedEnp.getChangeName() %>" id="">
 		</div>
 		<script>
 			$(function() {
@@ -165,6 +173,49 @@ ArrayList<ReviewVO> normalReviews = (ArrayList<ReviewVO>)session.getAttribute("n
 			});
 		</script>
 	</div>
+	<div id="map" style="width:80%;height:350px;"></div>
+		
+		<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=078a45ca6340bb6d0f44091d9e735d04&libraries=services"></script>
+		<script>
+		var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+	    mapOption = {
+	        center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+	        level: 3 // 지도의 확대 레벨
+	    };  
+
+	// 지도를 생성합니다    
+	var map = new kakao.maps.Map(mapContainer, mapOption); 
+
+	// 주소-좌표 변환 객체를 생성합니다
+	var geocoder = new kakao.maps.services.Geocoder();
+
+	// 주소로 좌표를 검색합니다
+	geocoder.addressSearch('<%= selectedEnp.getEnpAddress() %>', function(result, status) {
+
+	    // 정상적으로 검색이 완료됐으면 
+	     if (status === kakao.maps.services.Status.OK) {
+
+	        var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+
+	        // 결과값으로 받은 위치를 마커로 표시합니다
+	        var marker = new kakao.maps.Marker({
+	            map: map,
+	            position: coords
+	        });
+
+	        // 인포윈도우로 장소에 대한 설명을 표시합니다
+	        var infowindow = new kakao.maps.InfoWindow({
+	            content: '<div style="width:150px;text-align:center;padding:6px 0;"><%=selectedEnp.getEnpName()%></div>'
+	        });
+	        infowindow.open(map, marker);
+
+	        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+	        map.setCenter(coords);
+	    } else {
+	    	console.log("실패");
+	    }
+	});
+		</script>
 	<% if(selectedEnp.getEnpPartnerType().equals("PARTNER")) { %>
 	<div id="reservationDiv">
 		<button>예약하기</button>
