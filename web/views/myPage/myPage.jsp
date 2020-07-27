@@ -57,6 +57,7 @@ input{
 
 	<%@ include file="/views/common/header.jsp" %>
 	<script>
+	console.log("<%=loginUser.getFilePath()%>");
 		$.ajax({
 			type : "post",
 			url : "/semiproject/selectPoint.me",
@@ -99,8 +100,12 @@ input{
 							<h1 style="color: #D5706D;">YUMEET 프로필</h1>
 							<form id="sub" action="/semiproject/changeMemImg.ma" method="post" enctype="multipart/form-data">
 							<input name="memimg" type="file" style="display: none;" id="image" accept="image/png, image/jpeg">
-							<div class="section_myinfo">
+							<div class="section_myinfo" style="border-radius: 70%; overflow: hidden; width:50px; height:50px;">
+							<%if(loginUser.getFilePath() == null) {%>
 								<img onclick="change();" style="width:50px; height:50px;"src="/semiproject/images/signinImg.png">
+								<%} else { %>
+								<img onclick="change();" style="width:50px; height:50px;"src="/semiproject/thumbnail_uploadFile/<%=loginUser.getFilePath()%>">
+								<%} %>
 							</div>
 							</form>
 							<script>
@@ -174,13 +179,14 @@ input{
 				<div id="mAside">
 					<div class="wing_userinfo">
 						<div class="section_myinfo">
-							<a id="profileImageContainer" href="/semiproject/views/myPage/checkingPassword.jsp" class="link_profile"
-								data-tiara-action-name="프로필_이미지_관리"> <img id=""
-								alt="프로필 사진" class="img_profile"
-								src="https://img1.daumcdn.net/thumb/R158x158/?fname=http%3A%2F%2Ftwg.tset.daumcdn.net%2Fprofile%2F-IMNvhQBTjI0&t=1593580361035">
-								<span class="frame_img">프로필 이미지 관리</span> <span
-								class="">프로필 이미지 업로드</span>
-							</a> <a href="/semiproject/views/myPage/checkingPassword.jsp" class="link_user"
+							<div align="center" style="border-radius: 70%; overflow: hidden; width:150px; height:150px;">
+							<%if(loginUser.getFilePath() == null) {%>
+								<img onclick="change();" src="/semiproject/images/signinImg.png" style="max-width: 100%; max-height: 100%">
+								<%} else { %>
+								<img onclick="change();" src="/semiproject/thumbnail_uploadFile/<%=loginUser.getFilePath()%>" style="max-width: 100%;">
+								<%} %>
+							</div>
+							 <a href="/semiproject/views/myPage/checkingPassword.jsp" class="link_user"
 								data-tiara-action-name="내_정보"><%=loginUser.getmName()%>님<br>
 							</a><a class="link_user" href="/semiproject/views/myPage/myPoint.jsp">
 							<label id="currentPoint" >포인트 : </label>	

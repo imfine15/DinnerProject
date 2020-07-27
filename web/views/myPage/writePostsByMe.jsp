@@ -130,7 +130,8 @@ ul li a span:hover{
 						<label style="margin-left: 30px;"class="text">리뷰수</label>
 					</div>
 					<table style="border-bottom: 1px solid pink" id="listArea">
-					<% int count = blist.size();
+					<%if(blist != null){ 
+					int count = blist.size();
 					for(int i = 0; i < blist.size(); i++) {%>
 						<tr>
 							<td><div class="text2" style="width:72px; margin-left:30px;"><%=count %></div></td>
@@ -156,7 +157,7 @@ ul li a span:hover{
 							<td><div class="text2" style="width:80px;"><%=blist.get(i).getLikeCount()%>건</div></td>
 						</tr>
 					<%count --;
-					} %>
+					} }%>
 					</table>
 				</div>
 

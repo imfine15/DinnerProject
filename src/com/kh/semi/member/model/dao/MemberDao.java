@@ -18,6 +18,7 @@ import com.kh.semi.board.model.vo.BoardVO;
 import com.kh.semi.member.model.vo.MemberVO;
 import com.kh.semi.payment.model.vo.PointVO;
 import com.kh.semi.question.model.vo.QuestionVO;
+import com.kh.semi.review.model.vo.ReviewAttachment;
 
 public class MemberDao {
 	Properties prop = new Properties();
@@ -65,7 +66,9 @@ public class MemberDao {
 		ResultSet rset = null;
 		MemberVO responseMember = null;
 		String query = prop.getProperty("loginMember");
-		
+		PreparedStatement pstmt2 = null;
+		ResultSet rset2 = null;
+		int count = 0;
 		try {
 			pstmt = con.prepareStatement(query);
 			
@@ -74,6 +77,7 @@ public class MemberDao {
 			rset = pstmt.executeQuery();
 			
 			if(rset.next()) {
+				count = 1;
 				responseMember = new MemberVO();
 				responseMember.setmNo(rset.getString("MEMBER_NO"));
 				responseMember.setmId(rset.getString("MEMBER_ID"));
@@ -86,12 +90,39 @@ public class MemberDao {
 				responseMember.setmGrade(rset.getString("MEMBER_GRADE"));
 				responseMember.setStatus(rset.getString("MEMBER_STATUS"));
 				responseMember.setNoshowCount(rset.getInt("NOSHOW_COUNT"));
+				responseMember.setFilePath(rset.getString("CHANGE_NAME"));
+			} 
+			if(count == 0){
+				String query2 = prop.getProperty("loginMember2");
+				pstmt2 = con.prepareStatement(query2);
+				
+				pstmt2.setString(1, requestMember.getmId());
+				pstmt2.setString(2, requestMember.getmPwd());
+				rset2 = pstmt2.executeQuery();
+				
+				if(rset2.next()) {
+					responseMember = new MemberVO();
+					responseMember.setmNo(rset2.getString("MEMBER_NO"));
+					responseMember.setmId(rset2.getString("MEMBER_ID"));
+					responseMember.setmPwd(rset2.getString("MEMBER_PWD"));
+					responseMember.setmName(rset2.getString("MEMBER_NAME"));
+					responseMember.setmEmail(rset2.getString("MEMBER_EMAIL"));
+					responseMember.setmPhone(rset2.getString("MEMBER_PHONE"));
+					responseMember.setmGender(rset2.getString("MEMBER_GENDER"));
+					responseMember.setmNickname(rset2.getString("MEMBER_NICKNAME"));
+					responseMember.setmGrade(rset2.getString("MEMBER_GRADE"));
+					responseMember.setStatus(rset2.getString("MEMBER_STATUS"));
+					responseMember.setNoshowCount(rset2.getInt("NOSHOW_COUNT"));
+				}
+				close(pstmt2);
+				close(rset2);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 			close(rset);
 			close(pstmt);
+			
 		}
 		
 		return responseMember;
@@ -450,6 +481,7 @@ public class MemberDao {
 		ArrayList<BoardVO> rblist = new ArrayList<>();
 		int count = 0;
 		try {
+			if(blist.size() > 0) {
 			while(true) {
 				pstmt = con.prepareStatement(query);
 				pstmt.setString(1, blist.get(count).getBoardNo());
@@ -462,7 +494,7 @@ public class MemberDao {
 				count ++;
 				if(blist.size() == count)break;
 			}
-			
+			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -490,6 +522,51 @@ public class MemberDao {
 		} finally {
 			close(pstmt);
 		}
+		return result;
+	}
+
+	public int changeMemberImg(Connection con, ReviewAttachment ra) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("changeMemberImg");
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, ra.getReviewNo());
+			pstmt.setString(2, ra.getOriginName());
+			pstmt.setString(3, ra.getChangeName());
+			pstmt.setString(4, ra.getFilePath());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	public int insertAttachment(Connection con, BoardUpVo file) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("insertAttachment");
+		
+		
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, file.getOriginName());
+			pstmt.setString(2, file.getChangeName());
+			pstmt.setString(3, file.getFilePath());
+			pstmt.setString(4, file.getBoardNo());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
 		return result;
 	}
 
