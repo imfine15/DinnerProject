@@ -275,7 +275,7 @@ tr {
 			         			<th>총 방문횟수</th>
 			         			<th>총 취소횟수</th>
 			         			<th style="color:red;">No Show</th>
-			         			<th>최근 방문일</th>
+			         			<th>예약 요청일</th>
 			         			<th>예약자 정보</th>
 			         		</tr>
 		         		</thead>

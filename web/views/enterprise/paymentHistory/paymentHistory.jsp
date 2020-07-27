@@ -1,5 +1,19 @@
+<%@page import="com.kh.semi.enterprise.model.vo.PageInfo"%>
+<%@page import="com.kh.semi.enterprise.model.vo.ForPhVO"%>
+<%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%
+	ArrayList<ForPhVO> infoList = (ArrayList<ForPhVO>)request.getAttribute("infoList");
+	PageInfo pi = (PageInfo)request.getAttribute("pi");
+	int count = (int)request.getAttribute("count");
+	
+	int listCount = pi.getListCount();
+	int currentPage = pi.getCurrentPage();
+	int maxPage = pi.getMaxPage();
+	int startPage = pi.getStartPage();
+	int endPage = pi.getEndPage();
+%>
 <!doctype html>
 <html lang="ko">
 <head>
@@ -16,6 +30,14 @@
 	
 	.payBtn{
 		width:50px;
+		height:25px;
+		background: #EB7673;
+		font-weight: bold;
+		color:white;
+		border:0;
+	}
+	.exceptBtn{
+	width:50px;
 		height:25px;
 		background: #EB7673;
 		font-weight: bold;
@@ -87,7 +109,7 @@
          	<br>
             <table style="text-align: center;" align="center">
             <thead>
-               <th style="width:150px;">일자</th>
+               <th style="width:150px;" colspan="2">일자</th>
                <th style="width:150px;">예약 건수</th>
                <th style="width:150px;">매출 금액</th>
                <th style="width:150px;">정산 금액</th>
@@ -96,56 +118,23 @@
                <th style="width:150px;">전자 서명</th>
             </thead>
             <tbody align="center">
+              
+               <% for(ForPhVO v : infoList) {int i = 0;%>
                <tr>
-                  <td><a href="">00000001</a></td>
-                  <td><a href="">imfine123</a></td>
-                  <td>IMFINE</td>
-                  <td>imfine_123@kh.or.kr</td>
-                  <td><button class="payBtn" style="background-color: #5EB8B4; width: 80px; border:0; color:gray;">입금 예정</button></td>
-                  <td><button class="payBtn">신청</button></td>
-                  <td><button class="payBtn">확인</button></td>
+                  <td colspan="2"><a href=""><%=v.getStartDate() %>~<%=v.getEndDate() %></a></td>
+                  <td><a href=""><%=count %></a></td>
+                  <td><%=v.getSum() %></td>
+                  <td><%=(int)((double)v.getSum() * 0.967) %></td>
+                  <%if(v.getCalcStatus().equals("N")){ %>
+                  <td><button class="payBtn" style="background-color: #5EB8B4; width: 80px; border:0; color:gray;" disabled="disabled">입금 예정</button></td>
+                  <%}else{ %>
+                  <td><button class="payBtn" style="background-color: #EB7673; width: 80px; border:0; color:white;" disabled="disabled">입금 완료</button></td>
+                  <%} %>
+                  <td><button class="exceptBtn" id="exceptBtn<%=i%>">신청</button></td>
+                  <td><button class="payBtn" id="payBtn<%=i%>">확인</button></td>
                  
                </tr>
-               <tr>
-                  <td><a href="">00000001</a></td>
-                  <td><a href="">imfine123</a></td>
-                  <td>IMFINE</td>
-                  <td>imfine_123@kh.or.kr</td>
-                  <td><button class="payBtn" style="background-color: #5EB8B4; width: 80px; border:0; color:gray;">입금 예정</button></td>
-                  <td><button class="payBtn">신청</button></td>
-                  <td><button class="payBtn">확인</button></td>
-                 
-               </tr>
-               <tr>
-                  <td><a href="">00000001</a></td>
-                  <td><a href="">imfine123</a></td>
-                  <td>IMFINE</td>
-                  <td>imfine_123@kh.or.kr</td>
-                  <td><button class="payBtn" style="background-color: #5EB8B4; width: 80px; border:0; color:gray;">입금 예정</button></td>
-                  <td><button class="payBtn">신청</button></td>
-                  <td><button class="payBtn">확인</button></td>
-                 
-               </tr>
-               <tr>
-                  <td><a href="">00000001</a></td>
-                  <td><a href="">imfine123</a></td>
-                  <td>IMFINE</td>
-                  <td>imfine_123@kh.or.kr</td>
-                  <td><button class="payBtn" style="background-color: #5EB8B4; width: 80px; border:0; color:gray;">입금 예정</button></td>
-                  <td><button class="payBtn">신청</button></td>
-                  <td><button class="payBtn">확인</button></td>
-                 
-               </tr>
-               <tr>
-                  <td><a href="">00000001</a></td>
-                  <td><a href="">imfine123</a></td>
-                  <td>IMFINE</td>
-                  <td>imfine_123@kh.or.kr</td>
-                  <td><button class="payBtn" style="background-color: #5EB8B4; width: 80px; border:0; color:gray;">입금 예정</button></td>
-                  <td><button class="payBtn">신청</button></td>
-                  <td><button class="payBtn">확인</button></td>
-                 
-               </tr>
+               <%i++;} %>
             </tbody>
             </table>
       <div class="pagingArea" align="center">
