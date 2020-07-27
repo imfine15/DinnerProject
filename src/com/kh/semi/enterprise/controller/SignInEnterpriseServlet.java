@@ -36,11 +36,9 @@ public class SignInEnterpriseServlet extends HttpServlet {
 		requestEnp.setPartnerId(id);
 		requestEnp.setPartnerPwd(password);
 		
-		System.out.println(password);
 		
 		EnpVO loginEnp = new EnpService().loginCheck(requestEnp);
 		
-		System.out.println(loginEnp);
 		
 		if(loginEnp != null) {
 			request.getSession().setAttribute("loginEnp", loginEnp);
@@ -50,13 +48,7 @@ public class SignInEnterpriseServlet extends HttpServlet {
 			request.setAttribute("msg", "로그인 에러!");
 			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
 		}
-		/*if(loginUser != null) {
-			request.getSession().setAttribute("loginUser", loginUser);
-			response.sendRedirect("index.jsp");
-		}else {
-			request.setAttribute("msg", "로그인실패");
-			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
-		}*/
+		
 	}
 
 	/**

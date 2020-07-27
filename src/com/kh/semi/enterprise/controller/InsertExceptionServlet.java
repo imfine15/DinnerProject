@@ -10,16 +10,16 @@ import javax.servlet.http.HttpServletResponse;
 import com.kh.semi.enterprise.model.service.EnpService;
 
 /**
- * Servlet implementation class UpdateConfirmRequestServlet
+ * Servlet implementation class InsertExceptionServlet
  */
-@WebServlet("/updateRequest.en")
-public class UpdateConfirmRequestServlet extends HttpServlet {
+@WebServlet("/insertException.en")
+public class InsertExceptionServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public UpdateConfirmRequestServlet() {
+    public InsertExceptionServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -28,22 +28,25 @@ public class UpdateConfirmRequestServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String enpNo = request.getParameter("enpNo");
+		String enpId = request.getParameter("enpId");
+		String reason = request.getParameter("reason");
+		String enpName = request.getParameter("partnerName");
+		String tel = request.getParameter("tel");
+		String email = request.getParameter("email");
 		String enp = request.getParameter("enpId");
-		String rno = request.getParameter("rno");
+
+		int result = new EnpService().insertException(enpNo,enpId,reason,enpName,tel,email);
 		
-		int result = new EnpService().updateCrList(rno);
-		
-		
-		String page = "";
-		if(result > 0 ) {
-			page = "selectConfirmRequestList.en";
-			request.setAttribute("enp", enp);
+		String page ="";
+		if(result>0) {
+			page = "/selectCalculateList.en?enpId="+enp;
 		}else {
 			page="views/common/errorPage.jsp";
-			request.setAttribute("msg", "예약 수락 실패");
+			request.setAttribute("msg", "이의신청 실패");
 		}
 		request.getRequestDispatcher(page).forward(request, response);
-
+		
 	}
 
 	/**

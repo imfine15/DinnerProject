@@ -31,21 +31,11 @@ public class InsertCmCommentServlet extends HttpServlet {
 		String comment = request.getParameter("commentTextArea");
 		String reviewNum = request.getParameter("rn");
 		String enpNo = request.getParameter("enpNo");
-		System.out.println("댓글 : " + comment);
-		System.out.println("리뷰 번호 : " + reviewNum);
-		System.out.println("enpNo : " + enpNo);
-		
-		
 		
 		int result = 0;
 		
 		result = new EnpService().insertComment(reviewNum,comment,enpNo);
-		/*
-		String page = "";
-		if(result ==0) {
-			page="views/common/errorPage.jsp";
-			
-		}*/
+		
 		
 		String page = "";
 		if(result > 0) {

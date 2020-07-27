@@ -38,24 +38,19 @@ public class SelectReservationDateListServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int currentPage;	//현재 페이지를 표시할 변수
-		int limit;	//한 페이지에 게시글이 몇 개 보여질 것인지 표시
-		int maxPage;	//전체 페이지에서 가장 마지막 페이지
-		int startPage;	//한 번에 표시될 페이지가 시작할 페이지
-		int endPage;	//한 번에 표시될 페이지가 끝나는 페이지
+		int currentPage;	
+		int limit;	
+		int maxPage;	
+		int startPage;
+		int endPage;	
 		
 		
-		//일자 변경
 		Date date = new Date();
 		SimpleDateFormat sdformat = new SimpleDateFormat("yyyy/MM/dd");
 		SimpleDateFormat requestDate = new SimpleDateFormat("yyyyMMdd");
 		Calendar cal = Calendar.getInstance();
 		cal.setTime(date);
 		
-		
-//		String today = "";
-		
-		//today 전달파라미터 - 현재 페이지에 보여지고 있는 날짜
 		String today = request.getParameter("today");
 		if(today != null && !"".equals(today) ) {
 			try {
@@ -68,16 +63,7 @@ public class SelectReservationDateListServlet extends HttpServlet {
 		
 		
 		if(request.getParameter("dayStatus") == null) {
-			SimpleDateFormat sdformat2 = new SimpleDateFormat("yy");
-			SimpleDateFormat sdformat3 = new SimpleDateFormat("MM");
-			SimpleDateFormat sdformat4 = new SimpleDateFormat("dd");
-			String today2 = sdformat2.format(cal.getTime());
-			String today3 = sdformat3.format(cal.getTime());
-			String today4 = sdformat4.format(cal.getTime());
 			
-			System.out.println("yy : " + today2);
-			System.out.println("mm : " + today3);
-			System.out.println("dd : " + today4);
 		}else {
 			
 			int dayStatus = Integer.parseInt(request.getParameter("dayStatus"));
@@ -91,37 +77,21 @@ public class SelectReservationDateListServlet extends HttpServlet {
 		}
 		today = sdformat.format(cal.getTime());
 		String requestDay = requestDate.format(cal.getTime());
-		System.out.println("today : : " + today);
-		System.out.println("requestDay : " + requestDay);
 		
-		
-		//게시판은 1페이지부터 시작
 		currentPage = 1;
 		
-		//전달받은 리퀘스트가 있다면 전달받은 값으로 덮어씀
 		if(request.getParameter("currentPage") != null) {
 			currentPage = Integer.parseInt(request.getParameter("currentPage"));
 		}
 		String enp = request.getParameter("enpId");
-		System.out.println("enpId : " + enp);
-		//한 페이지에 보여질 목록 갯수
 		limit = 5;
 		
-		//전체 목록 갯수 조회
 		int listCount = new EnpService().getRDListCount(enp,requestDay);
-		System.out.println(listCount);
 		
-		//총 페이지 수 계산
-		//예를 들면 목록 갯수가 123개면
-		//총 필요한 페이지 수는 13개
 		maxPage = (int)((double) listCount / limit + 0.9);
 		
-		//현재 페이지에 보여줄 시작 페이지 수 (10개씩 보여지게 할 경우)
-		//아래 쪽 페이지 수가 10개씩 보여진다면
-		//1, 11 , 21,.... 
 		startPage = (((int)((double)currentPage/10 +0.9))-1)*10 +1;
 		
-		//목록 아래쪽에 보여질 마지막 페이지 수 (10,20,30...)
 		endPage = startPage + 10- 1;
 		
 		if(maxPage < endPage) {
@@ -135,27 +105,12 @@ public class SelectReservationDateListServlet extends HttpServlet {
 		
 		
 		String memId = new EnpService().selectCRMemId(enp);
-		System.out.println(memId);
 		
 		ArrayList<ForEntCrVO> modalList = new EnpService().selectRDModalList(enp,requestDay);
-		for(ForEntCrVO f : modalList) {
-			System.out.println("modalList's rownum : " + f.getRownum());
-			System.out.println("modalList's nickName : "+f.getNickName());
-			System.out.println("modalList's resDate : "+f.getReservationDate());
-		}
+		
 		String cancelId = "RSC3";
 		String visitId = "RSC5";
 		
-		/*ArrayList<Integer> cancelCount = new EnpService().selectCRCount(cancelId,enp);
-		
-		ArrayList<Integer> visitCount = new EnpService().selectCRCount(visitId,enp);
-		
-		for(int a : cancelCount) {
-			System.out.println("cancelCount : " + a);
-		}
-		for(int a : visitCount) {
-			System.out.println("visitCount : " + a);
-		}*/
 		ArrayList<ReservationVO> checkCountList = new ArrayList<ReservationVO>();
 		for(ReservationVO v : list) {
 			int i = 0;
@@ -170,20 +125,7 @@ public class SelectReservationDateListServlet extends HttpServlet {
 		
 		ArrayList<Integer> visitCount = new EnpService().selectCRCount(visitId,enp,checkCountList);
 		
-		for(int a : cancelCount) {
-			System.out.println("cancelCount : " + a);
-		}
-		for(int a : visitCount) {
-			System.out.println("visitCount : " + a);
-		}
-		
 		String page = "";
-		
-		System.out.println(list);
-		
-		for(ReservationVO r : list) {
-			System.out.println(r.getcNo());
-		}
 		
 		if(list != null && modalList != null) {
 			page = "views/enterprise/reservationDate/reservationDate.jsp";

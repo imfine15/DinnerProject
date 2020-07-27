@@ -93,7 +93,6 @@ public class EnpService {
 
 		close(con);
 
-		System.out.println("service : " + requestReserve);
 		return requestReserve;
 	}
 
@@ -195,9 +194,6 @@ public class EnpService {
 	}
 
 	public int selectCRRownum(String enp) {
-		//Connection con = getConnection();
-
-		// int rownum = new EnpDao().selectCRRownum(con,enp);
 
 		return 0;
 	}
@@ -218,7 +214,6 @@ public class EnpService {
 
 		close(con);
 
-		System.out.println("service : " + requestReserve);
 		return requestReserve;
 	}
 
@@ -236,8 +231,6 @@ public class EnpService {
 		Connection con = getConnection();
 		int result = 0;
 		result = new EnpDao().uploadEnp(con, enp);
-
-		System.out.println("result : " + result);
 
 		if (result > 0) {
 			commit(con);
@@ -265,7 +258,6 @@ public class EnpService {
 
 		close(con);
 
-		System.out.println("service : " + requestReserve);
 		return requestReserve;
 	}
 
@@ -410,6 +402,22 @@ public class EnpService {
 		
 		close(con);
 
+		return result;
+	}
+
+	public int insertException(String enpNo, String enpId, String reason, String enpName, String tel, String email) {
+		Connection con = getConnection();
+		
+		int result = new EnpDao().insertException(con,enpNo,enpId,reason,enpName,tel,email);
+		
+		if(result >0) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		
+		close(con);
+		
 		return result;
 	}
 

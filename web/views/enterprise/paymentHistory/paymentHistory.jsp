@@ -167,18 +167,20 @@
 				<br>
 				<br>
 				<div class="modal-body">
-					<form action="" style="margin-left: 10%;">
-						<p>업체명 : <a>피카츄돈까스</a></p>
+					<form action="/semiproject/insertException.en" method="post" style="margin-left: 10%;">
+						<input hidden="hidden" value="<%=loginEnp.getEnpNo() %>" name="enpNo" >
+						<input hidden="hidden" value="<%=loginEnp.getPartnerId()%>" name="enpId">
+						<p>업체명 : <a><%=loginEnp.getEnpName() %></a></p>
 						<br>
-						<p>신청인 : <input type="text"></p>
+						<p>신청인 : <input type="text" name="partnerName"></p>
 						<br>
-						<p>핸드폰 : <input type="tel"></p>
+						<p>핸드폰 : <input type="tel" name="tel"></p>
 						<br>
-						<p>이메일 : <input type="email"></p>
+						<p>이메일 : <input type="email" name="email"></p>
 						<br>
 						<p>이의신청 취지 및 사유 : </p>
 						
-						<textarea rows="5" cols="40" style="resize:none; border-radius: 0; border: 1px solid gray; outline-style: none;"></textarea>
+						<textarea rows="5" cols="40" name="reason" style="resize:none; border-radius: 0; border: 1px solid gray; outline-style: none;"></textarea>
 						<br>
 						<button type="submit" style="text-align: center; margin-left: 80%;  font-weight: bold;">제출</button>
 						
