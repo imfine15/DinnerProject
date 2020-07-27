@@ -5,7 +5,8 @@
 	session.setAttribute("backPage", backPage);
 
 	ArrayList<BoardUpVo> blist = (ArrayList<BoardUpVo>) request.getAttribute("boardList");
-
+	ArrayList<BoardUpVo> clist = (ArrayList<BoardUpVo>) request.getAttribute("courseList");
+	
 %>
 
 <!DOCTYPE html>
@@ -154,24 +155,38 @@
 	  <div class="slideshow-container">
 
 		<div class="mySlides fade">
-		  <div class="numbertext">1 / 3</div>
-		  <img src="/semiproject/views/main/img/cos1.png" style="width:45%; margin-right:9.2%;">
-		  <img src="/semiproject/views/main/img/cos1.png" style="width:45%">
-		  <div class="text">1/3</div>
+		  <div class="numbertext"></div>
+		  <%for(int i = 0; i < 1; i ++){ %>
+		  <div style="position: relative;">
+		  <img style="width:47%; height: 350px; margin-right:3%; display: inline-block;" src="/semiproject/thumbnail_uploadFile/<%=clist.get(i).getChangeName() %>">
+		  <img style=" float:right; width:47%; height: 350px; display: inline-block;" src="/semiproject/thumbnail_uploadFile/<%=clist.get(i + 1).getChangeName() %>">
+		  <div style="text-overflow:ellipsis; overflow:hidden; color: white;left: 170px; width: 400px; bottom: 160px; font-size: 1.8em; font-weight: bold; position: absolute;"><%=clist.get(i).getBoardTitle() %></div>
+		  <div style="text-overflow:ellipsis; overflow:hidden; color: white;left: 900px; width: 400px; bottom: 160px; font-size: 1.8em; font-weight: bold; position: absolute;"><%=clist.get(i).getBoardTitle() %></div>
+		  </div>
+		  <%} %>
 		</div>
 
 		<div class="mySlides fade">
-		  <div class="numbertext">2 / 3</div>
-		  <img src="/semiproject/views/main/img/cos1.png" style="width:45%;margin-right:9.2%;">
-		  <img src="/semiproject/views/main/img/cos1.png" style="width:45%">
-		  <div class="text">2/3</div>
+		    <%for(int i = 2; i < 3; i ++){ %>
+		  <div style="position: relative;">
+		  <img style="width:47%; height: 350px; margin-right:3%; display: inline-block;" src="/semiproject/thumbnail_uploadFile/<%=clist.get(i).getChangeName() %>">
+		  <img style=" float:right; width:47%; height: 350px; display: inline-block;" src="/semiproject/thumbnail_uploadFile/<%=clist.get(i + 1).getChangeName() %>">
+		  <div style="text-overflow:ellipsis; overflow:hidden; color: white;left: 170px; width: 400px; bottom: 160px; font-size: 1.8em; font-weight: bold; position: absolute;"><%=clist.get(i).getBoardTitle() %></div>
+		  <div style="text-overflow:ellipsis; overflow:hidden; color: white;left: 900px; width: 400px; bottom: 160px; font-size: 1.8em; font-weight: bold; position: absolute;"><%=clist.get(i).getBoardTitle() %></div>
+		  </div>
+		  <%} %>
 		</div>
 
 		<div class="mySlides fade">
-		  <div class="numbertext">3 / 3</div>
-		  <img src="/semiproject/views/main/img/cos1.png" style="width:45%;margin-right:9.2%;">
-		  <img src="/semiproject/views/main/img/cos1.png" style="width:45%">
-		  <div class="text">3/3</div>
+		  <div class="numbertext"></div>
+		   <%for(int i = 4; i < 5; i ++){ %>
+		  <div style="position: relative;">
+		  <img style="width:47%; height: 350px; margin-right:3%; display: inline-block;" src="/semiproject/thumbnail_uploadFile/<%=clist.get(i).getChangeName() %>">
+		  <img style=" float:right; width:47%; height: 350px; display: inline-block;" src="/semiproject/thumbnail_uploadFile/<%=clist.get(i + 1).getChangeName() %>">
+		  <div style="text-overflow:ellipsis; overflow:hidden; color: white;left: 170px; width: 400px; bottom: 160px; font-size: 1.8em; font-weight: bold; position: absolute;"><%=clist.get(i).getBoardTitle() %></div>
+		  <div style="text-overflow:ellipsis; overflow:hidden; color: white;left: 900px; width: 400px; bottom: 160px; font-size: 1.8em; font-weight: bold; position: absolute;"><%=clist.get(i).getBoardTitle() %></div>
+		  </div>
+		  <%} %>
 		</div>
 
 		<a class="prev" onclick="plusSlides(-1)">&#10094;</a>

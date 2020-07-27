@@ -26,7 +26,11 @@ public class MainServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		ArrayList<BoardUpVo> boardList = new MainService().selectBoardList();
+		ArrayList<BoardUpVo> courseList = new MainService().selectCourseList();
+		
 		request.setAttribute("boardList", boardList);
+		request.setAttribute("courseList", courseList);
+		
 		request.getRequestDispatcher("views/main/main.jsp").forward(request, response);
 	}
 
