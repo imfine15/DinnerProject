@@ -9,6 +9,7 @@
 	} else {
 		enpNo = request.getParameter("enpNo");
 	}
+	System.out.println("jsp enpNo" + enpNo);
 %>
 <!DOCTYPE html>
 <html>
@@ -115,6 +116,7 @@ input[type="number"]::-webkit-inner-spin-button {
 		method="post" name="reserInfo">
 
 		<input type="hidden" name="cals" value="CALC1">
+		<input type="hidden" name="enpNo" value="<%= enpNo %>">
 		<div
 			style="width: 80%; height: 1400px; margin-left: auto; margin-right: auto; padding-top: 100px;">
 			<div class="subb">
@@ -251,15 +253,7 @@ input[type="number"]::-webkit-inner-spin-button {
 	var IMP = window.IMP;
 	IMP.init("imp12858574");
 	
-	function reservation() {
-		$("#payprice").val($("#deposit"));
-		$("#muid").val("asd13");
-		
-		document.reserInfo.submit();
-	}
-	
-	
- 	 /* function reservation(){
+ 	function reservation(){
 	if($("#finaltime").html() === null || $("#finaltime").html() === ""){
 		alert("날짜 입력를 입력해주세요.");
 		return false;
@@ -302,7 +296,7 @@ input[type="number"]::-webkit-inner-spin-button {
 		    }
 		});
 	} 
-	}  */
+	}
 	
 </script>
 	<%@ include file="/views/common/footer.jsp"%>

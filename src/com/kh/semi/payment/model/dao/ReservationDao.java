@@ -47,6 +47,8 @@ public class ReservationDao {
 			pstmt.setInt(7, insertReservationVO.getPeople());
 			pstmt.setInt(8, insertReservationVO.getDeposit());
 			
+			System.out.println("결제 dao : " + insertReservationVO.geteNo());
+			
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

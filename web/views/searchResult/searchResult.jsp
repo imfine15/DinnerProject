@@ -286,7 +286,6 @@
 						$("#bestBig<%= i %>").html(data[<%= i %>].boardTitle);
 						$("#bestSmall<%= i %>").html(data[<%= i %>].hashTags);
 						$("#bestImg<%= i %>").attr("name",data[<%= i %>].boardNo)
-						console.log(data);
 					}
 				});
 			});
@@ -457,7 +456,7 @@
 									$("#pagingNoEnp").val(currentPageEnp);
 								} else {
 									$("#enpTableDiv").html("");
-									
+									console.log(data);
 									for(var i = 0; i < data[0].length; i++) {
 										
 										$("#enpTableDiv").append(
