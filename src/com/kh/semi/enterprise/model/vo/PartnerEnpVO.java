@@ -13,7 +13,7 @@ public class PartnerEnpVO implements java.io.Serializable {
 	private String partnerName;
 	private String accountHolder;
 	private String bank;
-	private int bankAccount;
+	private String bankAccount;
 	private String enpLicence;
 	private String partnerType;
 	private String visitService;
@@ -34,15 +34,19 @@ public class PartnerEnpVO implements java.io.Serializable {
 	private Date contractStartDate;
 	private Date ContractEndDate;
 	private String contractNo;
-
+	private int depositLower;
+	private int depositHigher;
+	private String signUpApproval;
+	
 	public PartnerEnpVO() {}
 
 	public PartnerEnpVO(String enpNo, String enpRegisterNo, String partnerCode, int penaltyCount, String partnerId,
-			String partnerEmail, String partnerName, String accountHolder, String bank, int bankAccount,
+			String partnerEmail, String partnerName, String accountHolder, String bank, String bankAccount,
 			String enpLicence, String partnerType, String visitService, String productName, String partnerPrice,
 			int reservationCount, String enpName, String enpPhone, String enpAddress, String enpHour, String enpType,
 			String enpStatus, String enpPartnerType, String closedDay, String website, String introduce, String parking,
-			Date contractStartDate, Date contractEndDate, String contractNo) {
+			Date contractStartDate, Date contractEndDate, String contractNo, int depositLower, int depositHigher,
+			String signUpApproval) {
 		super();
 		this.enpNo = enpNo;
 		this.enpRegisterNo = enpRegisterNo;
@@ -74,6 +78,9 @@ public class PartnerEnpVO implements java.io.Serializable {
 		this.contractStartDate = contractStartDate;
 		ContractEndDate = contractEndDate;
 		this.contractNo = contractNo;
+		this.depositLower = depositLower;
+		this.depositHigher = depositHigher;
+		this.signUpApproval = signUpApproval;
 	}
 
 	public String getEnpNo() {
@@ -148,11 +155,11 @@ public class PartnerEnpVO implements java.io.Serializable {
 		this.bank = bank;
 	}
 
-	public int getBankAccount() {
+	public String getBankAccount() {
 		return bankAccount;
 	}
 
-	public void setBankAccount(int bankAccount) {
+	public void setBankAccount(String bankAccount) {
 		this.bankAccount = bankAccount;
 	}
 
@@ -316,6 +323,30 @@ public class PartnerEnpVO implements java.io.Serializable {
 		this.contractNo = contractNo;
 	}
 
+	public int getDepositLower() {
+		return depositLower;
+	}
+
+	public void setDepositLower(int depositLower) {
+		this.depositLower = depositLower;
+	}
+
+	public int getDepositHigher() {
+		return depositHigher;
+	}
+
+	public void setDepositHigher(int depositHigher) {
+		this.depositHigher = depositHigher;
+	}
+
+	public String getSignUpApproval() {
+		return signUpApproval;
+	}
+
+	public void setSignUpApproval(String signUpApproval) {
+		this.signUpApproval = signUpApproval;
+	}
+
 	@Override
 	public String toString() {
 		return "PartnerEnpVO [enpNo=" + enpNo + ", enpRegisterNo=" + enpRegisterNo + ", partnerCode=" + partnerCode
@@ -327,7 +358,10 @@ public class PartnerEnpVO implements java.io.Serializable {
 				+ ", enpAddress=" + enpAddress + ", enpHour=" + enpHour + ", enpType=" + enpType + ", enpStatus="
 				+ enpStatus + ", enpPartnerType=" + enpPartnerType + ", closedDay=" + closedDay + ", website=" + website
 				+ ", introduce=" + introduce + ", parking=" + parking + ", contractStartDate=" + contractStartDate
-				+ ", ContractEndDate=" + ContractEndDate + ", contractNo=" + contractNo + "]";
+				+ ", ContractEndDate=" + ContractEndDate + ", contractNo=" + contractNo + ", depositLower="
+				+ depositLower + ", depositHigher=" + depositHigher + ", signUpApproval=" + signUpApproval + "]";
 	}
+
+	
 
 }

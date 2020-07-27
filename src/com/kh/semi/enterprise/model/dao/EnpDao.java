@@ -1249,7 +1249,7 @@ Properties prop = new Properties();
 				p.setEnpType(rset.getString("ENP_TYPE"));
 				p.setContractStartDate(rset.getDate("CONTRACT_START_DATE"));
 				p.setContractEndDate(rset.getDate("CONTRACT_END_DATE"));
-				
+
 				list.add(p);
 			}
 		} catch (SQLException e) {
@@ -1279,13 +1279,23 @@ Properties prop = new Properties();
 			if(rset.next()) {
 				partner = new PartnerEnpVO();
 				
-			//	partner.setNoticeNo(rset.getString("SUBSTR(NOTICE_NO,2)"));
 				partner.setEnpNo(rset.getString("ENP_NO"));
-				partner.setEnpName(rset.getString("PARTNER_NAME"));
+				partner.setPartnerName(rset.getString("PARTNER_NAME"));
 				partner.setPartnerId(rset.getString("PARTNER_ID"));
 				partner.setEnpPhone(rset.getString("ENP_PHONE"));
-				partner.setenp
-			
+				partner.setEnpName(rset.getString("ENP_NAME"));
+				partner.setPartnerEmail(rset.getString("PARTNER_EMAIL"));
+				partner.setPenaltyCount(rset.getInt("PENALTY_COUNT"));
+				partner.setAccountHolder(rset.getString("ACCOUNT_HOLDER"));
+				partner.setBankAccount(rset.getString("BANK_ACCOUNT"));
+				partner.setDepositLower(rset.getInt("DEPOSIT_LOWER_LIMIT"));
+				partner.setDepositHigher(rset.getInt("DEPOSIT_HIGHER_LIMIT"));
+				partner.setBank(rset.getString("BANK"));
+				partner.setReservationCount(rset.getInt("RESERVATION_COUNT"));
+				partner.setContractStartDate(rset.getDate("CONTRACT_START_DATE"));
+				partner.setContractEndDate(rset.getDate("CONTRACT_END_DATE"));
+				partner.setSignUpApproval(rset.getString("SIGNUP_APPROVAL"));
+				partner.setProductName(rset.getString("PRODUCT_NAME"));
 			}
 
 		} catch (SQLException e) {
@@ -1296,5 +1306,30 @@ Properties prop = new Properties();
 
 		return partner;
 		
+	}
+
+	public int deletePartner(Connection con, String enpNo) {
+		
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("deletePartner");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, enpNo);
+			
+			result = pstmt.executeUpdate();
+			
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+ 		 
+		return result;
 	}
 }

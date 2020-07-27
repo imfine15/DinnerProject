@@ -396,6 +396,23 @@ public class EnpService {
 		return partnerEnp;
 	}
 
+	public int deletepartner(String enpNo) {
+	
+		Connection con = getConnection();
+
+		int result = new EnpDao().deletePartner(con, enpNo);
+
+		if(result > 0) {
+			commit(con);
+		} else {
+			rollback(con);
+		}
+		
+		close(con);
+
+		return result;
+	}
+
 
 	
 }

@@ -151,7 +151,7 @@ select {
 				</tr>
 				</thead>
 				<tbody align="center">
-				<% for(PartnerEnpVO p : list) { %>
+				<% for( PartnerEnpVO p : list) { %>
 					<tr>
 						<td>ENP<%=p.getEnpNo() %></td>
 						<td><%=p.getEnpName() %></td>
@@ -174,7 +174,7 @@ select {
 				$(this).parent().css({"background":"white"});
 			}).click(function() {
 						
-				var num =($(this).parent().children().eq(0).text()).substr(4);
+				var num =($(this).parent().children().eq(0).text()).substr(3);
 
 				location.href="<%=request.getContextPath()%>/selectOne.pac?num="+ num;
 							});
