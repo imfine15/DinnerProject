@@ -122,7 +122,7 @@ textarea {
 		<div id="inner-wrap">
 			<div id="inner-box">				
 				<div id="body-form" align="center">
-					<form>
+					<form action="<%= request.getContextPath() %>/send.qu" method="post">
 						<table id="body-table">
 							<tr>
 								<td style="width:50%;font-weight: bolder;"><p style="margin-left:20px;"><%=q.getQuestionTitle()%></p></td>
@@ -179,7 +179,7 @@ textarea {
 								<% if(q.getQuestionDisposalStatus().equals("QDSC1")) { %>
 									<input type="text" name="answerT" style="width:100%; height:30px;">
 								<% } else if(q.getQuestionDisposalStatus().equals("QDSC3")) { %>
-									<input type="text" name="answerT" style="width:100%; height:30px;" readonly>
+									<p>답변이 완료된 글입니다.</p>
 								</td>
 								<% } %>
 							</tr>
@@ -190,8 +190,7 @@ textarea {
 									<textarea name="answerC"style="width:100%; height:300px; margin-top:10px; resize:none;">
 									</textarea>
 								<% } else if(q.getQuestionDisposalStatus().equals("QDSC3")) { %>
-									<textarea name="answerC"style="width:100%; height:300px; margin-top:10px; resize:none;" readonly>
-									</textarea>
+									<p>답변이 완료된 글입니다.</p>
 								<% } %>			
 								</td>
 							</tr>
@@ -200,9 +199,14 @@ textarea {
 						<input type="hidden" name="qNo" value="<%=q.getQuestionNo()%>">
 						<input type="hidden" name="mNo" value="<%=q.getMemberNo()%>">
 						<input type="hidden" name="mId" value="<%=q.getMemberId()%>">
+						<input type="hidden" name="mail" value="<%=q.getQuestionEmail() %>">
 						</div>
 						<div id="btnArea" align="center">
-							<button id="ans-btn">답변등록</button>
+							<% if(q.getQuestionDisposalStatus().equals("QDSC1")) { 
+							%><button id="ans-btn">답변등록</button>
+							<% } else { %>
+							<button id="ans-btn" disabled style="background-color:gray">답변등록</button>
+							<% } %>
 						</div>
 					</form>
 				</div>
@@ -211,9 +215,7 @@ textarea {
 		</div>
 	</div>
 	<script>
-		$(document).ready(function() {
-			console.log("<%=q.getQuestionDisposalStatus() %>");
-		});
+		
 	</script>
 </body>
 </html>

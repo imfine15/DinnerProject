@@ -129,7 +129,7 @@ select {
 		</div>
 		<div id="inner-wrap">
 			<div align="center" id="inner-box">
-			<label style="margin-right: 500px;">※ 등록된 업체수 : 7명</label>
+			<label style="margin-right: 500px;"></label>
 			<select>
 				<option>업체번호</option>	
 				<option>업체명</option>
