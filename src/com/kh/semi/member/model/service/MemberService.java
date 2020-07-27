@@ -3,12 +3,14 @@ package com.kh.semi.member.model.service;
 import static com.kh.semi.common.JDBCTemplate.*;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.util.ArrayList;
 
 import com.kh.semi.admin.model.vo.PageInfo;
 import com.kh.semi.board.model.vo.BoardUpVo;
 import com.kh.semi.board.model.vo.BoardVO;
 import com.kh.semi.member.model.dao.MemberDao;
+import com.kh.semi.member.model.vo.MemberAdminVo;
 import com.kh.semi.member.model.vo.MemberVO;
 import com.kh.semi.payment.model.vo.PointVO;
 import com.kh.semi.question.model.vo.QuestionVO;
@@ -183,5 +185,58 @@ public class MemberService {
 		}
 		return result;
 	}
+
+	public int getListCount() {
+		Connection con = getConnection();
+		int result = new MemberDao().getListCount(con);
+		
+		close(con);
+		return result;
+	}
+
+	public ArrayList<MemberAdminVo> selectMember(PageInfo pi) {
+		Connection con = getConnection();
+		ArrayList<MemberAdminVo> list = new MemberDao().selectMemberAdmin(con, pi);
+		int result1 = 0;
+		Date result2 = null;
+		Date result3 = null;
+		
+		for(int i = 0; i <list.size(); i++) {
+			result1 = new MemberDao().selectReservationCount(con, list.get(i).getMemberNo());
+			result2 = new MemberDao().selectVisitDate(con, list.get(i).getMemberNo());
+			result3 = new MemberDao().selectReservationDate(con, list.get(i).getMemberNo());
+			
+			list.get(i).setReservationCount(result1);
+			list.get(i).setVisitDate(result2);
+			list.get(i).setReservationDate(result3);
+			
+		}
+		
+		
+		
+		
+		
+		close(con);
+		
+		return list;
+	}
+
+	public int countMember() {
+		Connection con = getConnection();
+		
+		int result = new MemberDao().selectMemberCount(con);
+		close(con);
+		
+		return result;
+	}
+
+//	public MemberAdminVo selectOneMem(String memberNo) {
+//		Connection con = getConnection();
+//		
+//		MemberAdminVo member = new MemberDao().selectOneMem(con, memberNo);
+//		
+//		close(con);
+//		return member;
+//	}
 
 }

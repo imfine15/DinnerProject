@@ -112,9 +112,7 @@ session.setAttribute("backPage", backPage);
 		<div style="margin-bottom: 80px;">
 			<form action="<%=request.getContextPath() %>/insertSchedule.up"  method="post" enctype="multipart/form-data">
 			<input type="hidden" name="memberNo" value="<%=loginUser.getmNo()%>">
-			<!-- 보드카테고리랑 키워드추가해서 할까생각중 -->
 			<input type="hidden" name="boardCategory" value="코스">
-			<input type="hidden" name="boardKeyword" value="">
 				<table id="addtr">
 				<thead>
 					<tr>

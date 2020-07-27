@@ -6,15 +6,18 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Properties;
 
 import com.kh.semi.admin.model.vo.PageInfo;
 import com.kh.semi.board.model.vo.BoardUpVo;
 import com.kh.semi.board.model.vo.BoardVO;
+import com.kh.semi.member.model.vo.MemberAdminVo;
 import com.kh.semi.member.model.vo.MemberVO;
 import com.kh.semi.payment.model.vo.PointVO;
 import com.kh.semi.question.model.vo.QuestionVO;
@@ -569,6 +572,201 @@ public class MemberDao {
 		
 		return result;
 	}
+
+	public int getListCount(Connection con) {
+		Statement stmt = null;
+		ResultSet rset = null;
+		int result = 0;
+		
+		String query = prop.getProperty("getListCount");
+		
+		try {
+			stmt = con.createStatement();
+			
+			rset = stmt.executeQuery(query);
+			
+			if(rset.next()) {
+				result = rset.getInt(1);
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(stmt);
+			close(rset);
+		}
+		
+		return result;
+	}
+
+	public ArrayList<MemberAdminVo> selectMemberAdmin(Connection con, PageInfo pi) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<MemberAdminVo> list = null;
+		MemberAdminVo ma;
+		
+		String query = prop.getProperty("selectMemberAdmin");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+
+			int startRow = (pi.getCurrentPage() - 1) * pi.getLimit() + 1;
+			int endRow = startRow + pi.getLimit() - 1;
+			
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
+			
+			rset = pstmt.executeQuery();
+			
+			list = new ArrayList<>();
+			
+			while(rset.next()) {
+				ma = new MemberAdminVo();
+				ma.setMemberNo(rset.getString("MEMBER_NO"));
+				ma.setMemberId(rset.getString("MEMBER_ID"));
+				ma.setMemberName(rset.getString("MEMBER_NAME"));
+				ma.setMemberEmail(rset.getString("MEMBER_EMAIL"));
+				ma.setMemberPhone(rset.getString("MEMBER_PHONE"));
+				ma.setMemberGender(rset.getString("MEMBER_GENDER"));
+				ma.setMemberNickname(rset.getString("MEMBER_NICKNAME"));
+				ma.setMemberGrade(rset.getString("MEMBER_GRADE"));
+				ma.setMemberStatus(rset.getString("MEMBER_STATUS"));
+				ma.setNoshowCount(rset.getString("NOSHOW_COUNT"));
+				
+				
+				list.add(ma);
+			}
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		return list;
+	}
+
+	public int selectReservationCount(Connection con, String memberNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int result = 0;
+		String query = prop.getProperty("selectReservationCount");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, memberNo);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				result = rset.getInt(1);
+			}
+			
+			System.out.println(result);
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public Date selectVisitDate(Connection con, String memberNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		Date result = null;
+		String query = prop.getProperty("selectVisitDate");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, memberNo);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				result = rset.getDate("MAX(VISIT_DATE)");
+			}
+			
+			System.out.println("result : " + result);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public Date selectReservationDate(Connection con, String memberNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		Date result = null;
+		String query = prop.getProperty("selectReservationDate");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, memberNo);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				result = rset.getDate("MAX(RESERVATION_DATE)");
+			}
+			
+			System.out.println("resultDate : " + result);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public int selectMemberCount(Connection con) {
+		Statement stmt = null;
+		ResultSet rset = null;
+		int count = 0;
+		
+		String query = prop.getProperty("selectMemberCount");
+		
+		try {
+			stmt = con.createStatement();
+			
+			rset = stmt.executeQuery(query);
+			
+			if(rset.next()) {
+				count = rset.getInt(1);
+			}
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return count;
+	}
+
+//	public MemberAdminVo selectOneMem(Connection con, String memberNo) {
+//		PreparedStatement pstmt = null;
+//		ResultSet rset = null;
+//		MemberAdminVo member;
+//		
+//		String query = prop.getProperty("selectOneMem");
+//		
+//		
+//		return null;
+//	}
 
 	
 }
