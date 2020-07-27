@@ -45,35 +45,23 @@ public class InsertScheduleUploadServlet extends HttpServlet {
 		if(ServletFileUpload.isMultipartContent(request)) {
 
 			int maxSize = 1024 * 1024 * 10;
-
 			String root = request.getSession().getServletContext().getRealPath("/");
-
 			String savePath = root + "thumbnail_uploadFile/";
-
 			MultipartRequest multiRequest = new MultipartRequest(request, savePath, maxSize, "UTF-8", new MyFileRenamePolicy());
-
 			ArrayList<String> saveFiles = new ArrayList<>();
-
 			ArrayList<String> originFiles = new ArrayList<>();
-
 			Enumeration<String> file = multiRequest.getFileNames();
-
 			while(file.hasMoreElements()) {
 				String name  = file.nextElement();
-
 				saveFiles.add(multiRequest.getFilesystemName(name));
 				originFiles.add(multiRequest.getOriginalFileName(name));
-
 			}
-
 			String boardTitle = multiRequest.getParameter("boardTitle");
 			String memberNo = multiRequest.getParameter("memberNo");
 			String[] boardContents = multiRequest.getParameterValues("boardContent");
 			String boardCategory = multiRequest.getParameter("boardCategory");
 			String hashTags = multiRequest.getParameter("hashTags");
-
 			
-
 			BoardUpVo board;
 			
 			String boardContent = "";
@@ -88,7 +76,6 @@ public class InsertScheduleUploadServlet extends HttpServlet {
 			for(int i = originFiles.size() -1; i>= 0; i--) {
 				board = new BoardUpVo();
 				
-
 				board.setBoardContent(boardContent);
 				board.setBoardTitle(boardTitle);
 				board.setMemberNo(memberNo);
@@ -97,8 +84,6 @@ public class InsertScheduleUploadServlet extends HttpServlet {
 				board.setFilePath(savePath);
 				board.setOriginName(originFiles.get(i));
 				board.setChangeName(saveFiles.get(i));
-
-
 				
 				fileList.add(board);
 
