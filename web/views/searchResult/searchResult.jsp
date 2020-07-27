@@ -132,7 +132,7 @@
 							$("#foodArea<%= i + 1 %>").click(function() {
 								var enpNo = "<%= enpList.get(i).getEnpNo() %>";
 								
-								location.href="<%= request.getContextPath() %>/selectEnp.en?enpNo=" + enpNo + "&rating=" + <%= rating %>;
+								location.href="<%= request.getContextPath() %>/selectEnp.en?enpNo=" + enpNo;
 							});
 							
 							$(function() {

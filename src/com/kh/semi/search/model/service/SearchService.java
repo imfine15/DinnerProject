@@ -145,4 +145,13 @@ public class SearchService {
 		return result;
 	}
 
+	public EnpVO getRating(EnpVO selectedEnp) {
+		Connection con = getConnection();
+		EnpVO selectedEnpWithRating = new SearchDao().getRating(con, selectedEnp);
+		
+		close(con);
+		
+		return selectedEnpWithRating;
+	}
+
 }

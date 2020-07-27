@@ -3,7 +3,6 @@
 <!DOCTYPE html>
 <%
 EnpVO selectedEnp = (EnpVO)session.getAttribute("selectedEnp");
-double rating = (double)session.getAttribute("rating");
 ArrayList<ReviewVO> visitReviews = (ArrayList<ReviewVO>)session.getAttribute("visitReviews");
 ArrayList<ReviewVO> normalReviews = (ArrayList<ReviewVO>)session.getAttribute("normalReviews");
 %>
@@ -36,7 +35,7 @@ ArrayList<ReviewVO> normalReviews = (ArrayList<ReviewVO>)session.getAttribute("n
 		<div id="top1">
 			<span id="title"><%= selectedEnp.getEnpName() %></span>
 			<img alt="별점 이미지" src="/semiproject/images/Star.png" id="star">
-			<span id="score"><%= rating %></span>
+			<span id="score"><%= Math.round(selectedEnp.getRating() * 10.0) / 10.0 %></span>
 			<br>
 			<img alt="즐겨찾기 이미지" src="/semiproject/images/heart.png" id="heart">
 			<p id="likeCount"></p>

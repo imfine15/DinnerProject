@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.kh.semi.enterprise.model.service.EnpService;
 import com.kh.semi.enterprise.model.vo.EnpVO;
+import com.kh.semi.search.model.service.SearchService;
 
 @WebServlet("/selectEnp.en")
 public class SelectEnterpriseServlet extends HttpServlet {
@@ -22,11 +23,9 @@ public class SelectEnterpriseServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String enpNo = request.getParameter("enpNo");
 		EnpVO selectedEnp = new EnpService().selectEnp(enpNo);
+		EnpVO selectedEnpWithRating = new SearchService().getRating(selectedEnp);
 		
-		double rating = Double.parseDouble(request.getParameter("rating"));
-		
-		request.getSession().setAttribute("selectedEnp", selectedEnp);
-		request.getSession().setAttribute("rating", rating);
+		request.getSession().setAttribute("selectedEnp", selectedEnpWithRating);
 		
 		request.getRequestDispatcher("/getEnpReviews.re").forward(request, response);
 	}

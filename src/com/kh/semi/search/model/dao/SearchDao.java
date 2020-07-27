@@ -573,4 +573,29 @@ public class SearchDao {
 		return result;
 	}
 
+	public EnpVO getRating(Connection con, EnpVO selectedEnp) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String query = prop.getProperty("getRating");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			
+			pstmt.setString(1, selectedEnp.getEnpNo());
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				selectedEnp.setRating(rset.getDouble(1));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return selectedEnp;
+	}
+
 }
