@@ -18,4 +18,12 @@ public class MainService {
 		return boardList;
 	}
 
+	public ArrayList<BoardUpVo> selectCourseList() {
+		Connection con = getConnection();
+		int getCount = new MainDao().getCourseListCount(con);
+		ArrayList<BoardUpVo> courseList = new MainDao().selectCourseList(con, getCount);
+		
+		return courseList;
+	}
+
 }
