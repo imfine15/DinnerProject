@@ -598,4 +598,32 @@ public class SearchDao {
 		return selectedEnp;
 	}
 
+	public List<String> getLikeEnps(Connection con, String mNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		List<String> likeEnps = null;
+		String query = prop.getProperty("getLikeEnps");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			
+			pstmt.setString(1, mNo);
+			
+			likeEnps = new ArrayList<>();
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				likeEnps.add(rset.getString(1));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return likeEnps;
+	}
+
 }

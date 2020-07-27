@@ -139,12 +139,23 @@ input{
 						
 						<a href="/semiproject/views/myPage/likePosts.jsp" class="bg_box" style="display: inline-block; border: 1px solid darkgray;"> <!-- 미사용시 class 'box_off2', 사용시 class 'box_on2' -->
 							<h2>좋아요</h2>
-							<ul>
-								<li>· 장터식당</li>
-								<li>· 뢰벤돈까스</li>
-								<li>· 청목</li>
+							<ul id="likeEnpList">
 							</ul>
 						</a>
+						<script>
+							$(function() {
+								$.ajax({
+									url: "/semiproject/getLikeEnps.se",
+									type: "post",
+									data: {mNo: "<%= loginUser.getmNo() %>"},
+									success: function(data) {
+										for(var i = 0; i < 4; i++) {
+											$("#likeEnpList").append("<li>· " + data[i] + "</li>");
+										}
+									}
+								});
+							});
+						</script>
 						<a style="padding-left:0px; display:block; padding-top: 30px;">
 						<img src="/semiproject/images/YUMEET LOGO.png" style="width:300px; height:100px;">
 						</a>

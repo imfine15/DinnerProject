@@ -154,4 +154,13 @@ public class SearchService {
 		return selectedEnpWithRating;
 	}
 
+	public List<String> getLikeEnps(String mNo) {
+		Connection con = getConnection();
+		List<String> likeEnps = new SearchDao().getLikeEnps(con, mNo);
+		
+		close(con);
+		
+		return likeEnps;
+	}
+
 }
