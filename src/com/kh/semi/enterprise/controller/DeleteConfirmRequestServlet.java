@@ -31,8 +31,6 @@ public class DeleteConfirmRequestServlet extends HttpServlet {
 		String enp = request.getParameter("enpId");
 		String rno = request.getParameter("rno");
 		
-		System.out.println("enpId : : : : " + enp);
-		System.out.println("rno  : : : : :" + rno);
 		
 		int result = new EnpService().deleteCrList(rno);
 		

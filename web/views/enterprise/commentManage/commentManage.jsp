@@ -134,7 +134,7 @@
          <button style="height:30px;">검색</button> -->
          
          <br><br>
-         <form action="" style="margin-left: 10%;">
+        <!--  <form action="" style="margin-left: 10%;">
          <div style="border:1px solid black; margin-left: 20%; width:900px; height:400px;">
         <div class="visitorInfo"  style="border-right:1px solid black; height:398px;">
          <table>
@@ -169,7 +169,7 @@
          <button class="commentBtn" style="align-content: center; margin-left: 70%;">댓글 작성</button>
       </div>
       </div>
-      </form>
+      </form> -->
       <%for(int i = 0 ; i < cmList.size(); i++) {%>
       <%if(i % 2 == 1){ %>
       

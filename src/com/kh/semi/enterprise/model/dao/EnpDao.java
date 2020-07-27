@@ -279,10 +279,7 @@ Properties prop = new Properties();
 				loginEnp.setUploadApproval(rset.getString("UPLOAD_APPROVAL"));
 				loginEnp.setLikeCount(rset.getInt("LIKE_COUNT"));
 				
-				/*ENP_NO ENP_REGISTER_NO PARTNER_CODE PENALTY_COUNT PARTNER_ID PARTNER_PWD PARTNER_EMAIL PARTNER_NAME ACCOUNT_HOLDER BANK
-				BANK_ACCOUNT DEPOSIT_LOWER_LIMIT DEPOSIT_HIGHER_LIMIT SIGNUP_APPROVAL JUMIN_NO ENP_LICENCE ENP_NAME ENP_PHONE ENP_ADDRESS ENP_HOUR
-				ENP_TYPE ENP_STATUS ENP_PARTNER_TYPE HASH_TAGS PRICE_RANGE CLOSED_DAY
-				WEBSITE INTRODUCE PARKING_POSSIBLE UPLOAD_APPROVAL*/
+				
 			}
 			
 			
@@ -306,7 +303,6 @@ Properties prop = new Properties();
 		
 		
 		String query = prop.getProperty("selectList");
-		System.out.println("query : " + query);
 		
 		
 		try {
@@ -324,11 +320,7 @@ Properties prop = new Properties();
 			requestReserve = new ArrayList<>();
 			int count = 0;
 			while(rset.next()) {
-				/*SimpleDateFormat df = new SimpleDateFormat("RRRR/MM/DD");
-				String dfdf = df.format(rset.getTimestamp("RESERVATION_DATE"));
-				Date dfdf2 = df.parse(dfdf);
-				Timestamp ts = new Timestamp(dfdf2.getTime());
-				System.out.println(ts);*/
+				
 				
 				r = new ReservationVO();
 				r.setcNo(rset.getString("CALC_NO"));
@@ -355,7 +347,6 @@ Properties prop = new Properties();
 		}
 		
 		
-		System.out.println("reqeustReserve : " + requestReserve);
 		return requestReserve;
 	}
 	
@@ -537,22 +528,7 @@ Properties prop = new Properties();
 			list = new ArrayList<ForCmVO>();
 			
 			while(rset.next()) {
-				/*ENP_NO
-			     , REVIEW_NO
-			     , R.REVIEW_CONTENT
-			     , R.REVIEW_TYPE
-			     , R.VISIT_DATE
-			     , R.REVIEW_DATE
-			     , R.AVERAGE_RATING
-			     , RR.REPLY_CONTENT
-			     , MEMBER_NO
-			     , M.MEMBER_NAME
-			     , E.ENP_NAME 
-			     , M.MEMBER_NICKNAME
-			     , MF.FILE_NO     
-			     , MF.ORIGIN_NAME
-			     , MF.CHANGE_NAME
-			     , MF.FILE_PATH */
+				
 					
 					vo = new ForCmVO();
 					vo.setEnpNo(rset.getString("ENP_NO"));
@@ -734,7 +710,6 @@ Properties prop = new Properties();
 		
 		
 		String query = prop.getProperty("selectRDList");
-		System.out.println("query : " + query);
 		
 		
 		try {
@@ -748,21 +723,11 @@ Properties prop = new Properties();
 			pstmt.setInt(3, endRow);
 			pstmt.setString(4, requestDay);
 			
-			System.out.println("enpNo : "+enp);
-			System.out.println("startRow : "+startRow);
-			System.out.println("endRow : " + endRow);
-			System.out.println("requestDay in Dao : " + requestDay);
-			
 			rset = pstmt.executeQuery();
 			
 			requestReserve = new ArrayList<>();
 			int count = 0;
 			while(rset.next()) {
-				/*SimpleDateFormat df = new SimpleDateFormat("RRRR/MM/DD");
-				String dfdf = df.format(rset.getTimestamp("RESERVATION_DATE"));
-				Date dfdf2 = df.parse(dfdf);
-				Timestamp ts = new Timestamp(dfdf2.getTime());
-				System.out.println(ts);*/
 				
 				r = new ReservationVO();
 				r.setcNo(rset.getString("CALC_NO"));
@@ -944,7 +909,6 @@ Properties prop = new Properties();
 		try {
 			pstmt = con.prepareStatement(query);
 			pstmt.setString(1, rno);
-			System.out.println("rno in enpdao : " + rno);
 			result = pstmt.executeUpdate();
 			
 			
@@ -993,11 +957,8 @@ Properties prop = new Properties();
 		int listCount = 0;
 		ResultSet rset = null;
 		
-		
-		
-		
-		
 		String query = prop.getProperty("rdListCount");
+		
 		try {
 			stmt = con.prepareStatement(query);
 			stmt.setString(1, enp);
@@ -1064,7 +1025,7 @@ Properties prop = new Properties();
 		int listCount = 0;
 		ResultSet rset = null;
 		
-		String query = prop.getProperty("rdListCount");
+		String query = prop.getProperty("phListCount");
 		try {
 			stmt = con.prepareStatement(query);
 			stmt.setString(1, enp);
@@ -1330,6 +1291,34 @@ Properties prop = new Properties();
 			close(pstmt);
 		}
  		 
+		return result;
+	}
+
+	public int insertException(Connection con, String enpNo, String enpId, String reason, String enpName, String tel,
+			String email) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("insertException");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, enpNo);
+			pstmt.setString(2, enpName);
+			pstmt.setString(3, tel);
+			pstmt.setString(4, email);
+			pstmt.setString(5, reason);
+			pstmt.setString(6, enpId);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
 		return result;
 	}
 }
