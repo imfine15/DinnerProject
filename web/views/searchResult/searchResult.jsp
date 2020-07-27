@@ -21,11 +21,12 @@
 <link rel="shortcut icon" href="/semiproject/images/favicon.ico" type="image/x-icon">
 <link rel="icon" href="/semiproject/images/favicon.ico" type="image/x-icon">
 <link rel="stylesheet" type="text/css" href="/semiproject/views/searchResult/css/searchResultStyle.css" />
+<style></style>
 </head>
 <body id="mainWidth" style="width:1440px;">
 	<%@ include file="/views/common/header.jsp" %>
 	<!-- outer start -->
-	<div class="outer" align="center">
+	<div class="outer" align="center" style="height:1600px;">
 		<!-- 상단 글자랑 필터등등 -->
 		<nav>
 		<div class="container" style="background: white; height: 60px; width: 600px; padding: 1px; border-radius: 10px; font-size: 22px; border: 1px solid #D5706D;">
@@ -271,7 +272,7 @@
 		<p id="text2" align="left">베스트 코스리뷰</p><br>
 		<% for(int i = 0; i < 2; i++) { %>
 		<div class="best" align="left">
-			<img src="" style="width: 450px; height: 200px;" id="bestImg<%= i %>">
+			<img onclick="click11(this);" name=""  src="" style="width: 450px; height: 200px;" id="bestImg<%= i %>">
 			<p class="bestBig" id="bestBig<%= i %>"></p>
 			<p class="bestSmall" id="bestSmall<%= i %>"></p>
 		</div>
@@ -284,6 +285,8 @@
 						$("#bestImg<%= i %>").attr("src", data[<%= i %>].filePaths[0]);
 						$("#bestBig<%= i %>").html(data[<%= i %>].boardTitle);
 						$("#bestSmall<%= i %>").html(data[<%= i %>].hashTags);
+						$("#bestImg<%= i %>").attr("name",data[<%= i %>].boardNo)
+						console.log(data);
 					}
 				});
 			});
@@ -337,7 +340,7 @@
 									for(var i = 0; i < data[0].length; i++) {
 										$("#courseTableDiv").append(
 												'<table style="border-bottom: 1px solid black;"><tr><td rowspan="3" width="100px">' + data[0][i].boardNo + '</td><td rowspan="3">'
-												+ '<img src="' + data[0][i].filePaths[0] + '" width="200px" height="150px"></td>'
+												+ '<img onclick="click11(this)" name="'+data[0][i].boardNo+'" src="' + data[0][i].filePaths[0] + '" width="200px" height="150px"></td>'
 												+ '<td align="left" valign="bottom"><label class="textreview">' + data[0][i].boardTitle + '</label></td>'
 												+ '<td rowspan="3" valign="top" width="40px"><img class="heart" src="/semiproject/images/heartblack.png"></td><td align="right" valign="bottom">' + data[0][i].uploadDate + '</td>'
 												+ '<td rowspan="2" width="180px" align="center"><div class="profileBox" align="center"><img id="cprofilePic' + i + '" class="profile" src="">'
@@ -459,7 +462,7 @@
 										
 										$("#enpTableDiv").append(
 												'<table style="border-bottom: 1px solid black;"><tr><td rowspan="3" width="100px">' + data[0][i].boardNo + '</td><td rowspan="3">'
-												+ '<img src="' + data[0][i].filePaths[0] + '" width="200px" height="150px"></td>'
+												+ '<img onclick="click11(this)" name="'+data[0][i].boardNo+'"src="' + data[0][i].filePaths[0] + '" width="200px" height="150px"></td>'
 												+ '<td align="left" valign="bottom"><label class="textreview">' + data[0][i].boardTitle + '</label></td>'
 												+ '<td rowspan="3" valign="top" width="40px"><img class="heart" src="/semiproject/images/heartblack.png"></td><td align="right" valign="bottom">' + data[0][i].uploadDate + '</td>'
 												+ '<td rowspan="2" width="180px" align="center"><div class="profileBox" align="center"><img id="eprofilePic' + i + '" class="profile" src="">'
@@ -477,7 +480,10 @@
 						}
 					});
 				}
-				
+				function click11(data){
+					console.log(data.name);
+					location.href="/semiproject/selectOneCourse?no=" + data.name;
+				}
 				function getUserInfoEnp() {
 					var mNoEnp = $("#mNoEnp" + 0).val();
 						
@@ -530,6 +536,7 @@
 			</script>
 		</div>
 		<!-- 페이징처리해야할부분 -->
+		
 	</div>
 	<!-- 일정끝 -->
 	</div>
@@ -561,5 +568,6 @@
 				location.href="/semiproject/views/upload/scheduleUpload.jsp";
 			});
 		</script>
+				
 </body>
 </html>

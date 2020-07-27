@@ -149,8 +149,11 @@ input{
 									type: "post",
 									data: {mNo: "<%= loginUser.getmNo() %>"},
 									success: function(data) {
-										for(var i = 0; i < 4; i++) {
+										console.log(data);
+										if(data.length > 0){
+										for(var i = 0; i < data.length; i++) {
 											$("#likeEnpList").append("<li>· " + data[i] + "</li>");
+										  }
 										}
 									}
 								});

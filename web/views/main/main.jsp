@@ -108,7 +108,7 @@
             <div class="row" style="margin-top: 0px;">
                <%for(int i = 4; i < 8; i ++) {%>
                 
-         <%--       <div class="col-md-3">
+                <div class="col-md-3">
                   <!-- work item -->
                   <div class="work-item">
                      <!-- work details image -->
@@ -120,13 +120,13 @@
                      <!-- brand org -->
                      <span class="org"><%=blist.get(i).getAddress() %></span>
                   </div>
-               </div> --%>
+               </div> 
               
                <%} %>
                <br>
                
                <%for(int i = 8; i < 12; i ++) {%>
-               <%-- <div class="col-md-3">
+                <div class="col-md-3">
                   <!-- work item -->
                   <div class="work-item">
                      <!-- work details image -->
@@ -138,7 +138,7 @@
                      <!-- brand org -->
                      <span class="org"><%=blist.get(i).getAddress() %></span>
                   </div>
-               </div> --%>
+               </div> 
                <%} %>
                
                
@@ -158,8 +158,8 @@
 		  <div class="numbertext"></div>
 		  <%for(int i = 0; i < 1; i ++){ %>
 		  <div style="position: relative;">
-		  <img style="width:47%; height: 350px; margin-right:3%; display: inline-block;" src="/semiproject/thumbnail_uploadFile/<%=clist.get(i).getChangeName() %>">
-		  <img style=" float:right; width:47%; height: 350px; display: inline-block;" src="/semiproject/thumbnail_uploadFile/<%=clist.get(i + 1).getChangeName() %>">
+		  <img onclick="click11(this);" name="<%=clist.get(i).getBoardNo()%>" style="width:47%; height: 350px; margin-right:3%; display: inline-block;" src="/semiproject/thumbnail_uploadFile/<%=clist.get(i).getChangeName() %>">
+		  <img onclick="click11(this);" name="<%=clist.get(i + 1).getBoardNo()%>" style=" float:right; width:47%; height: 350px; display: inline-block;" src="/semiproject/thumbnail_uploadFile/<%=clist.get(i + 1).getChangeName() %>">
 		  <div style="text-overflow:ellipsis; overflow:hidden; color: white;left: 170px; width: 400px; bottom: 160px; font-size: 1.8em; font-weight: bold; position: absolute;"><%=clist.get(i).getBoardTitle() %></div>
 		  <div style="text-overflow:ellipsis; overflow:hidden; color: white;left: 900px; width: 400px; bottom: 160px; font-size: 1.8em; font-weight: bold; position: absolute;"><%=clist.get(i).getBoardTitle() %></div>
 		  </div>
@@ -169,8 +169,8 @@
 		<div class="mySlides fade">
 		    <%for(int i = 2; i < 3; i ++){ %>
 		  <div style="position: relative;">
-		  <img style="width:47%; height: 350px; margin-right:3%; display: inline-block;" src="/semiproject/thumbnail_uploadFile/<%=clist.get(i).getChangeName() %>">
-		  <img style=" float:right; width:47%; height: 350px; display: inline-block;" src="/semiproject/thumbnail_uploadFile/<%=clist.get(i + 1).getChangeName() %>">
+		  <img onclick="click11(this);" name="<%=clist.get(i).getBoardNo()%>" style="width:47%; height: 350px; margin-right:3%; display: inline-block;" src="/semiproject/thumbnail_uploadFile/<%=clist.get(i).getChangeName() %>">
+		  <img onclick="click11(this);" name="<%=clist.get(i + 1).getBoardNo()%>" style=" float:right; width:47%; height: 350px; display: inline-block;" src="/semiproject/thumbnail_uploadFile/<%=clist.get(i + 1).getChangeName() %>">
 		  <div style="text-overflow:ellipsis; overflow:hidden; color: white;left: 170px; width: 400px; bottom: 160px; font-size: 1.8em; font-weight: bold; position: absolute;"><%=clist.get(i).getBoardTitle() %></div>
 		  <div style="text-overflow:ellipsis; overflow:hidden; color: white;left: 900px; width: 400px; bottom: 160px; font-size: 1.8em; font-weight: bold; position: absolute;"><%=clist.get(i).getBoardTitle() %></div>
 		  </div>
@@ -181,8 +181,8 @@
 		  <div class="numbertext"></div>
 		   <%for(int i = 4; i < 5; i ++){ %>
 		  <div style="position: relative;">
-		  <img style="width:47%; height: 350px; margin-right:3%; display: inline-block;" src="/semiproject/thumbnail_uploadFile/<%=clist.get(i).getChangeName() %>">
-		  <img style=" float:right; width:47%; height: 350px; display: inline-block;" src="/semiproject/thumbnail_uploadFile/<%=clist.get(i + 1).getChangeName() %>">
+		  <img onclick="click11(this);" name="<%=clist.get(i).getBoardNo()%>" style="width:47%; height: 350px; margin-right:3%; display: inline-block;" src="/semiproject/thumbnail_uploadFile/<%=clist.get(i).getChangeName() %>">
+		  <img onclick="click11(this);" name="<%=clist.get(i + 1).getBoardNo()%>" style=" float:right; width:47%; height: 350px; display: inline-block;" src="/semiproject/thumbnail_uploadFile/<%=clist.get(i + 1).getChangeName() %>">
 		  <div style="text-overflow:ellipsis; overflow:hidden; color: white;left: 170px; width: 400px; bottom: 160px; font-size: 1.8em; font-weight: bold; position: absolute;"><%=clist.get(i).getBoardTitle() %></div>
 		  <div style="text-overflow:ellipsis; overflow:hidden; color: white;left: 900px; width: 400px; bottom: 160px; font-size: 1.8em; font-weight: bold; position: absolute;"><%=clist.get(i).getBoardTitle() %></div>
 		  </div>
@@ -195,7 +195,12 @@
 	</div>
 	</div>
 	</div>
-
+<script>
+function click11(data){
+	console.log(data.name);
+	location.href="/semiproject/selectOneCourse?no=" + data.name;
+}
+</script>
 <div style="text-align:center">
   <span class="dot" onclick="currentSlide(1)"></span> 
   <span class="dot" onclick="currentSlide(2)"></span> 
@@ -212,36 +217,36 @@
             <h2 style="color: #D5706D; margin-left: 50px">YUMEET'S PICK</h2>
             <div class="row" style="margin-top: 0px;">
                <%for(int i = 4; i < 8; i ++) {%>
-              <%--  <div class="col-md-3">
+                <div class="col-md-3">
                   <!-- work item -->
                   <div class="work-item">
                      <!-- work details image -->
                      <img class="img-responsive" src="<%=request.getContextPath()%>/thumbnail_uploadFile/<%= blist.get(i).getChangeName() %>" style="width: 100%; height: 171px;" />
                      <!-- heading -->
                      <h3>
-                        <a href="location.href='<%= request.getContextPath() %>/selectEnp.en?enpNo=' + ENP1" style="color: black; font-weight: 600;"><%=blist.get(i).getBoardTitle() %></a>
+                        <a href="/semiproject/selectMainEnp.en?enpNo=<%=blist.get(i).getEnpNo() %>" style="color: black; font-weight: 600;"><%=blist.get(i).getBoardTitle() %></a>
                      </h3>
                      <!-- brand org -->
                      <span class="org"><%=blist.get(i).getAddress() %></span>
                   </div>
-               </div> --%>
+               </div> 
                <%} %>
                <br>
                
                <%for(int i = 8; i < 12; i ++) {%>
-              <%--  <div class="col-md-3">
+                <div class="col-md-3">
                   <!-- work item -->
                   <div class="work-item">
                      <!-- work details image -->
                      <img class="img-responsive" src="<%=request.getContextPath()%>/thumbnail_uploadFile/<%=blist.get(i).getChangeName() %>" style="width: 100%; height: 171px;" />
                      <!-- heading -->
                      <h3>
-                        <a href="" style="color: black; font-weight: 600;"><%=blist.get(i).getBoardTitle() %></a>
+                        <a href="/semiproject/selectMainEnp.en?enpNo=<%=blist.get(i).getEnpNo() %>" style="color: black; font-weight: 600;"><%=blist.get(i).getBoardTitle() %></a>
                      </h3>
                      <!-- brand org -->
                      <span class="org"><%=blist.get(i).getAddress() %></span>
                   </div>
-               </div> --%>
+               </div> 
                <%} %>
             </div>
          </div>
