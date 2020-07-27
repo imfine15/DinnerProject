@@ -9,9 +9,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.kh.semi.admin.model.vo.PageInfo;
-import com.kh.semi.notice.model.service.NoticeService;
-import com.kh.semi.notice.model.vo.NoticeVO;
+import com.kh.semi.enterprise.model.vo.PageInfo;
+import com.kh.semi.enterprise.model.service.EnpService;
+import com.kh.semi.enterprise.model.vo.PartnerEnpVO;
 
 /**
  * Servlet implementation class SelectCompanyListAdminServlet
@@ -47,7 +47,7 @@ public class SelectCompanyListAdminServlet extends HttpServlet {
 		
 		limit = 10;
 		
-		int listCount = new NoticeService().getListCount();
+		int listCount = new EnpService().getPartnerListCount();
 		
 		maxPage = (int)((double) listCount / limit + 0.9);
 		
@@ -61,13 +61,13 @@ public class SelectCompanyListAdminServlet extends HttpServlet {
 		
 		PageInfo pi = new PageInfo(currentPage, listCount, limit, maxPage, startPage, endPage);
 		
-		ArrayList<NoticeVO> list = new NoticeService().selectList(pi);
+		ArrayList<PartnerEnpVO> partnerList = new EnpService().selectPartnerList(pi);
 		
 		String page = "";
 		
-		if(list != null) {
-			page = "/views/admin/notice/clientNotice.jsp";
-			request.setAttribute("list", list);
+		if(partnerList != null) {
+			page = "/views/admin/companyManagement/mainComManagement.jsp";
+			request.setAttribute("list", partnerList);
 			request.setAttribute("pi", pi);
 		} else {
 			page = "views/common/errorPage.jsp";

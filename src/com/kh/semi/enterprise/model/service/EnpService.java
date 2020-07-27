@@ -15,6 +15,9 @@ import com.kh.semi.enterprise.model.vo.ForEntCrVO;
 import com.kh.semi.enterprise.model.vo.ForPhVO;
 import com.kh.semi.enterprise.model.vo.ForSdVO;
 import com.kh.semi.enterprise.model.vo.PageInfo;
+import com.kh.semi.enterprise.model.vo.PartnerEnpVO;
+import com.kh.semi.notice.model.dao.NoticeDao;
+import com.kh.semi.notice.model.vo.NoticeVO;
 import com.kh.semi.payment.model.vo.ReservationVO;
 
 public class EnpService {
@@ -359,4 +362,40 @@ public class EnpService {
 
 		return list;
 	}
+
+	public int getPartnerListCount() {
+		
+		Connection con = getConnection();
+		
+		int listCount = new EnpDao().getPartnerListCount(con);
+		
+		close(con);
+		
+		return listCount;
+	}
+
+	public ArrayList<PartnerEnpVO> selectPartnerList(PageInfo pi) {
+		
+		Connection con = getConnection();
+		
+		ArrayList<PartnerEnpVO> list = new EnpDao().selectPartnerList(con, pi);
+		
+		close(con);
+		
+		return list;
+	}
+
+	public PartnerEnpVO selectPartnerOne(int pacNo) {
+
+		Connection con = getConnection();
+
+		PartnerEnpVO partnerEnp = new EnpDao().selecPartnertOne(con, pacNo);
+
+		close(con);
+
+		return partnerEnp;
+	}
+
+
+	
 }

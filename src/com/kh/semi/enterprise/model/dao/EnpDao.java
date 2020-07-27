@@ -26,6 +26,8 @@ import com.kh.semi.enterprise.model.vo.ForEntCrVO;
 import com.kh.semi.enterprise.model.vo.ForPhVO;
 import com.kh.semi.enterprise.model.vo.ForSdVO;
 import com.kh.semi.enterprise.model.vo.PageInfo;
+import com.kh.semi.enterprise.model.vo.PartnerEnpVO;
+import com.kh.semi.notice.model.vo.NoticeVO;
 import com.kh.semi.payment.model.vo.ReservationVO;
 import com.sun.org.apache.xerces.internal.impl.dtd.models.CMAny;
 
@@ -1187,5 +1189,112 @@ Properties prop = new Properties();
 		}
 		
 		return list;
+	}
+
+	public int getPartnerListCount(Connection con) {
+	
+		Statement stmt = null;
+		ResultSet rset = null;
+		int listCount = 0;
+		
+		String query = prop.getProperty("listPartnerCount");
+		
+		try {
+			stmt = con.createStatement();
+			rset = stmt.executeQuery(query);
+			
+			if(rset.next()) {
+				listCount = rset.getInt(1);
+			}	
+		} catch (SQLException e) {			
+			e.printStackTrace();
+		} finally {
+			close(stmt);
+			close(rset);
+		}		
+		return listCount;
+	}
+
+	public ArrayList<PartnerEnpVO> selectPartnerList(Connection con, PageInfo pi) {
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<PartnerEnpVO> list = null;
+		
+		String query = prop.getProperty("selectPartnerList");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			
+			int startRow = (pi.getCurrentPage() - 1) * pi.getLimit() + 1;
+			int endRow = startRow + pi.getLimit() - 1;
+			
+			pstmt.setInt(1,  startRow);
+			pstmt.setInt(2,  endRow);
+			
+			rset = pstmt.executeQuery();
+			
+			list = new ArrayList<>();
+			
+			while(rset.next()) {
+				PartnerEnpVO p = new PartnerEnpVO();
+				p.setEnpNo(rset.getString("TSE"));
+				p.setPartnerCode(rset.getString("PARTNER_CODE"));
+				p.setPartnerId(rset.getString("PARTNER_ID"));
+				p.setPartnerEmail(rset.getString("PARTNER_EMAIL"));
+				p.setPartnerName(rset.getString("PARTNER_NAME"));
+				p.setEnpName(rset.getString("ENP_NAME"));
+				p.setEnpPhone(rset.getString("ENP_PHONE"));
+				p.setEnpAddress(rset.getString("ENP_ADDRESS"));
+				p.setEnpType(rset.getString("ENP_TYPE"));
+				p.setContractStartDate(rset.getDate("CONTRACT_START_DATE"));
+				p.setContractEndDate(rset.getDate("CONTRACT_END_DATE"));
+				
+				list.add(p);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
+		}
+		return list;
+		
+	}
+
+	public PartnerEnpVO selecPartnertOne(Connection con, int pacNo) {
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		PartnerEnpVO partner = null;
+
+		String query = prop.getProperty("selectOnePartner");
+
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1,  pacNo);
+
+			rset = pstmt.executeQuery();
+
+			if(rset.next()) {
+				partner = new PartnerEnpVO();
+				
+			//	partner.setNoticeNo(rset.getString("SUBSTR(NOTICE_NO,2)"));
+				partner.setEnpNo(rset.getString("ENP_NO"));
+				partner.setEnpName(rset.getString("PARTNER_NAME"));
+				partner.setPartnerId(rset.getString("PARTNER_ID"));
+				partner.setEnpPhone(rset.getString("ENP_PHONE"));
+				partner.setenp
+			
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+
+		return partner;
+		
 	}
 }

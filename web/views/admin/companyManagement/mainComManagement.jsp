@@ -1,5 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="java.util.*, com.kh.semi.enterprise.model.vo.PartnerEnpVO"%>
+<%@ page import="com.kh.semi.enterprise.model.vo.PageInfo" %>
+<%
+	ArrayList<PartnerEnpVO> list = (ArrayList<PartnerEnpVO>) request.getAttribute("list");
+	PageInfo pi = (PageInfo) request.getAttribute("pi");
+	int listCount = pi.getListCount();
+	int currentPage = pi.getCurrentPage();
+	int maxPage = pi.getMaxPage();
+	int startPage = pi.getStartPage();
+	int endPage = pi.getEndPage();
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,6 +17,7 @@
 <title>YUMEET 관리자페이지</title>
 <link rel="shortcut icon" href="/semiproject/images/favicon.ico" type="image/x-icon">
 <link rel="icon" href="/semiproject/images/favicon.ico" type="image/x-icon">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <link
 	href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300&display=swap"
 	rel="stylesheet">
@@ -129,7 +140,7 @@ select {
 			<br><br>
 			
 			<div align="center">
-				<table>
+				<table id="listArea">
 				<thead>
 				<tr>
 					<th style="width:150px;">업체번호</th>
@@ -140,31 +151,34 @@ select {
 				</tr>
 				</thead>
 				<tbody align="center">
+				<% for(PartnerEnpVO p : list) { %>
 					<tr>
-						<td><a href="">00000001</a></td>
-						<td>이곳은업체명</td>
-						<td><a href="">imfine123</a></td>
-						<td>2020/06/10 17:33</td>
-						<td><button>자세히</button></td>
+						<td>ENP<%=p.getEnpNo() %></td>
+						<td><%=p.getEnpName() %></td>
+						<td><%=p.getPartnerId() %></td>
+						<td><%=p.getContractStartDate() %></td>
+						<td><button type="button">자세히</button></td>
 					</tr>
+				<% } %>
 				</tbody>
 				</table>
-			</div>
-			<div style="height:50px;"></div>
-		<div class="pagingArea" align="center" style="background: white;">
-      	<button class="hide" onclick="location.href='<%=request.getContextPath()%>/selectList.no?currentPage=1'"><img style="width:15px; height:18px" src="images/arrow.png"><img style="width:15px; height:18px" src="images/arrow.png"></button>
-      	<button class="hide" onclick="location.href='<%=request.getContextPath()%>/selectList.no?currentPage='"><img style="width:15px; height:18px" src="images/arrow.png"></button>
-		
-		<button class="hide";><div style="height:18px; width:15px;">1</div></button>
-		<button class="hide"><div style="height:18px; width:15px;">2</div></button>
-		<button class="hide"><div style="height:18px; width:15px;">3</div></button>
-		<button class="hide"><div style="height:18px; width:15px;">4</div></button>
-      	
-      	<button class="hide" onclick="location.href='<%=request.getContextPath()%>/selectList.no?currentPage='"><img style="width:15px; height:18px" src="images/arrow2.png"></button>
-      	<button class="hide" onclick="location.href='<%=request.getContextPath()%>/selectList.no?currentPage='"><img style="width:15px; height:18px" src="images/arrow2.png"><img style="width:15px; height:18px" src="images/arrow2.png"></button>
-			</div>
+			</div>	
 		</div>
       </div>
 	</div>
+		<script>
+		$(function() {
+			$("#listArea td").mouseenter(function() {
+				$(this).parent().css({"background":"#E4E4E4", "cursor":"pointer"});
+			}).mouseout(function() {
+				$(this).parent().css({"background":"white"});
+			}).click(function() {
+						
+				var num =($(this).parent().children().eq(0).text()).substr(4);
+
+				location.href="<%=request.getContextPath()%>/selectOne.pac?num="+ num;
+							});
+		});
+	</script>
 </body>
 </html>

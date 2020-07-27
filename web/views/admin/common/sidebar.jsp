@@ -257,7 +257,7 @@ a:link,a:visited, a:active, a:hover {
 		}
 		
 		function goEnterManage() {
-			location.href="<%=request.getContextPath()%>/";
+			location.href="<%=request.getContextPath()%>/select.cm";
 		}
 		
 		function goMemberReportHistory() {
