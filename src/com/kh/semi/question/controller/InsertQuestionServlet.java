@@ -40,12 +40,6 @@ public class InsertQuestionServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
     
-
-//	HttpSession session = request.getSession();	
-//	Member loginUser = (Member)session.getAttribute("loginUser");
-//	int uno = loginUser.getUno();
-//	
-    
     
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
@@ -56,24 +50,17 @@ public class InsertQuestionServlet extends HttpServlet {
 			
 			String root = request.getSession().getServletContext().getRealPath("/");
 						
-			//파일 저장 경로 설정
 			 String savePath = root + "thumbnail_uploadFile/";
 			 
-			 //FileRenamePolicy 상속 후 오버라이딩
 			 MultipartRequest multiRequest = 
 					 new MultipartRequest(request, savePath, maxSize, "UTF-8", new MyFileRenamePolicy());
 			 
-			 //다중 파일을 묶어서 업로드처리 하기 위해 컬렉션 이용
-			 //저장한 파일의 이름을 저장할 arrayList 생성
 			 ArrayList<String> saveFiles = new ArrayList<>();
-			 //원본 파일 이름을 저장할 arrayList 생성
 			 ArrayList<String> originFiles = new ArrayList<>();
 			 
-			 //파일이 전송된 폼의 name을 반환한다.
 			 multiRequest.getFileNames();
 			 Enumeration<String> files = multiRequest.getFileNames();
 			 			 
-			 //각 파일의 정보를 구해온 후 DB에 저장할 목적의 데이터를 꺼내온다. 
 			 while(files.hasMoreElements()) {
 				 String name = files.nextElement();
 				 				 
@@ -81,7 +68,6 @@ public class InsertQuestionServlet extends HttpServlet {
 				 originFiles.add(multiRequest.getOriginalFileName(name));
 			 }
 
-			 //multipartRequest객체에서 파일 외의 값들도 꺼낼 수 있다.
 			 String qCategory = multiRequest.getParameter("qCategory");
 			 String qTitle = multiRequest.getParameter("qTitle");
 			 String qContent = multiRequest.getParameter("qContent");
@@ -92,9 +78,7 @@ public class InsertQuestionServlet extends HttpServlet {
 			 String mNo = multiRequest.getParameter("memberNo");
 			 String mName = multiRequest.getParameter("memberName");
 			 String mId = multiRequest.getParameter("memberId");
-			 
-		//	 int writer = ((Member)(request.getSession().getAttribute("loginUser"))).getUno();
-	
+			 	
 			 QuestionVO question = new QuestionVO();
 			 question.setQuestionTitle(qTitle);
 			 question.setQuestionContent(qContent);
@@ -126,7 +110,6 @@ public class InsertQuestionServlet extends HttpServlet {
 			 if(result > 0) {
 				 page = "views/qna/question_comp.jsp";
 				 response.sendRedirect(page);
-				 //넘기는값들 넘기기  셋어트리뷰트로 
 			 } else {
 				 
 				 for(int i = 0; i < saveFiles.size(); i++) {

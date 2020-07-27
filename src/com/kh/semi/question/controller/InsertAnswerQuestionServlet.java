@@ -60,18 +60,7 @@ public class InsertAnswerQuestionServlet extends HttpServlet {
 		}
 	}
 
-	/**
-	 * /selectQuestionList.qu
-
-		if(result > 0) {
-
-			request.setAttribute("successCode", "updateMember");
-			request.getRequestDispatcher(page).forward(request, response);
-
-			request.getSession().setAttribute("loginUser", requestMember);
-			response.sendRedirect("views/member/memberUpdateForm.jsp");
-
-	 * 
+	 /* 
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

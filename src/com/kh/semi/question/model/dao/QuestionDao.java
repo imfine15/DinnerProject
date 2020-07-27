@@ -175,11 +175,6 @@ public class QuestionDao {
 			list = new ArrayList<>();
 
 			while(rset.next()) {
-//				QuestionVO q = new QuestionVO();
-//				
-//				q.setQuestionType(rset.getString("컬럼명"));
-//
-//				list.add(q);
 				qNo.add(rset.getString("QUESTION_NO"));
 			}
 		} catch (SQLException e) {

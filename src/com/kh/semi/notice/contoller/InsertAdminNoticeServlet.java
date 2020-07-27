@@ -68,15 +68,10 @@ public class InsertAdminNoticeServlet extends HttpServlet {
 			 String title = multiRequest.getParameter("aTitle");
 			 String content = multiRequest.getParameter("aTitle");
 			 
-			 
-		//	 int writer = ((Member)(request.getSession().getAttribute("loginUser"))).getUno();
-	
+			 	
 			 AdminNoticeVO aNotice = new AdminNoticeVO();
-			// eNotice.setManagerNo(managerNo);
-			// eNotice.setNoticeNo(noticeNo);
 			 aNotice.setNoticeTitle(title);
 			 aNotice.setNoticeContent(content);
-			 //seNotice.setNoticeTypeCode(noticeTypeCode);
 
 			 ArrayList<AdminNoticeAttachment> fileList = new ArrayList<>();
 			 for(int i = originFiles.size() - 1; i >= 0; i--) {
@@ -95,9 +90,7 @@ public class InsertAdminNoticeServlet extends HttpServlet {
 			 
 			 if(result > 0) {
 				 response.sendRedirect("/semiproject/selectAdminList.no");
-				 
-				 //넘기는값들 넘기기  셋어트리뷰트로 
-			 } else {
+				 } else {
 				 
 				 for(int i = 0; i < saveFiles.size(); i++) {
 					 File faildFile = new File(savePath + saveFiles.get(i));
