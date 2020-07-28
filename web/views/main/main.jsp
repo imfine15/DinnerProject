@@ -106,6 +106,7 @@
          <div class="container" style="border: 0px white; width: 100%; box-shadow: 0px;">
             <h2 style="color: #D5706D; margin-left: 50px">오늘의 메뉴</h2>
             <div class="row" style="margin-top: 0px;">
+            
                <%for(int i = 4; i < 8; i ++) {%>
                 
                 <div class="col-md-3">
@@ -123,6 +124,7 @@
                </div> 
               
                <%} %>
+                
                <br>
                
                <%for(int i = 8; i < 12; i ++) {%>
@@ -140,7 +142,7 @@
                   </div>
                </div> 
                <%} %>
-               
+                
                
             </div>
          </div>
@@ -216,6 +218,7 @@ function click11(data){
          <div class="container" style="border: 0px white; width: 100%; box-shadow: 0px;">
             <h2 style="color: #D5706D; margin-left: 50px">YUMEET'S PICK</h2>
             <div class="row" style="margin-top: 0px;">
+            
                <%for(int i = 12; i < 16; i ++) {%>
                 <div class="col-md-3">
                   <!-- work item -->
@@ -248,7 +251,9 @@ function click11(data){
                   </div>
                </div> 
                <%} %>
+               
             </div>
+             
          </div>
       </div>
      </div> 
