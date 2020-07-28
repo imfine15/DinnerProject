@@ -29,7 +29,7 @@ public class MainServlet extends HttpServlet {
 		ArrayList<BoardUpVo> courseList = new MainService().selectCourseList();
 		
 		request.setAttribute("boardList", boardList);
-		request.setAttribute("courseList", courseList);
+		//request.setAttribute("courseList", courseList);
 		
 		request.getRequestDispatcher("views/main/main.jsp").forward(request, response);
 	}

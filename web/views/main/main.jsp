@@ -5,7 +5,7 @@
 	session.setAttribute("backPage", backPage);
 
 	ArrayList<BoardUpVo> blist = (ArrayList<BoardUpVo>) request.getAttribute("boardList");
-	ArrayList<BoardUpVo> clist = (ArrayList<BoardUpVo>) request.getAttribute("courseList");
+	//ArrayList<BoardUpVo> clist = (ArrayList<BoardUpVo>) request.getAttribute("courseList");
 	
 %>
 
@@ -154,7 +154,7 @@
       <div class="container" style="border: 0px white; width: 1400px; height: 450px">
 	  <div class="slideshow-container">
 
-		<div class="mySlides fade">
+		<%-- <div class="mySlides fade">
 		  <div class="numbertext"></div>
 		  <%for(int i = 0; i < 1; i ++){ %>
 		  <div style="position: relative;">
@@ -187,7 +187,7 @@
 		  <div style="text-overflow:ellipsis; overflow:hidden; color: white;left: 900px; width: 400px; bottom: 160px; font-size: 1.8em; font-weight: bold; position: absolute;"><%=clist.get(i).getBoardTitle() %></div>
 		  </div>
 		  <%} %>
-		</div>
+		</div> --%>
 
 		<a class="prev" onclick="plusSlides(-1)">&#10094;</a>
 		<a class="next" onclick="plusSlides(1)">&#10095;</a>
@@ -216,7 +216,7 @@ function click11(data){
          <div class="container" style="border: 0px white; width: 100%; box-shadow: 0px;">
             <h2 style="color: #D5706D; margin-left: 50px">YUMEET'S PICK</h2>
             <div class="row" style="margin-top: 0px;">
-               <%for(int i = 4; i < 8; i ++) {%>
+               <%for(int i = 12; i < 16; i ++) {%>
                 <div class="col-md-3">
                   <!-- work item -->
                   <div class="work-item">
@@ -233,7 +233,7 @@ function click11(data){
                <%} %>
                <br>
                
-               <%for(int i = 8; i < 12; i ++) {%>
+               <%for(int i = 16; i < 20; i ++) {%>
                 <div class="col-md-3">
                   <!-- work item -->
                   <div class="work-item">
